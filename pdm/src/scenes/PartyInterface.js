@@ -4,16 +4,18 @@ export class PartyInterface extends Phaser.Scene {
     constructor() {
         super({
             key: CST.SCENES.PARTY_INTERFACE
-        })
+        });
+    }
+
+    init() {
     }
 
     preload() {
-
+        this.load.image(CST.IMAGES.TEST_CHARACTER, CST.IMAGES.TEST_CHARACTER);
     }
 
     create() {
-        this.scene.start(CST.SCENES.PARTY_INTERFACE);
+        this.add.image(400, 300, CST.IMAGES.TEST_CHARACTER);
     }
-
 
 }
