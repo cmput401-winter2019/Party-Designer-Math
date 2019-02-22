@@ -2,5 +2,4 @@
     "exclude": [
         "node_modules/**/*"
     ]
-
 }

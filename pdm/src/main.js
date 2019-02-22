@@ -4,10 +4,7 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    physics: {
-    },
-    scene: { PartyInterface
-    }
+    scene: PartyInterface
 };
 
 var game = new Phaser.Game(config);
