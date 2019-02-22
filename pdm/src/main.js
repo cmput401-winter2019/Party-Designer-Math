@@ -1,5 +1,6 @@
 import {PartyInterface} from "./scenes/PartyInterface"
 
+var game;
 
 var isMobile = navigator.userAgent.indexOf("Mobile");
 if (isMobile == -1) {
@@ -10,6 +11,7 @@ if (isMobile ==-1){
         type: Phaser.AUTO,
         width: 800,
         height: 600,
+        parent: 'phaser-game',
         scene: [PartyInterface]
     };
 } else {
@@ -17,8 +19,9 @@ if (isMobile ==-1){
         type: Phaser.AUTO,
         width: window.innerWidth,
         height: window.innerHeight,
+        parent: 'phaser-game',
         scene: [PartyInterface]
     };
 }
 
-var game = new Phaser.Game(config);
+game = new Phaser.Game(config);
