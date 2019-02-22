@@ -1,4 +1,5 @@
 import { CST } from "../CST";
+import { TopMenu } from "../topMenu";
 //import { Bar } from "bar"
 export class PartyInterface extends Phaser.Scene {
 
@@ -37,11 +38,14 @@ export class PartyInterface extends Phaser.Scene {
         this.background.displayWidth=this.game.config.width;
         this.background.scaleY=this.background.scaleX;
 
-        console.log("e")
-        //this.exitBtn = this.add.image()
+        this.topMenu = new TopMenu({scene:this});
+        
+        // this.themeBtn = this.add.image(0,76,"themeBtn");
+        // this.rofileBtn = this.add.image(0,76,"profileBtn");
+        // this.bagBtn = this.add.image(0,76,"bagBtn");
+        // this.listBtn = this.add.image(0,76,"listBtn");
+        // this.exitGame = this.add.image(0,76,"exitGame");
 
-
-        // 
         this.image1 = this.add.image(400,300,"char1");
         this.image2 = this.add.image(400,400,"char2");
     }
