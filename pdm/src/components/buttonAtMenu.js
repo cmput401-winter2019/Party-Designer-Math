@@ -1,4 +1,4 @@
-export class Button extends Phaser.GameObjects.Container{ 
+export class ButtonAtMenu{ 
     constructor(config)
 	{
         if(!config.scene)
@@ -11,14 +11,15 @@ export class Button extends Phaser.GameObjects.Container{
 			console.log("missing key");
 			return;
 		}
-
-
-        super(config.scene);
+        //super(config.scene);
 		this.scene=config.scene;
+
+
+        this.name = config.key;
         this.back=this.scene.add.image(0,0,config.key);
+        //this.add(this.back);
 
-        this.add(this.back);
-
+        // If there is text, add text
         if(config.text)
 		{
 			if (config.textConfig)
@@ -31,8 +32,10 @@ export class Button extends Phaser.GameObjects.Container{
 			}
 			
 			this.text1.setOrigin(0.5,0.5);
-			this.add(this.text1);
+			//this.add(this.text1);
 		}
+
+        // If there is x and/or y place it at its x/y
         if(config.x){
 			this.x=config.x;
 		}
@@ -42,16 +45,18 @@ export class Button extends Phaser.GameObjects.Container{
 
 		this.scene.add.existing(this);
 
+
 		if (config.event)
 		{
 			this.back.setInteractive ();
 			this.back.on('pointerdown', this.pressed, this);
 		}
-		if(model.isMobile==-1)
-		{
-			this.back.on("pointerover", this.over, this);
-			this.back.on("pointerout", this.out, this);
-		}
+
+		// if(model.isMobile==-1)
+		// {
+		// 	this.back.on("pointerover", this.over, this);
+		// 	this.back.on("pointerout", this.out, this);
+		// }
     }
     over()
 	{
@@ -64,14 +69,7 @@ export class Button extends Phaser.GameObjects.Container{
 
 	pressed()
 	{	
-		if (this.config.params){
-			emitter.emit(this.config.event, this.config.params);
-		}
-		else
-		{
-			emitter.emit(this.config.event);
-		}
-		
+		console.log(this.name);
 	}
 
 

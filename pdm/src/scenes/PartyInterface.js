@@ -1,5 +1,5 @@
 import { CST } from "../CST";
-import { TopMenu } from "../topMenu";
+import { TopMenu } from "../components/topMenu";
 //import { Bar } from "bar"
 export class PartyInterface extends Phaser.Scene {
 
