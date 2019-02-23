@@ -40,8 +40,8 @@ export class PartyInterface extends Phaser.Scene {
         this.background.scaleY=this.background.scaleX;
 
 
-        // Top menu buttons
-        var fireText = 
+        // ------- Top menu buttons & Credit ------- 
+        var credit = 2000.00;
         this.exitBtn = new ButtonAtMenu({scene:this, key:"exitBtn", text:"Exit Game", x: (this.game.config.width*0.05), y:30, event: 'button_pressed', params:'self_destruct'});
         this.themeBtn = new ButtonAtMenu({scene:this, key:"themeBtn", text:"Themes", x: (this.game.config.width*0.12), y:30, event: 'button_pressed', params:'self_destruct'});
         this.saveBtn = new ButtonAtMenu({scene:this, key:"saveBtn", text:"Save", x: (this.game.config.width*0.19), y:30, event: 'button_pressed', params:'self_destruct'});
@@ -50,7 +50,9 @@ export class PartyInterface extends Phaser.Scene {
         this.listBtn = new ButtonAtMenu({scene:this, key:"listBtn", text:"List", x: (this.game.config.width*(1-0.19)), y:30, event: 'button_pressed', params:'self_destruct'});
         this.creditBtn = new ButtonAtMenu({scene:this, key:"creditBtn", text:"Credits", x: (this.game.config.width*(1-0.12)), y:30, event: 'button_pressed', params:'self_destruct'});
         this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'30px'};
-		this.text1=this.add.text((this.game.config.width*(1-0.10)),14,"200.00", this.textConfig);
+		this.text1=this.add.text((this.game.config.width*(1-0.10)),14,credit, this.textConfig);
+        // ------- ------- ------- ------- ------- 
+
 
         this.image1 = this.add.image(400,300,"char1");
         this.image2 = this.add.image(400,400,"char2");

@@ -22,7 +22,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
         // If there is text, add text
         if(config.text)
 		{
-			this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'15px'};
+			this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'13px'};
 			
 			this.text1=this.scene.add.text(0,30,config.text, this.textConfig);
 			
