@@ -22,7 +22,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
         // If there is text, add text
         if(config.text)
 		{
-			this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'13px'};
+			this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'};
 			
 			this.text1=this.scene.add.text(0,30,config.text, this.textConfig);
 			
@@ -38,13 +38,16 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 			this.y=config.y;
 		}
 
+		this.setSize(this.back.width, 60);
 		this.scene.add.existing(this);
+
 
 
 		if (config.event)
 		{
-			this.back.setInteractive ();
-			this.back.on('pointerdown', this.pressed, this);
+			this.setInteractive ();
+			this.on('pointerdown', this.pressed, this);
+		
 		}
 
 		// if(model.isMobile==-1)
@@ -64,7 +67,29 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 
 	pressed()
 	{	
-		console.log(this.name);
+		
+		if(this.name == "exitBtn"){
+			console.log(this.name + ": go to login");
+		} 
+		else if (this.name == "themeBtn"){
+			console.log(this.name + ": go to Choose Theme");
+		}
+		else if (this.name == "saveBtn"){
+			console.log(this.name + ": save all objects on screen");
+		}
+		else if (this.name == "profileBtn"){
+			console.log(this.name + ": go to Profile");
+		}
+		else if (this.name == "bagBtn"){
+			console.log(this.name + ": go to bag");
+		}
+		else if (this.name == "listBtn"){
+			console.log(this.name + ": go to shopping list");
+		}
+		else if (this.name == "creditBtn"){
+			console.log(this.name + ": shows credits (?)");
+		}
+
 	}
 
 
