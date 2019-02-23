@@ -23,12 +23,19 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rightBtn.on('pointerdown', this.hideButtons, this);
         this.rotateBtn.on('pointerdown', this.rotateGuest, this);
 
-        this.scene.input.on('pointerup', function(pointer){
+        this.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
             if (duration > 800){
                 console.log("show buttons");
                 if(this.customize == false){
-                    this.showButtons();
+                    this.alpha = 0.6;
+                    this.input.draggable = false;
+                    this.rotateBtn.x = this.x+(this.displayWidth/2);
+                    this.rotateBtn.y = this.y;
+                    this.rightBtn.x = this.rotateBtn.x;
+                    this.rightBtn.y = this.y+this.rotateBtn.displayHeight;
+                    this.rotateBtn.visible = true;
+                    this.rightBtn.visible = true; 
                     this.customize = true;
                 }
             }

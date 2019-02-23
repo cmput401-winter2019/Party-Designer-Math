@@ -60,6 +60,7 @@ export class PartyInterface extends Phaser.Scene {
 
         // ------- guests -------
         this.guest1 = this.add.existing(new Guest(this, "char1", 100,200,"Sammy"));
+        this.guest2 = this.add.existing(new Guest(this, "char2", 200,200,"Tom"));
 
         
 
