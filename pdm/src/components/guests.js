@@ -11,6 +11,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
 		this.name = name;
         this.type = "guest";
         this.customize = false;
+        this.angle = 0;
 
         // ---- guest buttons -----
         this.rotateBtn=this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
@@ -20,6 +21,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rightBtn.setInteractive();
         this.rotateBtn.setInteractive();
         this.rightBtn.on('pointerdown', this.hideButtons, this);
+        this.rotateBtn.on('pointerdown', this.rotateGuest, this);
 
         this.scene.input.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
@@ -59,5 +61,9 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rotateBtn.visible = false;
         this.rightBtn.visible = false;   
         this.customize = false;
+    }
+    rotateGuest(){
+        this.angle += 5;
+        this.scene.tweens.add({targets: this,duration: 1000,y:this.y, angle:this.angle});
     }
 }
