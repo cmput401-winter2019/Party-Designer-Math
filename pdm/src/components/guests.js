@@ -50,6 +50,8 @@ export class Guest extends Phaser.GameObjects.Sprite{
         // ------ ------ ------
     }
     showButtons(){
+        this.alpha = 0.6;
+        this.input.draggable = false;
         this.rotateBtn.x = this.x+(this.displayWidth/2);
         this.rotateBtn.y = this.y;
         this.rightBtn.x = this.rotateBtn.x;
@@ -58,6 +60,8 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rightBtn.visible = true;    
     }
     hideButtons(){
+        this.alpha = 1;
+        this.input.draggable = true;
         this.rotateBtn.visible = false;
         this.rightBtn.visible = false;   
         this.customize = false;
