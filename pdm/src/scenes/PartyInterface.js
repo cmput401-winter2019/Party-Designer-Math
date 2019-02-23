@@ -22,7 +22,7 @@ export class PartyInterface extends Phaser.Scene {
         this.load.image("profileBtn", "assets/Interface/Profile.svg");
         this.load.image("bagBtn", "assets/Interface/Bag.svg");
         this.load.image("listBtn", "assets/Interface/List.svg");
-        this.load.image("exitGame", "assets/Interface/Profile.svg");
+        this.load.image("creditBtn", "assets/Interface/Credit.svg");
 
         this.load.image("char1", "assets/Spaceroom/Characters/character_1.svg");
         this.load.image("char2", "assets/Spaceroom/Characters/character_2.svg");
