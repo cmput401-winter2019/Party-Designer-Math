@@ -49,8 +49,8 @@ export class PartyInterface extends Phaser.Scene {
         this.bagBtn = new ButtonAtMenu({scene:this, key:"bagBtn", text:"Bag", x: (this.game.config.width*(1-0.26)), y:30, event: 'button_pressed', params:'self_destruct'});
         this.listBtn = new ButtonAtMenu({scene:this, key:"listBtn", text:"List", x: (this.game.config.width*(1-0.19)), y:30, event: 'button_pressed', params:'self_destruct'});
         this.creditBtn = new ButtonAtMenu({scene:this, key:"creditBtn", text:"Credits", x: (this.game.config.width*(1-0.12)), y:30, event: 'button_pressed', params:'self_destruct'});
-        this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'30px'};
-		this.text1=this.add.text((this.game.config.width*(1-0.10)),14,credit, this.textConfig);
+        this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'24px'};
+		this.text1=this.add.text((this.game.config.width*(1-0.10)),16,credit, this.textConfig);
         // ------- ------- ------- ------- ------- 
 
 
