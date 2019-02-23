@@ -1,4 +1,4 @@
-export class ButtonAtMenu{ 
+export class ButtonAtMenu extends Phaser.GameObjects.Container{ 
     constructor(config)
 	{
         if(!config.scene)
@@ -11,28 +11,23 @@ export class ButtonAtMenu{
 			console.log("missing key");
 			return;
 		}
-        //super(config.scene);
+        super(config.scene);
 		this.scene=config.scene;
 
 
         this.name = config.key;
         this.back=this.scene.add.image(0,0,config.key);
-        //this.add(this.back);
+        this.add(this.back);
 
         // If there is text, add text
         if(config.text)
 		{
-			if (config.textConfig)
-			{
-				this.text1=this.scene.add.text(0,0,config.text, config.textConfig);
-			}
-			else 
-			{
-				this.text1=this.scene.add.text(0,0,config.text);
-			}
+			this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'15px'};
+			
+			this.text1=this.scene.add.text(0,30,config.text, this.textConfig);
 			
 			this.text1.setOrigin(0.5,0.5);
-			//this.add(this.text1);
+			this.add(this.text1);
 		}
 
         // If there is x and/or y place it at its x/y
