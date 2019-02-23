@@ -14,29 +14,26 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.angle = 0;
 
         // ---- guest buttons -----
-        this.rotateBtn=this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
-        this.rightBtn=this.scene.add.image(this.x+(this.displayWidth/2), this.y+this.rotateBtn.displayHeight,'rightBtn');
+        this.rotateBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
+        this.rightBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+this.rotateBtn.displayHeight,'rightBtn');
+        this.scaleBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+(2*this.rotateBtn.displayHeight),'scaleBtn');
         this.rotateBtn.visible = false;
         this.rightBtn.visible = false;
+        this.scaleBtn.visible = false;
+
         this.rightBtn.setInteractive();
         this.rotateBtn.setInteractive();
+        this.scaleBtn.setInteractive();
         this.rightBtn.on('pointerdown', this.hideButtons, this);
         this.rotateBtn.on('pointerdown', this.rotateGuest, this);
+        this.scaleBtn.on('pointerdown', this.biggerGuest, this);
 
         this.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
             if (duration > 800){
                 console.log("show buttons");
                 if(this.customize == false){
-                    this.alpha = 0.6;
-                    this.input.draggable = false;
-                    this.rotateBtn.x = this.x+(this.displayWidth/2);
-                    this.rotateBtn.y = this.y;
-                    this.rightBtn.x = this.rotateBtn.x;
-                    this.rightBtn.y = this.y+this.rotateBtn.displayHeight;
-                    this.rotateBtn.visible = true;
-                    this.rightBtn.visible = true; 
-                    this.customize = true;
+                    this.showButtons();
                 }
             }
         },this);
@@ -61,20 +58,34 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.input.draggable = false;
         this.rotateBtn.x = this.x+(this.displayWidth/2);
         this.rotateBtn.y = this.y;
+        this.scaleBtn.x = this.rotateBtn.x;
+        this.scaleBtn.y = this.y+this.rotateBtn.displayHeight;
         this.rightBtn.x = this.rotateBtn.x;
-        this.rightBtn.y = this.y+this.rotateBtn.displayHeight;
+        this.rightBtn.y = this.rightBtn.y = this.y+(2*this.rotateBtn.displayHeight);
+
         this.rotateBtn.visible = true;
+        this.scaleBtn.visible = true;
         this.rightBtn.visible = true;    
+        
     }
     hideButtons(){
         this.alpha = 1;
         this.input.draggable = true;
         this.rotateBtn.visible = false;
+        this.scaleBtn.visible = false;
         this.rightBtn.visible = false;   
         this.customize = false;
     }
     rotateGuest(){
         this.angle += 5;
         this.scene.tweens.add({targets: this,duration: 1000,y:this.y, angle:this.angle});
+    }
+    biggerGuest(){
+        this.displayWidth+=2;
+        this.scaleY=this.scaleX;
+    }
+    smallerGuest(){
+        this.displayWidth-=2;
+        this.scaleY=this.scaleX;
     }
 }

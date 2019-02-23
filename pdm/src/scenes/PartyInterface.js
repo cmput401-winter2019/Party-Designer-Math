@@ -26,12 +26,15 @@ export class PartyInterface extends Phaser.Scene {
         this.load.image("listBtn", "assets/Interface/List.svg");
         this.load.image("creditBtn", "assets/Interface/Credit.svg");
 
+        // Guests
         this.load.image("char1", "assets/Spaceroom/Characters/character_1.svg");
         this.load.image("char2", "assets/Spaceroom/Characters/character_2.svg");
         this.load.image("char3", "assets/Spaceroom/Characters/character_3.svg");
 
+        // Character Btns
         this.load.image("rotateBtn", "assets/Interface/RotateBtn.svg");
         this.load.image("rightBtn", "assets/Interface/Right.svg");
+        this.load.image("scaleBtn", "assets/Interface/ScaleBtn.svg");
     }
 
     create() {
