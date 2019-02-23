@@ -1,4 +1,4 @@
-import { Bar } from "./bar"
+import { Bar } from "../components/bar"
 
 export class PartyLoad extends Phaser.Scene {
 

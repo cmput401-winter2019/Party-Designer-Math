@@ -1,5 +1,6 @@
 import { CST } from "../CST";
 import { ButtonAtMenu } from "../components/buttonAtMenu";
+import { Guest } from "../components/guests";
 
 export class PartyInterface extends Phaser.Scene {
 
@@ -38,6 +39,7 @@ export class PartyInterface extends Phaser.Scene {
         this.background.setOrigin(0,0);
         this.background.displayWidth=this.game.config.width;
         this.background.scaleY=this.background.scaleX;
+        console.log(this.background.displayHeight);
 
 
         // ------- Top menu buttons & Credit ------- 
@@ -53,9 +55,13 @@ export class PartyInterface extends Phaser.Scene {
 		this.text1=this.add.text((this.game.config.width*(1-0.10)),16,credit, this.textConfig);
         // ------- ------- ------- ------- ------- 
 
+        // ------- guests -------
+        this.guest1 = this.add.existing(new Guest(this, "char1", 100,200,"Sammy"));
 
-        this.image1 = this.add.image(400,300,"char1");
-        this.image2 = this.add.image(400,400,"char2");
+        
+
+        // this.image1 = this.add.image(400,300,"char1");
+        // this.image2 = this.add.image(400,400,"char2");
     }
 
 }
