@@ -67,7 +67,6 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 
 	pressed()
 	{	
-		
 		if(this.name == "exitBtn"){
 			console.log(this.name + ": go to login");
 		} 

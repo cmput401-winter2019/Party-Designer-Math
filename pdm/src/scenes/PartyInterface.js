@@ -1,5 +1,6 @@
 import { CST } from "../CST";
 import { ButtonAtMenu } from "../components/buttonAtMenu";
+import { BtnAtBottom } from "../components/btnAtBottom";
 import { Guest } from "../classes/guests";
 
 
@@ -46,7 +47,7 @@ export class PartyInterface extends Phaser.Scene {
         this.background.setOrigin(0,0);
         this.background.displayWidth=this.game.config.width;
         this.background.scaleY=this.background.scaleX;
-        console.log(this.background.displayHeight);
+        console.log("Inside party inter.: " +this.background.displayHeight);
 
 
         // ------- Top menu buttons & Credit ------- 
@@ -66,10 +67,19 @@ export class PartyInterface extends Phaser.Scene {
         this.guest1 = this.add.existing(new Guest(this, "char1", 100,200,"Sammy"));
         this.guest2 = this.add.existing(new Guest(this, "char2", 200,200,"Tom"));
 
-        
 
-        // this.image1 = this.add.image(400,300,"char1");
-        // this.image2 = this.add.image(400,400,"char2");
+       // ------- Bottom Menu Buttons --------
+        var startHeight1 = this.startHeight = this.background.displayHeight + 76;
+        var btnHeight = (this.game.config.height - startHeight1)/4;
+        var btnWidth = (this.game.config.width*0.2);
+        var startHeight2 = startHeight1 + btnHeight;
+        var startHeight3 = startHeight2 + btnHeight;
+        var startHeight4 = startHeight3 + btnHeight;
+
+        this.bottomBtn1 = new BtnAtBottom({scene:this, text:"Furniture", startHeight: startHeight1, btnHeight: btnHeight, btnWidth: btnWidth});
+        this.bottomBtn2 = new BtnAtBottom({scene:this, text:"Decoration", startHeight: startHeight2, btnHeight: btnHeight, btnWidth: btnWidth});
+        this.bottomBtn3 = new BtnAtBottom({scene:this, text:"Snacks", startHeight: startHeight3, btnHeight: btnHeight, btnWidth: btnWidth});
+        this.bottomBtn4 = new BtnAtBottom({scene:this, text:"Kiddie Bag", startHeight: startHeight4, btnHeight: btnHeight, btnWidth: btnWidth});
     }
 
 }
