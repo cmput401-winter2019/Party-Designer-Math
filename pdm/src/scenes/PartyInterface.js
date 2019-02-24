@@ -1,6 +1,7 @@
 import { CST } from "../CST";
 import { ButtonAtMenu } from "../components/buttonAtMenu";
-import { Guest } from "../components/guests";
+import { Guest } from "../classes/guests";
+
 
 export class PartyInterface extends Phaser.Scene {
 
