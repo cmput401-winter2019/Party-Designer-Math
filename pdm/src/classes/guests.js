@@ -21,6 +21,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rightBtn.visible = false;
         this.scaleBtn.visible = false;
 
+        // ---- Set guest buttons functions -----
         this.rightBtn.setInteractive();
         this.rotateBtn.setInteractive();
         this.scaleBtn.setInteractive();
@@ -28,19 +29,23 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rotateBtn.on('pointerdown', this.rotateGuest, this);
         this.scaleBtn.on('pointerdown', this.biggerGuest, this);
 
+        // ---- Guest button only shows if hold was not caused by dragging ------
+        this.on('pointerdown', function(pointer){
+            this.wasDragging = false;
+        }, this);
         this.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
             if (duration > 800){
                 console.log("show buttons");
-                if(this.customize == false){
+                if(this.customize == false && this.wasDragging == false){
                     this.showButtons();
                 }
             }
         },this);
 
-
         // ------ drag logic ------
         this.scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+            gameObject.wasDragging = true;
             gameObject.x = dragX;
             gameObject.y = dragY;
         });
@@ -51,7 +56,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
                 gameObject.y = gameObject.input.dragStartY;
             } 
         });
-        // ------ ------ ------
+        // ------------------------------------
     }
     showButtons(){
         this.alpha = 0.6;
