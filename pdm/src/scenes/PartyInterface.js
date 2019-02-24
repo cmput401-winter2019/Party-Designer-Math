@@ -75,11 +75,12 @@ export class PartyInterface extends Phaser.Scene {
         var startHeight2 = startHeight1 + btnHeight;
         var startHeight3 = startHeight2 + btnHeight;
         var startHeight4 = startHeight3 + btnHeight;
+        var btnColor = 0x0e4361;
 
-        this.bottomBtn1 = new BtnAtBottom({scene:this, text:"Furniture", startHeight: startHeight1, btnHeight: btnHeight, btnWidth: btnWidth});
-        this.bottomBtn2 = new BtnAtBottom({scene:this, text:"Decoration", startHeight: startHeight2, btnHeight: btnHeight, btnWidth: btnWidth});
-        this.bottomBtn3 = new BtnAtBottom({scene:this, text:"Snacks", startHeight: startHeight3, btnHeight: btnHeight, btnWidth: btnWidth});
-        this.bottomBtn4 = new BtnAtBottom({scene:this, text:"Kiddie Bag", startHeight: startHeight4, btnHeight: btnHeight, btnWidth: btnWidth});
+        this.bottomBtn1 = new BtnAtBottom({scene:this, text:"Furniture", startHeight: startHeight1, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
+        this.bottomBtn2 = new BtnAtBottom({scene:this, text:"Decoration", startHeight: startHeight2, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
+        this.bottomBtn3 = new BtnAtBottom({scene:this, text:"Snacks", startHeight: startHeight3, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
+        this.bottomBtn4 = new BtnAtBottom({scene:this, text:"Kiddie Bag", startHeight: startHeight4, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
     }
 
 }
