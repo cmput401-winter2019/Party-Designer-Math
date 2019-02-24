@@ -1,19 +1,23 @@
-export class Guest extends Phaser.GameObjects.Sprite{ 
-    constructor(scene, image, x, y, name){
+export class Item extends Phaser.GameObjects.Sprite{ 
+    constructor(scene, image, x, y, name, pluralName, category, unit){
         super(scene);
 		this.scene = scene;
 		this.scene.add.existing(this);
+        this.image = image;
 		this.setTexture(image);
 		this.setPosition(x,y);
 		this.setInteractive();
 		this.scene.input.setDraggable(this);
 
 		this.name = name;
-        this.type = "guest";
+        this.pluralName = pluralName;
+        this.category = category;
+        this.unit = unit;
         this.customize = false;
         this.angle = 0;
+        this.inRoom = false;
 
-        // ---- guest buttons -----
+        // ---- Item buttons -----
         this.rotateBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
         this.rightBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+this.rotateBtn.displayHeight,'rightBtn');
         this.scaleBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+(2*this.rotateBtn.displayHeight),'scaleBtn');
@@ -21,7 +25,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rightBtn.visible = false;
         this.scaleBtn.visible = false;
 
-        // ---- Set guest buttons functions -----
+        // ---- Set item buttons functions -----
         this.rightBtn.setInteractive();
         this.rotateBtn.setInteractive();
         this.scaleBtn.setInteractive();
@@ -29,18 +33,20 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rotateBtn.on('pointerdown', this.rotateGuest, this);
         this.scaleBtn.on('pointerdown', this.biggerGuest, this);
 
-        // ---- Guest button only shows if hold was not caused by dragging ------
+       // ---- Guest button only shows if hold was not caused by dragging ------
         this.on('pointerdown', function(pointer){
             this.wasDragging = false;
         }, this);
         this.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
-            if (duration > 800){
+            if (duration > 800 && (this.inRoom == true)){  // Condition: hold more than 800msec and item is in the room
+                console.log("show buttons");
                 if(this.customize == false && this.wasDragging == false){
                     this.showButtons();
                 }
             }
         },this);
+
     }
     showButtons(){
         this.alpha = 0.6;

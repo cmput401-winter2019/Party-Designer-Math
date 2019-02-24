@@ -2,6 +2,7 @@ import { CST } from "../CST";
 import { ButtonAtMenu } from "../components/buttonAtMenu";
 import { BtnAtBottom } from "../components/btnAtBottom";
 import { Guest } from "../classes/guests";
+import { Item } from "../classes/item";
 
 
 export class PartyInterface extends Phaser.Scene {
@@ -37,10 +38,40 @@ export class PartyInterface extends Phaser.Scene {
         this.load.image("rotateBtn", "assets/Interface/RotateBtn.svg");
         this.load.image("rightBtn", "assets/Interface/Right.svg");
         this.load.image("scaleBtn", "assets/Interface/ScaleBtn.svg");
+
+        // Furniture
+        this.load.image("chair", "assets/Spaceroom/Furniture/Chair.svg");
+        this.load.image("rug", "assets/Spaceroom/Furniture/Rug.svg");
+        this.load.image("screen", "assets/Spaceroom/Furniture/Screen.svg");
     }
 
     create() {
-        //this.add.image(400, 300, CST.IMAGES.TEST_CHARACTER);
+        // ------ drag logic -----------------------------------------------------
+        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+            gameObject.wasDragging = true;
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
+        // ------ Check if drag is outside of background ------
+        this.input.on('dragend', function (pointer, gameObject, dragX, dragY) {
+            if (gameObject.y < (76+(gameObject.height/2))|| gameObject.y > this.scene.background.displayHeight || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width){
+                gameObject.x = gameObject.input.dragStartX;
+                gameObject.y = gameObject.input.dragStartY;
+            } 
+            else {
+                //object is only created if starting position is outside of bound
+                if (gameObject.input.dragStartY<(76+(gameObject.height/2))||gameObject.input.dragStartY>this.scene.background.displayHeight){ 
+                    console.log('create object');
+                    gameObject.inRoom = true;
+                    gameObject.scene.createItem(gameObject.image, gameObject.input.dragStartX, gameObject.input.dragStartY, gameObject.name, gameObject.pluralName, gameObject.category, gameObject.unit);
+                }
+                
+            }
+            if (gameObject.category){
+                console.log("item");
+            } else {console.log('guest')};
+        });
+        // ------------------------------------------------------------------------
 
         // background
         this.background = this.add.image(0,76,"background");
@@ -67,10 +98,11 @@ export class PartyInterface extends Phaser.Scene {
         this.guest1 = this.add.existing(new Guest(this, "char1", 100,200,"Sammy"));
         this.guest2 = this.add.existing(new Guest(this, "char2", 200,200,"Tom"));
 
-
        // ------- Bottom Menu Buttons --------
-        var startHeight1 = this.startHeight = this.background.displayHeight + 76;
-        var btnHeight = (this.game.config.height - startHeight1)/4;
+        
+        var startHeight1 = this.background.displayHeight + 76;
+        var menuHeight = (this.game.config.height - startHeight1);
+        var btnHeight = menuHeight/4;
         var btnWidth = (this.game.config.width*0.2);
         var startHeight2 = startHeight1 + btnHeight;
         var startHeight3 = startHeight2 + btnHeight;
@@ -81,6 +113,18 @@ export class PartyInterface extends Phaser.Scene {
         this.bottomBtn2 = new BtnAtBottom({scene:this, text:"Decoration", startHeight: startHeight2, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
         this.bottomBtn3 = new BtnAtBottom({scene:this, text:"Snacks", startHeight: startHeight3, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
         this.bottomBtn4 = new BtnAtBottom({scene:this, text:"Kiddie Bag", startHeight: startHeight4, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
+        // -------------------------------------
+
+        // ------- items ------
+        var category1 = "Furniture";
+        var category2 = "Decoration";
+        var category3 = "Snacks";
+        var category4 = "Kiddie Bag";
+        var itemX = startHeight1 + menuHeight/2;
+        this.item1 = this.add.existing(new Item(this, "chair", btnWidth*1.5, itemX,"chair", "chairs", category1, "set"));
+    }
+    createItem(image, x, y, name, pluralName, category, unit){
+        this.newItem = this.add.existing(new Item(this, image, x, y,name, pluralName, category, unit));
     }
 
 }
