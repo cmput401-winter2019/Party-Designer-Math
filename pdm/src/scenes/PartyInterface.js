@@ -4,7 +4,6 @@ import { BtnAtBottom } from "../components/btnAtBottom";
 import { Guest } from "../classes/guests";
 import { Item } from "../classes/item";
 
-
 export class PartyInterface extends Phaser.Scene {
 
     constructor() {
@@ -43,6 +42,10 @@ export class PartyInterface extends Phaser.Scene {
         this.load.image("chair", "assets/Spaceroom/Furniture/Chair.svg");
         this.load.image("rug", "assets/Spaceroom/Furniture/Rug.svg");
         this.load.image("screen", "assets/Spaceroom/Furniture/Screen.svg");
+
+        // Food
+        var chips = this.load.image("chips", "assets/Spaceroom/Food/chips.svg");
+        var burger = this.load.image("burger", "assets/Spaceroom/Food/burger.svg");
     }
 
     create() {
@@ -109,10 +112,12 @@ export class PartyInterface extends Phaser.Scene {
         var startHeight4 = startHeight3 + btnHeight;
         var btnColor = 0x0e4361;
 
-        this.bottomBtn1 = new BtnAtBottom({scene:this, text:"Furniture", startHeight: startHeight1, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
-        this.bottomBtn2 = new BtnAtBottom({scene:this, text:"Decoration", startHeight: startHeight2, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
-        this.bottomBtn3 = new BtnAtBottom({scene:this, text:"Snacks", startHeight: startHeight3, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
-        this.bottomBtn4 = new BtnAtBottom({scene:this, text:"Kiddie Bag", startHeight: startHeight4, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor});
+        var assets = ["chips", "burger"]
+
+        this.bottomBtn1 = new BtnAtBottom({scene:this, text:"Furniture", startHeight: startHeight1, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor, assets: assets});
+        this.bottomBtn2 = new BtnAtBottom({scene:this, text:"Decoration", startHeight: startHeight2, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor, assets: assets});
+        this.bottomBtn3 = new BtnAtBottom({scene:this, text:"Snacks", startHeight: startHeight3, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor, assets: assets});
+        this.bottomBtn4 = new BtnAtBottom({scene:this, text:"Kiddie Bag", startHeight: startHeight4, btnHeight: btnHeight, btnWidth: btnWidth, btnColor:btnColor, assets: assets});
         // -------------------------------------
 
         // ------- items ------
@@ -121,8 +126,10 @@ export class PartyInterface extends Phaser.Scene {
         var category3 = "Snacks";
         var category4 = "Kiddie Bag";
         var itemX = startHeight1 + menuHeight/2;
-        this.item1 = this.add.existing(new Item(this, "chair", btnWidth*1.5, itemX,"chair", "chairs", category1, "set"));
+        this.item1 = this.add.existing(new Item(this, "chair", btnWidth*5, itemX,"chair", "chairs", category1, "set"));
     }
+
+
     createItem(image, x, y, name, pluralName, category, unit){
         this.newItem = this.add.existing(new Item(this, image, x, y,name, pluralName, category, unit));
     }

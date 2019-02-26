@@ -13,6 +13,7 @@ export class BtnAtBottom extends Phaser.GameObjects.Container{
         this.btnHeight = config.btnHeight;
         this.btnWidth = config.btnWidth;
         this.btnColor = config.btnColor;
+        this.assets = config.assets;
 
         // Draw Rectangle
         this.rect = this.scene.add.rectangle(0, this.startHeight, this.btnWidth, this.btnHeight, this.btnColor); // x, y, width, height
@@ -49,7 +50,15 @@ export class BtnAtBottom extends Phaser.GameObjects.Container{
             console.log(this.text._text);
         }
         else if (this.text._text ==  "Snacks"){
-            console.log(this.text._text);
+            var index;
+            var height = 300
+            var width = 550;
+            var offset = 0;
+            for (index = 0; index < this.assets.length; ++index) {
+                this.scene.add.image(height+offset,width,this.assets[index]);
+                offset += 100;
+                
+            }
         }
         else if (this.text._text == "Kiddie Bag"){
             console.log(this.text._text);
