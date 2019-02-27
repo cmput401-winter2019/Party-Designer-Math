@@ -18,9 +18,9 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.scaleY = this.scaleX;
 
         // ---- guest buttons -----
-        this.rotateBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
-        this.rightBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+this.rotateBtn.displayHeight,'rightBtn');
-        this.scaleBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+(2*this.rotateBtn.displayHeight),'scaleBtn');
+        this.rotateBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn').setScale(0.5,0.5);
+        this.rightBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+this.rotateBtn.displayHeight,'rightBtn').setScale(0.5,0.5);
+        this.scaleBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y+(2*this.rotateBtn.displayHeight),'scaleBtn').setScale(0.5,0.5);
         this.rotateBtn.visible = false;
         this.rightBtn.visible = false;
         this.scaleBtn.visible = false;
