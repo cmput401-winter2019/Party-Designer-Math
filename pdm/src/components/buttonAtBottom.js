@@ -72,40 +72,66 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     if(this.text._text == "Furniture") {
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
-          asset.setInteractive();
-          asset.on("pointerup", ()=> {
-              let buyItem = new BuyItem(this.scene, this.assets[index]);
-              buyItem.buyButton.setInteractive();
-              buyItem.buyButton.on("pointerup", ()=> {
-                  buyItem.destroy();
-              });
-          });
+        asset.displayHeight = 40;
+        asset.displayWidth = 40;
+        asset.setInteractive();
+        asset.on("pointerup", ()=> {
+            let buyItem = new BuyItem(this.scene, this.assets[index]);
+            buyItem.buyButton.setInteractive();
+            buyItem.buyButton.on("pointerup", ()=> {
+                buyItem.destroy();
+            });
+        });
       }
     }
 
     else if(this.text._text == "Decoration") {
       for(index = 0; index < this.assets.length; ++index) {
-        this.scene.add.image( height+offset,
-                              width,
-                              this.assets[index]);
+        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
+        asset.displayHeight = 40;
+        asset.displayWidth = 40;
+        asset.setInteractive();
+        asset.on("pointerup", ()=> {
+            let buyItem = new BuyItem(this.scene, this.assets[index]);
+            buyItem.buyButton.setInteractive();
+            buyItem.buyButton.on("pointerup", ()=> {
+                buyItem.destroy();
+            });
+        });
         offset += 100;
       }
     }
 
     else if(this.text._text == "Snacks") {
       for(index = 0; index < this.assets.length; ++index) {
-        this.scene.add.image( height+offset,
-                              width,
-                              this.assets[index]);
+        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
+        asset.displayHeight = 40;
+        asset.displayWidth = 40;
+        asset.setInteractive();
+        asset.on("pointerup", ()=> {
+            let buyItem = new BuyItem(this.scene, this.assets[index]);
+            buyItem.buyButton.setInteractive();
+            buyItem.buyButton.on("pointerup", ()=> {
+                buyItem.destroy();
+            });
+        });
         offset += 100;
       }
     }
 
     else if(this.text._text == "Kiddie Bag") {
       for(index = 0; index < this.assets.length; ++index) {
-        this.scene.add.image( height+offset,
-                              width,
-                              this.assets[index]);
+        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
+        asset.displayHeight = 40;
+        asset.displayWidth = 40;
+        asset.setInteractive();
+        asset.on("pointerup", ()=> {
+            let buyItem = new BuyItem(this.scene, this.assets[index]);
+            buyItem.buyButton.setInteractive();
+            buyItem.buyButton.on("pointerup", ()=> {
+                buyItem.destroy();
+            });
+        });
         offset += 100;
       }
     }
