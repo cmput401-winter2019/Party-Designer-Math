@@ -21,7 +21,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyAmountText= this.scene.add.text(356, 417, this.buyAmount, this.textConfigForAmount);
 
         //Add a plus image to increase the buy amount and make it interactive
-        this.buyAmountIncreaseButton = this.scene.add.image(385,425,"add").setScale(0.4, 0.4);
+        this.buyAmountIncreaseButton = this.scene.add.image(385, 425, "add").setScale(0.4, 0.4);
         this.buyAmountIncreaseButton.setInteractive();
         this.buyAmountIncreaseButton.on("pointerup", ()=> {
             if (this.buyAmount < 9)
@@ -35,7 +35,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyButtonText = this.scene.add.text(433, 417, "BUY", this.textConfig);
 
         //Add all objects to container
-        this.add(this.buyItemBackground );
+        this.add(this.buyItemBackground);
         this.add(this.buyText);
         this.add(this.buyAmountBackground);
         this.add(this.buyAmountText);
