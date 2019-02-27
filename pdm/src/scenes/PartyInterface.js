@@ -96,6 +96,14 @@ export class PartyInterface extends Phaser.Scene {
     this.background.displayWidth  = this.game.config.width;
     this.background.scaleY        = this.background.scaleX;
 
+    // Guests
+    this.guest1 = this.add.existing(new Guest(this, "char1", 100,200, "Sammy"));
+    this.guest2 = this.add.existing(new Guest(this, "char2", 200,200, "Tom"));
+    this.guest3 = this.add.existing(new Guest(this, "char3", 300,200, "Kevin"));
+    this.guest4 = this.add.existing(new Guest(this, "char4", 400,200, "Sally"));
+    this.guest5 = this.add.existing(new Guest(this, "char5", 500,200, "Jason"));
+    this.guest6 = this.add.existing(new Guest(this, "char6", 600,200, "Brad"));
+
     // Top menu
     this.exitBtn = new ButtonAtMenu({ scene   : this,
                                         key   : "exitBtn",
@@ -223,6 +231,29 @@ export class PartyInterface extends Phaser.Scene {
                                             assets      : kiddie_assets
                                           });
 
+    // Drag logic
+    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+      gameObject.wasDragging = true;
+      gameObject.x = dragX;
+      gameObject.y = dragY;
+    });
+
+    this.input.on("dragend", function(pointer, gameObject, dragX, dragY) {
+      if(gameObject.y < (76+(gameObject.height/2)) || gameObject.y > this.scene.background.displayHeight || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
+        gameObject.x = gameObject.input.dragStartX;
+        gameObject.y = gameObject.input.dragStartY;
+      } else {
+        if(gameObject.input.dragStartY < gameObject.input.dragStartY < (76+(gameObject.height/2)) || gameObject.input.dragStartY > this.scene.background.displayHeight) {
+          gameObject.inRoom = true;
+          gameObject.scene.createItem(gameObject.image, gameObject.input.dragStartX, gameObject.input.dragStartY, gameObject.name, gameObject.pluralName, gameObject.category, gameObject.unit);
+        }
+      }
+    });
+
+  }
+
+  createItem(image, x, y, name, pluralName, category, unit) {
+    this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
   }
 
 }
