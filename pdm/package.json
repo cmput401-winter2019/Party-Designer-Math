@@ -16,6 +16,7 @@
     "bar": "^0.1.2",
     "button": "^1.1.1",
     "button.js": "^1.0.1",
+    "classes": "^0.3.0",
     "phaser-list-view": "^1.5.2"
   }
 }
