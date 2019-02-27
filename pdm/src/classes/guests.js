@@ -1,4 +1,4 @@
-export class Guest extends Phaser.GameObjects.Sprite{ 
+export class Guest extends Phaser.GameObjects.Sprite{
     constructor(scene, image, x, y, name){
         super(scene);
 		this.scene = scene;
@@ -6,12 +6,16 @@ export class Guest extends Phaser.GameObjects.Sprite{
 		this.setTexture(image);
 		this.setPosition(x,y);
 		this.setInteractive();
+
 		this.scene.input.setDraggable(this);
 
 		this.name = name;
         this.type = "guest";
         this.customize = false;
         this.angle = 0;
+
+        this.displayWidth = 50;
+        this.scaleY = this.scaleX;
 
         // ---- guest buttons -----
         this.rotateBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
@@ -54,15 +58,15 @@ export class Guest extends Phaser.GameObjects.Sprite{
 
         this.rotateBtn.visible = true;
         this.scaleBtn.visible = true;
-        this.rightBtn.visible = true;    
-        
+        this.rightBtn.visible = true;
+
     }
     hideButtons(){
         this.alpha = 1;
         this.input.draggable = true;
         this.rotateBtn.visible = false;
         this.scaleBtn.visible = false;
-        this.rightBtn.visible = false;   
+        this.rightBtn.visible = false;
         this.customize = false;
     }
     rotateGuest(){

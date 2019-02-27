@@ -67,6 +67,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     var width  = 550;
     var offset = 0;
 
+
     if(this.text._text == "Furniture") {
       for(index = 0; index < this.assets.length; ++index) {
         this.scene.add.image( height+offset,
