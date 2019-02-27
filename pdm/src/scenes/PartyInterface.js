@@ -44,8 +44,11 @@ export class PartyInterface extends Phaser.Scene {
         this.load.image("screen", "assets/Spaceroom/Furniture/Screen.svg");
 
         // Food
-        var chips = this.load.image("chips", "assets/Spaceroom/Food/chips.svg");
-        var burger = this.load.image("burger", "assets/Spaceroom/Food/burger.svg");
+        const chips = this.load.image("chips", "assets/Spaceroom/Food/chips.svg");
+        const burger = this.load.image("burger", "assets/Spaceroom/Food/burger.svg");
+
+        //Other
+        this.load.image("add", "assets/Interface/Add.svg");
     }
 
     create() {

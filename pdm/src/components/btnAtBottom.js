@@ -1,3 +1,4 @@
+import { BuyItem } from "./BuyItem";
 export class BtnAtBottom extends Phaser.GameObjects.Container{ 
     constructor(config)
 	{
@@ -55,9 +56,16 @@ export class BtnAtBottom extends Phaser.GameObjects.Container{
             var width = 550;
             var offset = 0;
             for (index = 0; index < this.assets.length; ++index) {
-                this.scene.add.image(height+offset,width,this.assets[index]);
+                let asset = this.scene.add.image(height+offset,width,this.assets[index]);
+                asset.setInteractive();
+                asset.on("pointerup", ()=> {
+                    let buyItem = new BuyItem(this.scene, this.assets[index]);
+                    buyItem.buyButton.setInteractive();
+                    buyItem.buyButton.on("pointerup", ()=> {
+                        buyItem.destroy();
+                    });
+                });
                 offset += 100;
-                
             }
         }
         else if (this.text._text == "Kiddie Bag"){
