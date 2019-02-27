@@ -249,7 +249,6 @@ export class PartyInterface extends Phaser.Scene {
         }
       }
     });
-
   }
 
   createItem(image, x, y, name, pluralName, category, unit) {
