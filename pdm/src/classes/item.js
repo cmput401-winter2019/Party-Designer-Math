@@ -1,9 +1,10 @@
-export class Item extends Phaser.GameObjects.Sprite{ 
+export class Item extends Phaser.GameObjects.Sprite{
     constructor(scene, image, x, y, name, pluralName, category, unit){
         super(scene);
 		this.scene = scene;
 		this.scene.add.existing(this);
         this.image = image;
+
 		this.setTexture(image);
 		this.setPosition(x,y);
 		this.setInteractive();
@@ -16,6 +17,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.customize = false;
         this.angle = 0;
         this.inRoom = false;
+
 
         // ---- Item buttons -----
         this.rotateBtn = this.scene.add.image(this.x+(this.displayWidth/2), this.y,'rotateBtn');
@@ -60,15 +62,15 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         this.rotateBtn.visible = true;
         this.scaleBtn.visible = true;
-        this.rightBtn.visible = true;    
-        
+        this.rightBtn.visible = true;
+
     }
     hideButtons(){
         this.alpha = 1;
         this.input.draggable = true;
         this.rotateBtn.visible = false;
         this.scaleBtn.visible = false;
-        this.rightBtn.visible = false;   
+        this.rightBtn.visible = false;
         this.customize = false;
     }
     rotateGuest(){
