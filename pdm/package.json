@@ -17,6 +17,7 @@
     "button": "^1.1.1",
     "button.js": "^1.0.1",
     "classes": "^0.3.0",
-    "phaser-list-view": "^1.5.2"
+    "phaser-list-view": "^1.5.2",
+    "v8-compile-cache": "^2.0.2"
   }
 }

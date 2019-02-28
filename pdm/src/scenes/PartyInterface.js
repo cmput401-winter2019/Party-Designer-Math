@@ -4,6 +4,7 @@ import { ButtonAtBottom } from "../components/buttonAtBottom";
 import { Guest }        from "../classes/guests";
 import { Item }         from "../classes/item";
 
+
 export class PartyInterface extends Phaser.Scene {
 
   constructor() {
@@ -13,11 +14,12 @@ export class PartyInterface extends Phaser.Scene {
   }
 
   init() {
+   
 
   }
 
   preload() {
-
+    
     // Interface
     this.load.image("background", "assets/images/Interface/background.png");
     this.load.image("exitBtn",    "assets/images/Interface/ExitGame.svg");
@@ -96,7 +98,7 @@ export class PartyInterface extends Phaser.Scene {
   }
 
   create() {
-
+    
     // Background
     this.background = this.add.image(0, 76, "background");
     this.background.setOrigin(0,0);

@@ -1,5 +1,7 @@
+import {CST} from "../CST";
+
 export class ButtonAtMenu extends Phaser.GameObjects.Container{ 
-    constructor(config)
+	constructor(config)
 	{
         if(!config.scene)
 		{
@@ -17,7 +19,8 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 
         this.name = config.key;
         this.back=this.scene.add.image(0,0,config.key);
-        this.add(this.back);
+		this.add(this.back);
+		
 
         // If there is text, add text
         if(config.text)
@@ -83,6 +86,12 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 			console.log(this.name + ": go to bag");
 		}
 		else if (this.name == "listBtn"){
+
+			
+
+			this.scene.scene.launch(CST.SCENES.SHOPPING_LIST);
+			
+
 			console.log(this.name + ": go to shopping list");
 		}
 		else if (this.name == "creditBtn"){
@@ -90,6 +99,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		}
 
 	}
+
 
 
 }
