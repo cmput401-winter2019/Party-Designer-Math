@@ -106,7 +106,7 @@ export class PartyInterface extends Phaser.Scene {
     this.background.displayWidth  = this.game.config.width;
     this.background.scaleY        = this.background.scaleX;
     if((this.game.config.height - (this.background.displayHeight + this.topMenuHeight))<130){
-        console.log('not again');
+        console.log('Warning, distorted background');
         this.background.displayHeight = this.game.config.height-this.topMenuHeight-130;
         this.background.displayWidth = this.game.config.width;
     }
