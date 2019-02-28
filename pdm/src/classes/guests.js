@@ -14,7 +14,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.customize = false;
         this.angle = 0;
 
-        this.displayWidth = 50;
+        this.displayWidth = this.scene.game.config.width*0.07;
         this.scaleY = this.scaleX;
 
         // ---- guest buttons -----
