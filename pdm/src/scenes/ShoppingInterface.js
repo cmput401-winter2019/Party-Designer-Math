@@ -50,7 +50,7 @@ export class ShoppingInterface extends Phaser.Scene{
             this.add.text(270, 180, 'Buy '+ this.number3 + ' Chips', fontConfig);
     
             this.input.on('pointerdown', function () {
-                console.log("ok");
+                
                 this.scene.sendToBack(CST.SCENES.SHOPPING_LIST);
                 this.scene.bringToTop(CST.SCENES.PARTY_INTERFACE);
                 this.scene.setVisible(0, CST.SCENES.SHOPPING_LIST);
