@@ -57,6 +57,29 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                   function(pointer) { if (this.clicked == false) this.alpha = 1; },
                   this);
 
+
+
+    var index;
+    var height = 250;
+    var width  = 550;
+    var offset = 0;
+    for(index = 0; index < this.assets.length; ++index) {
+        let asset1 = this.scene.add.image(height+offset,width,this.assets[index]);
+        asset1.visible = false
+        asset1.displayHeight = 40;
+        asset1.displayWidth = 40;
+        asset1.setInteractive();
+        asset1.on("pointerup", ()=> {
+            let buyItem = new BuyItem(this.scene, this.assets[index]);
+            buyItem.buyButton.setInteractive();
+            buyItem.buyButton.on("pointerup", ()=> {
+                buyItem.destroy();
+            });
+        });
+        offset += 100;
+        this.loadedassets.push(asset1);
+    }
+
     this.rect.on( "pointerdown",
                   this.activateBtn,
                   this);
@@ -72,7 +95,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
 
     if(this.text._text == "Furniture") {
-      this.clicked = true;
+      /*this.clicked = true;
       this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
@@ -88,11 +111,13 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         });
         this.loadedassets.push(asset);
         offset += 100;
-      }
+      }*/
+      this.clicked = true;
+      this.alpha = 0.7;
     }
 
     if(this.text._text == "Decoration") {
-      this.clicked = true;
+      /*this.clicked = true;
       this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
@@ -108,11 +133,13 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         });
         this.loadedassets.push(asset);
         offset += 100;
-      }
+      }*/
+      this.clicked = true;
+      this.alpha = 0.7;
     }
 
     else if(this.text._text == "Snacks") {
-      this.clicked = true;
+      /*this.clicked = true;
       this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
@@ -128,11 +155,13 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         });
         this.loadedassets.push(asset);
         offset += 100;
-      }
+      }*/
+      this.clicked = true;
+      this.alpha = 0.7;
     }
 
     else if(this.text._text == "Kiddie Bag") {
-      this.clicked = true;
+      /*this.clicked = true;
       this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
@@ -148,7 +177,9 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         });
         this.loadedassets.push(asset);
         offset += 100;
-      }
+      }*/
+      this.clicked = true;
+      this.alpha = 0.7;
     }
 
   }

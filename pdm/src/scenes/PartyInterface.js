@@ -247,7 +247,7 @@ export class PartyInterface extends Phaser.Scene {
     //---------------------------------
     //THIS WILL BE REFACTORED : START
     //---------------------------------
-    
+
     this.bottomBtn1.rect.setInteractive();
     this.bottomBtn1.rect.on("pointerup", ()=> {
       this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
@@ -260,17 +260,22 @@ export class PartyInterface extends Phaser.Scene {
         }
       }
       var index;
+      
       for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
         this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
         this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
+        this.bottomBtn1.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
     });
 
@@ -283,15 +288,20 @@ export class PartyInterface extends Phaser.Scene {
       var index;
       for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
         this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
+      
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
         this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
+        this.bottomBtn2.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
     });
 
@@ -304,15 +314,20 @@ export class PartyInterface extends Phaser.Scene {
       var index;
       for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
         this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
         this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
+      
       for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
         this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
+        this.bottomBtn3.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
     });
 
@@ -325,15 +340,19 @@ export class PartyInterface extends Phaser.Scene {
       var index;
       for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
         this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
+        this.bottomBtn4.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
       }
     });
 
