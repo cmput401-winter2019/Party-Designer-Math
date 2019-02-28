@@ -15,6 +15,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.btnWidth     = config.btnWidth;
     this.btnColor     = config.btnColor;
     this.assets       = config.assets;
+    this.clicked = false;
 
     // Draw Rectangle
     this.rect = this.scene.add.rectangle(0,
@@ -48,11 +49,11 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.rect.setInteractive();
 
     this.rect.on( "pointerover",
-                  function(pointer) { this.alpha = 0.7; },
+                  function(pointer) { this.alpha = 0.7; console.log(this.clicked)},
                   this);
 
     this.rect.on( "pointerout",
-                  function(pointer) { this.alpha = 1; },
+                  function(pointer) { if (this.clicked == false) this.alpha = 1; },
                   this);
 
     this.rect.on( "pointerdown",
@@ -64,12 +65,14 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
   activateBtn() {
     var index;
-    var height = 300;
+    var height = 250;
     var width  = 550;
     var offset = 0;
 
 
     if(this.text._text == "Furniture") {
+      this.clicked = true;
+      this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
         asset.displayHeight = 40;
@@ -82,10 +85,13 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                 buyItem.destroy();
             });
         });
+        offset += 100;
       }
     }
 
-    else if(this.text._text == "Decoration") {
+    if(this.text._text == "Decoration") {
+      this.clicked = true;
+      this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
         asset.displayHeight = 40;
@@ -103,6 +109,8 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
 
     else if(this.text._text == "Snacks") {
+      this.clicked = true;
+      this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
         asset.displayHeight = 40;
@@ -120,6 +128,8 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
 
     else if(this.text._text == "Kiddie Bag") {
+      this.clicked = true;
+      this.alpha = 0.7;
       for(index = 0; index < this.assets.length; ++index) {
         let asset = this.scene.add.image(height+offset,width,this.assets[index]);
         asset.displayHeight = 40;
