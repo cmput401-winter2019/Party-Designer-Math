@@ -174,6 +174,7 @@ export class PartyInterface extends Phaser.Scene {
                                           event : "button_pressed",
                                           params: "self_desturct"
                                     });
+                                    
 
     // Bottom menu
     var startHeight1  = this.background.displayHeight + 76;
@@ -237,6 +238,33 @@ export class PartyInterface extends Phaser.Scene {
                                             btnColor    : btnColor,
                                             assets      : kiddie_assets
                                           });
+    this.bottomBtn1.rect.setInteractive();
+    this.bottomBtn1.rect.on("pointerup", ()=> {
+      this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
+      this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
+      this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
+    });
+
+    this.bottomBtn2.rect.setInteractive();
+    this.bottomBtn2.rect.on("pointerup", ()=> {
+      this.bottomBtn1.clicked = false; this.bottomBtn1.alpha = 1;
+      this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
+      this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
+    });
+
+    this.bottomBtn3.rect.setInteractive();
+    this.bottomBtn3.rect.on("pointerup", ()=> {
+      this.bottomBtn1.clicked = false; this.bottomBtn1.alpha = 1;
+      this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
+      this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
+    });
+
+    this.bottomBtn4.rect.setInteractive();
+    this.bottomBtn4.rect.on("pointerup", ()=> {
+      this.bottomBtn1.clicked = false; this.bottomBtn1.alpha = 1;
+      this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
+      this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
+    });
 
     // Drag logic
     this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
