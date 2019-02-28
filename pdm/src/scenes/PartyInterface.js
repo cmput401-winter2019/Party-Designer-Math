@@ -91,6 +91,7 @@ export class PartyInterface extends Phaser.Scene {
     this.load.image("rotateBtn", "assets/images/Interface/RotateBtn.svg");
     this.load.image("rightBtn", "assets/images/Interface/Right.svg");
     this.load.image("scaleBtn", "assets/images/Interface/ScaleBtn.svg");
+    this.load.image("smallerBtn", "assets/images/Interface/ScaleSmaller.svg")
 
     // Other
     this.load.image("add", "assets/images/Interface/Add.svg");
@@ -178,6 +179,20 @@ export class PartyInterface extends Phaser.Scene {
                                     });
                                     
 
+    // Drag logic
+    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+      gameObject.wasDragging = true;
+      gameObject.x = dragX;
+      gameObject.y = dragY;
+    });
+
+    this.input.on("dragend", function(pointer, gameObject, dragX, dragY) {
+      if(gameObject.y < (76) || gameObject.y > (this.scene.background.displayHeight+76) || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
+        gameObject.x = gameObject.input.dragStartX;
+        gameObject.y = gameObject.input.dragStartY;
+      } 
+    });
+
     // Bottom menu
     var startHeight1  = this.background.displayHeight + 76;
     var menuHeight    = (this.game.config.height - startHeight1);
@@ -249,7 +264,7 @@ export class PartyInterface extends Phaser.Scene {
     //---------------------------------
     //THIS WILL BE REFACTORED : START
     //---------------------------------
-    
+
     this.bottomBtn1.rect.setInteractive();
     this.bottomBtn1.rect.on("pointerup", ()=> {
       this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
@@ -262,17 +277,22 @@ export class PartyInterface extends Phaser.Scene {
         }
       }
       var index;
+      
       for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
         this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
         this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
+        this.bottomBtn1.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
     });
 
@@ -285,15 +305,20 @@ export class PartyInterface extends Phaser.Scene {
       var index;
       for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
         this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
+      
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
         this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
+        this.bottomBtn2.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
     });
 
@@ -306,15 +331,20 @@ export class PartyInterface extends Phaser.Scene {
       var index;
       for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
         this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
         this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
+      
       for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
         this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
+        this.bottomBtn3.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
     });
 
@@ -327,15 +357,19 @@ export class PartyInterface extends Phaser.Scene {
       var index;
       for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
         this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].key);
+        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
+      }
+      for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
+        this.bottomBtn4.loadedassets[index].visible = true;
+        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
       }
     });
 
@@ -344,24 +378,7 @@ export class PartyInterface extends Phaser.Scene {
     //---------------------------------
 
 
-    // Drag logic
-    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
-      gameObject.wasDragging = true;
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
-
-    this.input.on("dragend", function(pointer, gameObject, dragX, dragY) {
-      if(gameObject.y < (76+(gameObject.height/2)) || gameObject.y > this.scene.background.displayHeight || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
-        gameObject.x = gameObject.input.dragStartX;
-        gameObject.y = gameObject.input.dragStartY;
-      } else {
-        if(gameObject.input.dragStartY < gameObject.input.dragStartY < (76+(gameObject.height/2)) || gameObject.input.dragStartY > this.scene.background.displayHeight) {
-          gameObject.inRoom = true;
-          gameObject.scene.createItem(gameObject.image, gameObject.input.dragStartX, gameObject.input.dragStartY, gameObject.name, gameObject.pluralName, gameObject.category, gameObject.unit);
-        }
-      }
-    });
+    
   }
 
   createItem(image, x, y, name, pluralName, category, unit) {

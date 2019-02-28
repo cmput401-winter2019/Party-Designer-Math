@@ -34,6 +34,8 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyButton.setStrokeStyle(1.5, 0xffffff);
         this.buyButtonText = this.scene.add.text(433, 417, "BUY", this.textConfig);
 
+        
+
         //Add all objects to container
         this.add(this.buyItemBackground);
         this.add(this.buyText);
@@ -43,5 +45,17 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.add(this.buyButton);
         this.add(this.buyButtonText);
         this.scene.add.existing(this);
+        //TO DO: LOGIC FOR DRAGGING CONTAINER
+        /*this.x = 10;
+        this.y = 10;
+        this.setSize(300,300);
+        this.setInteractive();
+        
+        this.scene.input.setDraggable(this);
+        
+        this.scene.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+        });*/
     }
 }
