@@ -70,10 +70,10 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         asset1.displayWidth = 40;
         asset1.setInteractive();
         asset1.on("pointerup", ()=> {
-            let buyItem = new BuyItem(this.scene, this.assets[index]);
-            buyItem.buyButton.setInteractive();
-            buyItem.buyButton.on("pointerup", ()=> {
-                buyItem.destroy();
+            this.buyItem = new BuyItem(this.scene, this.assets[index]);
+            this.buyItem.buyButton.setInteractive();
+            this.buyItem.buyButton.on("pointerup", ()=> {
+                this.buyItem.destroy();
             });
         });
         offset += 100;
