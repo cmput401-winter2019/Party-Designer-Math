@@ -44,7 +44,9 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 
 		this.setSize(this.back.width, 60);
 		this.scene.add.existing(this);
-
+		this.firstgeneration = true;
+		this.numbers = [];
+		console.log(this.firstgeneration);
 
 
 		if (config.event)
@@ -88,10 +90,19 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		}
 		else if (this.name == "listBtn"){
 
-			
+			if (this.firstgeneration){
+				for(var number =0; number < 3; number ++){
 
-			this.scene.scene.launch(CST.SCENES.SHOPPING_LIST);
-			
+					this.numbers[number] = Phaser.Math.Between(1,9);
+					
+				}
+				this.scene.scene.launch(CST.SCENES.SHOPPING_LIST,this.numbers);
+				this.firstgeneration = false;
+				
+			}
+			else {
+				this.scene.scene.bringToTop(CST.SCENES.SHOPPING_LIST,this.numbers);
+			}
 
 			console.log(this.name + ": go to shopping list");
 		}
