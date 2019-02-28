@@ -89,6 +89,7 @@ export class PartyInterface extends Phaser.Scene {
     this.load.image("rotateBtn", "assets/images/Interface/RotateBtn.svg");
     this.load.image("rightBtn", "assets/images/Interface/Right.svg");
     this.load.image("scaleBtn", "assets/images/Interface/ScaleBtn.svg");
+    this.load.image("smallerBtn", "assets/images/Interface/ScaleSmaller.svg")
 
     // Other
     this.load.image("add", "assets/images/Interface/Add.svg");
