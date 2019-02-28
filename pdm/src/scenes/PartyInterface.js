@@ -99,12 +99,17 @@ export class PartyInterface extends Phaser.Scene {
   }
 
   create() {
-    
+    this.topMenuHeight = 75;
     // Background
-    this.background = this.add.image(0, 76, "background");
+    this.background = this.add.image(0, this.topMenuHeight, "background");
     this.background.setOrigin(0,0);
     this.background.displayWidth  = this.game.config.width;
     this.background.scaleY        = this.background.scaleX;
+    if((this.game.config.height - (this.background.displayHeight + this.topMenuHeight))<130){
+        console.log('not again');
+        this.background.displayHeight = this.game.config.height-this.topMenuHeight-130;
+        this.background.displayWidth = this.game.config.width;
+    }
 
     // Guests
     this.guest1 = this.add.existing(new Guest(this, "char1", 100,200, "Sammy"));
@@ -194,7 +199,7 @@ export class PartyInterface extends Phaser.Scene {
     });
 
     // Bottom menu
-    var startHeight1  = this.background.displayHeight + 76;
+    var startHeight1  = this.background.displayHeight + this.topMenuHeight;
     var menuHeight    = (this.game.config.height - startHeight1);
     var itemY = startHeight1 + (menuHeight/2);
     var btnHeight     = menuHeight/4
