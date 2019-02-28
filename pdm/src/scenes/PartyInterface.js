@@ -196,6 +196,7 @@ export class PartyInterface extends Phaser.Scene {
     // Bottom menu
     var startHeight1  = this.background.displayHeight + 76;
     var menuHeight    = (this.game.config.height - startHeight1);
+    var itemY = startHeight1 + (menuHeight/2);
     var btnHeight     = menuHeight/4
     var btnWidth      = (this.game.config.width*0.2);
     var startHeight2  = startHeight1 + btnHeight;
@@ -231,7 +232,8 @@ export class PartyInterface extends Phaser.Scene {
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
-                                            assets      : furniture_assets
+                                            assets      : furniture_assets,
+                                            itemY       : itemY
                                           });
 
     this.bottomBtn2 = new ButtonAtBottom({  scene       : this,
@@ -240,7 +242,8 @@ export class PartyInterface extends Phaser.Scene {
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
-                                            assets      : deco_assets
+                                            assets      : deco_assets,
+                                            itemY       : itemY
                                           });
 
     this.bottomBtn3 = new ButtonAtBottom({  scene       : this,
@@ -249,7 +252,8 @@ export class PartyInterface extends Phaser.Scene {
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
-                                            assets      : food_assets
+                                            assets      : food_assets,
+                                            itemY       : itemY
                                           });
 
     this.bottomBtn4 = new ButtonAtBottom({  scene       : this,
@@ -258,7 +262,8 @@ export class PartyInterface extends Phaser.Scene {
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
-                                            assets      : kiddie_assets
+                                            assets      : kiddie_assets,
+                                            itemY       : itemY
                                           });
 
     //---------------------------------

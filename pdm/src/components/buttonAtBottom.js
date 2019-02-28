@@ -13,6 +13,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.scene        = config.scene;
     this.startHeight  = config.startHeight;
     this.btnHeight    = config.btnHeight;
+    this.itemY        = config.itemY;
     this.btnWidth     = config.btnWidth;
     this.btnColor     = config.btnColor;
     this.assets       = config.assets;
@@ -61,14 +62,13 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
 
     var index;
-    var height = 250;
-    var width  = 550;
-    var offset = 0;
+    //var height = 250;
+    var offset = 50;
     for(index = 0; index < this.assets.length; ++index) {
-        let asset1 = this.scene.add.image(height+offset,width,this.assets[index]);
+        let asset1 = this.scene.add.image(this.btnWidth+offset,this.itemY,this.assets[index]);
         asset1.visible = false
-        asset1.displayHeight = 40;
         asset1.displayWidth = 40;
+        asset1.scaleY = asset1.scaleX;
         asset1.setInteractive();
         asset1.name = this.assets[index];
         asset1.on("pointerup", ()=> {
