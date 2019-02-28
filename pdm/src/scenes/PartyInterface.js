@@ -187,7 +187,7 @@ export class PartyInterface extends Phaser.Scene {
     });
 
     this.input.on("dragend", function(pointer, gameObject, dragX, dragY) {
-      if(gameObject.y < (76) || gameObject.y > (this.scene.background.displayHeight+76) || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
+      if(gameObject.y < (76+(gameObject.displayHeight/2)) || gameObject.y > (this.scene.background.displayHeight+76)-(gameObject.displayHeight/2) || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
         gameObject.x = gameObject.input.dragStartX;
         gameObject.y = gameObject.input.dragStartY;
       } 
