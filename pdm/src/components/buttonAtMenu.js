@@ -1,4 +1,5 @@
 import {CST} from "../CST";
+import { ShoppingInterface } from "../scenes/ShoppingInterface";
 
 export class ButtonAtMenu extends Phaser.GameObjects.Container{ 
 	constructor(config)
