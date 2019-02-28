@@ -16,6 +16,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.btnColor     = config.btnColor;
     this.assets       = config.assets;
     this.clicked = false;
+    this.loadedassets = []
 
     // Draw Rectangle
     this.rect = this.scene.add.rectangle(0,
@@ -85,6 +86,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                 buyItem.destroy();
             });
         });
+        this.loadedassets.push(asset);
         offset += 100;
       }
     }
@@ -104,6 +106,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                 buyItem.destroy();
             });
         });
+        this.loadedassets.push(asset);
         offset += 100;
       }
     }
@@ -123,6 +126,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                 buyItem.destroy();
             });
         });
+        this.loadedassets.push(asset);
         offset += 100;
       }
     }
@@ -142,6 +146,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                 buyItem.destroy();
             });
         });
+        this.loadedassets.push(asset);
         offset += 100;
       }
     }
