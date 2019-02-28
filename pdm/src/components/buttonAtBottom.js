@@ -1,4 +1,5 @@
 import { BuyItem } from "./BuyItem";
+import { Question } from "./Question";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
   constructor(config) {
@@ -69,11 +70,19 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         asset1.displayHeight = 40;
         asset1.displayWidth = 40;
         asset1.setInteractive();
+        asset1.name = this.assets[index];
         asset1.on("pointerup", ()=> {
             this.buyItem = new BuyItem(this.scene, this.assets[index]);
             this.buyItem.buyButton.setInteractive();
             this.buyItem.buyButton.on("pointerup", ()=> {
-                this.buyItem.destroy();
+              this.question = new Question(this.scene, asset1.name, this.buyItem.buyAmount);
+              this.question.questionSubmitBackground.setInteractive();
+              this.question.questionSubmitBackground.on("pointerup", ()=> {
+                this.question.destroy();
+
+              });
+              //console.log(this.question.name + " " + this.question.amount);
+              this.buyItem.destroy();
             });
         });
         offset += 100;
