@@ -94,7 +94,6 @@ export class PartyLoad extends Phaser.Scene {
     	this.progText.setText(per+"%");
     }
     create(){
-        //this.scene.add("PartyInterface")
     	this.scene.start(CST.SCENES.PARTY_INTERFACE);
         
     }
