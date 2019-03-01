@@ -1,5 +1,6 @@
 export const CST = {
     SCENES: {
+        PARTY_LOAD: "PARTY_LOAD",
         PARTY_INTERFACE: "PARTY_INTERFACE",
         SHOPPING_LIST: "SHOPPING_LIST"
     },
