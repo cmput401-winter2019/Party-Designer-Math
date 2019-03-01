@@ -1,5 +1,6 @@
 var game;
-import {PartyInterface} from "./scenes/PartyInterface" 
+import { PartyLoad } from "./scenes/PartyLoad";
+import {PartyInterface} from "./scenes/PartyInterface";
 import { ShoppingInterface } from "./scenes/ShoppingInterface";
 
 window.onload=function(){
@@ -13,7 +14,7 @@ window.onload=function(){
             width: 800,
             height: 600,
             parent: 'phaser-game',
-            scene: [PartyInterface,ShoppingInterface]
+            scene: [PartyLoad,PartyInterface,ShoppingInterface]
         };
     } else {
         var config = {
@@ -21,7 +22,7 @@ window.onload=function(){
             width: window.innerWidth,
             height: window.innerHeight,
             parent: 'phaser-game',
-            scene: [PartyInterface,ShoppingInterface]
+            scene: [PartyLoad,PartyInterface,ShoppingInterface]
         };
     }
     game = new Phaser.Game(config);
