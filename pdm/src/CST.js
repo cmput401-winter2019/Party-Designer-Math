@@ -1,8 +1,8 @@
 export const CST = {
     SCENES: {
         PARTY_INTERFACE: "PARTY_INTERFACE",
-        SHOPPING_LIST: "SHOPPING_LIST"
-    },
+        SHOPPING_LIST  : "SHOPPING_LIST"
+        },
 
     IMAGES: {
         TEST_CHARACTER: "assets/CHARACTER_5.svg"

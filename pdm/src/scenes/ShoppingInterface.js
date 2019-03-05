@@ -17,17 +17,17 @@ export class ShoppingInterface extends Phaser.Scene{
         }
         preload(){
             this.load.image("exitBtn",    "assets/images/Interface/ExitGame.svg");
-            
+
         }
 
         create(){
             var graphics = this.add.graphics();
             var graphicsCheck = this.add.graphics();
             var graphicsborder= this.add.graphics();
-            
+
             graphics.fillStyle(0xFFFFFF, 1.0);
             graphics.fillRect(200, 100, 400, 200);
-            
+
             graphicsCheck.fillStyle(0x00000, 1.0);
             graphicsCheck.fillRect(220,118,20,20);
             graphicsborder.fillStyle(0xFFFFFF, 1.0);
@@ -46,25 +46,16 @@ export class ShoppingInterface extends Phaser.Scene{
             var fontConfig = { font: '16px Muli', fill: '0xFFFFF' };
             this.add.text(370, 270, 'Click to Return', fontConfig);
             this.add.text(270, 120, 'Buy '+ this.number1 + ' Burgers', fontConfig);
-            this.add.text(270, 150, 'Buy '+ this.number2 + ' Condoms', fontConfig);
+            this.add.text(270, 150, 'Buy '+ this.number2 + ' Hats', fontConfig);
             this.add.text(270, 180, 'Buy '+ this.number3 + ' Chips', fontConfig);
-    
+
             this.input.on('pointerdown', function () {
-                
+
                 this.scene.sendToBack(CST.SCENES.SHOPPING_LIST);
                 this.scene.bringToTop(CST.SCENES.PARTY_INTERFACE);
                 this.scene.setVisible(0, CST.SCENES.SHOPPING_LIST);
                 this.scene.setVisible(1, CST.SCENES.PARTY_INTERFACE);
                 this.scene.sleep(CST.SCENES.SHOPPING_LIST);
             }, this);
-            
-
         }
-
-
-
-
-
-
-
 }
