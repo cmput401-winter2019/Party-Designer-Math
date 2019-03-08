@@ -4,7 +4,6 @@ import { ButtonAtBottom } from "../components/buttonAtBottom";
 import { Guest }        from "../classes/guests";
 import { Item }         from "../classes/item";
 
-
 export class PartyInterface extends Phaser.Scene {
 
   constructor() {
@@ -22,6 +21,7 @@ export class PartyInterface extends Phaser.Scene {
   }
 
   create() {
+
     this.topMenuHeight = 75;
     // Background
     this.background = this.add.image(0, this.topMenuHeight, "background");
@@ -134,24 +134,84 @@ export class PartyInterface extends Phaser.Scene {
 
     var furniture_assets  = [ "chair",
                               "dinnerTable",
-                              "sofa"];
+                              "sofa",
+                              "musicPlayer",
+                              "rug",
+                              "screen",
+                              "shelf",
+                              "sofa",
+                              "table",
+                              "wallShelf"];
 
-    var food_assets       = [ "burger",
+    var food_assets       = [ "burger_mult",
+                              "burger",
+                              "cake",
+                              "cherries",
                               "chips",
-                              "ketchup"];
+                              "juice",
+                              "ketchup",
+                              "milkshake",
+                              "pizza",
+                              "saladBowl",
+                              "spaceWater"];
 
     var deco_assets       = [ "ballons",
                               "light",
-                              "partyHat"];
+                              "bunting",
+                              "partyHat",
+                              "hangingDeco",
+                              "plantPot",
+                              "sculpture",
+                              "spacePlants",
+                              "starBanner",
+                              "wallHanging"];
 
     var kiddie_assets     = [ "alienShip",
                               "ball",
-                              "gift"];
+                              "earthBall",
+                              "gift",
+                              "icecream",
+                              "rocket",
+                              "rocket_2",
+                              "spaceTeddy",
+                              "sticker",
+                              "telescope"];
 
-    var all_assets = { furniture: ["chair" ,"dinnerTable", "sofa"] ,
-                      food: ["burger", "chips", "ketchup"] ,
-                      deco: ["ballons", "light", "partyHat"] ,
-                      kiddie: ["alienShip", "ball", "gift"] };
+    // all_assets = all assets to be shown in shopping list
+    this.all_assets = [];
+    var counter = 0;
+    while (counter<5){
+      var furniture = furniture_assets[Math.floor(Math.random() * furniture_assets.length)];
+      if (this.all_assets.includes(furniture) == false){
+        this.all_assets.push(furniture);
+        counter++;
+      }
+    }
+    var counter = 0;
+    while (counter<5){
+      var food = food_assets[Math.floor(Math.random() * food_assets.length)];
+      if (this.all_assets.includes(food) == false){
+        this.all_assets.push(food);
+        counter++;
+      }
+    }
+    var counter = 0;
+    while (counter<5){
+      var deco = deco_assets[Math.floor(Math.random() * deco_assets.length)];
+      if (this.all_assets.includes(deco) == false){
+        this.all_assets.push(deco);
+        counter++;
+      }
+    }
+    var counter = 0;
+    while (counter<5){
+      var kiddie = deco_assets[Math.floor(Math.random() * deco_assets.length)];
+      if (this.all_assets.includes(kiddie) == false){
+        this.all_assets.push(kiddie);
+        counter++;
+      }
+    }
+    // ---------------------------------------------
 
 
     this.bottomBtn1 = new ButtonAtBottom({  scene       : this,
@@ -203,12 +263,12 @@ export class PartyInterface extends Phaser.Scene {
       this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
       this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
       this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
-      for(var key in all_assets) {
-        if (key != "furniture") {
-          //console.log(all_assets[key]);
+      // for(var key in all_assets) {
+      //   if (key != "furniture") {
+      //     //console.log(all_assets[key]);
           
-        }
-      }
+      //   }
+      // }
       var index;
       
       for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
@@ -313,9 +373,4 @@ export class PartyInterface extends Phaser.Scene {
 
     
   }
-
-  createItem(image, x, y, name, pluralName, category, unit) {
-    this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
-  }
-
 }

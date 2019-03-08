@@ -89,19 +89,19 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 			console.log(this.name + ": go to bag");
 		}
 		else if (this.name == "listBtn"){
-
 			if (this.firstgeneration){
-				for(var number =0; number < 3; number ++){
+				for(var number =0; number < 20; number ++){
 
-					this.numbers[number] = Phaser.Math.Between(1,9);
+					this.numbers[number] = Phaser.Math.Between(2,9);
 					
 				}
-				this.scene.scene.launch(CST.SCENES.SHOPPING_LIST,this.numbers);
+				this.config = {n:this.numbers, assets:this.scene.all_assets}
+				this.scene.scene.launch(CST.SCENES.SHOPPING_LIST,this.config);
 				this.firstgeneration = false;
 				
 			}
 			else {
-				this.scene.scene.bringToTop(CST.SCENES.SHOPPING_LIST,this.numbers);
+				this.scene.scene.bringToTop(CST.SCENES.SHOPPING_LIST);
 				this.scene.scene.setVisible(1, CST.SCENES.SHOPPING_LIST);
 				this.scene.scene.wake(CST.SCENES.SHOPPING_LIST);
 			}
