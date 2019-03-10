@@ -16,7 +16,6 @@ export class Question extends Phaser.GameObjects.Container{
         //this.questionText.setOrigin(0, 0);
 
         this.questionSubmitBackground = this.scene.add.rectangle(150-145, 65-45, 55, 15, 0x0e4361);
-        //this.questionSubmitBackground.setOrigin(0,0)
         this.questionSubmitBackground.setStrokeStyle(1.5, 0xffffff);
         this.questionSubmitText = this.scene.add.text(127-145, 57-45, "SUBMIT", this.textConfig);
         //this.questionSubmitText.setOrigin(0,0);
@@ -42,8 +41,5 @@ export class Question extends Phaser.GameObjects.Container{
         gameObject.x = dragX;
         gameObject.y = dragY;
         });
-
-
-    
     }
 }

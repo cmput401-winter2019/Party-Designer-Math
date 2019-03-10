@@ -1,5 +1,6 @@
 import {CST} from "../CST";
 import { AlignGrid } from "../util/alignGrid";
+import { ImageToProperties } from "../classes/imageToProperties";
 export class ShoppingInterface extends Phaser.Scene{
 
         constructor(){
@@ -40,8 +41,12 @@ export class ShoppingInterface extends Phaser.Scene{
             // 
             var centerXY = this.alignGrid.getPosByIndex(220);
             var fontConfig = { font: '16px Muli', fill: '0xFFFFF' };
+
+            // Initiate ImageToProperties class
+            this.imageToProp = new ImageToProperties();
+            // First column
             for(var i = 0; i < 10; i++){
-                var text = this.add.text(this.game.config.width*0.1, (centerXY.y-200)+(i*30), 'Buy '+ this.number[i] + " " + this.assets[i], fontConfig);
+                var text = this.add.text(this.game.config.width*0.1, (centerXY.y-200)+(i*30), 'Buy '+ this.number[i] + " " + this.imageToProp.getProp(this.assets[i]).pluralName, fontConfig);
                 var asset = this.add.image(this.game.config.width*0.35, (centerXY.y-200)+(i*30), this.assets[i]);
                 text.setOrigin(0,0.5);
                 asset.displayWidth = 30;
@@ -51,8 +56,9 @@ export class ShoppingInterface extends Phaser.Scene{
                     asset.scaleX = asset.scaleY;
                 }
             }
+            // Second column
             for(var i = 10; i < 20; i++){
-                var text = this.add.text(this.game.config.width*0.5, (centerXY.y-200)+((i-10)*30), 'Buy '+ this.number[i] + " " + this.assets[i], fontConfig);
+                var text = this.add.text(this.game.config.width*0.5, (centerXY.y-200)+((i-10)*30), 'Buy '+ this.number[i] + " " + this.imageToProp.getProp(this.assets[i]).pluralName, fontConfig);
                 var asset = this.add.image(this.game.config.width*0.75, (centerXY.y-200)+((i-10)*30), this.assets[i]);
                 text.setOrigin(0,0.5);
                 asset.displayWidth = 30;
