@@ -3,6 +3,7 @@ import { ButtonAtMenu }   from "../components/buttonAtmenu";
 import { ButtonAtBottom } from "../components/buttonAtBottom";
 import { Guest }        from "../classes/guests";
 import { Item }         from "../classes/item";
+import { ImageToProperties } from "../classes/imageToProperties";
 
 export class PartyInterface extends Phaser.Scene {
 
@@ -33,6 +34,9 @@ export class PartyInterface extends Phaser.Scene {
         this.background.displayHeight = this.game.config.height-this.topMenuHeight-130;
         this.background.displayWidth = this.game.config.width;
     }
+
+    // Initiate ImageToProperties class
+    this.imageToProp = new ImageToProperties();
 
     // Guests
     this.guest1 = this.add.existing(new Guest(this, "char1", 100,200, "Sammy"));
@@ -211,6 +215,8 @@ export class PartyInterface extends Phaser.Scene {
         counter++;
       }
     }
+    // this.testImageToProp();
+    
     // ---------------------------------------------
 
 
@@ -369,8 +375,18 @@ export class PartyInterface extends Phaser.Scene {
     //---------------------------------
     //THIS WILL BE REFACTORED : END
     //---------------------------------
-
-
-    
+  }
+  testImageToProp(){
+    var flag = true;
+    for (var i = 0; i<this.all_assets.length; i++){
+      //console.log(this.all_assets[i]);
+      if(this.imageToProp.getProp(this.all_assets[i]) == undefined){
+        console.log(this.all_assets[i] + " does not exit in imageToProperties.js");
+        flag = false;
+      } 
+    }
+    if (flag == true){
+      console.log("All is OK");
+    } 
   }
 }
