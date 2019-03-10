@@ -19,17 +19,14 @@ export class ShoppingInterface extends Phaser.Scene{
         }
 
         create(){
+            // make and show grids 
             this.alignGrid = new AlignGrid({
                 scene: this,
                 rows: 21,
                 cols: 21
              });
-            this.alignGrid.showNumbers();
+            // this.alignGrid.showNumbers();
             // console.log(this.assets);
-
-            var graphics = this.add.graphics();
-            var graphicsCheck = this.add.graphics();
-            var graphicsborder= this.add.graphics();
             
             // Main rectangle of the scene
             this.popupHeight = 540;
@@ -69,13 +66,9 @@ export class ShoppingInterface extends Phaser.Scene{
                 }
             }
             this.add.text(this.game.config.width*0.1, centerXY.y-250, 'Shopping List', { font: '20px Muli', fill: '0xFFFFF' });
-            this.add.text(this.game.config.width*0.75, centerXY.y+220, 'Click to Return', fontConfig);
-
-            this.input.on('pointerdown', function () {
-                this.scene.sendToBack(CST.SCENES.SHOPPING_LIST);
-                this.scene.bringToTop(CST.SCENES.PARTY_INTERFACE);
-                this.scene.setVisible(0, CST.SCENES.SHOPPING_LIST);
-                this.scene.setVisible(1, CST.SCENES.PARTY_INTERFACE);
+            this.returnBtn = this.add.text(this.game.config.width*0.75, centerXY.y+220, 'Click Here to Return', fontConfig);
+            this.returnBtn.setInteractive();
+            this.returnBtn.on('pointerdown', function () {
                 this.scene.sleep(CST.SCENES.SHOPPING_LIST);
             }, this);
             

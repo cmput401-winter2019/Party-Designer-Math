@@ -44,7 +44,7 @@ export class ImageToProperties {
         } else if (iName == "saladBowl"){
             return {name:"salad", pluralName: "salads", category:"food", unit:"bowl", cost:"5"};            // ------------
         } else if (iName == "ballons"){
-            return {name:"ballons", pluralName: "ballons", category:"deco", unit:"set", cost:"5"};          // set, pot
+            return {name:"balloons", pluralName: "balloons", category:"deco", unit:"set", cost:"5"};          // set, pot
         } else if (iName == "light"){
             return {name:"light", pluralName: "lights", category:"deco", unit:"set", cost:"5"};
         } else if (iName == "bunting"){

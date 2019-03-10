@@ -101,8 +101,6 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 				
 			}
 			else {
-				this.scene.scene.bringToTop(CST.SCENES.SHOPPING_LIST);
-				this.scene.scene.setVisible(1, CST.SCENES.SHOPPING_LIST);
 				this.scene.scene.wake(CST.SCENES.SHOPPING_LIST);
 			}
 
