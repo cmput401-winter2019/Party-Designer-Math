@@ -2,14 +2,19 @@ import {CST} from "../CST";
 import { ImageToProperties } from "../classes/imageToProperties";
 import { Question } from "./Question";
 export class BuyItem extends Phaser.GameObjects.Container{ 
-    constructor(scene, name){
+    constructor(scene, name, originalS){
         super(scene);
         //Initialize members
         this.scene = scene;
         this.name = name;
+        this.originalS = originalS;
 
         // Initiate ImageToProperties class
         this.imageToProp = new ImageToProperties();
+
+        //Screen center
+        var centerX = this.scene.game.config.width/2;
+        var centerY = this.scene.game.config.height/2;
 
         //Configurations for text
         this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'12px'};
@@ -18,7 +23,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
 
         //Create a rectangle background where everything for the prompt will be displayed on and add the text
         this.buyItemBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
-        this.buyItemBackground.setOrigin(0.5,0.5);
+        // this.buyItemBackground.setOrigin(0.5,0.5);
         this.buyItemBackground.setStrokeStyle(1.5, 0x000000);
         this.buyText = this.scene.add.text(0, 0-20, "How many "+ this.imageToProp.getProp(this.name).pluralName + " would you like to buy?", this.textConfig);
         this.buyText.setOrigin(0.5,0.5);
@@ -27,7 +32,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyAmountBackground = this.scene.add.rectangle(0, 0, 25, 15, 0xffffff);
         this.buyAmountBackground.setStrokeStyle(1.5, 0x000000);
         this.buyAmount = "1";
-        this.buyAmountText= this.scene.add.text(0,0 , this.buyAmount, this.textConfigForAmount);
+        this.buyAmountText= this.scene.add.text(0, 0, this.buyAmount, this.textConfigForAmount);
         this.buyAmountText.setOrigin(0.5,0.5);
 
         //Add a plus image to increase the buy amount and make it interactive
@@ -72,8 +77,8 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.scene.add.existing(this);
 
         this.setSize(this.scene.game.config.width*0.3, 90);//.setOrigin(0,0);
-        this.x = 350;
-        this.y = 350;
+        this.x = centerX;
+        this.y = centerY;
         this.setInteractive();
         this.scene.input.setDraggable(this);
 
@@ -86,7 +91,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         scene.scene.sleep(CST.SCENES.BUY_POPUP);
     }
     goToQuestion(){
-        var question = new Question(this.scene, this.name, this.buyAmount);
+        var question = new Question(this.scene, this.name, this.buyAmount, this.originalS);
         this.destroy();
     }
 }
