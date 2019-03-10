@@ -19,10 +19,11 @@ export class BuyPopup extends Phaser.Scene{
     }
     create(){
         // Drag logic
-    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
+        this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+        });
+        
         this.alignGrid = new AlignGrid({
             scene: this,
             rows: 21,

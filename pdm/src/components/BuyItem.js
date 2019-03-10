@@ -1,5 +1,6 @@
 import {CST} from "../CST";
 import { ImageToProperties } from "../classes/imageToProperties";
+import { Question } from "./Question";
 export class BuyItem extends Phaser.GameObjects.Container{ 
     constructor(scene, name){
         super(scene);
@@ -16,7 +17,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.textConfigForNumBtn = {fontFamily:'Muli', color:'#000000', fontSize:'18px'};
 
         //Create a rectangle background where everything for the prompt will be displayed on and add the text
-        this.buyItemBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.3, 90, 0xffffff);
+        this.buyItemBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
         this.buyItemBackground.setOrigin(0.5,0.5);
         this.buyItemBackground.setStrokeStyle(1.5, 0x000000);
         this.buyText = this.scene.add.text(0, 0-20, "How many "+ this.imageToProp.getProp(this.name).pluralName + " would you like to buy?", this.textConfig);
@@ -50,7 +51,8 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyButton = this.scene.add.rectangle(0+45, 0+25, 35, 15, 0x02C2FF);
         this.buyButton.setStrokeStyle(1.5, 0xB2B3B4);
         this.buyButtonText = this.scene.add.text(0+33, 0+17, "BUY", {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'});
-        
+        this.buyButton.setInteractive();
+
         this.cancelButton = this.scene.add.rectangle(0-45, 0+25, 35, 15, 0xffffff);
         this.cancelButton.setStrokeStyle(1.5, 0xB2B3B4);
         this.cancelButtonText = this.scene.add.text(0-55, 0+17, "NO", {fontFamily:'Muli', color:'#B2B3B4', fontSize:'12px'});
@@ -75,16 +77,17 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.setInteractive();
         this.scene.input.setDraggable(this);
 
-        this.scene.input.on('drag', function(pointer, gameObject, dragX, dragY) {
-            gameObject.x = dragX;
-            gameObject.y = dragY;
-        });
-
         this.cancelButton.on('pointerdown', this.destroyContainer, this);
+        this.buyButton.on('pointerdown', this.goToQuestion, this);
     }
     destroyContainer(){
-        var scene = this.scene;
+        var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
         this.destroy();
         scene.scene.sleep(CST.SCENES.BUY_POPUP);
+    }
+    goToQuestion(){
+        console.log("hi");
+        var question = new Question(this.scene, this.name, this.buyAmount);
+        this.destroy();
     }
 }
