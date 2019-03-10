@@ -37,9 +37,5 @@ export class Question extends Phaser.GameObjects.Container{
         
         this.scene.input.setDraggable(this);
         
-        this.scene.input.on('drag', function(pointer, gameObject, dragX, dragY) {
-        gameObject.x = dragX;
-        gameObject.y = dragY;
-        });
     }
 }

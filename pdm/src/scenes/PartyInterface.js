@@ -358,9 +358,9 @@ export class PartyInterface extends Phaser.Scene {
         this.bottomBtn1.loadedassets[index].visible = false;
         console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
       }
-      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
-        this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
+      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
+        this.bottomBtn2.loadedassets[index].visible = false;
+        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
       }
       for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
         this.bottomBtn3.loadedassets[index].visible = false;

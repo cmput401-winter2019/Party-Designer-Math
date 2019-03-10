@@ -34,11 +34,11 @@ export class ImageToProperties {
         } else if (iName == "spaceWater"){
             return {name:"space water", pluralName: "space water", category:"food", unit:"glass", cost:"5"};
         } else if (iName == "juice"){
-            return {name:"juice", pluralName: "juice", category:"food", unit:"glass", cost:"5"};
+            return {name:"juice", pluralName: "glasses of juice", category:"food", unit:"glass", cost:"5"};
         } else if (iName == "milkshake"){
             return {name:"milkshake", pluralName: "milkshakes", category:"food", unit:"glass", cost:"5"};
         } else if (iName == "ketchup"){
-            return {name:"ketchup", pluralName: "ketchup", category:"food", unit:"box", cost:"5"};
+            return {name:"ketchup", pluralName: "bottles of ketchup", category:"food", unit:"box", cost:"5"};
         } else if (iName == "burger"){
             return {name:"burger", pluralName: "burgers", category:"food", unit:"box",cost:"5"};
         } else if (iName == "saladBowl"){
@@ -76,11 +76,13 @@ export class ImageToProperties {
         } else if (iName == "gift"){
             return {name:"gift", pluralName: "gifts", category:"kiddie", unit:"box", cost:"5"};
         } else if (iName == "icecream"){
-            return {name:"ice cream", pluralName: "ice creams", category:"kiddie", unit:"box", cost:"5"};
+            return {name:"popsicle", pluralName: "popsicles", category:"kiddie", unit:"box", cost:"5"};
         } else if (iName == "spaceTeddy"){
             return {name:"space teddy", pluralName: "space teddies", category:"kiddie", unit:"N/A", cost:"5"};
         } else if (iName == "ball"){
             return {name:"ball", pluralName: "balls", category:"kiddie", unit:"N/A", cost:"5"};
+        } else if (iName == "earthBall"){
+            return {name:"earth ball", pluralName: "earth balls", category:"kiddie", unit:"N/A", cost:"5"};
         } 
         
     }
