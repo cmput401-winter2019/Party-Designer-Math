@@ -86,7 +86,6 @@ export class BuyItem extends Phaser.GameObjects.Container{
         scene.scene.sleep(CST.SCENES.BUY_POPUP);
     }
     goToQuestion(){
-        console.log("hi");
         var question = new Question(this.scene, this.name, this.buyAmount);
         this.destroy();
     }
