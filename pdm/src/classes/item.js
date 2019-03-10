@@ -1,5 +1,5 @@
 export class Item extends Phaser.GameObjects.Sprite{
-    constructor(scene, image, x, y, name, pluralName, category, cost){
+    constructor(scene, image, x, y, name, pluralName, category, cost, unit){
         super(scene);
 		this.scene = scene;
 		this.scene.add.existing(this);
@@ -16,6 +16,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.pluralName = pluralName;
         this.category = category;
         this.cost = cost;
+        this.unit = unit;
 
         this.displayWidth = this.scene.game.config.width*0.07;
         this.scaleY = this.scaleX;
