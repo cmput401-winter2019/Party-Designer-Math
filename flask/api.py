@@ -31,8 +31,8 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
 
 
 # create serializers for student(s)
-student_serializer = StudentSerializer()
-students_serializer = StudentSerializer(many=True)
+studentSerializer = StudentSerializer()
+studentsSerializer = StudentSerializer(many=True)
 
 #create serializer for gamestate
 gameStateSerializer = GameStateSerializer()
@@ -59,7 +59,7 @@ def add_student():
 @app.route("/student", methods=["GET"])
 def get_student():
     allStudents = Student.query.all()
-    result = students_serializer.dump(allStudents)
+    result = studentsSerializer.dump(allStudents)
     return jsonify(result.data)
 
 
@@ -84,8 +84,7 @@ def add_gamestate(id):
 # endpoint to show game state of student
 @app.route("/<id>/gamestate", methods=["GET"])
 def get_gamestate(id):
-    gameState = GameState.query.all()
-    #gameState = GameState.query.filter(GameState.studentId == id).all()
+    gameState = GameState.query.filter(GameState.studentId == id).all()
     result = gameStatesSerializer.dump(gameState)
     print(result.data)
     return jsonify(result.data)
