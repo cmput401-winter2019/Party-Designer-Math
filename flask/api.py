@@ -4,6 +4,9 @@ from flask_migrate import Migrate, MigrateCommand
 from serializers import StudentSerializer, GameStateSerializer, ma
 from models import Student, GameState, Bag, db
 import os, sys
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+from sqlite3 import Connection as SQLite3Connection
 
 # create app
 app = Flask(__name__)
@@ -17,6 +20,15 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
+
+# turn on foreign key constraints
+@event.listens_for(Engine, "connect")
+def _set_sqlite_pragma(dbapi_connection, connection_record):
+        if isinstance(dbapi_connection, SQLite3Connection):
+            cursor = dbapi_connection.cursor()
+            cursor.execute("PRAGMA foreign_keys=ON;")
+            cursor.close()
+
 
 # create serializers for student(s)
 student_serializer = StudentSerializer()
