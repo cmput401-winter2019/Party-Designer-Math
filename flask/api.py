@@ -84,8 +84,8 @@ def add_gamestate(id):
 # endpoint to show game state of student
 @app.route("/<id>/gamestate", methods=["GET"])
 def get_gamestate(id):
-    gameState = GameState.query.filter(GameState.studentId == id).all()
-    result = gameStatesSerializer.dump(gameState)
+    gameState = GameState.query.filter(GameState.studentId == id).first()
+    result = gameStateSerializer.dump(gameState)
     print(result.data)
     return jsonify(result.data)
 
