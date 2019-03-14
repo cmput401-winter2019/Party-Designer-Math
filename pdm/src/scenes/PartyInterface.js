@@ -147,8 +147,8 @@ export class PartyInterface extends Phaser.Scene {
                               "table",
                               "wallShelf"];
 
-    var food_assets       = [ "burger_mult",
-                              "burger",
+    var food_assets       = [ "burger",
+                              "burger_mult",
                               "cake",
                               "cherries",
                               "chips",
@@ -259,122 +259,9 @@ export class PartyInterface extends Phaser.Scene {
                                             assets      : kiddie_assets,
                                             itemY       : itemY
                                           });
-
-    //---------------------------------
-    //THIS WILL BE REFACTORED : START
-    //---------------------------------
-
-    this.bottomBtn1.rect.setInteractive();
-    this.bottomBtn1.rect.on("pointerup", ()=> {
-      this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
-      this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
-      this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
-      // for(var key in all_assets) {
-      //   if (key != "furniture") {
-      //     //console.log(all_assets[key]);
-          
-      //   }
-      // }
-      var index;
-      
-      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
-        this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
-        this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
-        this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
-        this.bottomBtn1.loadedassets[index].visible = true;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
-      }
-    });
-
-    this.bottomBtn2.rect.setInteractive();
-    this.bottomBtn2.rect.on("pointerup", ()=> {
-      this.bottomBtn1.clicked = false; this.bottomBtn1.alpha = 1;
-      this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
-      this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
-
-      var index;
-      for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
-        this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
-      }
-      
-      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
-        this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
-        this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
-        this.bottomBtn2.loadedassets[index].visible = true;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
-      }
-    });
-
-    this.bottomBtn3.rect.setInteractive();
-    this.bottomBtn3.rect.on("pointerup", ()=> {
-      this.bottomBtn1.clicked = false; this.bottomBtn1.alpha = 1;
-      this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
-      this.bottomBtn4.clicked = false; this.bottomBtn4.alpha = 1;
-
-      var index;
-      for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
-        this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
-        this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
-      }
-      
-      for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
-        this.bottomBtn4.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
-        this.bottomBtn3.loadedassets[index].visible = true;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
-      }
-    });
-
-    this.bottomBtn4.rect.setInteractive();
-    this.bottomBtn4.rect.on("pointerup", ()=> {
-      this.bottomBtn1.clicked = false; this.bottomBtn1.alpha = 1;
-      this.bottomBtn2.clicked = false; this.bottomBtn2.alpha = 1;
-      this.bottomBtn3.clicked = false; this.bottomBtn3.alpha = 1;
-
-      var index;
-      for(index = 0; index < this.bottomBtn1.loadedassets.length; ++index) {
-        this.bottomBtn1.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn1.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn2.loadedassets.length; ++index) {
-        this.bottomBtn2.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn2.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn3.loadedassets.length; ++index) {
-        this.bottomBtn3.loadedassets[index].visible = false;
-        console.log("turning invisible: " + this.bottomBtn3.loadedassets[index].name);
-      }
-      for(index = 0; index < this.bottomBtn4.loadedassets.length; ++index) {
-        this.bottomBtn4.loadedassets[index].visible = true;
-        console.log("turning invisible: " + this.bottomBtn4.loadedassets[index].name);
-      }
-    });
-
-    //---------------------------------
-    //THIS WILL BE REFACTORED : END
-    //---------------------------------
+    // Furniture (first bottom menu button) is selected upon arriving at the room
+    this.bottomBtn1.activateBtn();
+    
   }
   testImageToProp(){
     var flag = true;
