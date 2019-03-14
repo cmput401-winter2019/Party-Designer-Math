@@ -23,7 +23,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.numItemLastPage = this.assets.length%this.numItemPerPage;
     this.numOfPages = Math.ceil(this.assets.length/this.numItemPerPage);
 
-    // Draw Rectangle
+    // Draw Rectangle of the button
     this.rect = this.scene.add.rectangle(0,
                                         this.startHeight,
                                         this.btnWidth,
@@ -122,6 +122,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
       page++;
     }
 
+    // Set method that runs upon button click
     this.rect.on( "pointerdown",
                   this.activateBtn,
                   this);
@@ -184,7 +185,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
   }
 
-  hideCurrentPage(buttonName){
+  hideCurrentPage(buttonName){    // Hide every asset associated with buttonName
     var index;
     var currentBtn;
     if(buttonName == "Furniture"){
@@ -202,7 +203,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
       }
   }
 
-  showCurrentPage(buttonName){
+  showCurrentPage(buttonName){  // Show assets associated with buttonName on the current page of button
     var currentBtn;
     var min;
     if(buttonName == "Furniture"){
@@ -225,7 +226,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
   }
 
-  activateBtn() {
+  activateBtn() {     // This runs when a bottom menu button is clicked
     console.log("Num in list", this.assets.length);
     console.log("Num per page:", this.numItemPerPage);
     console.log("Num of pages", this.numOfPages, "=", this.assets.length, "/", this.numItemPerPage);
