@@ -46,7 +46,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		this.scene.add.existing(this);
 		this.firstgeneration = true;
 		this.numbers = [];
-		console.log(this.firstgeneration);
+		//console.log(this.firstgeneration);
 
 
 		if (config.event)
