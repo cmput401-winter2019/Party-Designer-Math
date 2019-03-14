@@ -259,10 +259,8 @@ export class PartyInterface extends Phaser.Scene {
                                             assets      : kiddie_assets,
                                             itemY       : itemY
                                           });
-
-    //---------------------------------
-    //THIS WILL BE REFACTORED : START
-    //---------------------------------
+    // Furniture (first bottom menu button) is selected upon arriving at the room
+    this.bottomBtn1.activateBtn();
     
   }
   testImageToProp(){
