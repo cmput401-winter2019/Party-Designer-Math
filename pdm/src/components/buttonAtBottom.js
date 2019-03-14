@@ -1,5 +1,3 @@
-import { BuyItem } from "./BuyItem";
-import { Question } from "./Question";
 import {CST} from "../CST";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
@@ -18,8 +16,9 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.btnWidth     = config.btnWidth;
     this.btnColor     = config.btnColor;
     this.assets       = config.assets;
-    this.clicked = false;
-    this.loadedassets = []
+    this.clicked      = false;
+    this.loadedassets = [];
+    this.currentPage  = 0;
 
     // Draw Rectangle
     this.rect = this.scene.add.rectangle(0,
@@ -60,10 +59,8 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                   function(pointer) { if (this.clicked == false) this.alpha = 1; },
                   this);
 
-
-
+    // Set images associated with the button
     var index;
-    //var height = 250;
     var offset = 50;
     for(index = 0; index < this.assets.length; ++index) {
         let asset1 = this.scene.add.image(this.btnWidth+offset,this.itemY,this.assets[index]);
@@ -85,98 +82,93 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
     this.scene.add.existing(this);
   }
+  visibleAndInvisible(buttonName){
+    // Turning on the visibility of items in category of depicted by the button name
+    // Turning off the visibility of items in other categories
 
-  activateBtn() {
+    // Making buttons visible at full opacity again
+    this.scene.bottomBtn1.clicked = false; this.scene.bottomBtn1.alpha = 1;
+    this.scene.bottomBtn2.clicked = false; this.scene.bottomBtn2.alpha = 1;
+    this.scene.bottomBtn3.clicked = false; this.scene.bottomBtn3.alpha = 1;
+    this.scene.bottomBtn4.clicked = false; this.scene.bottomBtn4.alpha = 1;
+
     var index;
-    var height = 250;
-    var width  = 550;
-    var offset = 0;
+    // ----- Furniture ----
+    if(buttonName == "Furniture"){
+      for(index = 0; index < this.scene.bottomBtn1.loadedassets.length; ++index) {
+        this.scene.bottomBtn1.loadedassets[index].visible = true;
+        console.log("turning visible: " + this.scene.bottomBtn1.loadedassets[index].name);
+      }
+    } else{
+      for(index = 0; index < this.scene.bottomBtn1.loadedassets.length; ++index) {
+        this.scene.bottomBtn1.loadedassets[index].visible = false;
+        console.log("turning invisible: " + this.scene.bottomBtn1.loadedassets[index].name);
+      }
+    }
+    // ----- Decoration ----
+    if(buttonName == "Decoration"){
+      for(index = 0; index < this.scene.bottomBtn2.loadedassets.length; ++index) {
+        this.scene.bottomBtn2.loadedassets[index].visible = true;
+        console.log("turning visible: " + this.scene.bottomBtn2.loadedassets[index].name);
+      }
+    } else {
+      for(index = 0; index < this.scene.bottomBtn2.loadedassets.length; ++index) {
+        this.scene.bottomBtn2.loadedassets[index].visible = false;
+        console.log("turning invisible: " + this.scene.bottomBtn2.loadedassets[index].name);
+      }
+    }
+    // ----- Snacks -----
+    if(buttonName == "Snacks"){
+      for(index = 0; index < this.scene.bottomBtn3.loadedassets.length; ++index) {
+        this.scene.bottomBtn3.loadedassets[index].visible = true;
+        console.log("turning visible: " + this.scene.bottomBtn3.loadedassets[index].name);
+      }
+    } else {
+      for(index = 0; index < this.scene.bottomBtn3.loadedassets.length; ++index) {
+        this.scene.bottomBtn3.loadedassets[index].visible = false;
+        console.log("turning invisible: " + this.scene.bottomBtn3.loadedassets[index].name);
+      }
+    }
+    // ----- Kiddie Bag -----
+    if (buttonName == "Kiddie Bag"){
+      for(index = 0; index < this.scene.bottomBtn4.loadedassets.length; ++index) {
+        this.scene.bottomBtn4.loadedassets[index].visible = true;
+        console.log("turning iisible: " + this.scene.bottomBtn4.loadedassets[index].name);
+      }
+    } else {
+      for(index = 0; index < this.scene.bottomBtn4.loadedassets.length; ++index) {
+        this.scene.bottomBtn4.loadedassets[index].visible = false;
+        console.log("turning invisible: " + this.scene.bottomBtn4.loadedassets[index].name);
+    }
+    }
+    
 
-
+  }
+  activateBtn() {
     if(this.text._text == "Furniture") {
-      /*this.clicked = true;
-      this.alpha = 0.7;
-      for(index = 0; index < this.assets.length; ++index) {
-        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
-        asset.displayHeight = 40;
-        asset.displayWidth = 40;
-        asset.setInteractive();
-        asset.on("pointerup", ()=> {
-            let buyItem = new BuyItem(this.scene, this.assets[index]);
-            buyItem.buyButton.setInteractive();
-            buyItem.buyButton.on("pointerup", ()=> {
-                buyItem.destroy();
-            });
-        });
-        this.loadedassets.push(asset);
-        offset += 100;
-      }*/
+      this.visibleAndInvisible(this.text._text);
+
       this.clicked = true;
       this.alpha = 0.7;
     }
 
     if(this.text._text == "Decoration") {
-      /*this.clicked = true;
-      this.alpha = 0.7;
-      for(index = 0; index < this.assets.length; ++index) {
-        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
-        asset.displayHeight = 40;
-        asset.displayWidth = 40;
-        asset.setInteractive();
-        asset.on("pointerup", ()=> {
-            let buyItem = new BuyItem(this.scene, this.assets[index]);
-            buyItem.buyButton.setInteractive();
-            buyItem.buyButton.on("pointerup", ()=> {
-                buyItem.destroy();
-            });
-        });
-        this.loadedassets.push(asset);
-        offset += 100;
-      }*/
+      this.visibleAndInvisible(this.text._text);
+      
       this.clicked = true;
       this.alpha = 0.7;
     }
 
     else if(this.text._text == "Snacks") {
-      /*this.clicked = true;
-      this.alpha = 0.7;
-      for(index = 0; index < this.assets.length; ++index) {
-        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
-        asset.displayHeight = 40;
-        asset.displayWidth = 40;
-        asset.setInteractive();
-        asset.on("pointerup", ()=> {
-            let buyItem = new BuyItem(this.scene, this.assets[index]);
-            buyItem.buyButton.setInteractive();
-            buyItem.buyButton.on("pointerup", ()=> {
-                buyItem.destroy();
-            });
-        });
-        this.loadedassets.push(asset);
-        offset += 100;
-      }*/
+      this.visibleAndInvisible(this.text._text);
+      
       this.clicked = true;
       this.alpha = 0.7;
     }
 
     else if(this.text._text == "Kiddie Bag") {
-      /*this.clicked = true;
-      this.alpha = 0.7;
-      for(index = 0; index < this.assets.length; ++index) {
-        let asset = this.scene.add.image(height+offset,width,this.assets[index]);
-        asset.displayHeight = 40;
-        asset.displayWidth = 40;
-        asset.setInteractive();
-        asset.on("pointerup", ()=> {
-            let buyItem = new BuyItem(this.scene, this.assets[index]);
-            buyItem.buyButton.setInteractive();
-            buyItem.buyButton.on("pointerup", ()=> {
-                buyItem.destroy();
-            });
-        });
-        this.loadedassets.push(asset);
-        offset += 100;
-      }*/
+      this.visibleAndInvisible(this.text._text);
+
       this.clicked = true;
       this.alpha = 0.7;
     }
