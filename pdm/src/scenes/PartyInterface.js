@@ -147,8 +147,8 @@ export class PartyInterface extends Phaser.Scene {
                               "table",
                               "wallShelf"];
 
-    var food_assets       = [ "burger_mult",
-                              "burger",
+    var food_assets       = [ "burger",
+                              "burger_mult",
                               "cake",
                               "cherries",
                               "chips",
