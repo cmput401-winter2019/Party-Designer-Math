@@ -6,7 +6,8 @@ class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True)
     classCode = db.Column(db.String(5))
-    gamestate = db.relationship("GameState", backref ="student", uselist=False)
+
+    gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
 
     def __init__(self, name, classCode):
         self.name = name
@@ -18,16 +19,44 @@ class GameState(db.Model):
     numOfGuests = db.Column(db.Integer)
     studentId = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False, unique=True)
 
+    bagItemRel = db.relationship("BagItem", backref ="game_state")
+    canvasItemRel = db.relationship("CanvasItem", backref ="game_state")
+    questionRel = db.relationship("Question", backref ="game_state")
+
     def __init__(self, money, numOfGuests, studentId):
         self.money = money
         self.numOfGuests = numOfGuests
         self.studentId = studentId
 
-class Bag(db.Model):
+class BagItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemName = db.Column(db.String(20), unique=True)
-    itemAmount = db.Column(db.String(5), unique=True)
+    itemAmount = db.Column(db.Integer)
+    gameStateId = db.Column(db.Integer, db.ForeignKey('game_state.id'), nullable=False)
 
-    def __init__(self, itemName, itemAmount):
+    def __init__(self, itemName, itemAmount, gameStateId):
         self.itemName = itemName
         self.itemAmount = itemAmount
+        self.gameStateId = gameStateId
+
+class CanvasItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    itemName = db.Column(db.String(20), unique=True)
+    itemAmount = db.Column(db.Integer)
+    gameStateId = db.Column(db.Integer, db.ForeignKey('game_state.id'), nullable=False)
+
+    def __init__(self, itemName, itemAmount, gameStateId):
+        self.itemName = itemName
+        self.itemAmount = itemAmount
+        self.gameStateId = gameStateId
+
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(20), unique=True)
+    answer = db.Column(db.Numeric)
+    arithmeticType = db.Column(db.String(20))
+    correct = db.Column(db.Boolean)
+    gameStateId = db.Column(db.Integer, db.ForeignKey('game_state.id'), nullable=False)
+
+    def __init__(self, gameStateId):
+        self.gameStateId = gameStateId
