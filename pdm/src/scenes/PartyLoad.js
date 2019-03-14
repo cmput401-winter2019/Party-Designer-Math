@@ -90,7 +90,7 @@ export class PartyLoad extends Phaser.Scene {
     }
     onProgress(value)
     {
-    	console.log(value);
+    	//console.log(value);
     	var per=Math.floor(value*100);
     	this.progText.setText(per+"%");
     }
