@@ -17,3 +17,7 @@ class BagItemSerializer(ma.Schema):
 class CanvasItemSerializer(ma.Schema):
     class Meta:
         fields = ('id', 'itemName', 'itemAmount', 'gameStateId')
+
+class QuestionSerializer(ma.Schema):
+    class Meta:
+        fields = ('id', 'question', 'answer', 'arithmeticType', 'correct', 'gameStateId')
