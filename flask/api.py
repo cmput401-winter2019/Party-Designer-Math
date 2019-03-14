@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from serializers import StudentSerializer, GameStateSerializer, ma
-from models import Student, GameState, Bag, db
+from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, ma
+from models import Student, GameState, BagItem, CanvasItem, db
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -34,9 +34,17 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
 studentSerializer = StudentSerializer()
 studentsSerializer = StudentSerializer(many=True)
 
-#create serializer for gamestate
+# create serializer for game state
 gameStateSerializer = GameStateSerializer()
 gameStatesSerializer = GameStateSerializer(many=True)
+
+# create serializer for bag item
+bagItemSerializer = BagItemSerializer()
+bagItemsSerializer = BagItemSerializer(many=True)
+
+# create serializer for canvas item
+canvasItemSerializer = BagItemSerializer()
+canvasItemsSerializer = BagItemSerializer(many=True)
 
 # endpoint to create new student
 @app.route("/student", methods=["POST"])
@@ -86,7 +94,57 @@ def add_gamestate(id):
 def get_gamestate(id):
     gameState = GameState.query.filter(GameState.studentId == id).first()
     result = gameStateSerializer.dump(gameState)
-    print(result.data)
+    return jsonify(result.data)
+
+# endpoint to create bag item for game state
+@app.route("/<id>/bagitem", methods=["POST"])
+def add_bagitem(id):
+    try:
+        itemName = request.json['itemName']
+        itemAmount = request.json['itemAmount']
+        gameStateId = id
+        
+        newBagItem = BagItem(itemName, itemAmount, gameStateId)
+
+        db.session.add(newBagItem)
+        db.session.commit()
+
+        return jsonify(success=True), 201
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
+# endpoint to show bag items of gamestate
+@app.route("/<id>/bagitem", methods=["GET"])
+def get_bagitems(id):
+    bagItems = BagItem.query.filter(BagItem.gameStateId == id).all()
+    result = bagItemsSerializer.dump(bagItems)
+    return jsonify(result.data)
+
+
+# endpoint to create canvas item for game state
+@app.route("/<id>/bagitem", methods=["POST"])
+def add_canvasitem(id):
+    try:
+        itemName = request.json['itemName']
+        itemAmount = request.json['itemAmount']
+        gameStateId = id
+        
+        newCanvasItem = CanvasItem(itemName, itemAmount, gameStateId)
+
+        db.session.add(newCanvasItem)
+        db.session.commit()
+
+        return jsonify(success=True), 201
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
+# endpoint to show canvas items of gamestate
+@app.route("/<id>/bag", methods=["GET"])
+def get_canvasitems(id):
+    canvasItems = CanvasItem.query.filter(CanvasItem.gameStateId == id).all()
+    result = canvasItemsSerializer.dump(canvasItems)
     return jsonify(result.data)
 
 if __name__ == '__main__':
