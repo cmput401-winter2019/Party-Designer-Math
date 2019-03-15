@@ -2,12 +2,12 @@ import {CST} from "../CST";
 import { ImageToProperties } from "../classes/imageToProperties";
 import { Question } from "./Question";
 export class BuyItem extends Phaser.GameObjects.Container{ 
-    constructor(scene, name, originalS){
+    constructor(scene, name){
         super(scene);
         //Initialize members
         this.scene = scene;
         this.name = name;
-        this.originalS = originalS;
+
 
         // Initiate ImageToProperties class
         this.imageToProp = new ImageToProperties();
@@ -91,7 +91,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         scene.scene.sleep(CST.SCENES.BUY_POPUP);
     }
     goToQuestion(){
-        var question = new Question(this.scene, this.name, this.buyAmount, this.originalS);
+        var question = new Question(this.scene, this.name, this.buyAmount, this.scene.originalS);
         this.destroy();
     }
 }

@@ -3,7 +3,7 @@ import { Item } from "../classes/item";
 import {CST} from "../CST";
 
 export class Question extends Phaser.GameObjects.Container{ 
-    constructor(scene, iName, amount, originalScene){
+    constructor(scene, iName, amount){
         super(scene);
         //Initialize members
         this.scene = scene;
@@ -11,7 +11,6 @@ export class Question extends Phaser.GameObjects.Container{
         this.imageToProp = new ImageToProperties();
         this.properties = this.imageToProp.getProp(this.imageName);
         this.amount = amount;
-        this.originalS = originalScene;
 
         //Screen center
         var centerX = this.scene.game.config.width/2;
@@ -54,8 +53,9 @@ export class Question extends Phaser.GameObjects.Container{
     checkCreateObject(){
         
         for (var i=0; i<this.amount; i++){
-            console.log("hi");
-            var item = new Item(this.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, this.properties.unit);
+            //console.log("hi");
+            var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, this.properties.unit);
+            
         }
         var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
         this.destroy();

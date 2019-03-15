@@ -55,7 +55,9 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.rect.setInteractive();
 
     this.rect.on( "pointerover",
-                  function(pointer) { this.alpha = 0.7; console.log(this.clicked)},
+                  function(pointer) { this.alpha = 0.7; 
+                  // console.log(this.clicked)
+                  },
                   this);
 
     this.rect.on( "pointerout",
@@ -82,7 +84,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         this.hideCurrentPage(this.text._text);
         this.currentPage -=1;  
         this.showCurrentPage(this.text._text);      
-        console.log("Current Page of",this.text._text, this.currentPage);
+        //console.log("Current Page of",this.text._text, this.currentPage);
       }
     });
     this.rectRight.on("pointerdown", ()=>{
@@ -90,7 +92,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         this.hideCurrentPage(this.text._text);
         this.currentPage +=1;
         this.showCurrentPage(this.text._text);
-        console.log("Current Page of",this.text._text, this.currentPage);
+        //console.log("Current Page of",this.text._text, this.currentPage);
       }
     });
     
@@ -103,10 +105,10 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         min = this.numItemLastPage;
         
       }
-      console.log("Page",page);
-      console.log("Min",min);
+      //console.log("Page",page);
+      //console.log("Min",min);
       for(var i=page*this.numItemPerPage; i<page*this.numItemPerPage+min; i++){
-        console.log(i);
+        //console.log(i);
         let asset1 = this.scene.add.image(this.btnWidth+offset,this.itemY,this.assets[i]).setOrigin(0,0.5);
         asset1.visible = false
         asset1.displayWidth = 40;
@@ -227,10 +229,10 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
   }
 
   activateBtn() {     // This runs when a bottom menu button is clicked
-    console.log("Num in list", this.assets.length);
-    console.log("Num per page:", this.numItemPerPage);
-    console.log("Num of pages", this.numOfPages, "=", this.assets.length, "/", this.numItemPerPage);
-    console.log("Num of last page item:", this.numItemLastPage);
+    //console.log("Num in list", this.assets.length);
+    //console.log("Num per page:", this.numItemPerPage);
+    //console.log("Num of pages", this.numOfPages, "=", this.assets.length, "/", this.numItemPerPage);
+    //console.log("Num of last page item:", this.numItemLastPage);
     
     if(this.text._text == "Furniture") {
       this.visibleAndInvisible(this.text._text);
