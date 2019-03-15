@@ -4,6 +4,7 @@ import { ButtonAtBottom } from "../components/buttonAtBottom";
 import { Guest }        from "../classes/guests";
 import { Item }         from "../classes/item";
 import { ImageToProperties } from "../classes/imageToProperties";
+import { User } from "../classes/user"; 
 
 export class PartyInterface extends Phaser.Scene {
 
@@ -217,7 +218,7 @@ export class PartyInterface extends Phaser.Scene {
     }
     // this.testImageToProp();
     
-    // ---------------------------------------------
+    // --------------------- Bottom Buttons ------------------------
 
 
     this.bottomBtn1 = new ButtonAtBottom({  scene       : this,
@@ -259,8 +260,14 @@ export class PartyInterface extends Phaser.Scene {
                                             assets      : kiddie_assets,
                                             itemY       : itemY
                                           });
+
+     // --------------------- Bottom Buttons ------------------------
+
     // Furniture (first bottom menu button) is selected upon arriving at the room
     this.bottomBtn1.activateBtn();
+
+     // --------------------- Tests ------------------------
+    this.testUser();
     
   }
   testImageToProp(){
@@ -275,5 +282,50 @@ export class PartyInterface extends Phaser.Scene {
     if (flag == true){
       console.log("All is OK");
     } 
+  }
+  testUser(){
+
+    this.user = new User("Bob", 3, {"chair":2, "sofa":3}, 100, {"light":1});
+    // Test increase & decrease levels
+    this.user.decreaseLevel();
+    console.log("decrease level test passed:", this.user.level==2);
+    this.user.increaseLevel()
+    console.log("increase level test passed:", this.user.level==3);
+
+    // Test increase & decrease credits
+    this.user.increaseCredits(20);
+    console.log("increase credits test passed:", this.user.credits==120);
+    this.user.decreaseCredits(50);
+    console.log("decrease credits test passed:", this.user.credits==70);
+    
+    // Test putting item into backpack
+    this.user.putIntoBackpack("chair");
+    console.log("Backpack add existing item test passed:", this.user.backpack["chair"] == "3");
+    this.user.putIntoBackpack("rug");
+    console.log("Backpack add nonexisting item test passed", this.user.backpack["rug"] == "1");
+
+    // Test removing item from backpack
+    this.user.removeFromBackpack("sofa");
+    console.log("Backpack Remove item test passed:", this.user.backpack["sofa"] == 2);
+    this.user.removeFromBackpack("rug");
+    console.log("Backpack Remove item test passed:", this.user.backpack["rug"] == 0);
+    console.log("Backpack Remove 0-item test passed:", this.user.removeFromBackpack("rug") == false);
+    console.log("Backpack Remove nonexisting item test passed:", this.user.removeFromBackpack("bob") == false);
+
+    // Test putting item into screenItems list
+    this.user.putIntoScreenItems("light");
+    console.log("screenItem add existing item test passed:", this.user.screenItems["light"]==2);
+    this.user.putIntoScreenItems("icecream");
+    console.log("screenItem add nonexisting item test passed:", this.user.screenItems["icecream"]==1);
+
+    // Test remove item from screenItems list
+    this.user.removeFromScreenItems("light");
+    console.log("Backpack Remove item test passed:", this.user.screenItems["light"]== 1 );
+    this.user.removeFromScreenItems("icecream");
+    console.log("Backpack Remove item test passed:", this.user.screenItems["icecream"] == 0);
+    console.log("screenItem list remove 0-item test passed:", this.user.removeFromScreenItems("icecream")==false);
+    console.log("screenItem list remove 0-item test passed:", this.user.removeFromScreenItems("hello")==false);
+
+    //console.log(this.user.screenItems);
   }
 }
