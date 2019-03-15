@@ -2,7 +2,6 @@ import {CST} from "../CST";
 import { AlignGrid } from "../util/alignGrid";
 
 import { BuyItem } from "../components/BuyItem";
-import { Question } from "../components/Question";
 export class BuyPopup extends Phaser.Scene{
 
     constructor(){
