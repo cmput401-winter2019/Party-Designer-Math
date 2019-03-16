@@ -22,27 +22,27 @@ export class ImageToProperties {
         }  else if (iName == "wallShelf"){
             return {name:"wall shelf", pluralName: "wall shelves", category:"furniture", unit:"N/A",cost:"5"};
         }  else if (iName == "burger_mult"){
-            return {name:"burger set", pluralName: "burger sets", category:"food", unit:"set", cost:"5"};   // set, slice, bag, glass, box, bowl
+            return {name:"burger set", pluralName: "burger sets", category:"food", unit:"sets", cost:"5"};   // set, slice, bag, glass, box, bowl
         }  else if (iName == "cake"){
-            return {name:"cake", pluralName: "cakes", category:"food", unit:"slice", cost:"5"};
+            return {name:"cake", pluralName: "cakes", category:"food", unit:"slices", cost:"5"};
         } else if (iName == "pizza"){
-            return {name:"pizza", pluralName: "pizzas", category:"food", unit:"slice", cost:"5"};
+            return {name:"pizza", pluralName: "pizzas", category:"food", unit:"slices", cost:"5"};
         } else if (iName == "cherries"){
-            return {name:"cherry", pluralName: "cherries", category:"food", unit:"bag", cost:"5"};
+            return {name:"cherries", pluralName: "cherries", category:"food", unit:"bags", cost:"5"};
         } else if (iName == "chips"){
-            return {name:"chips", pluralName: "chips", category:"food", unit:"bag", cost:"5"};
+            return {name:"chips", pluralName: "chips", category:"food", unit:"bags", cost:"5"};
         } else if (iName == "spaceWater"){
-            return {name:"space water", pluralName: "space water", category:"food", unit:"glass", cost:"5"};
+            return {name:"space water", pluralName: "space water", category:"food", unit:"glasses", cost:"5"};
         } else if (iName == "juice"){
-            return {name:"juice", pluralName: "glasses of juice", category:"food", unit:"glass", cost:"5"};
+            return {name:"juice", pluralName: "glasses of juice", category:"food", unit:"glasses", cost:"5"};
         } else if (iName == "milkshake"){
-            return {name:"milkshake", pluralName: "milkshakes", category:"food", unit:"glass", cost:"5"};
+            return {name:"milkshake", pluralName: "milkshakes", category:"food", unit:"glasses", cost:"5"};
         } else if (iName == "ketchup"){
-            return {name:"ketchup", pluralName: "bottles of ketchup", category:"food", unit:"box", cost:"5"};
+            return {name:"ketchup", pluralName: "bottles of ketchup", category:"food", unit:"boxes", cost:"5"};
         } else if (iName == "burger"){
-            return {name:"burger", pluralName: "burgers", category:"food", unit:"box",cost:"5"};
+            return {name:"burger", pluralName: "burgers", category:"food", unit:"boxes",cost:"5"};
         } else if (iName == "saladBowl"){
-            return {name:"salad", pluralName: "salads", category:"food", unit:"bowl", cost:"5"};            // ------------
+            return {name:"salad", pluralName: "salads", category:"food", unit:"bowls", cost:"5"};            // ------------
         } else if (iName == "ballons"){
             return {name:"balloons", pluralName: "balloons", category:"deco", unit:"set", cost:"5"};          // set, pot
         } else if (iName == "light"){
