@@ -23,10 +23,85 @@ export class PartyInterface extends Phaser.Scene {
   }
 
   create() {
+    var furniture_assets  = [ "chair",
+                              "dinnerTable",
+                              "sofa",
+                              "musicPlayer",
+                              "rug",
+                              "screen",
+                              "shelf",
+                              "sofa",
+                              "table",
+                              "wallShelf"];
 
+    var food_assets       = [ "burger",
+                              "burger_mult",
+                              "cake",
+                              "cherries",
+                              "chips",
+                              "juice",
+                              "ketchup",
+                              "milkshake",
+                              "pizza",
+                              "saladBowl",
+                              "spaceWater"];
+
+    var deco_assets       = [ "ballons",
+                              "light",
+                              "bunting",
+                              "partyHat",
+                              "hangingDeco",
+                              "plantPot",
+                              "sculpture",
+                              "spacePlants",
+                              "starBanner",
+                              "wallHanging"];
+
+    var kiddie_assets     = [ "alienShip",
+                              "ball",
+                              "earthBall",
+                              "gift",
+                              "icecream",
+                              "rocket",
+                              "rocket_2",
+                              "spaceTeddy",
+                              "sticker",
+                              "telescope"];
+
+    var spaceGuestImages = [ "char1",
+                             "char2",
+                             "char3",
+                             "char4",
+                             "char5",
+                             "char6",
+                             "char1",
+                             "char2",
+                             "char3",]
+
+    // Initiate ImageToProperties class
+    this.imageToProp = new ImageToProperties();
+
+    // Initiate User class
+    this.player = new User("John", 12, {"chair":2, "sofa":3}, 100, {"light":1});
+
+    this.createBackground("background");
+    this.createGuests(spaceGuestImages);
+    this.createDragLogics();
+    this.createTopMenuButtons();
+    this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
+    this.createShoppingList(furniture_assets,food_assets,deco_assets,kiddie_assets);
+
+  
+
+
+    // --------------------- Tests ------------------------
+    //this.testImageToProp();
+    //this.testUser();
+  }
+  createBackground(background){
     this.topMenuHeight = 75;
     // Background
-    this.background = this.add.image(0, this.topMenuHeight, "background");
+    this.background = this.add.image(0, this.topMenuHeight, background);
     this.background.setOrigin(0,0);
     this.background.displayWidth  = this.game.config.width;
     this.background.scaleY        = this.background.scaleX;
@@ -36,17 +111,58 @@ export class PartyInterface extends Phaser.Scene {
         this.background.displayWidth = this.game.config.width;
     }
 
-    // Initiate ImageToProperties class
-    this.imageToProp = new ImageToProperties();
-
+  }
+  createGuests(guestImageNames){
     // Guests
-    this.guest1 = this.add.existing(new Guest(this, "char1", 100,200, "Sammy"));
-    this.guest2 = this.add.existing(new Guest(this, "char2", 200,200, "Tom"));
-    this.guest3 = this.add.existing(new Guest(this, "char3", 300,200, "Kevin"));
-    this.guest4 = this.add.existing(new Guest(this, "char4", 400,200, "Sally"));
-    this.guest5 = this.add.existing(new Guest(this, "char5", 500,200, "Jason"));
-    this.guest6 = this.add.existing(new Guest(this, "char6", 600,200, "Brad"));
+    var originalY = this.game.config.height/3;
+    var originalX = 100;
+    var maxGuest = 0;
+    var minGuest = 0;
 
+
+    if (this.player.level<=3){
+      minGuest = 3;
+      maxGuest = 5;
+    } else if (this.player.level<=6){
+      minGuest = 5; 
+      maxGuest = 7;
+    } else {
+      minGuest = 7;
+      maxGuest = 9;
+    } 
+
+    var randomInt = Math.floor(Math.random() * (maxGuest - minGuest + 1)) + minGuest;
+    
+    for(var i = 0; i<randomInt; i++){
+      this.add.existing(new Guest(this, guestImageNames[i], originalX*(i+1) , originalY, "Sammy"));
+    }
+
+
+    //
+
+    // this.guest1 = this.add.existing(new Guest(this, "char1", 100,200, "Sammy"));
+    // this.guest2 = this.add.existing(new Guest(this, "char2", 200,200, "Tom"));
+    // this.guest3 = this.add.existing(new Guest(this, "char3", 300,200, "Kevin"));
+    // this.guest4 = this.add.existing(new Guest(this, "char4", 400,200, "Sally"));
+    // this.guest5 = this.add.existing(new Guest(this, "char5", 500,200, "Jason"));
+    // this.guest6 = this.add.existing(new Guest(this, "char6", 600,200, "Brad"));
+  }
+  createDragLogics(){
+    // Drag logic
+    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+      gameObject.wasDragging = true;
+      gameObject.x = dragX;
+      gameObject.y = dragY;
+    });
+
+    this.input.on("dragend", function(pointer, gameObject, dragX, dragY) {
+      if(gameObject.y < (76+(gameObject.displayHeight/2)) || gameObject.y > (this.scene.background.displayHeight+76)-(gameObject.displayHeight/2) || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
+        gameObject.x = gameObject.input.dragStartX;
+        gameObject.y = gameObject.input.dragStartY;
+      } 
+    });
+  }
+  createTopMenuButtons(){
     // Top menu
     this.exitBtn = new ButtonAtMenu({ scene   : this,
                                         key   : "exitBtn",
@@ -110,23 +226,11 @@ export class PartyInterface extends Phaser.Scene {
                                           event : "button_pressed",
                                           params: "self_desturct"
                                     });
-                                    
-
-    // Drag logic
-    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
-      gameObject.wasDragging = true;
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
-
-    this.input.on("dragend", function(pointer, gameObject, dragX, dragY) {
-      if(gameObject.y < (76+(gameObject.displayHeight/2)) || gameObject.y > (this.scene.background.displayHeight+76)-(gameObject.displayHeight/2) || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
-        gameObject.x = gameObject.input.dragStartX;
-        gameObject.y = gameObject.input.dragStartY;
-      } 
-    });
-
+  }
+  createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets){
     // Bottom menu
+
+    // --------------------- Initiation of variables ------------------------
     var startHeight1  = this.background.displayHeight + this.topMenuHeight;
     var menuHeight    = (this.game.config.height - startHeight1);
     var itemY = startHeight1 + (menuHeight/2);
@@ -137,89 +241,7 @@ export class PartyInterface extends Phaser.Scene {
     var startHeight4  = startHeight3 + btnHeight;
     var btnColor      = 0x0e4361;
 
-    var furniture_assets  = [ "chair",
-                              "dinnerTable",
-                              "sofa",
-                              "musicPlayer",
-                              "rug",
-                              "screen",
-                              "shelf",
-                              "sofa",
-                              "table",
-                              "wallShelf"];
-
-    var food_assets       = [ "burger",
-                              "burger_mult",
-                              "cake",
-                              "cherries",
-                              "chips",
-                              "juice",
-                              "ketchup",
-                              "milkshake",
-                              "pizza",
-                              "saladBowl",
-                              "spaceWater"];
-
-    var deco_assets       = [ "ballons",
-                              "light",
-                              "bunting",
-                              "partyHat",
-                              "hangingDeco",
-                              "plantPot",
-                              "sculpture",
-                              "spacePlants",
-                              "starBanner",
-                              "wallHanging"];
-
-    var kiddie_assets     = [ "alienShip",
-                              "ball",
-                              "earthBall",
-                              "gift",
-                              "icecream",
-                              "rocket",
-                              "rocket_2",
-                              "spaceTeddy",
-                              "sticker",
-                              "telescope"];
-
-    // all_assets = all assets to be shown in shopping list
-    this.all_assets = [];
-    var counter = 0;
-    while (counter<5){
-      var furniture = furniture_assets[Math.floor(Math.random() * furniture_assets.length)];
-      if (this.all_assets.includes(furniture) == false){
-        this.all_assets.push(furniture);
-        counter++;
-      }
-    }
-    var counter = 0;
-    while (counter<5){
-      var food = food_assets[Math.floor(Math.random() * food_assets.length)];
-      if (this.all_assets.includes(food) == false){
-        this.all_assets.push(food);
-        counter++;
-      }
-    }
-    var counter = 0;
-    while (counter<5){
-      var deco = deco_assets[Math.floor(Math.random() * deco_assets.length)];
-      if (this.all_assets.includes(deco) == false){
-        this.all_assets.push(deco);
-        counter++;
-      }
-    }
-    var counter = 0;
-    while (counter<5){
-      var kiddie = deco_assets[Math.floor(Math.random() * deco_assets.length)];
-      if (this.all_assets.includes(kiddie) == false){
-        this.all_assets.push(kiddie);
-        counter++;
-      }
-    }
-    // this.testImageToProp();
-    
     // --------------------- Bottom Buttons ------------------------
-
 
     this.bottomBtn1 = new ButtonAtBottom({  scene       : this,
                                             text        : "Furniture",
@@ -261,15 +283,51 @@ export class PartyInterface extends Phaser.Scene {
                                             itemY       : itemY
                                           });
 
-     // --------------------- Bottom Buttons ------------------------
+     // --------------------------------------------------------------
 
     // Furniture (first bottom menu button) is selected upon arriving at the room
     this.bottomBtn1.activateBtn();
-
-     // --------------------- Tests ------------------------
-    this.testUser();
-    
   }
+  createShoppingList(furniture_assets,food_assets,deco_assets,kiddie_assets){
+    // this.all_assets[] contains all assets to be shown in shopping list
+    this.all_assets = [];
+    var counter = 0;
+    while (counter<5){
+      var furniture = furniture_assets[Math.floor(Math.random() * furniture_assets.length)];
+      if (this.all_assets.includes(furniture) == false){
+        this.all_assets.push(furniture);
+        counter++;
+      }
+    }
+    var counter = 0;
+    while (counter<5){
+      var food = food_assets[Math.floor(Math.random() * food_assets.length)];
+      if (this.all_assets.includes(food) == false){
+        this.all_assets.push(food);
+        counter++;
+      }
+    }
+    var counter = 0;
+    while (counter<5){
+      var deco = deco_assets[Math.floor(Math.random() * deco_assets.length)];
+      if (this.all_assets.includes(deco) == false){
+        this.all_assets.push(deco);
+        counter++;
+      }
+    }
+    var counter = 0;
+    while (counter<5){
+      var kiddie = kiddie_assets[Math.floor(Math.random() * kiddie_assets.length)];
+      if (this.all_assets.includes(kiddie) == false){
+        this.all_assets.push(kiddie);
+        counter++;
+      }
+    }
+  }
+
+
+
+  // --------------------- Test Functions ------------------------
   testImageToProp(){
     var flag = true;
     for (var i = 0; i<this.all_assets.length; i++){
