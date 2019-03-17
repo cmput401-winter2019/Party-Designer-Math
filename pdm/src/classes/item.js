@@ -1,3 +1,5 @@
+import { CheckToBackpack } from "../components/checkToBackpack";
+
 export class Item extends Phaser.GameObjects.Sprite{
     constructor(scene, image, x, y, name, pluralName, category, cost, unit){
         super(scene);
@@ -10,6 +12,7 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         // Item properties
 		this.name = name;
+        this.imageName = image;
         this.type = "item";
         this.customize = false;
         this.angle = 0;
@@ -34,7 +37,7 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         this.hideButtons();
 
-        // ---- Set item buttons functions -----
+        // ---- Set item buttons functions ----- 
         this.rightBtn.setInteractive();
         this.rotateBtn.setInteractive();
         this.rotateBtn2.setInteractive();
@@ -63,6 +66,8 @@ export class Item extends Phaser.GameObjects.Sprite{
                 }
             }
         },this);
+
+        this.toScreen(this.imageName);
     }
     showButtons(){
         this.alpha = 0.6;
@@ -86,6 +91,11 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         this.customize = false;
     }
+    destroyButtons(){
+        for (var i=0; i< this.btnList.length; i++){
+            this.btnList[i].destroy();
+        }
+    }
     rotateGuest(){
         this.angle += 5;
         this.scene.tweens.add({targets: this,duration: 100,y:this.y, angle:this.angle});
@@ -108,7 +118,12 @@ export class Item extends Phaser.GameObjects.Sprite{
     bringBackward(){
 
     }
-    toBackpack(){
-
+    toScreen(imageName){
+        this.scene.player.putIntoScreenItems(imageName);
+        //console.log(this.scene.player);
     }
+    toBackpack(){
+        this.popup = new CheckToBackpack(this.scene, this);        
+    }
+
 }
