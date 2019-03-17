@@ -34,32 +34,32 @@ export class User{
     }
     putIntoBackpack(imageName){
         if (imageName in this._backpack){
-            console.log(imageName, "exists in backpack");
+            //console.log(imageName, "exists in backpack");
             this._backpack[imageName] += 1;
         } else {
-            console.log("Backpack does not have", imageName);
+            //console.log("Backpack does not have", imageName);
             this._backpack[imageName] = 1;
         }
     }
     removeFromBackpack(imageName){
         if (!(imageName in this._backpack)||(this._backpack[imageName] == 0)){
-            console.log(imageName, "does not exist in backpack");
+            //console.log(imageName, "does not exist in backpack");
             return false;
         } 
         this._backpack[imageName] -= 1;
     }
     putIntoScreenItems(imageName){
         if (imageName in this._screenItems){
-            console.log(imageName, "exists in screenItems list");
+            //console.log(imageName, "exists in screenItems list");
             this._screenItems[imageName] += 1;
         } else {
-            console.log("screenItems list does not have", imageName);
+            //console.log("screenItems list does not have", imageName);
             this._screenItems[imageName] = 1;
         }
     }
     removeFromScreenItems(imageName){
         if (!(imageName in this._screenItems)||(this._screenItems[imageName] == 0)){
-            console.log(imageName, "does not exist in screenItems list");
+            //console.log(imageName, "does not exist in screenItems list");
             return false;
         } 
         this._screenItems[imageName] -= 1;
