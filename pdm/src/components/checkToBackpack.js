@@ -61,7 +61,7 @@ export class CheckToBackpack extends Phaser.GameObjects.Container{
     itemtoBackpack(){
         //console.log("put item to backpack");
         this.scene.player.putItemFromScreenToBackpack(this.imageName);
-        console.log(this.scene.player);
+        //console.log(this.scene.player);
         this.obj.destroyButtons();
         this.obj.destroy();
         this.destroy();

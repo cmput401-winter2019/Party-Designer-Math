@@ -46,8 +46,6 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		this.scene.add.existing(this);
 		this.firstgeneration = true;
 		this.numbers = [];
-		//console.log(this.firstgeneration);
-
 
 		if (config.event)
 		{
@@ -55,12 +53,6 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 			this.on('pointerdown', this.pressed, this);
 		
 		}
-
-		// if(model.isMobile==-1)
-		// {
-		// 	this.back.on("pointerover", this.over, this);
-		// 	this.back.on("pointerout", this.out, this);
-		// }
     }
     over()
 	{
@@ -87,7 +79,8 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		}
 		else if (this.name == "bagBtn"){
 			console.log(this.name + ": go to bag");
-			this.scene.scene.launch(CST.SCENES.BAG_POPUP, {player:this.scene.player});
+			//this.config = {player:this.scene.player, originalS:this.scene}
+			this.scene.scene.launch(CST.SCENES.BAG_POPUP, {player:this.scene.player, originalS:this.scene});
 		}
 		else if (this.name == "listBtn"){
 			if (this.firstgeneration){					// Pass in 20 random numbers and random assests to shopping list scene
