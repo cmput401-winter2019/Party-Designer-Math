@@ -4,7 +4,8 @@ export const CST = {
         PARTY_LOAD: "PARTY_LOAD",
         PARTY_INTERFACE: "PARTY_INTERFACE",
         SHOPPING_LIST: "SHOPPING_LIST",
-        BUY_POPUP: "BUY_POPUP"
+        BUY_POPUP: "BUY_POPUP",
+        BAG_POPUP: "BAG_POPUP"
     },
 
     IMAGES: {
