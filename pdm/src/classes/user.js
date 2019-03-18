@@ -47,6 +47,10 @@ export class User{
             return false;
         } 
         this._backpack[imageName] -= 1;
+
+        if(this._backpack[imageName]==0){
+            delete this._backpack[imageName];
+        }
     }
     putIntoScreenItems(imageName){
         if (imageName in this._screenItems){
@@ -63,6 +67,9 @@ export class User{
             return false;
         } 
         this._screenItems[imageName] -= 1;
+        if(this._screenItems[imageName]==0){
+            delete this._screenItems[imageName];
+        }
     }
     putItemFromScreenToBackpack(imageName){
         //If item is sucessfully removed from screenItems list, put it to backpack

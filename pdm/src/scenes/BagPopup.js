@@ -15,6 +15,7 @@ export class BagPopup extends Phaser.Scene{
     {
         // this.objName = data.objName;
         this.player = data.player;
+        this.originalS = data.originalS;
     }
     preload()
     {
@@ -92,5 +93,4 @@ export class BagPopup extends Phaser.Scene{
             this.scene.sleep(CST.SCENES.BAG_POPUP);
         }, this);
     }
-
 }

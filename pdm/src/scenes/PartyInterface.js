@@ -82,21 +82,31 @@ export class PartyInterface extends Phaser.Scene {
     this.imageToProp = new ImageToProperties();
 
     // Initiate User class
-    this.player = new User("John", 3, {"chair":1, "sofa":2}, 100, {});         //userName, currentLevel, backpack, credits, itemsOnScreen
-
+    this.player = new User("John", 3, {"chair":1, "sofa":2}, 100, {"chair":2, "cherries":3});         //userName, currentLevel, backpack, credits, itemsOnScreen
     this.createBackground("background");
     this.createGuests(spaceGuestImages);
+    this.loadItemsToScreen(this.player.screenItems, "load"); // true to indicate we are loading
     this.createDragLogics();
     this.createTopMenuButtons();
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
     this.createShoppingList(furniture_assets,food_assets,deco_assets,kiddie_assets);
-
   
 
 
     // --------------------- Tests ------------------------
     //this.testImageToProp();
     //this.testUser();
+  }
+  loadItemsToScreen(itemDictionary, purpose){
+    var property;
+    for (var key in itemDictionary){
+      var cap = itemDictionary[key]
+      for (var i = 0; i < cap; i++){
+        property = this.imageToProp.getProp(key);
+        this.add.existing(new Item(this, key, 100, 200, property.name, property.pluralName, property.category, property.cost, property.unit, purpose));
+      }
+    }
+    console.log(this.player);
   }
   createBackground(background){
     this.topMenuHeight = 75;

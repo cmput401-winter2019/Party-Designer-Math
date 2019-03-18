@@ -1,7 +1,7 @@
 import { CheckToBackpack } from "../components/checkToBackpack";
 
 export class Item extends Phaser.GameObjects.Sprite{
-    constructor(scene, image, x, y, name, pluralName, category, cost, unit){
+    constructor(scene, image, x, y, name, pluralName, category, cost, unit, purpose){
         super(scene);
 		this.scene = scene;
 		this.scene.add.existing(this);
@@ -20,6 +20,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.category = category;
         this.cost = cost;
         this.unit = unit;
+        this.purpose = purpose;
 
         this.displayWidth = this.scene.game.config.width*0.07;
         this.scaleY = this.scaleX;
@@ -67,7 +68,15 @@ export class Item extends Phaser.GameObjects.Sprite{
             }
         },this);
 
-        this.toScreen(this.imageName);
+        if(this.purpose == "load"){
+
+        } else if (this.purpose == "show") {
+            this.toScreen(this.imageName); 
+        } else if (this.purpose == "moveFromBackpack") {
+            this.moveFromBackpack(this.imageName); 
+        }
+        
+        
     }
     showButtons(){
         this.alpha = 0.6;
@@ -121,6 +130,9 @@ export class Item extends Phaser.GameObjects.Sprite{
     toScreen(imageName){
         this.scene.player.putIntoScreenItems(imageName);
         //console.log(this.scene.player);
+    }
+    moveFromBackpack(imageName){
+        this.scene.player.putItemFromBackpackToScreen(imageName);
     }
     toBackpack(){
         this.popup = new CheckToBackpack(this.scene, this);        
