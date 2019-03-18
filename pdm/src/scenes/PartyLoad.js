@@ -20,7 +20,9 @@ export class PartyLoad extends Phaser.Scene {
         this.load.image("bagBtn",     "assets/images/Interface/Bag.svg");
         this.load.image("listBtn",    "assets/images/Interface/List.svg");
         this.load.image("creditBtn",  "assets/images/interface/Credit.svg");
-        this.load.image("cross",      "assets/images/interface/Cross.svg")
+        this.load.image("cross",      "assets/images/interface/Cross.svg");
+        this.load.image("forwardBtn", "assets/images/interface/Forward.svg");
+        this.load.image("backwardBtn","assets/images/interface/Backward.svg");
 
         // Guests
         this.load.image("char1",      "assets/images/Characters/character_1.svg");
