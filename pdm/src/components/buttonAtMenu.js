@@ -84,10 +84,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		}
 		else if (this.name == "listBtn"){
 			if (this.firstgeneration){					// Pass in 20 random numbers and random assests to shopping list scene
-				for(var number =0; number < 20; number ++){
-					this.numbers[number] = Phaser.Math.Between(2,9);
-				}
-				this.config = {n:this.numbers, assets:this.scene.all_assets}
+				this.config = {n:this.scene.player.numbersInShopList, assets:this.scene.player.itemsInShopList}
 				this.scene.scene.launch(CST.SCENES.SHOPPING_LIST,this.config);
 				this.firstgeneration = false;
 			}
