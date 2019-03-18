@@ -62,7 +62,7 @@ class QuestionGenerator():
             "does your school have left?").format(str(randInt), self.itemPlurName, str(lostInt), self.itemPlurName)
 
             answer = randInt - lostInt
-        return {"q": q, "ans": answer}
+        return {"q": q, "ans": answer, "type": "subtraction"}
 
     def randDecorQ(self):
         randQNum = randint(1, 3)
@@ -92,7 +92,7 @@ class QuestionGenerator():
             
             answer = randInt1 + self.itemCost
 
-        return {"q": q, "ans": answer}
+        return {"q": q, "ans": answer, "type": "addition"}
     
     def randFoodQ(self):
         randQNum = randint(1, 3)
@@ -128,7 +128,7 @@ class QuestionGenerator():
 
            answer = randInt1%numOfPeople
 
-        return {"q": q, "ans": answer}
+        return {"q": q, "ans": answer, "type": "division"}
 
     def randKiddieQ(self):
         randQNum = randint(1, 3)
@@ -158,7 +158,7 @@ class QuestionGenerator():
             
             answer = randInt1*randInt2
 
-        return {"q": q, "ans": answer}
+        return {"q": q, "ans": answer, "type": "multiplication"}
 
     def randMixedQ(self):
         randQNum = randint(1, 3)
@@ -197,7 +197,7 @@ class QuestionGenerator():
 
             answer = int((randInt1/self.guestsNum)*(self.guestsNum-1))
         
-        return {"q": q, "ans": answer}
+        return {"q": q, "ans": answer, "type": "mixed"}
 
 # def main():
 #     #qGen = QuestionGenerator("furniture", "N/A", "chair", "chairs", "15","4", 7)

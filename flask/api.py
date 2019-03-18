@@ -154,17 +154,26 @@ def get_canvasitems(id):
 @app.route("/<id>/question", methods=["POST"])
 def add_question(id):
     try:
+        itemType = request.json['itemType']
+        itemUnit = request.json['itemUnit']
+        itemName = request.json['itemName']
+        itemPluralName = request.json['itemPluralName']
+        itemCost = request.json['itemCost']
+        numberOfGuests = request.json["numberOfGuests"]
+        level = request.json['level']
+
+        questionGenerator = QuestionGenerator(itemType, itemUnit, itemName, itemPluralName, itemCost, numberOfGuests, level)
+        questionData = questionGenerator.generate()
+
+        question = questionData['q']
+        answer = questionData['ans']
+        arithmeticType = questionData['type']
         gameStateId = id
         
-        newQuestion = Question(gameStateId)
+        newQuestion = Question(question, answer, arithmeticType, gameStateId)
 
         db.session.add(newQuestion)
         db.session.commit()
-
-        # TODO: generate the question here using 
-        itemName = None
-        itemAmount = None
-        questionGenerator = QuestionGenerator(itemName, itemAmount)
 
         return jsonify(success=True), 201
     except Exception as e:
