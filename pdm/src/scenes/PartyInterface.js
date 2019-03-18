@@ -82,7 +82,7 @@ export class PartyInterface extends Phaser.Scene {
     this.imageToProp = new ImageToProperties();
 
     // Initiate User class
-    this.player = new User("John", 3, {}, 100, {});         //userName, currentLevel, backpack, credits, itemsOnScreen
+    this.player = new User("John", 3, {"chair":1, "sofa":2}, 100, {});         //userName, currentLevel, backpack, credits, itemsOnScreen
 
     this.createBackground("background");
     this.createGuests(spaceGuestImages);
