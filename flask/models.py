@@ -53,10 +53,13 @@ class CanvasItem(db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(20), unique=True)
-    answer = db.Column(db.Numeric)
+    answer = db.Column(db.Float)
     arithmeticType = db.Column(db.String(20))
     correct = db.Column(db.Boolean)
     gameStateId = db.Column(db.Integer, db.ForeignKey('game_state.id'), nullable=False)
 
-    def __init__(self, gameStateId):
+    def __init__(self, question, answer, arithmeticType, gameStateId):
+        self.question = question
+        self.answer = answer
+        self.arithmeticType = arithmeticType
         self.gameStateId = gameStateId
