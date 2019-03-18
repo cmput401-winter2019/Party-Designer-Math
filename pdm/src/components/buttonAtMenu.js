@@ -1,5 +1,4 @@
 import {CST} from "../CST";
-import { ShoppingInterface } from "../scenes/ShoppingInterface";
 
 export class ButtonAtMenu extends Phaser.GameObjects.Container{ 
 	constructor(config)
@@ -26,6 +25,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
         // If there is text, add text
         if(config.text)
 		{
+			this.text = config.text;
 			this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'};
 			
 			this.text1=this.scene.add.text(0,30,config.text, this.textConfig);
@@ -107,9 +107,5 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		else if (this.name == "creditBtn"){
 			console.log(this.name + ": shows credits (?)");
 		}
-
 	}
-
-
-
 }

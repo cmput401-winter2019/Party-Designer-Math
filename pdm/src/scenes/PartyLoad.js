@@ -11,6 +11,9 @@ export class PartyLoad extends Phaser.Scene {
     	this.progText.setOrigin(0.5,0.5);
 
         this.load.on('progress', this.onProgress, this);
+        // Place holder
+        this.load.image("blueBtn", "assets/blueBtn.png");
+
          // Interface
         this.load.image("background", "assets/images/Interface/background.png");
         this.load.image("exitBtn",    "assets/images/Interface/ExitGame.svg");
