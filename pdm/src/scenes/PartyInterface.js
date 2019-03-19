@@ -81,22 +81,46 @@ export class PartyInterface extends Phaser.Scene {
     // Initiate ImageToProperties class
     this.imageToProp = new ImageToProperties();
 
-    // Initiate User class
-    this.player = new User("John", 3, {}, 100, {});         //userName, currentLevel, backpack, credits, itemsOnScreen
+    // --------- Should only be created if player is new to current level/session -------
+    // Generate new random numbers 
+    this.numbers = []
+    for(var number =0; number < 20; number ++){
+				this.numbers[number] = Phaser.Math.Between(2,9);
+		}
+    // Create new shopping list
+    this.createShoppingList(furniture_assets,food_assets,deco_assets,kiddie_assets);
+    console.log(this.numbers);
+    console.log(this.all_assets);
 
+    // -----------------------------------------------------------------------------------
+    
+
+    // Initiate User class
+    this.player = new User("John", 3, {"chair":1, "sofa":2}, 100, {"chair":2, "cherries":3}, this.numbers, this.all_assets);         //userName, currentLevel, backpack, credits, itemsOnScreen
     this.createBackground("background");
     this.createGuests(spaceGuestImages);
+    this.loadItemsToScreen(this.player.screenItems, "load"); // true to indicate we are loading
     this.createDragLogics();
     this.createTopMenuButtons();
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
-    this.createShoppingList(furniture_assets,food_assets,deco_assets,kiddie_assets);
-
+    
   
 
 
     // --------------------- Tests ------------------------
     //this.testImageToProp();
     //this.testUser();
+  }
+  loadItemsToScreen(itemDictionary, purpose){
+    var property;
+    for (var key in itemDictionary){
+      var cap = itemDictionary[key]
+      for (var i = 0; i < cap; i++){
+        property = this.imageToProp.getProp(key);
+        this.add.existing(new Item(this, key, 100, 200, property.name, property.pluralName, property.category, property.cost, property.unit, purpose));
+      }
+    }
+    console.log(this.player);
   }
   createBackground(background){
     this.topMenuHeight = 75;

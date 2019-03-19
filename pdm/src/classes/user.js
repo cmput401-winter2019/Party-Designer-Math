@@ -1,12 +1,14 @@
 export class User{
-    constructor(userName, currentLevel, backpack, credits, itemsOnScreen) {
+    constructor(userName, currentLevel, backpack, credits, itemsOnScreen, randomNumbers, itemList) {
 
         // Underscores signifies local variables
-        this._uName     = userName;
-        this._level     = currentLevel;
-        this._backpack  = backpack;
-        this._credits   = credits;
-        this._screenItems = itemsOnScreen;
+        this._uName             = userName;
+        this._level             = currentLevel;
+        this._backpack          = backpack;
+        this._credits           = credits;
+        this._screenItems       = itemsOnScreen;
+        this._numbersInShopList = randomNumbers;
+        this._itemsInShopList   = itemList;
     }
     get level(){
         return this._level;
@@ -20,6 +22,13 @@ export class User{
     get screenItems(){
         return this._screenItems;
     }
+    get itemsInShopList(){
+        return this._itemsInShopList;
+    }
+    get numbersInShopList(){
+        return this._numbersInShopList;
+    }
+
     increaseLevel(){
         this._level +=1;
     }
@@ -47,6 +56,10 @@ export class User{
             return false;
         } 
         this._backpack[imageName] -= 1;
+
+        if(this._backpack[imageName]==0){
+            delete this._backpack[imageName];
+        }
     }
     putIntoScreenItems(imageName){
         if (imageName in this._screenItems){
@@ -63,6 +76,9 @@ export class User{
             return false;
         } 
         this._screenItems[imageName] -= 1;
+        if(this._screenItems[imageName]==0){
+            delete this._screenItems[imageName];
+        }
     }
     putItemFromScreenToBackpack(imageName){
         //If item is sucessfully removed from screenItems list, put it to backpack
