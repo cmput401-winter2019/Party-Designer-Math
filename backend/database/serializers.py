@@ -4,4 +4,4 @@ ma = Marshmallow()
 
 class StudentSerializer(ma.Schema):
     class Meta:
-        fields = ('id', 'username', 'password', 'classCode')
+        fields = ('id', 'username', 'classCode')

@@ -1,5 +1,7 @@
+import {CST} from "../CST";
+
 export class BootScene extends Phaser.Scene{
-  constructor(){ super("Boot"); }
+  constructor(){ super({key: CST.SCENES.BOOT}); }
 
   preload(){
     this.load.image("zenva_logo", "assets/example/zenva_logo.png");
@@ -7,6 +9,6 @@ export class BootScene extends Phaser.Scene{
 
   create(){
 
-    this.scene.start("Preloader");
+    this.scene.start(CST.SCENES.PRELOADER);
   }
 };

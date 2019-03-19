@@ -1,6 +1,8 @@
+import {CST} from "../CST";
+
 export class LoginScene extends Phaser.Scene{
   constructor(){
-    super("Login");
+    super({key: CST.SCENES.LOGIN});
   }
 
   create(){
@@ -21,10 +23,10 @@ export class LoginScene extends Phaser.Scene{
              }
           }
         })
-        
+
         if(exists==true){
           alert("login success")
-          this.scene.start("Boot")
+          this.scene.start(CST.SCENES.BOOT)
         }
     })
 

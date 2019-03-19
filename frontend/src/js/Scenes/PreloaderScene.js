@@ -1,5 +1,7 @@
+import {CST} from "../CST";
+
 export class PreloaderScene extends Phaser.Scene{
-  constructor(){ super("Preloader"); }
+  constructor(){ super({key: CST.SCENES.PRELOADER}); }
 
   init(){ this.readyCount = 0; }
 
@@ -67,7 +69,7 @@ export class PreloaderScene extends Phaser.Scene{
 
   ready(){
     this.readyCount++;
-    if(this.readyCount == 2){ this.scene.start("Game"); }
+    if(this.readyCount == 2){ this.scene.start(CST.SCENES.GAME); }
   }
 
   load_assets(){
