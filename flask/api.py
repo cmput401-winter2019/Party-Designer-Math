@@ -187,6 +187,21 @@ def get_question(id):
     result = questionsSerializer.dump(questions)
     return jsonify(result.data)
 
+# endpoint to update question for game state
+@app.route("/<id>/question", methods=["PUT"])
+def update_question(id):
+    try:
+        correct = request.json['correct']
+        question = Question.query.filter(Question.gameStateId == id).first()
+        question.correct = correct
+        print(question.correct)
+        db.session.commit()
+
+        return jsonify(success=True), 201
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 2:
