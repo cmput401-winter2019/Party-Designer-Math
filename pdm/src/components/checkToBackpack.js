@@ -25,7 +25,7 @@ export class CheckToBackpack extends Phaser.GameObjects.Container{
          " into your backpack?", this.textConfig);
         this.askText.setOrigin(0.5,0.5);
 
-        //Create a rectangle background where the buy button text will be displayed on and add the text
+        //Confirm and cancel buttons
         this.confirmButton = this.scene.add.rectangle(0+45, 0+25, 35, 15, 0x02C2FF);
         this.confirmButton.setStrokeStyle(1.5, 0xB2B3B4);
         this.confirmButtonText = this.scene.add.text(0+33, 0+17, "Yes", {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'});
@@ -33,7 +33,7 @@ export class CheckToBackpack extends Phaser.GameObjects.Container{
 
         this.cancelButton = this.scene.add.rectangle(0-45, 0+25, 35, 15, 0xffffff);
         this.cancelButton.setStrokeStyle(1.5, 0xB2B3B4);
-        this.cancelButtonText = this.scene.add.text(0-55, 0+17, "NO", {fontFamily:'Muli', color:'#B2B3B4', fontSize:'12px'});
+        this.cancelButtonText = this.scene.add.text(0-55, 0+17, "No", {fontFamily:'Muli', color:'#B2B3B4', fontSize:'12px'});
         this.cancelButton.setInteractive();
 
         //Add all objects to container
@@ -61,7 +61,7 @@ export class CheckToBackpack extends Phaser.GameObjects.Container{
     itemtoBackpack(){
         //console.log("put item to backpack");
         this.scene.player.putItemFromScreenToBackpack(this.imageName);
-        console.log(this.scene.player);
+        //console.log(this.scene.player);
         this.obj.destroyButtons();
         this.obj.destroy();
         this.destroy();

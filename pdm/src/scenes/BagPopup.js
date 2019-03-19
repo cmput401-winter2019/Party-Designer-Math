@@ -1,6 +1,8 @@
 import {CST} from "../CST";
 import { AlignGrid } from "../util/alignGrid";
 import { ImageToProperties } from "../classes/imageToProperties";
+import { Button } from "../components/button";
+
 
 export class BagPopup extends Phaser.Scene{
 
@@ -13,11 +15,15 @@ export class BagPopup extends Phaser.Scene{
     {
         // this.objName = data.objName;
         this.player = data.player;
+        this.originalS = data.originalS;
     }
     preload()
     {
     }
     create(){
+        this.popupOpen=false;
+        this.popup;
+    
         // Drag logic
         this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
         gameObject.x = dragX;
@@ -39,10 +45,6 @@ export class BagPopup extends Phaser.Scene{
         this.rect.setStrokeStyle(2, 0x000000);
         this.alignGrid.placeAtIndex(220, this.rect);
 
-        for (var key in this.player.backpack){
-            console.log(key, this.player.backpack[key]);
-        }
-
         // Configs
         var centerXY = this.alignGrid.getPosByIndex(220);
         var fontConfig = { font: '16px Muli', fill: '0xFFFFF' };
@@ -50,11 +52,29 @@ export class BagPopup extends Phaser.Scene{
         // Initiate ImageToProperties class
         this.imageToProp = new ImageToProperties();
         // List item (key-value pairs) in player's backpack
+        var keys = [];
+        this.btnList = {};
         var i = 0;
         for(var key in this.player.backpack){
-            var text = this.add.text(this.game.config.width*0.1, (centerXY.y-150)+(i*30), this.imageToProp.getProp(key).name, fontConfig);
-            var text2 = this.add.text(this.game.config.width*0.1+150, (centerXY.y-150)+(i*30), this.player.backpack[key], fontConfig);
-            var asset = this.add.image(this.game.config.width*0.35, (centerXY.y-150)+(i*30), key);
+            keys.push(key);
+            i++;
+        }
+        for(var i=0; i<keys.length; i++){
+            var currentY = (centerXY.y-150)+(i*40)
+            var text = this.add.text(this.game.config.width*0.1, currentY, this.imageToProp.getProp(keys[i]).name, fontConfig);
+            var text2 = this.add.text(this.game.config.width*0.1+150, currentY, this.player.backpack[keys[i]], fontConfig);
+            var asset = this.add.image(this.game.config.width*0.35, currentY, keys[i]);
+            
+            let btn = new Button({  scene   : this,
+                                    key   : "blueBtn",
+                                    text  : "Move to Room",
+                                    x     : this.game.config.width*0.45,
+                                    y     : currentY,
+                                    event : "button_pressed",
+                                    params: keys[i],
+                                    params2: this.player.backpack[keys[i]]
+                                });
+
             text.setOrigin(0,0.5);
             text2.setOrigin(0,0.5);
             asset.displayWidth = 30;
@@ -63,7 +83,6 @@ export class BagPopup extends Phaser.Scene{
                 asset.displayHeight = 30;
                 asset.scaleX = asset.scaleY;
             }
-            i++;
         }
 
         this.add.text(this.game.config.width*0.1, centerXY.y-250, 'Backpack', { font: '20px Muli', fill: '0xFFFFF' });
@@ -74,5 +93,4 @@ export class BagPopup extends Phaser.Scene{
             this.scene.sleep(CST.SCENES.BAG_POPUP);
         }, this);
     }
-
 }
