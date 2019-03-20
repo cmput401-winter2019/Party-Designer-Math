@@ -1,14 +1,20 @@
-function login() {
+window.onload = function login() {
+    console.log("TEST");
     const studentNameInput = document.getElementById("studentname").value;
     const classCodeInput = document.getElementById("classcode").value;
 
     const body = {
         name: studentNameInput,
         classCode: classCodeInput
-    }
+    };
     let url = window.location.href.split("/");
     url = url[0] + "//" + url[2];
-    window.location = url + "index.html";
+    const Login = document.getElementById("Login");
+    Login.addEventListener('click', (e) => {
+        console.log("here2");
+        window.location = url + "/play.html";
+    });
+    //window.location = url + "/play.html";
 
     // const headers = {
         
