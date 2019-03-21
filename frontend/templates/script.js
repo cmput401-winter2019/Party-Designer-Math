@@ -1,47 +1,43 @@
 window.onload = function login() {
     console.log("TEST");
-    const studentNameInput = document.getElementById("studentname").value;
-    const classCodeInput = document.getElementById("classcode").value;
 
-    const body = {
-        name: studentNameInput,
-        classCode: classCodeInput
-    };
     let url = window.location.href.split("/");
     url = url[0] + "//" + url[2];
     const Login = document.getElementById("Login");
     Login.addEventListener('click', (e) => {
-        console.log("here2");
-        window.location = url + "/play.html";
+        const studentNameInput = document.getElementById("studentname").value;
+        const classCodeInput = document.getElementById("classcode").value;
+        console.log(studentNameInput, classCodeInput);
+        post_request(studentNameInput, classCodeInput);
     });
     //window.location = url + "/play.html";
 
-    // const headers = {
-        
-    // }
-
-    // return fetch(url + "/posts/api/posts", {
-    //     method: "POST",
-    //     mode: "cors",
-    //     cache: "no-cache",
-    //     credentials: "same-origin",
-    //     body: body,
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "x-csrftoken": csrf_token
-    //     }
-    //   })
-    //   .then (response => {
-    //     if (response.status == 200) {
-    //       alert("Success")
-    //       let url = window.location.href.split("/");
-    //       url = url[0] + "//" + url[2];
-    //       window.location = url;
-    //     }
-    //     else {
-    //       alert("Error: " + response.status);
-    //     }
-    //   });
-
-
+function post_request(studentNameInput, classCodeInput) {
+    const body = {
+        name: studentNameInput,
+        classCode: classCodeInput
+    };
+    return fetch("http://127.0.0.1:5001/login", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      .then(
+        function(response) {
+          // Examine the text in the response
+          response.json().then(function(data) {
+            if (response.status !== 200) {
+                alert(response.status + " Error"+ " : " + data["message"]);
+                return;
+            }
+            console.log(data);
+          });
+        }
+      )
+    }
 }
