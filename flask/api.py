@@ -8,19 +8,23 @@ from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlite3 import Connection as SQLite3Connection
 from questiongen import QuestionGenerator
+from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
+from datetime import datetime
 
 # create app
 app = Flask(__name__)
 
-# set path and initialize db and serializer
+# set path and initialize db, serializer, and JWT
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'crud.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY'] = 'not-so-secret'
 db.init_app(app)
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
+jwt = JWTManager(app)
 
 # turn on foreign key constraints
 @event.listens_for(Engine, "connect")
@@ -51,6 +55,42 @@ canvasItemsSerializer = BagItemSerializer(many=True)
 questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
+# endpoint to login student and issue access token
+@app.route("/login", methods=["POST"])
+def login_student():
+    try:
+        name = request.json['name']
+        classCode = request.json['classCode']
+        
+        student = Student.query.filter(Student.name == name).first()
+        
+        if (not student):
+            return jsonify(message="User does not exist"), 403
+        
+
+        if (student.classCode == classCode):
+            access_token = create_access_token(identity = name)
+            refresh_token = create_refresh_token(identity = name, expires_delta=datetime.timedelta(days=1))
+            return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
+        else:
+            return jsonify(message="Incorrect password"), 403
+        
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
+# endpoint refresh token
+@app.route("/student", methods=["POST"])
+@jwt_refresh_token_required
+def refresh():
+    try:
+        name = get_jwt_identity()
+        access_token = create_access_token(identity = name)
+        return jsonify(access_token=access_token), 200
+    except Exception as e:
+        print(e)
+        return jsonify(message="Invalid refresh token"), 403
+
 # endpoint to create new student
 @app.route("/student", methods=["POST"])
 def add_student():
@@ -70,6 +110,7 @@ def add_student():
 
 # endpoint to show all students
 @app.route("/student", methods=["GET"])
+@jwt_required
 def get_student():
     allStudents = Student.query.all()
     result = studentsSerializer.dump(allStudents)

@@ -3,10 +3,10 @@ import { BootScene }      from './Scenes/BootScene';
 import { PreloaderScene } from './Scenes/PreloaderScene';
 import { LoginScene }     from './Scenes/LoginScene';
 import { GameScene }      from './Scenes/GameScene';
-import { PartyInvitation } from "./scenes/PartyInvitation";
-import { ShoppingInterface } from "./scenes/ShoppingInterface";
-import { BuyPopup } from "./scenes/BuyPopup";
-import { BagPopup } from "./scenes/BagPopup";
+import { PartyInvitation } from "./Scenes/PartyInvitation";
+import { ShoppingInterface } from "./Scenes/ShoppingInterface";
+import { BuyPopup } from "./Scenes/BuyPopup";
+import { BagPopup } from "./Scenes/BagPopup";
 
 
 class Game extends Phaser.Game{

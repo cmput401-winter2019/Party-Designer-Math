@@ -5,7 +5,7 @@ import { ImageToProperties }                                                    
 import { User }                                                                         from "../classes/user";
 import { Guest }                                                                        from "../classes/guests";
 import { Item }                                                                         from "../classes/item";
-import { ButtonAtMenu }                                                                 from "../Components/buttonAtmenu";
+import { ButtonAtMenu }                                                                 from "../Components/buttonAtMenu";
 import { ButtonAtBottom }                                                               from "../Components/buttonAtBottom";
 import {CST} from "../CST";
 
