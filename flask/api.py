@@ -9,7 +9,7 @@ from sqlalchemy.engine import Engine
 from sqlite3 import Connection as SQLite3Connection
 from questiongen import QuestionGenerator
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
-from datetime import datetime
+from datetime import timedelta
 
 # create app
 app = Flask(__name__)
@@ -55,29 +55,34 @@ canvasItemsSerializer = BagItemSerializer(many=True)
 questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:1234')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE')
+  return response
+
 # endpoint to login student and issue access token
 @app.route("/login", methods=["POST"])
 def login_student():
     try:
         name = request.json['name']
         classCode = request.json['classCode']
-        
         student = Student.query.filter(Student.name == name).first()
         
         if (not student):
             return jsonify(message="User does not exist"), 403
-        
 
         if (student.classCode == classCode):
             access_token = create_access_token(identity = name)
-            refresh_token = create_refresh_token(identity = name, expires_delta=datetime.timedelta(days=1))
+            refresh_token = create_refresh_token(identity = name, expires_delta=timedelta(days=1))
             return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
         else:
             return jsonify(message="Incorrect password"), 403
         
     except Exception as e:
         print(e)
-        return jsonify(success=False), 403
+        return jsonify(message="Something went wrong"), 403
 
 # endpoint refresh token
 @app.route("/student", methods=["POST"])
