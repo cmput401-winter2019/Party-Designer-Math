@@ -1,8 +1,4 @@
 window.onload = function login() {
-    console.log("TEST");
-
-    let url = window.location.href.split("/");
-    url = url[0] + "//" + url[2];
     const Login = document.getElementById("Login");
     Login.addEventListener('click', (e) => {
         const studentNameInput = document.getElementById("studentname").value;
@@ -10,7 +6,6 @@ window.onload = function login() {
         console.log(studentNameInput, classCodeInput);
         post_request(studentNameInput, classCodeInput);
     });
-    //window.location = url + "/play.html";
 
 function post_request(studentNameInput, classCodeInput) {
     const body = {
@@ -35,7 +30,12 @@ function post_request(studentNameInput, classCodeInput) {
                 alert(response.status + " Error"+ " : " + data["message"]);
                 return;
             }
-            console.log(data);
+            //console.log(data);
+            localStorage.setItem("access_token", data["access_token"]);
+            //console.log(localStorage.getItem("access_token"));
+            let url = window.location.href.split("/");
+            url = url[0] + "//" + url[2];
+            window.location = url + "/play.html";
           });
         }
       )
