@@ -10,6 +10,7 @@ from sqlite3 import Connection as SQLite3Connection
 from questiongen import QuestionGenerator
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
 from datetime import timedelta
+from flask_cors import CORS
 
 # create app
 app = Flask(__name__)
@@ -25,6 +26,8 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
 jwt = JWTManager(app)
+cors = CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:1234"}})
+
 
 # turn on foreign key constraints
 @event.listens_for(Engine, "connect")
@@ -55,13 +58,6 @@ canvasItemsSerializer = BagItemSerializer(many=True)
 questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:1234')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE')
-  return response
-
 # endpoint to login student and issue access token
 @app.route("/login", methods=["POST"])
 def login_student():
@@ -85,7 +81,7 @@ def login_student():
         return jsonify(message="Something went wrong"), 403
 
 # endpoint refresh token
-@app.route("/student", methods=["POST"])
+@app.route("/refresh", methods=["POST"])
 @jwt_refresh_token_required
 def refresh():
     try:
@@ -96,8 +92,15 @@ def refresh():
         print(e)
         return jsonify(message="Invalid refresh token"), 403
 
+# endpoint to show all students
+@app.route("/valid", methods=["GET"])
+@jwt_required
+def verify():
+    return jsonify()
+
 # endpoint to create new student
 @app.route("/student", methods=["POST"])
+@jwt_required
 def add_student():
     try:
         name = request.json['name']
