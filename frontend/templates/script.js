@@ -30,9 +30,7 @@ function post_request(studentNameInput, classCodeInput) {
                 alert(response.status + " Error"+ " : " + data["message"]);
                 return;
             }
-            //console.log(data);
             localStorage.setItem("access_token", data["access_token"]);
-            //console.log(localStorage.getItem("access_token"));
             let url = window.location.href.split("/");
             url = url[0] + "//" + url[2];
             window.location = url + "/play.html";
