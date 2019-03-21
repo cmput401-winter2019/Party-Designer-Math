@@ -8,7 +8,7 @@ export class BootScene extends Phaser.Scene{
   }
 
   create(){
-
+    console.log(localStorage.getItem("access_token"));
     this.scene.start(CST.SCENES.PRELOADER);
   }
 };

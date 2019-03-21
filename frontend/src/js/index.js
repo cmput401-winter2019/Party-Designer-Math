@@ -19,7 +19,7 @@ class Game extends Phaser.Game{
     this.scene.add("SHOPPINT_INTERFACE", ShoppingInterface);
     this.scene.add("BUY_POPUP", BuyPopup);
     this.scene.add("BAG_POPUP", BagPopup);
-    this.scene.start("PRELOADER");
+    this.scene.start("BOOT");
   }
 }
 
