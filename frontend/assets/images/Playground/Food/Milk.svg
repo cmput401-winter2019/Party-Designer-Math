@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="70px" viewBox="0 0 28 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Group 32milk</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0.3223 0.87647757 16.461 0.87647757 16.461 19.8764776 0.3223 19.8764776"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-684.000000, -923.000000)">
+            <g id="Group-32" transform="translate(684.141000, 923.194000)">
+                <g id="Group-13">
+                    <polygon id="Fill-332" fill="#8AE2E2" points="-2.84217094e-14 69.186 27.32 69.186 27.32 21.879 -2.84217094e-14 21.879"></polygon>
+                    <polygon id="Fill-334" fill="#8AE2E2" points="2.849 7.293 24.473 7.293 24.473 5.68434189e-14 2.849 5.68434189e-14"></polygon>
+                    <polygon id="Fill-335" fill="#FFF8DC" points="24.4725 7.2933 2.8485 7.2933 0.0005 21.8793 27.3205 21.8793"></polygon>
+                    <g id="Group-338" transform="translate(10.859000, 30.222000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-337"></g>
+                        <text id="Milk" mask="url(#mask-2)" transform="translate(10.500000, 12.084000) rotate(-14.000000) translate(-10.500000, -12.084000) " font-family="Quicksand-Bold, Quicksand" font-size="11.86" font-weight="bold" fill="#FFF8DC">
+                            <tspan x="-1" y="15.584">Milk</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

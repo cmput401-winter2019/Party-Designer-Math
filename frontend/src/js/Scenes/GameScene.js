@@ -31,8 +31,9 @@ export class GameScene extends Phaser.Scene{
                             {"chair":1, "sofa":2},
                             100,
                             {"chair":2, "cherries":3},
-                            this.number,
+                            this.numbers,
                             this.all_assets);
+    
 
     this.createBackground("background");
     this.createGuests(spaceGuestImages);

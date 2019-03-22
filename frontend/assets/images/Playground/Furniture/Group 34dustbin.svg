@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="67px" viewBox="0 0 44 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Group 34dustbin</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-58.000000, -1631.000000)">
+            <g id="Group-34" transform="translate(58.000000, 1631.000000)">
+                <path d="M41,13.6386034 C41,6.10676356 34.8131147,0 27.1824558,0 L16.8175442,0 C9.18688533,0 3,6.10676356 3,13.6386034 L3,23 L41,22.3898181 L41,13.6386034 Z" id="Fill-205" fill="#C5D5D4"></path>
+                <polygon id="Fill-206" fill="#C5D5D4" points="3 22.7320261 3 24 41 24 41 22"></polygon>
+                <polygon id="Fill-207" fill="#909091" points="3 67 41 67 41 62 3 62"></polygon>
+                <polygon id="Fill-208" fill="#A3B6B6" points="44 24 40.8576401 24 3.14235993 24 0 24 0 42 44 42"></polygon>
+                <polygon id="Fill-209" fill="#ED1C24" points="0 42 0 62 3.14235993 62 40.8576401 62 44 62 44 42"></polygon>
+                <path d="M40,55.2508883 C40,56.2163005 39.3283063,57 38.4991299,57 C37.6716937,57 37,56.2163005 37,55.2508883 L37,30.7491117 C37,29.7836995 37.6716937,29 38.4991299,29 C39.3283063,29 40,29.7836995 40,30.7491117 L40,55.2508883 Z" id="Fill-210" fill="#FFFFFF"></path>
+                <path d="M29.5351907,4.15836425 C28.9792414,4.05926515 28.4101274,4 27.8248109,4 L17.3488611,4 C12.2156964,4 8.03848101,8.00768415 8.03848101,12.9325208 L8,15 L32.9650643,15 C32.9650643,15 33.5918998,8.60519343 29.5351907,4.15836425" id="Fill-211" fill="#909091"></path>
+                <path d="M29.450222,4 C33.4801235,8.48223279 32.8574303,14.9279519 32.8574303,14.9279519 L8.05734009,14.9279519 L8,18 L36.9044332,18 L37,12.8440123 C37,8.44501959 33.7406688,4.77951875 29.450222,4" id="Fill-212" fill="#7C7C7D"></path>
+            </g>
+        </g>
+    </g>
+</svg>
