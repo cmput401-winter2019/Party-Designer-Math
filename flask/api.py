@@ -126,6 +126,7 @@ def get_student():
 
 # endpoint to create game state for student
 @app.route("/<id>/gamestate", methods=["POST"])
+@jwt_required
 def add_gamestate(id):
     try:
         money = request.json['money']
@@ -144,6 +145,7 @@ def add_gamestate(id):
 
 # endpoint to show game state of student
 @app.route("/<id>/gamestate", methods=["GET"])
+@jwt_required
 def get_gamestate(id):
     gameState = GameState.query.filter(GameState.studentId == id).first()
     result = gameStateSerializer.dump(gameState)
@@ -151,6 +153,7 @@ def get_gamestate(id):
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])
+@jwt_required
 def add_bagitem(id):
     try:
         itemName = request.json['itemName']
@@ -169,6 +172,7 @@ def add_bagitem(id):
 
 # endpoint to show bag items of game state
 @app.route("/<id>/bagitem", methods=["GET"])
+@jwt_required
 def get_bagitems(id):
     bagItems = BagItem.query.filter(BagItem.gameStateId == id).all()
     result = bagItemsSerializer.dump(bagItems)
@@ -176,6 +180,7 @@ def get_bagitems(id):
 
 # endpoint to create canvas item for game state
 @app.route("/<id>/bagitem", methods=["POST"])
+@jwt_required
 def add_canvasitem(id):
     try:
         itemName = request.json['itemName']
@@ -194,6 +199,7 @@ def add_canvasitem(id):
 
 # endpoint to show canvas items of game state
 @app.route("/<id>/bag", methods=["GET"])
+@jwt_required
 def get_canvasitems(id):
     canvasItems = CanvasItem.query.filter(CanvasItem.gameStateId == id).all()
     result = canvasItemsSerializer.dump(canvasItems)
@@ -201,6 +207,7 @@ def get_canvasitems(id):
 
 # endpoint to create question for game state
 @app.route("/<id>/question", methods=["POST"])
+@jwt_required
 def add_question(id):
     try:
         itemType = request.json['itemType']
@@ -231,6 +238,7 @@ def add_question(id):
 
 # endpoint to show question of game state
 @app.route("/<id>/question", methods=["GET"])
+@jwt_required
 def get_question(id):
     questions = Question.query.filter(Question.gameStateId == id).all()
     result = questionsSerializer.dump(questions)
@@ -238,6 +246,7 @@ def get_question(id):
 
 # endpoint to update question for game state
 @app.route("/<id>/question", methods=["PUT"])
+@jwt_required
 def update_question(id):
     try:
         correct = request.json['correct']
