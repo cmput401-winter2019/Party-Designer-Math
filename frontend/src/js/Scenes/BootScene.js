@@ -9,6 +9,7 @@ export class BootScene extends Phaser.Scene{
 
   create(){
     console.log(localStorage.getItem("access_token"));
+    console.log(localStorage.getItem("refresh_token"));
 
     return fetch("http://127.0.0.1:5001/valid", {
         method: "GET",
