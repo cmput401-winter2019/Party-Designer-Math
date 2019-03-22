@@ -66,7 +66,34 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 	pressed()
 	{
 		if(this.name == "exitBtn"){
-			console.log(this.name + ": go to login");
+			const body = {
+				access_token: localStorage.getItem("access_token"),
+				refresh_token: localStorage.getItem("refresh_token")
+			};
+			return fetch("http://127.0.0.1:5001/logout", {
+				method: "POST",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				body: JSON.stringify(body),
+				headers: {
+				  "Content-Type": "application/json",
+				  "Authorization": "Bearer " + localStorage.getItem("access_token"),
+				}
+			  })
+			  .then(
+				function(response) {
+				  // Examine the text in the response
+				  response.json().then(function(data) {
+					if (response.status !== 200) {
+						alert(response.status + " Error"+ " : " + data["message"]);
+						return;
+					}
+					alert(response.status + " Success"+ " : " + data["message"]);
+					
+				  });
+				}
+			  )
 		}
 		else if (this.name == "themeBtn"){
 			console.log(this.name + ": go to Choose Theme");
