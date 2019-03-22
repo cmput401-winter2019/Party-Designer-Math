@@ -63,11 +63,11 @@ questionsSerializer = QuestionSerializer(many=True)
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
-    jti = decrypted_token
+    jti = decrypted_token['jti']
     return RevokedToken.is_jti_blacklisted(jti)
 
 # endpoint to logout student and revoke access token and refresh token
-@app.route("/login", methods=["POST"])
+@app.route("/logout", methods=["POST"])
 def logout_student():
     try:
         access_token = request.json['access_token']
@@ -125,7 +125,6 @@ def verify():
 
 # endpoint to create new student
 @app.route("/student", methods=["POST"])
-@jwt_required
 def add_student():
     try:
         name = request.json['name']
