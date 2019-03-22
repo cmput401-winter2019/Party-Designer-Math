@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="208px" height="186px" viewBox="0 0 208 186" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Group 37monkeybars</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-1430.000000, -1463.000000)">
+            <g id="Group-37" transform="translate(1430.000000, 1463.000000)">
+                <path d="M208,6.49684968 C208,8.43639364 206.388355,10 204.386827,10 L85.6141749,10 C83.6146522,10 82,8.43639364 82,6.49684968 C82,4.55940594 83.6146522,3 85.6141749,3 L204.386827,3 C206.388355,3 208,4.55940594 208,6.49684968" id="Fill-232" fill="#ED1C24"></path>
+                <path d="M91,55.4968516 C91,57.4268366 89.3897872,59 87.3969989,59 L3.60200217,59 C1.61021284,59 0,57.4268366 0,55.4968516 C0,53.5689655 1.61021284,52 3.60200217,52 L87.3969989,52 C89.3897872,52 91,53.5689655 91,55.4968516" id="Fill-233" fill="#F8B033"></path>
+                <polygon id="Fill-234" fill="#ED1C24" points="3 186 11 186 11 45 3 45"></polygon>
+                <polygon id="Fill-235" fill="#41387A" points="85 186 93 186 93 0 85 0"></polygon>
+                <polygon id="Fill-236" fill="#DF51CD" points="196 186 204 186 204 0 196 0"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
