@@ -1,0 +1,9 @@
+npm install @babel/preset-env --save-dev
+npm install --save-dev babel-jest
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/core
+npm install --save @babel/polyfill
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+npm install babel-preset-es2015 --save-dev
+npm install babel-cli babel-core --save-dev
+npm install jest --global
