@@ -31,6 +31,7 @@ function post_request(studentNameInput, classCodeInput) {
                 return;
             }
             localStorage.setItem("access_token", data["access_token"]);
+            localStorage.setItem("refresh_token", data["refresh_token"]);
             let url = window.location.href.split("/");
             url = url[0] + "//" + url[2];
             window.location = url + "/play.html";
