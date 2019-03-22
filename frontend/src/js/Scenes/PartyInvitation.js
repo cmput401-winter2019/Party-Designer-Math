@@ -8,7 +8,6 @@ export class PartyInvitation extends Phaser.Scene {
     }
     preload()
     {
-        this.load.image("blueBtn", "assets/blueBtn.png");
     }
     create(){
         // Drag logic
@@ -44,10 +43,6 @@ export class PartyInvitation extends Phaser.Scene {
         this.btn.rect.on('pointerdown', this.pressed, this);
     }
     pressed(){
-        this.scene.start(CST.SCENES.PARTY_LOAD);
+        this.scene.start(CST.SCENES.PRELOADER);
     }
-    createItem(image, x, y, name, pluralName, category, unit) {
-	    this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
-	}
-
 }

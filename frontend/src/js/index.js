@@ -1,5 +1,6 @@
 import config             from './Config/config'
 import { BootScene }      from './Scenes/BootScene';
+import { ChooseTheme }     from './Scenes/ChooseTheme';
 import { PreloaderScene } from './Scenes/PreloaderScene';
 import { LoginScene }     from './Scenes/LoginScene';
 import { GameScene }      from './Scenes/GameScene';
@@ -13,7 +14,9 @@ class Game extends Phaser.Game{
   constructor(){
     super(config);
     //this.scene.add("LOGIN", LoginScene)
-    this.scene.add("BOOT", BootScene)
+    this.scene.add("BOOT", BootScene);
+    this.scene.add("CHOOSE_THEME", ChooseTheme);
+    this.scene.add("PARTY_INVITATION", PartyInvitation);
     this.scene.add("PRELOADER", PreloaderScene);
     this.scene.add("GAME", GameScene);
     this.scene.add("SHOPPINT_INTERFACE", ShoppingInterface);
