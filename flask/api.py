@@ -68,10 +68,14 @@ def check_if_token_in_blacklist(decrypted_token):
 
 # endpoint to logout student and revoke access token and refresh token
 @app.route("/logout", methods=["POST"])
+@jwt_required
 def logout_student():
     try:
         access_token = request.json['access_token']
         refresh_token = request.json['refresh_token']
+
+        print(access_token)
+        print(refresh_token)
         
         revokedAccessToken = RevokedToken(access_token)
         revokedRefreshToken = RevokedToken(refresh_token)
@@ -80,7 +84,8 @@ def logout_student():
         db.session.add(revokedRefreshToken)
         db.session.commit()
         return jsonify(message="Access token and refresh token has been revoked. User has been logged out."), 200
-    except:   
+    except Exception as e:
+        print(e)   
         return jsonify(message="Something went wrong."), 403
 
 # endpoint to login student and issue access token
