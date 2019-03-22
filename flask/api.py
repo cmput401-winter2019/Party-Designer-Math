@@ -64,24 +64,19 @@ questionsSerializer = QuestionSerializer(many=True)
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
-    return RevokedToken.is_jti_blacklisted(jti)
+    all_jti = RevokedToken.is_jti_blacklisted()
+    return jti in all_jti
 
-# endpoint to logout student and revoke access token and refresh token
+# endpoint to logout student and revoke access token
 @app.route("/logout", methods=["POST"])
 @jwt_required
 def logout_student():
     try:
-        access_token = request.json['access_token']
-        refresh_token = request.json['refresh_token']
-
-        print(access_token)
-        print(refresh_token)
+        jti = get_raw_jwt()['jti']
         
-        revokedAccessToken = RevokedToken(access_token)
-        revokedRefreshToken = RevokedToken(refresh_token)
+        revokedAccessToken = RevokedToken(jti)
 
         db.session.add(revokedAccessToken)
-        db.session.add(revokedRefreshToken)
         db.session.commit()
         return jsonify(message="Access token and refresh token has been revoked. User has been logged out."), 200
     except Exception as e:

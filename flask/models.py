@@ -72,7 +72,7 @@ class RevokedToken(db.Model):
         self.jti = jti
 
     @classmethod
-    def is_jti_blacklisted(cls, jti):
-        query = cls.query.filter(jti == jti).first()
-        return bool(query)
-
+    def is_jti_blacklisted(cls):
+        query = cls.query.all()
+        all_jti = [jti.jti for jti in query]
+        return all_jti
