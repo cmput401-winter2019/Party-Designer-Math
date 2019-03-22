@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="57px" height="98px" viewBox="0 0 57 98" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Group 30kite</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0.5977 0.616 33.4107 0.616 33.4107 85.1945 0.5977 85.1945"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-1298.000000, -1192.000000)">
+            <g id="Group-30" transform="translate(1298.039600, 1191.384000)">
+                <polygon id="Fill-23" fill="#DF51CD" points="17.2553 4.0101 2.8283 43.8951 47.8053 86.3261 52.8973 26.0741"></polygon>
+                <polygon id="Fill-25" fill="#DB9549" points="1.13686838e-13 43.8953 54.595 24.0943 55.443 26.0743 1.13686838e-13 46.1583"></polygon>
+                <g id="Group-29" transform="translate(14.960400, 0.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-28"></g>
+                    <polygon id="Fill-27" fill="#DB9549" mask="url(#mask-2)" points="0.5977 3.1615 31.9967 85.1945 33.4107 85.1945 2.8607 0.6155"></polygon>
+                </g>
+                <polygon id="Fill-30" fill="#5BBBEF" points="46.1085 81.2347 45.8255 86.8917 49.5035 98.4897 50.6345 93.9637 56.5745 94.8127 50.6345 84.6297"></polygon>
+                <path d="M29.9896,34.0575 C26.6466,35.6155 25.1666,38.9685 24.7816,42.4755 C24.2076,47.6815 27.0686,52.7185 28.3926,57.6005 C31.6646,69.6625 26.2526,82.2785 21.5306,93.1675 C21.2616,93.7885 22.1756,94.3285 22.4466,93.7025 C26.6866,83.9255 30.9766,73.6325 30.2996,62.7585 C29.9766,57.5875 27.7956,52.9815 26.4396,48.0585 C25.1656,43.4355 25.6126,37.2625 30.5246,34.9735 C31.1446,34.6845 30.6056,33.7705 29.9896,34.0575" id="Fill-32" fill="#D7FFF4"></path>
+            </g>
+        </g>
+    </g>
+</svg>

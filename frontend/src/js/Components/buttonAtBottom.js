@@ -110,7 +110,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
       for(var i=page*this.numItemPerPage; i<page*this.numItemPerPage+min; i++){
         //console.log(i);
         let asset1 = this.scene.add.image(this.btnWidth+offset,this.itemY,this.assets[i]).setOrigin(0,0.5);
-        asset1.visible = false
+        asset1.visible = false;
         asset1.displayWidth = 40;
         asset1.scaleY = asset1.scaleX;
         asset1.setInteractive();

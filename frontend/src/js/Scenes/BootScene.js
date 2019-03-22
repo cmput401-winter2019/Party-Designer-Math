@@ -30,7 +30,7 @@ export class BootScene extends Phaser.Scene{
                 return;
             }
             console.log("token is valid");
-            this.scene.start(CST.SCENES.PRELOADER);
+            this.scene.start(CST.SCENES.CHOOSE_THEME);
           });
         }
       )
