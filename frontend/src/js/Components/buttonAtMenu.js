@@ -90,7 +90,9 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 						return;
 					}
 					alert(response.status + " Success"+ " : " + data["message"]);
-					
+					let url = window.location.href.split("/");
+					url = url[0] + "//" + url[2];
+					window.location = url + "/login.html"
 				  });
 				}
 			  )
