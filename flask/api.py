@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, ma
-from models import Student, GameState, BagItem, CanvasItem, Question, db
+from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, db
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -12,6 +12,9 @@ from flask_jwt_extended import JWTManager, create_access_token, create_refresh_t
 from datetime import timedelta
 from flask_cors import CORS
 
+# sources   : https://codeburst.io/jwt-authorization-in-flask-c63c1acf4eeb
+#           :
+
 # create app
 app = Flask(__name__)
 
@@ -20,6 +23,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'crud.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'not-so-secret'
+app.config['JWT_BLACKLIST_ENABLED'] = True
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 db.init_app(app)
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -28,7 +33,6 @@ ma.init_app(app)
 jwt = JWTManager(app)
 cors = CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:1234"}})
 
-
 # turn on foreign key constraints
 @event.listens_for(Engine, "connect")
 def _set_sqlite_pragma(dbapi_connection, connection_record):
@@ -36,7 +40,6 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
             cursor = dbapi_connection.cursor()
             cursor.execute("PRAGMA foreign_keys=ON;")
             cursor.close()
-
 
 # create serializers for student(s)
 studentSerializer = StudentSerializer()
@@ -58,6 +61,28 @@ canvasItemsSerializer = BagItemSerializer(many=True)
 questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token
+    return RevokedToken.is_jti_blacklisted(jti)
+
+# endpoint to logout student and revoke access token and refresh token
+@app.route("/login", methods=["POST"])
+def logout_student():
+    try:
+        access_token = request.json['access_token']
+        refresh_token = request.json['refresh_token']
+        
+        revokedAccessToken = RevokedToken(access_token)
+        revokedRefreshToken = RevokedToken(refresh_token)
+
+        db.session.add(revokedAccessToken)
+        db.session.add(revokedRefreshToken)
+        db.session.commit()
+        return jsonify(message="Access token and refresh token has been revoked. User has been logged out."), 200
+    except:   
+        return jsonify(message="Something went wrong."), 403
+
 # endpoint to login student and issue access token
 @app.route("/login", methods=["POST"])
 def login_student():
@@ -67,18 +92,18 @@ def login_student():
         student = Student.query.filter(Student.name == name).first()
         
         if (not student):
-            return jsonify(message="User does not exist"), 403
+            return jsonify(message="User does not exist."), 403
 
         if (student.classCode == classCode):
             access_token = create_access_token(identity = name)
             refresh_token = create_refresh_token(identity = name, expires_delta=timedelta(days=1))
             return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
         else:
-            return jsonify(message="Incorrect password"), 403
+            return jsonify(message="Incorrect password."), 403
         
     except Exception as e:
         print(e)
-        return jsonify(message="Something went wrong"), 403
+        return jsonify(message="Something went wrong."), 403
 
 # endpoint refresh token
 @app.route("/refresh", methods=["POST"])
@@ -90,7 +115,7 @@ def refresh():
         return jsonify(access_token=access_token), 200
     except Exception as e:
         print(e)
-        return jsonify(message="Invalid refresh token"), 403
+        return jsonify(message="Invalid refresh token."), 403
 
 # endpoint to show all students
 @app.route("/valid", methods=["GET"])
