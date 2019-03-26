@@ -86,7 +86,7 @@ def signup_student():
         db.session.add(newStudent)
         db.session.commit()
 
-        return jsonify(message="Registered"), 403
+        return jsonify(message="Registered"), 200
         
     except Exception as e:
         print(e)
