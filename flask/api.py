@@ -77,17 +77,17 @@ def signup_student():
         password = Student.generate_hash(request.json['password'])
 
         student = Student.query.filter(Student.username == username).first()
-        
+
         if (student):
             return jsonify(message="Username is taken"), 403
-        
+
         newStudent = Student(firstName, lastName, username, password)
 
         db.session.add(newStudent)
         db.session.commit()
 
         return jsonify(message="Registered"), 200
-        
+
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong."), 403
@@ -98,14 +98,14 @@ def signup_student():
 def logout_student():
     try:
         jti = get_raw_jwt()['jti']
-        
+
         revokedAccessToken = RevokedToken(jti)
 
         db.session.add(revokedAccessToken)
         db.session.commit()
         return jsonify(message="Access token and refresh token has been revoked. User has been logged out."), 200
     except Exception as e:
-        print(e)   
+        print(e)
         return jsonify(message="Something went wrong."), 403
 
 # endpoint to login student and issue access token
@@ -115,17 +115,17 @@ def login_student():
         username = request.json['username']
         password = request.json['password']
         student = Student.query.filter(Student.username == username).first()
-        
+
         if (not student):
             return jsonify(message="User does not exist."), 403
 
         if (Student.verify_hash(password, student.password)):
             access_token = create_access_token(identity = username)
             refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
-            return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
+            return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token, username=username), 200
         else:
             return jsonify(message="Incorrect password."), 403
-        
+
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong."), 403
@@ -154,7 +154,7 @@ def add_student():
     try:
         name = request.json['name']
         classCode = request.json['classCode']
-        
+
         newStudent = Student(name, classCode)
 
         db.session.add(newStudent)
@@ -166,12 +166,19 @@ def add_student():
         return jsonify(success=False), 403
 
 # endpoint to show all students
-@app.route("/student", methods=["GET"])
+@app.route("/student/<name>", methods=["GET"])
 #@jwt_required
-def get_student():
-    allStudents = Student.query.all()
-    result = studentsSerializer.dump(allStudents)
-    return jsonify(result.data)
+def get_student(name):
+    if(name=="all"):
+        allStudents = Student.query.all()
+        result = studentsSerializer.dump(allStudents)
+        return jsonify(result.data)
+    else:
+        current_student = Student.query.filter(Student.username == name).first()
+        result = studentSerializer.dump(current_student)
+        print(result, file=sys.stderr)
+        return jsonify(result.data)
+
 
 # endpoint to create game state for student
 @app.route("/<id>/gamestate", methods=["POST"])
@@ -180,14 +187,18 @@ def add_gamestate(id):
     try:
         money = request.json['money']
         numOfGuests = request.json['numOfGuests']
-        studentId = id
-        
-        newGameState = GameState(money, numOfGuests, studentId)
+        studentId = request.json['studentId']
 
-        db.session.add(newGameState)
-        db.session.commit()
+        exists = db.session.query(db.exists().where(GameState.studentId == studentId)).scalar()
+        if(exists):
+            return jsonify(success=True), 200
+        else:
+            newGameState = GameState(money, numOfGuests, studentId)
 
-        return jsonify(success=True), 201
+            db.session.add(newGameState)
+            db.session.commit()
+
+            return jsonify(success=True), 200
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
@@ -208,7 +219,7 @@ def add_bagitem(id):
         itemName = request.json['itemName']
         itemAmount = request.json['itemAmount']
         gameStateId = id
-        
+
         newBagItem = BagItem(itemName, itemAmount, gameStateId)
 
         db.session.add(newBagItem)
@@ -235,7 +246,7 @@ def add_canvasitem(id):
         itemName = request.json['itemName']
         itemAmount = request.json['itemAmount']
         gameStateId = id
-        
+
         newCanvasItem = CanvasItem(itemName, itemAmount, gameStateId)
 
         db.session.add(newCanvasItem)
@@ -274,13 +285,14 @@ def add_question(id):
         answer = questionData['ans']
         arithmeticType = questionData['type']
         gameStateId = id
-        
+
+
         newQuestion = Question(question, answer, arithmeticType, gameStateId)
 
         db.session.add(newQuestion)
         db.session.commit()
 
-        return jsonify(question=question), 201
+        return jsonify(question=question), 200
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
