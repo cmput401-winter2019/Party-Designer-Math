@@ -12,6 +12,7 @@ class Student(db.Model):
     classCode = db.Column(db.String(5))
 
     gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
+    playthroughRel = db.relationship("Playthrough", backref ="student")
 
     def __init__(self, firstName, lastName, username, password):
         self.firstName = firstName
@@ -89,3 +90,55 @@ class RevokedToken(db.Model):
         query = cls.query.all()
         all_jti = [jti.jti for jti in query]
         return all_jti
+
+class Playthrough(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.Integer)
+    studentId = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False, unique=True)
+
+    questionHistoryRel = db.relationship("QuestionHistory", backref ="playthrough")
+
+    def __init__(self, level, studentId):
+        self.level = level
+        self.studentId = studentId
+
+class QuestionHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(20), unique=True)
+    answer = db.Column(db.Float)
+    arithmeticType = db.Column(db.String(20))
+    correct = db.Column(db.Boolean)
+    playthroughId = db.Column(db.Integer, db.ForeignKey('playthrough.id'), nullable=False)
+
+    def __init__(self, question, answer, arithmeticType, correct, gameStateId):
+        self.question = question
+        self.answer = answer
+        self.arithmeticType = arithmeticType
+        self.correct = correct
+        self.gameStateId = gameStateId
+
+class Teacher(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.String(20), nullable=False)
+    lastName = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    classCode = db.Column(db.String(5), unique=True, nullable=False)
+    email = db.Column(db.String(20), unique=True, nullable=False)
+
+    def __init__(self, firstName, lastName, username, password, classCode, email):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.username = username
+        self.password = password
+        self.classCode = classCode
+        self.email = email
+
+    @staticmethod
+    def generate_hash(password):
+        return sha256.hash(password)
+    @staticmethod
+    def verify_hash(password, hash):
+        return sha256.verify(password, hash)
+
+
