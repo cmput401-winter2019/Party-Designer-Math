@@ -26,24 +26,67 @@ export class GameScene extends Phaser.Scene{
     // Create new Shooping list
     this.all_assets = CreateShoppingList(furniture_assets, food_assets, deco_assets, kiddie_assets);
     //
-    this.player = new User("John",
+
+    this.username = localStorage.getItem("username");
+    this.id       = localStorage.getItem("id");
+    this.money    = 1000;
+    var url = "http://127.0.0.1:5001/" + this.id + "/gamestate";
+
+    this.player = new User(this.username,
+                            this.id,
+                            this.money,
+                            5,
                             3,
                             {"chair":1, "sofa":2},
                             100,
                             {"chair":2, "cherries":3},
                             this.numbers,
                             this.all_assets);
-    
+
 
     this.createBackground("background");
     this.createGuests(spaceGuestImages);
+
+    this.post_gamestate(this.id, this.money, this.randomInt, url);
+
     this.loadItemsToScreen(this.player.screenItems, "load");
     this.createDragLogics();
     this.createTopMenuButtons();
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
-
-
   }
+
+  post_gamestate(id, money, guests, url){
+      const body = {
+          studentId: id,
+          money: money,
+          numOfGuests: guests
+      };
+
+      return fetch(url, {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("access_token"),
+          }
+        })
+        .then(
+          function(response) {
+            console.log(response.status);
+            // Examine the text in the response
+            response.json().then(function(data) {
+              if (response.status !== 200) {
+                  alert(response.status + " Error"+ " : " + data["message"]);
+                  return;
+              }
+              return;
+            });
+          }
+        )
+    }
 
   createBackground(background){
     this.topMenuHeight  = 75;
@@ -74,8 +117,8 @@ export class GameScene extends Phaser.Scene{
       minGuest = 7;
       maxGuest = 9;
     }
-    var randomInt = Math.floor(Math.random() * (maxGuest - minGuest +1)) + minGuest;
-    for(var i=0; i<randomInt; i++){
+    this.randomInt = Math.floor(Math.random() * (maxGuest - minGuest +1)) + minGuest;
+    for(var i=0; i<this.randomInt; i++){
         this.add.existing(new Guest(this, guestImgNames[i], originalX*(i+1), originalY, "Sammy"));
     }
   }
@@ -195,7 +238,8 @@ export class GameScene extends Phaser.Scene{
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
                                             assets      : furniture_assets,
-                                            itemY       : itemY
+                                            itemY       : itemY,
+                                            player      : this.player
                                           });
 
     this.bottomBtn2 = new ButtonAtBottom({  scene       : this,
@@ -205,7 +249,8 @@ export class GameScene extends Phaser.Scene{
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
                                             assets      : deco_assets,
-                                            itemY       : itemY
+                                            itemY       : itemY,
+                                            player      : this.player
                                           });
 
     this.bottomBtn3 = new ButtonAtBottom({  scene       : this,
@@ -215,7 +260,8 @@ export class GameScene extends Phaser.Scene{
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
                                             assets      : food_assets,
-                                            itemY       : itemY
+                                            itemY       : itemY,
+                                            player      : this.player
                                           });
 
     this.bottomBtn4 = new ButtonAtBottom({  scene       : this,
@@ -225,7 +271,8 @@ export class GameScene extends Phaser.Scene{
                                             btnWidth    : btnWidth,
                                             btnColor    : btnColor,
                                             assets      : kiddie_assets,
-                                            itemY       : itemY
+                                            itemY       : itemY,
+                                            player      : this.player
                                           });
 
      // --------------------------------------------------------------

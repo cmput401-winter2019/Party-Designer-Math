@@ -1,3 +1,5 @@
+import {User} from "../src/js/classes/user";
+
 window.onload = function login() {
     const Login = document.getElementById("login");
     Login.addEventListener('click', (e) => {
@@ -30,6 +32,8 @@ function post_request(username, password) {
                 alert(response.status + " Error"+ " : " + data["message"]);
                 return;
             }
+            console.log(data);
+            localStorage.setItem("username", data["username"]);
             localStorage.setItem("access_token", data["access_token"]);
             localStorage.setItem("refresh_token", data["refresh_token"]);
             let url = window.location.href.split("/");
