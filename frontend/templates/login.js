@@ -10,7 +10,8 @@ window.onload = function login() {
 function post_request(username, password) {
     const body = {
         username: username,
-        password: password
+        password: password,
+        loginType: "student"
     };
     return fetch("http://127.0.0.1:5001/login", {
         method: "POST",
