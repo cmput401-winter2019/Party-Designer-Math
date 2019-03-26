@@ -19,7 +19,8 @@ function post_request(username, firstname, lastname, password) {
         username: username,
         firstName: firstname,
         lastName: lastname,
-        password: password
+        password: password,
+        signupType: "student"
     };
     return fetch("http://127.0.0.1:5001/signup", {
         method: "POST",
