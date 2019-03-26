@@ -21,3 +21,15 @@ class CanvasItemSerializer(ma.Schema):
 class QuestionSerializer(ma.Schema):
     class Meta:
         fields = ('id', 'question', 'answer', 'arithmeticType', 'correct', 'gameStateId')
+
+class PlaythroughSerializer(ma.Schema):
+    class Meta:
+        fields = ('id', 'level', 'studentId')
+
+class QuestionHistorySerializer(ma.Schema):
+    class Meta:
+        fields = ('id', 'question', 'answer', 'arithmeticType', 'correct', 'gameStateId')
+
+class TeacherSerializer(ma.Schema):
+    class Meta:
+        fields = ('id', 'firstName', 'lastName', 'username', 'password', 'classCode', 'email')
