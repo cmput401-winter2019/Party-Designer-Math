@@ -75,7 +75,6 @@ def signup_student():
         lastName = request.json['lastName']
         username = request.json['username']
         password = Student.generate_hash(request.json['password'])
-        #classCode = request.json['classCode']
 
         student = Student.query.filter(Student.username == username).first()
         
@@ -113,16 +112,16 @@ def logout_student():
 @app.route("/login", methods=["POST"])
 def login_student():
     try:
-        name = request.json['name']
-        classCode = request.json['classCode']
-        student = Student.query.filter(Student.name == name).first()
+        username = request.json['username']
+        password = request.json['password']
+        student = Student.query.filter(Student.username == username).first()
         
         if (not student):
             return jsonify(message="User does not exist."), 403
 
-        if (student.classCode == classCode):
-            access_token = create_access_token(identity = name)
-            refresh_token = create_refresh_token(identity = name, expires_delta=timedelta(days=1))
+        if (Student.verify_hash(password, student.password)):
+            access_token = create_access_token(identity = username)
+            refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
             return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
         else:
             return jsonify(message="Incorrect password."), 403
