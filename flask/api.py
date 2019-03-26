@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, ma
@@ -312,6 +312,14 @@ def check_answer_question(id):
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
+
+@app.route("/teacher")
+def teacher_login_page():
+    return render_template('login.html')
+
+@app.route("/register")
+def teacher_register_page():
+    return render_template('signup.html')
 
 
 if __name__ == '__main__':
