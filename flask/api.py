@@ -280,7 +280,7 @@ def add_question(id):
         db.session.add(newQuestion)
         db.session.commit()
 
-        return jsonify(success=True), 201
+        return jsonify(question=question), 201
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
@@ -296,15 +296,19 @@ def get_question(id):
 # endpoint to update question for game state
 @app.route("/<id>/question", methods=["PUT"])
 @jwt_required
-def update_question(id):
+def check_answer_question(id):
     try:
-        correct = request.json['correct']
+        answer = int(request.json['answer'])
         question = Question.query.filter(Question.gameStateId == id).first()
-        question.correct = correct
-        print(question.correct)
-        db.session.commit()
 
-        return jsonify(success=True), 201
+        if (answer != question.answer):
+            question.correct = False
+            db.session.commit()
+            return jsonify(message="Answer is incorrect."), 200
+
+        question.correct = True
+        db.session.commit()
+        return jsonify(message="Answer is correct."), 200
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
