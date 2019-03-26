@@ -1,16 +1,16 @@
 window.onload = function login() {
-    const Login = document.getElementById("Login");
+    const Login = document.getElementById("login");
     Login.addEventListener('click', (e) => {
-        const studentNameInput = document.getElementById("studentname").value;
-        const classCodeInput = document.getElementById("classcode").value;
-        console.log(studentNameInput, classCodeInput);
-        post_request(studentNameInput, classCodeInput);
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        console.log(username, password);
+        post_request(username, password);
     });
 
-function post_request(studentNameInput, classCodeInput) {
+function post_request(username, password) {
     const body = {
-        name: studentNameInput,
-        classCode: classCodeInput
+        username: username,
+        password: password
     };
     return fetch("http://127.0.0.1:5001/login", {
         method: "POST",

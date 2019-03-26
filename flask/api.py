@@ -67,6 +67,31 @@ def check_if_token_in_blacklist(decrypted_token):
     all_jti = RevokedToken.is_jti_blacklisted()
     return jti in all_jti
 
+# endpoint to login student and issue access token
+@app.route("/signup", methods=["POST"])
+def signup_student():
+    try:
+        firstName = request.json['firstName']
+        lastName = request.json['lastName']
+        username = request.json['username']
+        password = Student.generate_hash(request.json['password'])
+
+        student = Student.query.filter(Student.username == username).first()
+        
+        if (student):
+            return jsonify(message="Username is taken"), 403
+        
+        newStudent = Student(firstName, lastName, username, password)
+
+        db.session.add(newStudent)
+        db.session.commit()
+
+        return jsonify(message="Registered"), 200
+        
+    except Exception as e:
+        print(e)
+        return jsonify(message="Something went wrong."), 403
+
 # endpoint to logout student and revoke access token
 @app.route("/logout", methods=["POST"])
 @jwt_required
@@ -87,16 +112,16 @@ def logout_student():
 @app.route("/login", methods=["POST"])
 def login_student():
     try:
-        name = request.json['name']
-        classCode = request.json['classCode']
-        student = Student.query.filter(Student.name == name).first()
+        username = request.json['username']
+        password = request.json['password']
+        student = Student.query.filter(Student.username == username).first()
         
         if (not student):
             return jsonify(message="User does not exist."), 403
 
-        if (student.classCode == classCode):
-            access_token = create_access_token(identity = name)
-            refresh_token = create_refresh_token(identity = name, expires_delta=timedelta(days=1))
+        if (Student.verify_hash(password, student.password)):
+            access_token = create_access_token(identity = username)
+            refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
             return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
         else:
             return jsonify(message="Incorrect password."), 403
@@ -142,7 +167,7 @@ def add_student():
 
 # endpoint to show all students
 @app.route("/student", methods=["GET"])
-@jwt_required
+#@jwt_required
 def get_student():
     allStudents = Student.query.all()
     result = studentsSerializer.dump(allStudents)
