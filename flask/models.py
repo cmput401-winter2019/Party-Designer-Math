@@ -1,17 +1,30 @@
 from flask_sqlalchemy import SQLAlchemy
+from passlib.hash import pbkdf2_sha256 as sha256
 
 db = SQLAlchemy()
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), unique=True)
+    firstName = db.Column(db.String(20), nullable=False)
+    lastName = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     classCode = db.Column(db.String(5))
 
     gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
 
-    def __init__(self, name, classCode):
-        self.name = name
-        self.classCode = classCode
+    def __init__(self, firstName, lastName, username, password):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.username = username
+        self.password = password
+
+    @staticmethod
+    def generate_hash(password):
+        return sha256.hash(password)
+    @staticmethod
+    def verify_hash(password, hash):
+        return sha256.verify(password, hash)
 
 class GameState(db.Model):
     id = db.Column(db.Integer, primary_key=True)
