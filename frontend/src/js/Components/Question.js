@@ -20,11 +20,6 @@ export class Question extends Phaser.GameObjects.Container{
         var centerY = this.scene.game.config.height/2;
 
         //Configurations for text
-        this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'12px'};
-
-        this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
-        this.questionBackground.setOrigin(0.5,0.5);
-        this.questionBackground.setStrokeStyle(1.5, 0x000000);
 
         const api_name = this.properties.name;
         const api_plural_name = this.properties.pluralName;
@@ -36,23 +31,19 @@ export class Question extends Phaser.GameObjects.Container{
 
 
         var gs_url = "http://127.0.0.1:5001/"+ localStorage.getItem("id") + "/gamestate";
-        return fetch(gs_url, {
-            method: "GET",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + localStorage.getItem("access_token"),
-            }
-          })
-          .then(
-            response => {
-              response.json().then(data => {
-                const url  = "http://127.0.0.1:5001/"+ data.id + "/question";
-                console.log(data.id);
-                this.post_request(api_name, api_plural_name, api_type, api_cost, api_unit, api_guest, api_level, url);
-                this.questionText = this.scene.add.text(0, 0-20, "How much would it cost to buy " + this.amount + " " + this.properties.pluralName + "?", this.textConfig);
+        this.get_request(gs_url).then(gs_id => {
+            console.log(gs_id);
+            const url  = "http://127.0.0.1:5001/"+ gs_id + "/question";
+            this.post_request(api_name, api_plural_name, api_type, api_cost, api_unit, api_guest, api_level, url).then(question => {
+                console.log(question);
+
+                this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'12px'};
+
+                this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
+                this.questionBackground.setOrigin(0.5,0.5);
+                this.questionBackground.setStrokeStyle(1.5, 0x000000);
+
+                this.questionText = this.scene.add.text(0, 0-20, question, this.textConfig);
                 this.questionText.setOrigin(0.5, 0.5);
 
                 this.questionSubmitBackground = this.scene.add.rectangle(0, 0+25, 55, 15, 0x02C2FF);
@@ -81,48 +72,124 @@ export class Question extends Phaser.GameObjects.Container{
                 this.scene.input.setDraggable(this);
 
               });
-            }
-          )
-
-
+        });
     }
 
-    post_request(name, plural_name, type, cost, unit, guest, level, url){
-        const body = {
-            itemName: name,
-            itemPluralName: plural_name,
-            itemType: type,
-            itemCost: cost,
-            itemUnit: unit,
-            numberOfGuests: guest,
-            level: level
-        };
-        return fetch(url, {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            body: JSON.stringify(body),
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + localStorage.getItem("access_token"),
-            }
-          })
-          .then(
-            function(response) {
-              console.log(response.status);
-              // Examine the text in the response
-              response.json().then(function(data) {
-                if (response.status !== 200) {
-                    alert(response.status + " Error"+ " : " + data["message"]);
-                    return;
-                }
-                console.log(data.question);
-                return;
-              });
-            }
-          )
-      }
+    get_request(gs_url) {
+
+      return fetch(gs_url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("access_token"),
+        }
+      })
+      .then((response) => {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Server response wasn\'t OK');
+        }
+      })
+      .then((json) => {
+        return json.id;
+      });
+    }
+
+    post_request(name, plural_name, type, cost, unit, guest, level, url) {
+      const body = {
+          itemName: name,
+          itemPluralName: plural_name,
+          itemType: type,
+          itemCost: cost,
+          itemUnit: unit,
+          numberOfGuests: guest,
+          level: level
+      };
+      return fetch(url, {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("access_token"),
+          }
+        })
+      .then((response) => {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Server response wasn\'t OK');
+        }
+      })
+      .then((json) => {
+        return json.question;
+      });
+    }
+
+
+    // get_request(gs_url){
+    //   return fetch(gs_url, {
+          // method: "GET",
+          // mode: "cors",
+          // cache: "no-cache",
+          // credentials: "same-origin",
+          // headers: {
+          //   "Content-Type": "application/json",
+          //   "Authorization": "Bearer " + localStorage.getItem("access_token"),
+    //       }
+    //     })
+    //     .then(
+    //       response => {
+    //         response.json().then(data => {
+    //           const id = data.id;
+    //           return id;
+    //         });
+    //       }
+    //     )
+    // }
+
+    //
+    // post_request(name, plural_name, type, cost, unit, guest, level, url){
+    //     const body = {
+    //         itemName: name,
+    //         itemPluralName: plural_name,
+    //         itemType: type,
+    //         itemCost: cost,
+    //         itemUnit: unit,
+    //         numberOfGuests: guest,
+    //         level: level
+    //     };
+    //     return fetch(url, {
+    //         method: "POST",
+    //         mode: "cors",
+    //         cache: "no-cache",
+    //         credentials: "same-origin",
+    //         body: JSON.stringify(body),
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           "Authorization": "Bearer " + localStorage.getItem("access_token"),
+    //         }
+    //       })
+    //       .then(
+    //         function(response) {
+    //           console.log(response.status);
+    //           // Examine the text in the response
+    //           response.json().then(function(data) {
+    //             if (response.status !== 200) {
+    //                 alert(response.status + " Error"+ " : " + data["message"]);
+    //                 return;
+    //             }
+    //             return data.question;
+    //           });
+    //         }
+    //       )
+    //   }
 
     checkCreateObject(){
 

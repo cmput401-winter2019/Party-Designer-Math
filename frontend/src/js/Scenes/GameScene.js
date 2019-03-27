@@ -46,7 +46,6 @@ export class GameScene extends Phaser.Scene{
 
     this.createBackground("background");
     this.createGuests(spaceGuestImages);
-
     this.post_gamestate(this.id, this.money, this.randomInt, url);
 
     this.loadItemsToScreen(this.player.screenItems, "load");
