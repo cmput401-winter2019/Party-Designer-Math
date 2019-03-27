@@ -84,10 +84,10 @@ def signup():
             email = request.json['email']
 
             student = Student.query.filter(Student.username == username).first()
-            
+
             if (student):
                 return jsonify(message="Username is taken"), 403
-            
+
             newStudent = Student(firstName, lastName, username, password, email)
 
             db.session.add(newStudent)
@@ -105,19 +105,19 @@ def signup():
 
             if (teacher):
                 return jsonify(message="Username is taken"), 403
-            
+
             while (True):
                 randomClassCode = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
                 if (not Teacher.query.filter(Teacher.classCode == randomClassCode).first()):
                     break
-            
+
             newTeacher = Teacher(firstName, lastName, username, password, randomClassCode, email)
 
             db.session.add(newTeacher)
             db.session.commit()
 
             return jsonify(message="Registered"), 200
-        
+
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong."), 403
@@ -147,7 +147,7 @@ def login():
             username = request.json['username']
             password = request.json['password']
             student = Student.query.filter(Student.username == username).first()
-            
+
             if (not student):
                 return jsonify(message="User does not exist."), 403
 
@@ -157,12 +157,12 @@ def login():
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
                 return jsonify(message="Incorrect password."), 403
-        
+
         elif (loginType == "Teacher"):
             username = request.json['username']
             password = request.json['password']
             teacher = Teacher.query.filter(Teacher.username == username).first()
-            
+
             if (not teacher):
                 return jsonify(message="User does not exist."), 403
 
@@ -172,7 +172,7 @@ def login():
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
                 return jsonify(message="Incorrect password."), 403
-        
+
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong."), 403
@@ -202,7 +202,7 @@ def verify():
 def get_teachers():
     allTeachers = Teacher.query.all()
     result = teachersSerializer.dump(allTeachers)
-    return jsonify(result.data)   
+    return jsonify(result.data)
 
 # endpoint to create new student
 @app.route("/student", methods=["POST"])
@@ -232,7 +232,9 @@ def get_student(name):
     else:
         current_student = Student.query.filter(Student.username == name).first()
         result = studentSerializer.dump(current_student)
-        print(result, file=sys.stderr)
+        print("ASDASDASD", file=sys.stderr)
+        print(name, file=sys.stderr)
+        print("ASDASDASD", file=sys.stderr)
         return jsonify(result.data)
 
 
@@ -244,7 +246,6 @@ def add_gamestate(id):
         money = request.json['money']
         numOfGuests = request.json['numOfGuests']
         studentId = request.json['studentId']
-
         exists = db.session.query(db.exists().where(GameState.studentId == studentId)).scalar()
         if(exists):
             return jsonify(success=True), 200

@@ -34,8 +34,7 @@ function post_request(username, password, loginType) {
                 alert(response.status + " Error"+ " : " + data["message"]);
                 return;
             }
-            console.log(data);
-            localStorage.setItem("username", data["username"]);
+            localStorage.setItem("username", username);
             localStorage.setItem("access_token", data["access_token"]);
             localStorage.setItem("refresh_token", data["refresh_token"]);
             if (loginType == "Student") {
