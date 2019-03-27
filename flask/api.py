@@ -76,24 +76,25 @@ def check_if_token_in_blacklist(decrypted_token):
 def signup():
     try:
         signupType = request.json['signupType']
-        if (signupType == 'student'):
+        if (signupType == 'Student'):
             firstName = request.json['firstName']
             lastName = request.json['lastName']
             username = request.json['username']
             password = Student.generate_hash(request.json['password'])
+            email = request.json['email']
 
             student = Student.query.filter(Student.username == username).first()
             
             if (student):
                 return jsonify(message="Username is taken"), 403
             
-            newStudent = Student(firstName, lastName, username, password)
+            newStudent = Student(firstName, lastName, username, password, email)
 
             db.session.add(newStudent)
             db.session.commit()
 
             return jsonify(message="Registered"), 200
-        elif (signupType == 'teacher'):
+        elif (signupType == 'Teacher'):
             firstName = request.json['firstName']
             lastName = request.json['lastName']
             username = request.json['username']
@@ -142,7 +143,7 @@ def logout():
 def login():
     try:
         loginType = request.json['loginType']
-        if (loginType == "student"):
+        if (loginType == "Student"):
             username = request.json['username']
             password = request.json['password']
             student = Student.query.filter(Student.username == username).first()
@@ -157,7 +158,7 @@ def login():
             else:
                 return jsonify(message="Incorrect password."), 403
         
-        elif (loginType == "teacher"):
+        elif (loginType == "Teacher"):
             username = request.json['username']
             password = request.json['password']
             teacher = Teacher.query.filter(Teacher.username == username).first()
@@ -367,14 +368,6 @@ def check_answer_question(id):
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
-
-@app.route("/teacher")
-def teacher_login_page():
-    return render_template('login.html')
-
-@app.route("/register")
-def teacher_register_page():
-    return render_template('signup.html')
 
 
 if __name__ == '__main__':
