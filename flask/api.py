@@ -75,7 +75,6 @@ def check_if_token_in_blacklist(decrypted_token):
 @app.route("/signup", methods=["POST"])
 def signup():
     try:
-<<<<<<< HEAD
         signupType = request.json['signupType']
         if (signupType == 'Student'):
             firstName = request.json['firstName']
@@ -93,19 +92,6 @@ def signup():
 
             db.session.add(newStudent)
             db.session.commit()
-=======
-        firstName = request.json['firstName']
-        lastName = request.json['lastName']
-        username = request.json['username']
-        password = Student.generate_hash(request.json['password'])
-
-        student = Student.query.filter(Student.username == username).first()
-
-        if (student):
-            return jsonify(message="Username is taken"), 403
-
-        newStudent = Student(firstName, lastName, username, password)
->>>>>>> 84ce8c9cd749c9a93d5c17de287aefb23b0c7716
 
             return jsonify(message="Registered"), 200
         elif (signupType == 'Teacher'):
@@ -130,13 +116,8 @@ def signup():
             db.session.add(newTeacher)
             db.session.commit()
 
-<<<<<<< HEAD
             return jsonify(message="Registered"), 200
         
-=======
-        return jsonify(message="Registered"), 200
-
->>>>>>> 84ce8c9cd749c9a93d5c17de287aefb23b0c7716
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong."), 403
@@ -161,7 +142,6 @@ def logout():
 @app.route("/login", methods=["POST"])
 def login():
     try:
-<<<<<<< HEAD
         loginType = request.json['loginType']
         if (loginType == "Student"):
             username = request.json['username']
@@ -193,22 +173,6 @@ def login():
             else:
                 return jsonify(message="Incorrect password."), 403
         
-=======
-        username = request.json['username']
-        password = request.json['password']
-        student = Student.query.filter(Student.username == username).first()
-
-        if (not student):
-            return jsonify(message="User does not exist."), 403
-
-        if (Student.verify_hash(password, student.password)):
-            access_token = create_access_token(identity = username)
-            refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
-            return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token, username=username), 200
-        else:
-            return jsonify(message="Incorrect password."), 403
-
->>>>>>> 84ce8c9cd749c9a93d5c17de287aefb23b0c7716
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong."), 403
