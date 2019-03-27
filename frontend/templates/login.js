@@ -3,15 +3,16 @@ window.onload = function login() {
     Login.addEventListener('click', (e) => {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
-        console.log(username, password);
-        post_request(username, password);
+        const loginType = document.getElementById("loginType").value;
+        console.log(username, password, loginType);
+        post_request(username, password, loginType);
     });
 
-function post_request(username, password) {
+function post_request(username, password, loginType) {
     const body = {
         username: username,
         password: password,
-        loginType: "student"
+        loginType: loginType
     };
     return fetch("http://127.0.0.1:5001/login", {
         method: "POST",
@@ -33,9 +34,17 @@ function post_request(username, password) {
             }
             localStorage.setItem("access_token", data["access_token"]);
             localStorage.setItem("refresh_token", data["refresh_token"]);
-            let url = window.location.href.split("/");
-            url = url[0] + "//" + url[2];
-            window.location = url + "/play.html";
+            if (loginType == "Student") {
+                let url = window.location.href.split("/");
+                url = url[0] + "//" + url[2];
+                window.location = url + "/play.html";
+            }
+
+            else if (loginType == "Teacher") {
+                let url = window.location.href.split("/");
+                url = url[0] + "//" + url[2];
+                window.location = url + "/dashboard.html";
+            }
           });
         }
       )
