@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, ma
-from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, db
+from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma
+from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -11,9 +11,11 @@ from questiongen import QuestionGenerator
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
 from datetime import timedelta
 from flask_cors import CORS
+import random
+import string
 
 # sources   : https://codeburst.io/jwt-authorization-in-flask-c63c1acf4eeb
-#           :
+#           : https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python
 
 # create app
 app = Flask(__name__)
@@ -61,6 +63,8 @@ canvasItemsSerializer = BagItemSerializer(many=True)
 questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
+teachersSerializer = TeacherSerializer(many=True)
+
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
@@ -69,24 +73,50 @@ def check_if_token_in_blacklist(decrypted_token):
 
 # endpoint to login student and issue access token
 @app.route("/signup", methods=["POST"])
-def signup_student():
+def signup():
     try:
-        firstName = request.json['firstName']
-        lastName = request.json['lastName']
-        username = request.json['username']
-        password = Student.generate_hash(request.json['password'])
+        signupType = request.json['signupType']
+        if (signupType == 'Student'):
+            firstName = request.json['firstName']
+            lastName = request.json['lastName']
+            username = request.json['username']
+            password = Student.generate_hash(request.json['password'])
+            email = request.json['email']
 
-        student = Student.query.filter(Student.username == username).first()
-        
-        if (student):
-            return jsonify(message="Username is taken"), 403
-        
-        newStudent = Student(firstName, lastName, username, password)
+            student = Student.query.filter(Student.username == username).first()
+            
+            if (student):
+                return jsonify(message="Username is taken"), 403
+            
+            newStudent = Student(firstName, lastName, username, password, email)
 
-        db.session.add(newStudent)
-        db.session.commit()
+            db.session.add(newStudent)
+            db.session.commit()
 
-        return jsonify(message="Registered"), 200
+            return jsonify(message="Registered"), 200
+        elif (signupType == 'Teacher'):
+            firstName = request.json['firstName']
+            lastName = request.json['lastName']
+            username = request.json['username']
+            password = Teacher.generate_hash(request.json['password'])
+            email = request.json['email']
+
+            teacher = Teacher.query.filter(Teacher.username == username).first()
+
+            if (teacher):
+                return jsonify(message="Username is taken"), 403
+            
+            while (True):
+                randomClassCode = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+                if (not Teacher.query.filter(Teacher.classCode == randomClassCode).first()):
+                    break
+            
+            newTeacher = Teacher(firstName, lastName, username, password, randomClassCode, email)
+
+            db.session.add(newTeacher)
+            db.session.commit()
+
+            return jsonify(message="Registered"), 200
         
     except Exception as e:
         print(e)
@@ -95,7 +125,7 @@ def signup_student():
 # endpoint to logout student and revoke access token
 @app.route("/logout", methods=["POST"])
 @jwt_required
-def logout_student():
+def logout():
     try:
         jti = get_raw_jwt()['jti']
         
@@ -110,21 +140,38 @@ def logout_student():
 
 # endpoint to login student and issue access token
 @app.route("/login", methods=["POST"])
-def login_student():
+def login():
     try:
-        username = request.json['username']
-        password = request.json['password']
-        student = Student.query.filter(Student.username == username).first()
-        
-        if (not student):
-            return jsonify(message="User does not exist."), 403
+        loginType = request.json['loginType']
+        if (loginType == "Student"):
+            username = request.json['username']
+            password = request.json['password']
+            student = Student.query.filter(Student.username == username).first()
+            
+            if (not student):
+                return jsonify(message="User does not exist."), 403
 
-        if (Student.verify_hash(password, student.password)):
-            access_token = create_access_token(identity = username)
-            refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
-            return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
-        else:
-            return jsonify(message="Incorrect password."), 403
+            if (Student.verify_hash(password, student.password)):
+                access_token = create_access_token(identity = username)
+                refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
+                return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
+            else:
+                return jsonify(message="Incorrect password."), 403
+        
+        elif (loginType == "Teacher"):
+            username = request.json['username']
+            password = request.json['password']
+            teacher = Teacher.query.filter(Teacher.username == username).first()
+            
+            if (not teacher):
+                return jsonify(message="User does not exist."), 403
+
+            if (Teacher.verify_hash(password, teacher.password)):
+                access_token = create_access_token(identity = username)
+                refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
+                return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
+            else:
+                return jsonify(message="Incorrect password."), 403
         
     except Exception as e:
         print(e)
@@ -147,6 +194,15 @@ def refresh():
 @jwt_required
 def verify():
     return jsonify()
+
+
+# endpoint to show all teachers for testing
+@app.route("/allteachers", methods=["GET"])
+#@jwt_required
+def get_teachers():
+    allTeachers = Teacher.query.all()
+    result = teachersSerializer.dump(allTeachers)
+    return jsonify(result.data)   
 
 # endpoint to create new student
 @app.route("/student", methods=["POST"])
