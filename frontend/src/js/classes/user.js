@@ -1,14 +1,30 @@
 export class User{
-    constructor(userName, currentLevel, backpack, credits, itemsOnScreen, randomNumbers, itemList) {
+    constructor(userName, id, money, guestNumber, currentLevel, backpack, credits, itemsOnScreen, randomNumbers, itemList) {
 
         // Underscores signifies local variables
         this._uName             = userName;
+        this._id                = id;
+        this._money              = money;
+        this._guestNumber       = guestNumber;
         this._level             = currentLevel;
         this._backpack          = backpack;
         this._credits           = credits;
         this._screenItems       = itemsOnScreen;
         this._numbersInShopList = randomNumbers;
         this._itemsInShopList   = itemList;
+    }
+
+    get username(){
+      return this._uName;
+    }
+    get id(){
+      return this._id;
+    }
+    get money(){
+      return this._money;
+    }
+    get guestNumber(){
+      return this._guestNumber;
     }
     get level(){
         return this._level;

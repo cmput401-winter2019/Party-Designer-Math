@@ -13,6 +13,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.startHeight  = config.startHeight;
     this.btnHeight    = config.btnHeight;
     this.itemY        = config.itemY;
+    this.player       = config.player;
     this.btnWidth     = config.btnWidth;
     this.btnColor     = config.btnColor;
     this.assets       = config.assets;
@@ -55,7 +56,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.rect.setInteractive();
 
     this.rect.on( "pointerover",
-                  function(pointer) { this.alpha = 0.7; 
+                  function(pointer) { this.alpha = 0.7;
                   // console.log(this.clicked)
                   },
                   this);
@@ -82,8 +83,8 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.rectLeft.on("pointerdown", ()=>{
       if (this.currentPage>0){
         this.hideCurrentPage(this.text._text);
-        this.currentPage -=1;  
-        this.showCurrentPage(this.text._text);      
+        this.currentPage -=1;
+        this.showCurrentPage(this.text._text);
         //console.log("Current Page of",this.text._text, this.currentPage);
       }
     });
@@ -95,7 +96,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         //console.log("Current Page of",this.text._text, this.currentPage);
       }
     });
-    
+
     // Set images associated with the button
     var page=0;
     while(page<this.numOfPages){
@@ -103,7 +104,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
       var min = this.numItemPerPage;
       if (page+1==this.numOfPages && this.numItemLastPage!=0){
         min = this.numItemLastPage;
-        
+
       }
       //console.log("Page",page);
       //console.log("Min",min);
@@ -116,7 +117,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
-            this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene});
+            this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player});
         });
         offset+=100;
         this.loadedassets.push(asset1);
@@ -233,7 +234,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     //console.log("Num per page:", this.numItemPerPage);
     //console.log("Num of pages", this.numOfPages, "=", this.assets.length, "/", this.numItemPerPage);
     //console.log("Num of last page item:", this.numItemLastPage);
-    
+
     if(this.text._text == "Furniture") {
       this.visibleAndInvisible(this.text._text);
 
@@ -243,14 +244,14 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
     if(this.text._text == "Decoration") {
       this.visibleAndInvisible(this.text._text);
-      
+
       this.clicked = true;
       this.alpha = 0.7;
     }
 
     else if(this.text._text == "Snacks") {
       this.visibleAndInvisible(this.text._text);
-      
+
       this.clicked = true;
       this.alpha = 0.7;
     }
