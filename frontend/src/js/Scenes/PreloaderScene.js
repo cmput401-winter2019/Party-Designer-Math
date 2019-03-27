@@ -69,7 +69,31 @@ export class PreloaderScene extends Phaser.Scene{
 
   ready(){
     this.readyCount++;
-    if(this.readyCount == 2){ this.scene.start(CST.SCENES.GAME); }
+    if(this.readyCount == 2){
+      var username = localStorage.getItem("username");
+      this.get_current_student(username);
+     }
+  }
+
+  get_current_student(username){
+    var url = "http://127.0.0.1:5001/student/" + username;
+    return fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(
+        response => {
+          response.json().then(data => {
+            localStorage.setItem("id", data.id);
+            this.scene.start(CST.SCENES.GAME);
+          });
+        }
+      )
   }
 
   load_assets(){

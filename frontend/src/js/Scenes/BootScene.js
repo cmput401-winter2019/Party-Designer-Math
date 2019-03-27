@@ -8,6 +8,7 @@ export class BootScene extends Phaser.Scene{
   }
 
   create(){
+
     console.log(localStorage.getItem("access_token"));
     console.log(localStorage.getItem("refresh_token"));
 

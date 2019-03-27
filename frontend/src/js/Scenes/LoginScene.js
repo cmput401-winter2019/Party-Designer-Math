@@ -26,7 +26,7 @@ export class LoginScene extends Phaser.Scene{
 
         if(exists==true){
           alert("login success")
-          this.scene.start(CST.SCENES.BOOT)
+          this.scene.start(CST.SCENES.BOOT);
         }
     })
 
