@@ -97,7 +97,7 @@ export class PreloaderScene extends Phaser.Scene{
   }
 
   load_assets(){
-    this.load.image("background", "assets/images/Interface/background.png");
+    this.load.image("background", "assets/images/Interface/background1.png");
     this.load.image("exitBtn",    "assets/images/Interface/ExitGame.svg");
     this.load.image("saveBtn",    "assets/images/Interface/Save.svg");
     this.load.image("themeBtn",   "assets/images/Interface/Themes.svg");
