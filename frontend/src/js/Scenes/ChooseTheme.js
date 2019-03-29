@@ -65,7 +65,7 @@ export class ChooseTheme extends Phaser.Scene {
         if (this.currentPage+1==this.numOfPages && this.themesInLastPage!=0){
             min = this.themesInLastPage;
         }
-        console.log(min, this.currentPage+1, this.numOfPages);
+        //console.log(min, this.currentPage+1, this.numOfPages);
         for(var i = this.currentPage*this.themesInPage; i < this.currentPage*this.themesInPage+min; i++){
             this.themeBtns[i].visible = true;
         }
