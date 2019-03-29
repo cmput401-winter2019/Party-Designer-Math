@@ -198,6 +198,8 @@ export class Question extends Phaser.GameObjects.Container{
             var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, this.properties.unit, "show");
 
         }
+        this.scene.originalS.updateProgressBar();
+
         var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
         this.destroy();
         scene.scene.sleep(CST.SCENES.BUY_POPUP);

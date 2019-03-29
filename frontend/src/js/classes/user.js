@@ -12,6 +12,10 @@ export class User{
         this._screenItems       = itemsOnScreen;
         this._numbersInShopList = randomNumbers;
         this._itemsInShopList   = itemList;
+        this._shoppingList      = {};
+        this._progress;
+        this.allItemsShopList(); // generates a dictionary of shopping list :
+                                 //     item name and number that needs to be bought
     }
 
     get username(){
@@ -85,6 +89,8 @@ export class User{
             //console.log("screenItems list does not have", imageName);
             this._screenItems[imageName] = 1;
         }
+        console.log("backpack", this._backpack);
+        console.log("screenItems", this._screenItems);
     }
     removeFromScreenItems(imageName){
         if (!(imageName in this._screenItems)||(this._screenItems[imageName] == 0)){
@@ -106,6 +112,45 @@ export class User{
         //If item is sucessfully removed from backpack, put it to screenItems list
         if(this.removeFromBackpack(imageName)!=false){
             this.putIntoScreenItems(imageName);
+        }
+    }
+    allItemsBoughtList(){
+        // Combines items in backpack and items in screen (dictionary{item: numBought})
+        this._allItems = {};
+        for (var key in this._screenItems){
+            this._allItems[key] = this._screenItems[key];
+        }
+        for(var key in this._backpack){
+            if (key in this._allItems){
+                this._allItems[key] += this._backpack[key];
+            } else {
+                this._allItems[key] = this._backpack[key];
+            }
+        }
+    }
+    allItemsShopList(){
+        for(var i=0; i<this._itemsInShopList.length; i++){
+            this._shoppingList[this._itemsInShopList[i]] = this._numbersInShopList[i];
+        }
+    }
+    checkProgress(){
+        var progress = 0;
+        this.allItemsBoughtList();
+        for(var key in this._allItems){
+            if(this.checkNumBought(key)== true){
+                progress += 1;
+            }
+        }
+        console.log("progress", progress/20);
+        return progress/20;
+    }
+    checkNumBought(key){    
+        // Checks if the number of key (item) owned is more than the objective in the shopping list
+        if (this._itemsInShopList.includes(key)){
+            //console.log(key, this._shoppingList[key]);
+            if (this._allItems[key] >= this._shoppingList[key]){
+                return true;
+            }
         }
     }
 
