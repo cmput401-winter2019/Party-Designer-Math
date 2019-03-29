@@ -334,8 +334,9 @@ def add_question(id):
         itemCost = request.json['itemCost']
         numberOfGuests = request.json["numberOfGuests"]
         level = request.json['level']
+        itemNum = request.json['itemNum']
 
-        questionGenerator = QuestionGenerator(itemType, itemUnit, itemName, itemPluralName, itemCost, numberOfGuests, level)
+        questionGenerator = QuestionGenerator(itemType, itemUnit, itemNum, itemName, itemPluralName, itemCost, numberOfGuests, level)
         questionData = questionGenerator.generate()
 
         question = questionData['q']

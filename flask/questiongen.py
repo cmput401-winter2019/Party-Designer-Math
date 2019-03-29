@@ -1,12 +1,13 @@
 from random import randint
-from math import ceil
+from math import ceil, floor
 
 class QuestionGenerator():
-    def __init__(self, itemType, itemUnit, itemName, itemPluralName, itemCost, numberOfGuests, level):
+    def __init__(self, itemType, itemUnit, itemNum, itemName, itemPluralName, itemCost, numberOfGuests, level):
         self.itemType = itemType
         self.itemName = itemName
         self.itemPlurName = itemPluralName
         self.itemUnit = itemUnit
+        self.itemNum = int(itemNum)
         self.itemCost = int(itemCost)
         self.guestsNum = int(numberOfGuests)
         self.level = int(level)
@@ -37,34 +38,40 @@ class QuestionGenerator():
             return self.randMixedQ()
     
     def randFurnitureQ(self):
+        # Subtraction questions
         randQNum = randint(1, 3)
         q = ""
         answer = 0
         if (randQNum == 1):
-            randInt = randint(2, self.itemCost-1)
-            q = ("Your friend wants to buy a {0} that costs {1} dollars. \nIf your friend has a 'take {2} dollar{plural} off' coupon,\n"
-            "what is the new cost that she has to pay?").format(self.itemName, self.itemCost, str(randInt), plural="s" if randInt>1 else "")
+            if (self.itemCost*self.itemNum >= 2):
+                randInt = randint(2, self.itemCost-1)
+            else:
+                randInt = 1
+            
+            q = ("Your want to buy {} {} that costs a total of {} dollars. \nIf your friend has a 'take {} dollar{plural} off your total purchase' coupon,\n"
+            "what is the new cost that she has to pay?").format(self.itemNum, self.itemPlurName, self.itemCost*self.itemNum, str(randInt), plural="s" if randInt>1 else "")
 
-            answer = self.itemCost-randInt
+            answer = self.itemCost*self.itemNum-randInt
 
         elif(randQNum == 2):
-            randInt = randint(2, self.subcap)
-            boughtInt = randint(1, randInt-1)
-            q = ("If there were {} {} currently being sold at the store, \nbut a man came and bought {}. "
-                "\nHow many {} are left in the store?").format(str(randInt), self.itemPlurName, str(boughtInt), self.itemPlurName)
+            randInt = randint(self.itemNum+1, self.subcap)
+            boughtInt = randint(1, randInt-self.itemNum)
+            q = ("If there were {} {} currently being sold at the store, \nbut a man came and bought {} and you bought {}, "
+                "\nHow many {} are left in the store?").format(str(randInt), self.itemPlurName, str(boughtInt), self.itemNum, self.itemPlurName)
             
-            answer = randInt - boughtInt
+            answer = randInt - boughtInt - self.itemNum
         
         elif(randQNum == 3):
-            randInt = randint(2, self.subcap)
-            lostInt = randint(1, randInt-1)
-            q = ("If your school bought {} {}, but accidentally lost {}, \nhow many {} "
-            "does your school have left?").format(str(randInt), self.itemPlurName, str(lostInt), self.itemPlurName)
+            randInt = randint(self.itemNum+1, self.subcap)
+            randInt2 = randint(1, randInt-self.itemNum)
+            q = ("If your family bought {} {}, but accidentally lost the {} {} that \nyou bought, and lost the {} {} that your cousin bought, \nhow many {} "
+            "does your family have left?").format(randInt, self.itemPlurName, self.itemNum, self.itemPlurName, randInt2, self.itemPlurName, self.itemPlurName)
+            answer = randInt - randInt2 - self.itemNum
 
-            answer = randInt - lostInt
-        return {"q": q, "ans": answer, "type": "subtraction"}
+        return {"q": q, "ans": answer}
 
     def randDecorQ(self):
+        # Addition Questions
         randQNum = randint(1, 3)
         q = ""
         answer = 0
@@ -78,23 +85,24 @@ class QuestionGenerator():
             answer = randInt1 + randInt2
 
         elif(randQNum == 2):
-            randInt1 = randint(2, self.addcap)
-            randInt2 = randint(2, self.addcap)
-            q = ("If you bought {} {} and your friend bought {} {}, \n"
-                "how many {} did you and your friend bought in total?").format(str(randInt1), self.itemPlurName, str(randInt2), self.itemPlurName, self.itemPlurName)
+            randInt1 = randint(2, floor(self.addcap/2))
+            randInt2 = randint(2, floor(self.addcap/2))
+            q = ("If you bought {} {}, your friend Mary bought {} {} \nand your friend John bought {} {},\n"
+                "how many {} did you and your friends bought in total?").format(self.itemNum, self.itemPlurName, randInt1, self.itemPlurName, randInt2, self.itemPlurName,self.itemPlurName)
             
-            answer = randInt1 + randInt2
+            answer = self.itemNum + randInt1 + randInt2
         
         elif(randQNum == 3):
-            randInt1 = randint(2, self.addcap)
+            randInt1 = randint(2, self.addcap)                                          # This question allows decimal cost calculation
             q = ("One {} costs {} dollars. One bookmark costs {} dollars.\n"
-                "If Bob bought one of each how much money did he spent in total?" ).format(self.itemName, str(self.itemCost), randInt1)
+                "If Bob bought one of each how much money did he spent in total?" ).format(self.itemName, str(self.itemCost), randInt1+self.itemCost)
             
             answer = randInt1 + self.itemCost
 
-        return {"q": q, "ans": answer, "type": "addition"}
+        return {"q": q, "ans": answer}
     
     def randFoodQ(self):
+        # Division Questions
         randQNum = randint(1, 3)
         q = ""
         answer = 0
@@ -120,26 +128,27 @@ class QuestionGenerator():
         
         elif(randQNum == 3):
            numOfPeople = self.guestsNum+1
-           randInt1 = randint(2, self.multcap)*randint(2, self.multcap)
+           randInt1 = randint(2, self.multcap)*randint(2, self.multcap)                 # Remainder question
            q = ("There are {} persons in your party (including yourself).\n"
                 "If you bought {} {} of {} for your party and splitted the {} \n"
                 "evenly among you and your friends. \n"
                 "How many {} of {} were left over?").format(str(numOfPeople), randInt1, self.itemUnit, self.itemName, self.itemUnit, self.itemUnit, self.itemName)
 
            answer = randInt1%numOfPeople
+            
 
-        return {"q": q, "ans": answer, "type": "division"}
+        return {"q": q, "ans": answer}
 
     def randKiddieQ(self):
+        # Multiplication
         randQNum = randint(1, 3)
         q = ""
         answer = 0
 
         if (randQNum == 1):
-             q = ("A {} costs {} dollars each. If you bought a {} for each of \n"
-                 "your {} guests, how much did it cost you in total?").format(self.itemName, self.itemCost, self.itemName, self.guestsNum)
+            q = ("You are buying {} {} at a cost of {} each. How much do you need to pay in total?").format(self.itemNum, self.itemName, self.itemCost)
 
-             answer = self.itemCost*self.guestsNum
+            answer = self.itemNum * self.itemCost
 
         elif (randQNum == 2):
             randInt1 = randint(2, self.multcap)
@@ -158,9 +167,10 @@ class QuestionGenerator():
             
             answer = randInt1*randInt2
 
-        return {"q": q, "ans": answer, "type": "multiplication"}
+        return {"q": q, "ans": answer}
 
     def randMixedQ(self):
+        # Mixed Operator Questions
         randQNum = randint(1, 3)
         q = ""
         answer = 0
@@ -197,19 +207,19 @@ class QuestionGenerator():
 
             answer = int((randInt1/self.guestsNum)*(self.guestsNum-1))
         
-        return {"q": q, "ans": answer, "type": "mixed"}
+        return {"q": q, "ans": answer}
 
 # def main():
-#     #qGen = QuestionGenerator("furniture", "N/A", "chair", "chairs", "15","4", 7)
-#     #qGen = QuestionGenerator("food", "slices", "cake", "cakes", "6", 3, 5)
-#     #qGen = QuestionGenerator("deco", "set", "wall hanger", "wall hangers", 7, 3, "5")
-#     #qGen = QuestionGenerator("kiddie", "set", "telescope", "telescopes", 18, 7, 6)
-#     qGen = QuestionGenerator("refund", "set", "telescope", "telescopes", 15, 7, 6)
-#     returned = qGen.generate()
-#     print()
-#     print(returned["q"])
-#     print(returned["ans"])
-#     print()
+    # qGen = QuestionGenerator("furniture", "N/A", 4, "chair", "chairs", "15","4", 7)
+    # qGen = QuestionGenerator("food", "slices", 4, "cake", "cakes", "6", 3, 5)
+    # qGen = QuestionGenerator("deco", "set", "4", "wall hanger", "wall hangers", 7, 3, "5")
+    #qGen = QuestionGenerator("kiddie", "set", 4, "telescope", "telescopes", 18, 7, 6)
+    # qGen = QuestionGenerator("refund", "set", "telescope", "telescopes", 15, 7, 6)
+    # returned = qGen.generate()
+    # print()
+    # print(returned["q"])
+    # print(returned["ans"])
+    # print()
 
 # main()
 
