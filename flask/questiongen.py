@@ -41,7 +41,7 @@ class QuestionGenerator():
         q = ""
         answer = 0
         if (randQNum == 1):
-            randInt = randint(0, self.itemCost-1)
+            randInt = randint(2, self.itemCost-1)
             q = ("Your friend wants to buy a {0} that costs {1} dollars. \nIf your friend has a 'take {2} dollar{plural} off' coupon,\n"
             "what is the new cost that she has to pay?").format(self.itemName, self.itemCost, str(randInt), plural="s" if randInt>1 else "")
 
