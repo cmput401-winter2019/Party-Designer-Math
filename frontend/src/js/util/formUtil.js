@@ -52,7 +52,7 @@ export class FormUtil {
         }
         //
         //get the height
-        //        
+        //
         var h = el.style.height;
         //convert to a number
         h = this.toNum(h);
@@ -79,6 +79,14 @@ export class FormUtil {
             el.onchange = fun.bind(scope);
         }
     }
+    addClickCallback(elName, fun, scope = null) {
+       var el = document.getElementById(elName);
+       if (scope == null) {
+           el.onclick = fun;
+       } else {
+           el.onclick = fun.bind(scope);
+       }
+   }
     getTextAreaValue(elName)
     {
         var el = document.getElementById(elName);
