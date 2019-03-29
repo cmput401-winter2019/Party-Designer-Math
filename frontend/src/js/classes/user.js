@@ -4,7 +4,7 @@ export class User{
         // Underscores signifies local variables
         this._uName             = userName;
         this._id                = id;
-        this._money              = money;
+        this._money             = money;
         this._guestNumber       = guestNumber;
         this._level             = currentLevel;
         this._backpack          = backpack;

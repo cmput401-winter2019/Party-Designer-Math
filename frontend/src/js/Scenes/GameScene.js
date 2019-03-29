@@ -7,7 +7,9 @@ import { Guest }                                                                
 import { Item }                                                                         from "../classes/item";
 import { ButtonAtMenu }                                                                 from "../Components/buttonAtMenu";
 import { ButtonAtBottom }                                                               from "../Components/buttonAtBottom";
-import {CST} from "../CST";
+import { CST }                                                                          from "../CST";
+import { ProgressBar }                                                                  from '../Components/progressBar';
+
 
 export class GameScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.GAME}); }
@@ -52,6 +54,9 @@ export class GameScene extends Phaser.Scene{
     this.createDragLogics();
     this.createTopMenuButtons();
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
+
+    this.progressBar = new ProgressBar({scene:this, width: 200, x: this.game.config.width/2, y:75/2, color: 0x0e4361});
+    this.progressBar.setPercent(0.5);
   }
 
   post_gamestate(id, money, guests, url){
