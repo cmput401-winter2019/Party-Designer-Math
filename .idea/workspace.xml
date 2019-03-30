@@ -2,17 +2,100 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb2c2599-7400-458a-9501-7f3c75052e94" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_4.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_5.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_6.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_7.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/banner.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/crab.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/dolphin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/flamingo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/shells.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/shells2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/ship.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/starfish.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/surfBoard.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/tree.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/appleSlush.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/coconut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/fruitSet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/juice.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/juice2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/lemons.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/popsicle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/salad.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/seafoodSkewer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/squid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/car.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/chair.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/chairSet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/hut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/lifeguardHut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/rug.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/sandCastle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/sideTabel.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/umbrella.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/watercraft.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/_DS_Store" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/beachBall.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/beachGadgetSet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/bucket.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/drum.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/hat.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/juice.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/lifesaver.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/sandles.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/sunglasses.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/ukulele.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/SAMPLE.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/colourPalette.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/background3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/mountain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/theme3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 223Beach_invitation_bg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 72beach_invite_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 72beach_invite_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 72beach_invite_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/beachInvite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/sendButton.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 37playground_invite_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 37playground_invite_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 37playground_invite_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 742PLAYGROUND_INVITATION_BG.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/playgroundInvite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/sendButton.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 138space_invitation_bg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 36Space_invite_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 36Space_invite_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 36Space_invite_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/sendButton.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/spaceInvite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/text/questionform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Components/levelIndicator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Components/progressBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Components/roundBtn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/LevelUpScene.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flask/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flask/crud.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/flask/crud.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask/migrations/alembic.ini" beforeDir="false" afterPath="$PROJECT_DIR$/flask/migrations/alembic.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask/migrations/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/migrations/env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask/migrations/script.py.mako" beforeDir="false" afterPath="$PROJECT_DIR$/flask/migrations/script.py.mako" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask/migrations/versions/b1d9cae56c0b_.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/flask/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/flask/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/questiongen.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/questiongen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/images/Interface/Group 22bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/background2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/images/Interface/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/background1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/CST.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/CST.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Components/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Components/Question.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Components/buttonAtMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Components/buttonAtMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/BuyPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/BuyPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/ChooseTheme.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/ChooseTheme.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/PreloaderScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/PreloaderScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/classes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/classes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/util/formUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/util/formUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/templates/play.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,8 +144,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flask/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3530">
-              <caret line="559" column="93" selection-start-line="559" selection-start-column="93" selection-end-line="559" selection-end-column="93" />
+            <state relative-caret-position="-632">
+              <caret line="377" column="13" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
               </folding>
@@ -85,8 +168,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="1028">
+              <caret line="108" selection-start-line="108" selection-end-line="108" />
             </state>
           </provider>
         </entry>
@@ -273,8 +356,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="1028">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
         </state>
       </provider>
     </entry>
@@ -306,8 +389,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flask/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3530">
-          <caret line="559" column="93" selection-start-line="559" selection-start-column="93" selection-end-line="559" selection-end-column="93" />
+        <state relative-caret-position="-632">
+          <caret line="377" column="13" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
           <folding>
             <element signature="e#0#58#0" expanded="true" />
           </folding>

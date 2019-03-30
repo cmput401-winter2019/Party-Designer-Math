@@ -39,6 +39,5 @@ export class BuyPopup extends Phaser.Scene{
 
         this.buyItemPopup.setInteractive();
         this.input.setDraggable(this.buyItemPopup);
-
     }
 }
