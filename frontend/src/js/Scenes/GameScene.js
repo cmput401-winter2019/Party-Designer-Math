@@ -54,6 +54,8 @@ export class GameScene extends Phaser.Scene{
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
   }
 
+
+
   post_gamestate(id, money, guests, url){
       const body = {
           studentId: id,
