@@ -70,7 +70,7 @@ export class GameScene extends Phaser.Scene{
     this.progressBar.setPercent(0);
 
     // Show credits 
-    this.credits = this.add.text(this.game.config.width-(this.game.config.width*0.05+100)+20,30,this.player.money.toFixed(2), {fontFamily:'Muli', color:'#ffffff', fontSize:'23px'}).setOrigin(0,0.5);
+    this.showCredits();
 
     // Call scene functions
     this.updateProgressBar();
@@ -84,9 +84,17 @@ export class GameScene extends Phaser.Scene{
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
 
     // Level up button
-    this.levelUpBtn = new StartPartyBtn({scene:this});
+    this.levelUpBtn = new StartPartyBtn(this, 
+                                        this.game.config.width-(this.game.config.width*0.05+200)-(150/2), 
+                                        10); 
 
     
+  }
+  showCredits(){
+    this.credits = this.add.text(this.game.config.width-(this.game.config.width*0.05+100)+20,
+                                                        30,
+                                                        this.player.money.toFixed(2), 
+                                                        {fontFamily:'Muli', color:'#ffffff', fontSize:'23px'}).setOrigin(0,0.5);
   }
   updateProgressBar(){
     this.progressBar.setPercent(this.player.checkProgress());
@@ -314,5 +322,6 @@ export class GameScene extends Phaser.Scene{
     // Furniture (first bottom menu button) is selected upon arriving at the room
     this.bottomBtn1.activateBtn();
   }
+  
 
 }
