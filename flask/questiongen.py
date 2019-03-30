@@ -120,7 +120,7 @@ class QuestionGenerator():
             randInt1 = randint(2, self.multcap)
             cost = numOfPeople * randInt1
             q = ("There are {} persons in your party (including yourself).\n"
-                "If you bought {} with a TOTAL cost of {} dollars, \n"
+                "If you bought them {} with a TOTAL cost of {} dollars, \n"
                 "how much did it cost you per person?").format(str(numOfPeople), self.itemPlurName, str(cost))
 
             answer = randInt1
