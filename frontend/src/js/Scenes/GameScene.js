@@ -9,6 +9,9 @@ import { ButtonAtMenu }                                                         
 import { ButtonAtBottom }                                                               from "../Components/buttonAtBottom";
 import { CST }                                                                          from "../CST";
 import { ProgressBar }                                                                  from '../Components/progressBar';
+import { StartPartyBtn } from '../Components/startPartyBtn';
+import { FormUtil } from '../util/formUtil';
+import { LevelIndicator } from '../Components/levelIndicator';
 
 
 export class GameScene extends Phaser.Scene{
@@ -21,6 +24,13 @@ export class GameScene extends Phaser.Scene{
   }
 
   create(){
+    this.formUtil = new FormUtil({
+                    scene: this,
+                    rows: 5,
+                    cols: 11
+                });
+    // this.formUtil.showNumbers();
+
     // Initiate ImageToProperites class
     this.imageToProp = new ImageToProperties();
 
@@ -50,9 +60,17 @@ export class GameScene extends Phaser.Scene{
                             
     this.player.allItemsBoughtList();
 
+
+    // Level indicator
+    var indicatorX = this.game.config.width*0.45;
+    this.levelIndicator = new LevelIndicator({scene:this, text:this.player.level, x:indicatorX, y:30});
+
     // Initiate progress bar
-    this.progressBar = new ProgressBar({scene:this, width: 200, x: this.game.config.width/2, y:75/2, color: 0x0e4361});
+    this.progressBar = new ProgressBar({scene:this, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
     this.progressBar.setPercent(0);
+
+    // Show credits 
+    this.credits = this.add.text(this.game.config.width-(this.game.config.width*0.05+100)+20,30,this.player.money.toFixed(2), {fontFamily:'Muli', color:'#ffffff', fontSize:'23px'}).setOrigin(0,0.5);
 
     // Call scene functions
     this.updateProgressBar();
@@ -64,6 +82,9 @@ export class GameScene extends Phaser.Scene{
     this.createDragLogics();
     this.createTopMenuButtons();
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
+
+    // Level up button
+    this.levelUpBtn = new StartPartyBtn({scene:this});
 
     
   }
@@ -167,37 +188,37 @@ export class GameScene extends Phaser.Scene{
 
   createTopMenuButtons(){
     // Top menu
+    var startX = this.game.config.width*0.05;
     this.exitBtn = new ButtonAtMenu({ scene   : this,
                                         key   : "exitBtn",
                                         text  : "Exit Game",
-                                        x     : (this.game.config.width*0.05),
+                                        x     : (startX),
                                         y     : 30,
-                                        event : "button_pressed",
-                                        params: "self_desturct"
+                                        event : "button_pressed"
                                     });
 
-    this.themeBtn = new ButtonAtMenu({ scene  : this,
-                                        key   : "themeBtn",
-                                        text  : "Themes",
-                                        x     : (this.game.config.width*0.12),
-                                        y     : 30,
-                                        event : "button_pressed",
-                                        params: "self_desturct"
-                                    });
+    // this.themeBtn = new ButtonAtMenu({ scene  : this,
+    //                                     key   : "themeBtn",
+    //                                     text  : "Themes",
+    //                                     x     : (this.game.config.width*0.12),
+    //                                     y     : 30,
+    //                                     event : "button_pressed",
+    //                                     params: "self_desturct"
+    //                                 });
 
-    this.saveBtn = new ButtonAtMenu({ scene   : this,
-                                        key   : "saveBtn",
-                                        text  : "Save",
-                                        x     : (this.game.config.width*0.19),
-                                        y     : 30,
-                                        event : "button_pressed",
-                                        params: "self_desturct"
-                                    });
+    // this.saveBtn = new ButtonAtMenu({ scene   : this,
+    //                                     key   : "saveBtn",
+    //                                     text  : "Save",
+    //                                     x     : (this.game.config.width*0.19),
+    //                                     y     : 30,
+    //                                     event : "button_pressed",
+    //                                     params: "self_desturct"
+    //                                 });
 
     this.profileBtn = new ButtonAtMenu({ scene  : this,
                                           key   : "profileBtn",
                                           text  : "Profile",
-                                          x     : (this.game.config.width*0.26),
+                                          x     : (startX+100),
                                           y     : 30,
                                           event : "button_pressed",
                                           params: "self_desturct"
@@ -206,28 +227,25 @@ export class GameScene extends Phaser.Scene{
     this.bagBtn = new ButtonAtMenu({  scene   : this,
                                         key   : "bagBtn",
                                         text  : "Bag",
-                                        x     : (this.game.config.width*(1-0.26)),
+                                        x     : (startX+200),
                                         y     : 30,
-                                        event : "button_pressed",
-                                        params: "self_desturct"
+                                        event : "button_pressed"
                                     });
 
     this.listBtn = new ButtonAtMenu({  scene  : this,
                                         key   : "listBtn",
                                         text  : "List",
-                                        x     : (this.game.config.width*(1-0.19)),
+                                        x     : (this.game.config.width-(startX+200)),
                                         y     : 30,
-                                        event : "button_pressed",
-                                        params: "self_desturct"
+                                        event : "button_pressed"
                                     });
 
     this.creditBtn = new ButtonAtMenu({  scene  : this,
                                           key   : "creditBtn",
                                           text  : "Credits",
-                                          x     : (this.game.config.width*(1-0.12)),
+                                          x     : (this.game.config.width-(startX+100)),
                                           y     : 30,
-                                          event : "button_pressed",
-                                          params: "self_desturct"
+                                          event : "button_pressed"
                                     });
   }
 

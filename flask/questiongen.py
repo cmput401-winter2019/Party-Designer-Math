@@ -37,6 +37,7 @@ class QuestionGenerator():
             return self.randMixedQ()
     
     def randFurnitureQ(self):
+        # subtraction question
         randQNum = randint(1, 3)
         q = ""
         answer = 0
@@ -69,6 +70,7 @@ class QuestionGenerator():
         return {"q": q, "ans": answer, "type": "subtraction"}
 
     def randDecorQ(self):
+        # addition question
         randQNum = randint(1, 3)
         q = ""
         answer = 0
@@ -99,6 +101,7 @@ class QuestionGenerator():
         return {"q": q, "ans": answer, "type": "addition"}
     
     def randFoodQ(self):
+        # division question
         randQNum = randint(1, 3)
         q = ""
         answer = 0
@@ -108,7 +111,7 @@ class QuestionGenerator():
             randInt1 = randint(2, self.multcap)
             q = ("There are {} persons in your party (including yourself).\n"
                 "If you bought {} {} of {} for your party and want to split them evenly. \n"
-                "How many {} of {} should each person get?").format(str(numOfPeople), numOfPeople*randInt1, self.itemUnit, self.itemName, self.itemUnit, self.itemName)
+                "How many {} of {} should each person get?").format(str(numOfPeople), numOfPeople*randInt1, "units", self.itemName, "units", self.itemName)
 
             answer = randInt1
 
@@ -126,15 +129,16 @@ class QuestionGenerator():
            numOfPeople = self.guestsNum+1
            randInt1 = randint(2, self.multcap)*randint(2, self.multcap)                 # Remainder question
            q = ("There are {} persons in your party (including yourself).\n"
-                "If you bought {} {} of {} for your party and splitted the {} \n"
+                "If you bought {} {} of {} for your party and splitted them\n"
                 "evenly among you and your friends. \n"
-                "How many {} of {} were left over?").format(str(numOfPeople), randInt1, self.itemUnit, self.itemName, self.itemUnit, self.itemUnit, self.itemName)
+                "How many {} of {} were left over?").format(str(numOfPeople), randInt1, "units", self.itemName, "units", self.itemName)
 
            answer = randInt1%numOfPeople
 
         return {"q": q, "ans": answer, "type": "division"}
 
     def randKiddieQ(self):
+        # multiplication question
         randQNum = randint(1, 3)
         q = ""
         answer = 0
