@@ -10,7 +10,8 @@ export const CST = {
         GAME:     "GAME",
         LOGIN:    "LOGIN",
         PRELOADER:  "PRELOADER",
-        CHOOSE_THEME: "CHOOSE_THEME"
+        CHOOSE_THEME: "CHOOSE_THEME",
+        LEVEL_UP: "LEVEL_UP"
     },
 
     IMAGES: {

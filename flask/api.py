@@ -355,7 +355,6 @@ def add_question(id):
         arithmeticType = questionData['type']
         gameStateId = id
 
-
         newQuestion = Question(question, answer, arithmeticType, gameStateId)
 
         db.session.add(newQuestion)
@@ -380,8 +379,10 @@ def get_question(id):
 def check_answer_question(id):
     try:
         answer = int(request.json['answer'])
-        question = Question.query.filter(Question.gameStateId == id).first()
-
+        get_question = request.json['question']
+        question = Question.query.filter(Question.question == get_question).first()
+        #question = Question.query.filter(Question.gameStateId == id).first()
+        print((answer,question.answer, question.question), file=sys.stderr)
         if (answer != question.answer):
             question.correct = False
             db.session.commit()
