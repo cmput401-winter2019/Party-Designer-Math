@@ -87,7 +87,12 @@ export class GameScene extends Phaser.Scene{
     this.levelUpBtn = new RoundBtn(this, 
                                   this.game.config.width-(this.game.config.width*0.05+200), 
                                   75/2,
-                                  "START THE PARTY", 150,50); 
+                                  "START THE PARTY", 
+                                  150,
+                                  50); 
+    this.levelUpBtn.rect.on("pointerdown", ()=>{ 
+            this.scene.start(CST.SCENES.LEVEL_UP);
+    });
 
     
   }

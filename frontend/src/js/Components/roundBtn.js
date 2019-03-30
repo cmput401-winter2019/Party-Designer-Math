@@ -37,12 +37,7 @@ export class RoundBtn extends Phaser.GameObjects.Container{
         this.add(this.text);
 
         this.rect.setInteractive();
-
-        this.rect.on("pointerdown", ()=>{ 
-            this.scene.scene.start(CST.SCENES.LEVEL_UP);
-        });
         
-
         // Add btn to scene
         this.scene.add.existing(this);
     }
