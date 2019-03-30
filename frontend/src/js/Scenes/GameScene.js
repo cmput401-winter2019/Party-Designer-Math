@@ -9,7 +9,7 @@ import { ButtonAtMenu }                                                         
 import { ButtonAtBottom }                                                               from "../Components/buttonAtBottom";
 import { CST }                                                                          from "../CST";
 import { ProgressBar }                                                                  from '../Components/progressBar';
-import { StartPartyBtn } from '../Components/startPartyBtn';
+import { StartPartyBtn, RoundBtn } from '../Components/roundBtn';
 import { FormUtil } from '../util/formUtil';
 import { LevelIndicator } from '../Components/levelIndicator';
 
@@ -84,9 +84,10 @@ export class GameScene extends Phaser.Scene{
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
 
     // Level up button
-    this.levelUpBtn = new StartPartyBtn(this, 
-                                        this.game.config.width-(this.game.config.width*0.05+200)-(150/2), 
-                                        10); 
+    this.levelUpBtn = new RoundBtn(this, 
+                                  this.game.config.width-(this.game.config.width*0.05+200), 
+                                  75/2,
+                                  "START THE PARTY", 150,50); 
 
     
   }
