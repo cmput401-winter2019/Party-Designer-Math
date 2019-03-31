@@ -1,5 +1,18 @@
 export class User{
-    constructor(userName, id, money, guestNumber, currentLevel, backpack, credits, itemsOnScreen, randomNumbers, itemList) {
+    constructor(userName,
+                id,
+                money,
+                guestNumber,
+                currentLevel,
+                backpack,
+                credits,
+                itemsOnScreen,
+                randomNumbers,
+                itemList,
+                furniture_count,
+                deco_count,
+                food_count,
+                kiddie_count){
 
         // Underscores signifies local variables
         this._uName             = userName;
@@ -13,54 +26,46 @@ export class User{
         this._numbersInShopList = randomNumbers;
         this._itemsInShopList   = itemList;
         this._shoppingList      = {};
+        this._furniture_count   = furniture_count;
+        this._deco_count        = deco_count;
+        this._food_count        = food_count;
+        this._kiddie_count      = kiddie_count;
         this._progress;
         this.allItemsShopList(); // generates a dictionary of shopping list :
                                  //     item name and number that needs to be bought
     }
 
-    get username(){
-      return this._uName;
-    }
-    get id(){
-      return this._id;
-    }
-    get money(){
-      return this._money;
-    }
-    get guestNumber(){
-      return this._guestNumber;
-    }
-    get level(){
-        return this._level;
-    }
-    get credits(){
-        return this._credits;
-    }
-    get backpack(){
-        return this._backpack;
-    }
-    get screenItems(){
-        return this._screenItems;
-    }
-    get itemsInShopList(){
-        return this._itemsInShopList;
-    }
-    get numbersInShopList(){
-        return this._numbersInShopList;
-    }
+    get furniture_count() { return this._furniture_count; }
+    get deco_count()      { return this._deco_count;      }
+    get food_count()      { return this._food_count;      }
+    get kiddie_count()    { return this._kiddie_count;    }
 
-    increaseLevel(){
-        this._level +=1;
-    }
-    decreaseLevel(){
-        this._level -=1;
-    }
-    increaseCredits(increaseAmount){
-        this._credits += increaseAmount;
-    }
-    decreaseCredits(decreaseAmount){
-        this._credits -= decreaseAmount;
-    }
+    increase_furniture()  { this._furniture_count += 1; }
+    increase_deco()       { this._deco_count      += 1; }
+    increase_food()       { this._food_count      += 1; }
+    increase_kiddie()     { this._kiddie_count    += 1; }
+
+    reset_furniture()     { this._furniture_count = 0;  }
+    reset_deco()          { this._deco_count      = 0;  }
+    reset_food()          { this._food_count      = 0;  }
+    reset_kiddie()        { this._kiddie_count    = 0;  }
+
+    get username()          { return this._uName;             }
+    get id()                { return this._id;                }
+    get money()             { return this._money;             }
+    get guestNumber()       { return this._guestNumber;       }
+    get level()             { return this._level;             }
+    get credits()           { return this._credits;           }
+    get backpack()          { return this._backpack;          }
+    get screenItems()       { return this._screenItems;       }
+    get itemsInShopList()   { return this._itemsInShopList;   }
+    get numbersInShopList() { return this._numbersInShopList; }
+
+    increaseLevel()                   { this._level +=1; }
+    decreaseLevel()                   { this._level -=1; }
+    increaseCredits(increaseAmount)   { this._credits += increaseAmount; }
+    decreaseCredits(decreaseAmount)   { this._credits -= decreaseAmount; }
+
     putIntoBackpack(imageName){
         if (imageName in this._backpack){
             //console.log(imageName, "exists in backpack");
@@ -144,7 +149,7 @@ export class User{
         console.log("progress", progress/20);
         return progress/20;
     }
-    checkNumBought(key){    
+    checkNumBought(key){
         // Checks if the number of key (item) owned is more than the objective in the shopping list
         if (this._itemsInShopList.includes(key)){
             //console.log(key, this._shoppingList[key]);

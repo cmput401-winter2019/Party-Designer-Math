@@ -232,9 +232,6 @@ def get_student(name):
     else:
         current_student = Student.query.filter(Student.username == name).first()
         result = studentSerializer.dump(current_student)
-        print("ASDASDASD", file=sys.stderr)
-        print(name, file=sys.stderr)
-        print("ASDASDASD", file=sys.stderr)
         return jsonify(result.data)
 
 
@@ -327,17 +324,18 @@ def get_canvasitems(id):
 @jwt_required
 def add_question(id):
     try:
-        itemType = request.json['itemType']
-        itemUnit = request.json['itemUnit']
-        itemName = request.json['itemName']
-        itemPluralName = request.json['itemPluralName']
-        itemCost = request.json['itemCost']
-        numberOfGuests = request.json["numberOfGuests"]
-        level = request.json['level']
+        itemType            = request.json['itemType']
+        itemUnit            = request.json['itemUnit']
+        itemName            = request.json['itemName']
+        itemPluralName      = request.json['itemPluralName']
+        itemCost            = request.json['itemCost']
+        numberOfGuests      = request.json["numberOfGuests"]
+        level               = request.json['level']
+        question_num        = request.json['question_num']
 
-        questionGenerator = QuestionGenerator(itemType, itemUnit, itemName, itemPluralName, itemCost, numberOfGuests, level)
+        questionGenerator = QuestionGenerator(itemType, itemUnit, itemName, itemPluralName, itemCost, numberOfGuests, level, question_num)
         questionData = questionGenerator.generate()
-
+        print(questionData, file=sys.stderr)
         question = questionData['q']
         answer = questionData['ans']
         arithmeticType = questionData['type']
