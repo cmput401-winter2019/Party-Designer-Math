@@ -14,7 +14,6 @@ export class Item extends Phaser.GameObjects.Sprite{
 		this.name = name;
         this.imageName = image;
         this.type = "item";
-        this.customize = false;
         this.angle = 0;
         this.pluralName = pluralName;
         this.category = category;
@@ -67,7 +66,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
             if (duration > 300){
-                if(this.customize == false && this.wasDragging == false){
+                if(this.inRoom == true && this.wasDragging == false){
                     this.showButtons();
                 }
             }
@@ -88,10 +87,10 @@ export class Item extends Phaser.GameObjects.Sprite{
             if(index > -1){
                 this.btnList.splice(index, 1);
             }
+        } else {
+            // If item is not in the invitation page, then it is an 'inRoom' item;
+            this.inRoom = true;
         }
-
-        
-
     }
     showButtons(){
         this.alpha = 0.6;
@@ -122,9 +121,7 @@ export class Item extends Phaser.GameObjects.Sprite{
             this.btnList[i].visible = false;
         }
 
-        this.customize = false;
         this.rect.alpha=0;
-
     }
     destroyButtons(){
         for (var i=0; i< this.btnList.length; i++){

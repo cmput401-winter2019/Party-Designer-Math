@@ -41,14 +41,89 @@ export class PartyInvitation extends Phaser.Scene {
       }
 
       // Load all stickers of chosen theme
-      for (var i=1; i<14; i++){
+      this.numOfStickers=13;
+      for (var i=1; i<this.numOfStickers+1; i++){
         this.load.image("sticker"+i, this.pathToStickers+"sticker"+i+".svg");
       }
 
 
     }
     create(){
+      this.itemWidth = 100;
+
+      this.currentPage  = 0;
+      this.numItemPerPage = Math.floor((this.game.config.width*0.8)/this.itemWidth);
+      this.numItemLastPage = this.numOfStickers%this.numItemPerPage;
+      this.numOfPages = Math.ceil(this.numOfStickers/this.numItemPerPage);
+
+      console.log(this.currentPage, this.numItemPerPage, this.numItemLastPage, this.numOfPages);
+
+
+
+      this.setBackground();
+      this.setSendButton();
+
+      // Draw page turner
+      this.rectLeft = this.add.rectangle(0,
+                                        75+this.background.displayHeight,
+                                        this.background.displayWidth*0.1,
+                                        this.game.config.height - (this.background.displayHeight + 75),
+                                        0xffffff);
+      this.rectLeft.setOrigin(0,0);
+      this.rectRight = this.add.rectangle(this.game.config.width-this.background.displayWidth*0.1,
+                                          75+this.background.displayHeight,
+                                          this.background.displayWidth*0.1,
+                                          this.game.config.height - (this.background.displayHeight + 75),
+                                          0xffffff);
+      this.rectRight.setOrigin(0,0);
+      this.rectLeft.setInteractive();
+      this.rectRight.setInteractive();
+      this.rectLeft.on("pointerdown", ()=>{
+        if (this.currentPage>0){
+          this.hideCurrentPage();
+          this.currentPage -=1;
+          this.showCurrentPage();
+          console.log("Current Page", this.currentPage);
+        } 
+      });
+      this.rectRight.on("pointerdown", ()=>{
+          if (this.currentPage+1<this.numOfPages){
+              this.hideCurrentPage();
+              this.currentPage +=1;
+              this.showCurrentPage();
+              console.log("Current Page", this.currentPage);
+          }
+      });
       
+      // Set items
+      this.stickers = [];
+      var page=0;
+      this.itemY = this.background.displayHeight+75+(this.game.config.height - (this.background.displayHeight+75))/2;
+      this.startX = this.rectLeft.displayWidth+this.itemWidth/2;
+      while(page<this.numOfPages){
+        var min = this.numItemPerPage;
+        if (page+1==this.numOfPages && this.numItemLastPage!=0){
+          min = this.numItemLastPage;
+        }
+        var position = 0;
+        for(var i=page*this.numItemPerPage+1; i<page*this.numItemPerPage+min+1; i++){
+          this.item = this.add.existing(new Item(this, "sticker"+i, this.startX+position*this.itemWidth, this.itemY, "sticker"+i, "n/a", "n/a", "n/a", "n/a", "n/a"));
+          this.item.alpha = 0;
+          this.stickers.push(this.item);
+          position++;
+        }
+        page++;
+      }
+      this.showCurrentPage();
+
+    }
+    pressed(){
+        this.scene.start(CST.SCENES.PRELOADER);
+    }
+    createItem(image, x, y, name, pluralName, category, unit) {
+      this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit, "n/a"));
+    }
+    setBackground(){
       // Set background 
       this.background = this.add.image(0, 75, "invite");
       this.background.setOrigin(0,0);
@@ -59,20 +134,29 @@ export class PartyInvitation extends Phaser.Scene {
         this.background.displayHeight = this.game.config.height - 75 - 130;
         this.background.displayWidth  = this.game.config.width;
       }
-
+    }
+    setSendButton(){
+      // Set sendButton
       this.sendButton = new ButtonAtMenu({scene:this, key: "sendButton", x:this.game.config.width*0.75, y: this.background.displayHeight});
       this.sendButton.on('pointerup', this.pressed, this);
-
-      // Set items
-      this.itemY = this.background.displayHeight+75+(this.game.config.height - (this.background.displayHeight+75))/2
-      this.sticker1 = new Item(this, "sticker1", 30, this.itemY, "sticker1", "n/a", "n/a", "n/a", "n/a", "n/a");
-
     }
-    pressed(){
-        this.scene.start(CST.SCENES.PRELOADER);
+    showCurrentPage(){
+      var min = this.numItemPerPage;
+      if (this.currentPage+1==this.numOfPages && this.numItemLastPage!=0){
+        min = this.numItemLastPage;
+      }
+      for(var i=this.currentPage*this.numItemPerPage; i<this.currentPage*this.numItemPerPage+min; i++){
+        this.stickers[i].alpha=1;
+      }
     }
-    createItem(image, x, y, name, pluralName, category, unit) {
-      this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit, "n/a"));
+    hideCurrentPage(){
+      var min = this.numItemPerPage;
+      if (this.currentPage+1==this.numOfPages && this.numItemLastPage!=0){
+        min = this.numItemLastPage;
+      }
+      for(var i=this.currentPage*this.numItemPerPage; i<this.currentPage*this.numItemPerPage+min; i++){
+        this.stickers[i].alpha=0;
+      }
     }
     setDragLogic(){
       // Drag logic
