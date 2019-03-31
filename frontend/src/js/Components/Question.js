@@ -14,7 +14,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.properties = this.imageToProp.getProp(this.imageName);
         this.amount = amount;
         this.player = player;
-        console.log(this.player);
+
         //Screen center
         var centerX = this.scene.game.config.width/2;
         var centerY = this.scene.game.config.height/2;
@@ -29,6 +29,37 @@ export class Question extends Phaser.GameObjects.Container{
         const api_guest       = this.player.guestNumber;
         const api_level       = this.player.level;
 
+        var question_number;
+        if(api_type == "furniture"){
+          if(this.player.furniture_count == 5){
+            this.player.reset_furniture();
+          }else{
+            this.player.increase_furniture();
+            question_number = this.player.furniture_count;
+          }
+        }else if(api_type == "deco"){
+          if(this.player.deco_count == 5){
+            this.player.reset_deco();
+          }else{
+            this.player.increase_deco();
+            question_number = this.player.deco_count;
+          }
+        }else if(api_type == "food"){
+          if(this.player.food_count == 5){
+            this.player.reset_food();
+          }else{
+            this.player.increase_food();
+            question_number = this.player.food_count;
+          }
+        }else if(api_type == "kiddie"){
+          if(this.player.kiddie_count == 5){
+            this.player.reset_kiddie();
+          }else{
+            this.player.increase_kiddie();
+            question_number = this.player.kiddie_count;
+          }
+        }
+
         this.send_button     = document.getElementById("btnSend");
         this.cancel_button   = document.getElementById("btnCancel");
         this.input_text      = document.getElementById("myText");
@@ -40,9 +71,9 @@ export class Question extends Phaser.GameObjects.Container{
         var gs_url = "http://127.0.0.1:5001/"+ localStorage.getItem("id") + "/gamestate";
         this.get_request(gs_url).then(gs_id => {
             const url  = "http://127.0.0.1:5001/"+ gs_id + "/question";
-            this.post_request(api_name, api_plural_name, api_type, api_cost, api_unit, api_guest, api_level, url).then(question => {
+            this.post_request(api_name, api_plural_name, api_type, api_cost, api_unit, api_guest, api_level, url, question_number).then(question => {
                 console.log(question.question);
-                this.game_id = gs_id;
+                this.game_id  = gs_id;
                 this.question = question.question;
 
                 this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'12px'};
@@ -188,7 +219,7 @@ export class Question extends Phaser.GameObjects.Container{
       });
     }
 
-    post_request(name, plural_name, type, cost, unit, guest, level, url) {
+    post_request(name, plural_name, type, cost, unit, guest, level, url, question_number) {
       const body = {
           itemName: name,
           itemPluralName: plural_name,
@@ -196,7 +227,8 @@ export class Question extends Phaser.GameObjects.Container{
           itemCost: cost,
           itemUnit: unit,
           numberOfGuests: guest,
-          level: level
+          level: level,
+          question_num: question_number
       };
       return fetch(url, {
           method: "POST",

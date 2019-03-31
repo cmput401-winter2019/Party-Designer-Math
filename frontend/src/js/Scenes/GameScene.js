@@ -46,10 +46,11 @@ export class GameScene extends Phaser.Scene{
                             100,
                             {"chair":2, "cherries":3},
                             this.numbers,
-                            this.all_assets);
-                            
-    this.player.allItemsBoughtList();
+                            this.all_assets,
+                            0, 0, 0, 0);
 
+    this.player.allItemsBoughtList();
+    console.log(this.player.furniture_count);
     // Initiate progress bar
     this.progressBar = new ProgressBar({scene:this, width: 200, x: this.game.config.width/2, y:75/2, color: 0x0e4361});
     this.progressBar.setPercent(0);
@@ -65,7 +66,7 @@ export class GameScene extends Phaser.Scene{
     this.createTopMenuButtons();
     this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
 
-    
+
   }
   updateProgressBar(){
     this.progressBar.setPercent(this.player.checkProgress());
