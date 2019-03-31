@@ -33,6 +33,8 @@ export class Question extends Phaser.GameObjects.Container{
         if(api_type == "furniture"){
           if(this.player.furniture_count == 5){
             this.player.reset_furniture();
+            this.player.increase_furniture();
+            question_number = this.player.furniture_count;
           }else{
             this.player.increase_furniture();
             question_number = this.player.furniture_count;
@@ -40,6 +42,8 @@ export class Question extends Phaser.GameObjects.Container{
         }else if(api_type == "deco"){
           if(this.player.deco_count == 5){
             this.player.reset_deco();
+            this.player.increase_deco();
+            question_number = this.player.deco_count;
           }else{
             this.player.increase_deco();
             question_number = this.player.deco_count;
@@ -47,6 +51,8 @@ export class Question extends Phaser.GameObjects.Container{
         }else if(api_type == "food"){
           if(this.player.food_count == 5){
             this.player.reset_food();
+            this.player.increase_food();
+            question_number = this.player.food_count;
           }else{
             this.player.increase_food();
             question_number = this.player.food_count;
@@ -54,6 +60,8 @@ export class Question extends Phaser.GameObjects.Container{
         }else if(api_type == "kiddie"){
           if(this.player.kiddie_count == 5){
             this.player.reset_kiddie();
+            this.player.increase_kiddie();
+            question_number = this.player.kiddie_count;
           }else{
             this.player.increase_kiddie();
             question_number = this.player.kiddie_count;
@@ -254,64 +262,6 @@ export class Question extends Phaser.GameObjects.Container{
       });
     }
 
-
-    // get_request(gs_url){
-    //   return fetch(gs_url, {
-          // method: "GET",
-          // mode: "cors",
-          // cache: "no-cache",
-          // credentials: "same-origin",
-          // headers: {
-          //   "Content-Type": "application/json",
-          //   "Authorization": "Bearer " + localStorage.getItem("access_token"),
-    //       }
-    //     })
-    //     .then(
-    //       response => {
-    //         response.json().then(data => {
-    //           const id = data.id;
-    //           return id;
-    //         });
-    //       }
-    //     )
-    // }
-
-    //
-    // post_request(name, plural_name, type, cost, unit, guest, level, url){
-    //     const body = {
-    //         itemName: name,
-    //         itemPluralName: plural_name,
-    //         itemType: type,
-    //         itemCost: cost,
-    //         itemUnit: unit,
-    //         numberOfGuests: guest,
-    //         level: level
-    //     };
-    //     return fetch(url, {
-    //         method: "POST",
-    //         mode: "cors",
-    //         cache: "no-cache",
-    //         credentials: "same-origin",
-    //         body: JSON.stringify(body),
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           "Authorization": "Bearer " + localStorage.getItem("access_token"),
-    //         }
-    //       })
-    //       .then(
-    //         function(response) {
-    //           console.log(response.status);
-    //           // Examine the text in the response
-    //           response.json().then(function(data) {
-    //             if (response.status !== 200) {
-    //                 alert(response.status + " Error"+ " : " + data["message"]);
-    //                 return;
-    //             }
-    //             return data.question;
-    //           });
-    //         }
-    //       )
-    //   }
 
     checkCreateObject(){
 
