@@ -14,10 +14,11 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 		}
         super(config.scene);
 
-		this.scene=config.scene;
+		this.scene = config.scene;
+		this.image = config.key;
 
         //this.back is the background image
-		this.back = this.scene.add.image(0,0,config.key);
+		this.back = this.scene.add.image(0,0,this.image);
         this.back.displayWidth = this.scene.game.config.width*0.20;
         this.back.scaleY=this.back.scaleX;
 		this.add(this.back);
@@ -49,12 +50,22 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 		if (config.event)
 		{
 			this.setInteractive ();
-			this.on('pointerdown', this.pressed, this);
+			this.on('pointerdown', this.pressed, this)
+			this.on('pointerover', this.over, this);
+			this.on('pointerout', this.out, this);
 		}
 
     }
     pressed(){
-        this.scene.scene.start(CST.SCENES.PARTY_INVITATION);
+        this.scene.scene.start(CST.SCENES.PARTY_INVITATION, {imageChoice:this.image});
     }
+	over(){
+		//this.alpha = 0.8;
+		this.y+=5;
+	}
+	out(){
+		//this.alpha = 1;
+		this.y-=5;
+	}
 
 }

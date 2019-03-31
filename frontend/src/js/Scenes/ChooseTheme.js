@@ -8,13 +8,13 @@ export class ChooseTheme extends Phaser.Scene {
     }
     preload()
     {
-        this.load.image("theme1", "assets/images/Interface/theme1.svg");
-        this.load.image("theme2", "assets/images/Interface/theme2.svg");
+        // Load all themes
+        this.themes = ["theme1","theme2","theme3"];
+        for (var i=0; i<this.themes.length; i++){
+            this.load.image(this.themes[i], "assets/images/Interface/"+this.themes[i]+".svg");
+        }
     }
     create(){
-        this.themes = ["theme1","theme1","theme1","theme1","theme1","theme1","theme2","theme2","theme2","theme2","theme2"];
-
-
         //Page setups & initialization of page variables
         this.themesInPage = 6
         this.themesInLastPage = this.themes.length%this.themesInPage;
@@ -43,12 +43,8 @@ export class ChooseTheme extends Phaser.Scene {
             }
         });
 
-
         this.yPos = this.game.config.height*0.3;
         this.xPos = this.game.config.width*0.25;
-        var offset = this.game.config.width*0.25;
-        var page=0;
-        var min = this.themesInPage;
 
         this.setPage();
         this.showCurrentPage();

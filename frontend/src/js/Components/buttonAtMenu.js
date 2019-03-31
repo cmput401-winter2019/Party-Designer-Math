@@ -3,7 +3,7 @@ import {CST} from "../CST";
 export class ButtonAtMenu extends Phaser.GameObjects.Container{
 	constructor(config)
 	{
-        if(!config.scene)
+    if(!config.scene)
 		{
 			console.log("missing scene!");
 			return;
@@ -13,55 +13,59 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 			console.log("missing key");
 			return;
 		}
-      super(config.scene);
-			this.scene=config.scene;
+		super(config.scene);
+		this.scene=config.scene;
 
 
-      this.name = config.key;
-      this.back=this.scene.add.image(0,0,config.key);
-			this.add(this.back);
+		this.name = config.key;
+		this.back=this.scene.add.image(0,0,config.key);
+		this.add(this.back);
 
 
-        // If there is text, add text
-        if(config.text)
-				{
-					this.text = config.text;
-					this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'};
-
-					this.text1=this.scene.add.text(0,30,config.text, this.textConfig);
-
-					this.text1.setOrigin(0.5,0.5);
-					this.add(this.text1);
-				}
-
-      // If there is x and/or y place it at its x/y
-      if(config.x){
-				this.x=config.x;
-			}
-			if(config.y){
-				this.y=config.y;
-			}
-
-			this.setSize(this.back.width, 60);
-			this.scene.add.existing(this);
-			this.firstgeneration = true;
-			this.numbers = [];
-
-			if (config.event)
+			// If there is text, add text
+			if(config.text)
 			{
-				this.setInteractive ();
-				this.on('pointerdown', this.pressed, this);
+				this.text = config.text;
+				this.textConfig = {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'};
 
+				this.text1=this.scene.add.text(0,30,config.text, this.textConfig);
+
+				this.text1.setOrigin(0.5,0.5);
+				this.add(this.text1);
 			}
-    }
-    over()
-	{
-		this.y-=5;
-	}
-	out()
+
+		// If there is x and/or y place it at its x/y
+		if(config.x){
+			this.x=config.x;
+		}
+		if(config.y){
+			this.y=config.y;
+		}
+
+		this.setSize(this.back.width, 60);
+		this.scene.add.existing(this);
+		this.firstgeneration = true;
+		this.numbers = [];
+
+		this.setInteractive ();
+		if (config.event)
+		{
+			this.on('pointerdown', this.pressed, this);
+		}
+		if (this.name=="sendButton"){
+			this.on('pointerover', this.over, this);
+			this.on('pointerout', this.out, this);
+		}
+  }
+  over()
 	{
 		this.y+=5;
 	}
+	out()
+	{
+		this.y-=5;
+	}
+
 
 	pressed()
 	{
