@@ -28,7 +28,7 @@ class PlaythroughSerializer(ma.Schema):
 
 class QuestionHistorySerializer(ma.Schema):
     class Meta:
-        fields = ('id', 'question', 'answer', 'arithmeticType', 'correct', 'gameStateId')
+        fields = ('id', 'question', 'answer', 'arithmeticType', 'correct', 'playthroughId')
 
 class TeacherSerializer(ma.Schema):
     class Meta:

@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma
-from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db
+from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma, PlaythroughSerializer, QuestionHistorySerializer
+from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db,QuestionHistory,Playthrough
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -18,6 +18,7 @@ import string
 #           : https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python
 
 # create app
+
 app = Flask(__name__)
 
 # set path and initialize db, serializer, and JWT
@@ -62,6 +63,17 @@ canvasItemsSerializer = BagItemSerializer(many=True)
 # create serializer for question(s)
 questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
+
+#create serializer for playthrough(s)
+
+playthroughSerializer = PlaythroughSerializer()
+playthroughsSerializer = PlaythroughSerializer(many=True)
+
+
+#create serializer for questionhistory(s)
+
+questionHistorySerializer = QuestionHistorySerializer()
+questionsHistorySerializer = QuestionHistorySerializer(many = True)
 
 teachersSerializer = TeacherSerializer(many=True)
 
@@ -353,7 +365,7 @@ def add_question(id):
 
 # endpoint to show question of game state
 @app.route("/<id>/question", methods=["GET"])
-@jwt_required
+#@jwt_required
 def get_question(id):
     questions = Question.query.filter(Question.gameStateId == id).all()
     result = questionsSerializer.dump(questions)
@@ -381,7 +393,170 @@ def check_answer_question(id):
         print(e)
         return jsonify(success=False), 403
 
-
+# endpoint to get user stats
+################################################################################################
+# @app.route("/<classcode>/stats",methods=["GET"])
+# def get_stats(classcode):
+#
+#
+#
+#     studentslist = Student.query.filter(Student.classCode == classcode)
+#     studentdict = {}
+#     # list of student objects with the classcode
+#
+#     for each in studentslist:
+#
+#         #for each student object find the playthroughs associated with the student id
+#         playthroughlist = Playthrough.query.filter(Playthrough.studentId == each.id)
+#         arithtotaldict = {"addition": 0, "subtraction": 0, "multiplication": 0, "division": 0, "mixed": 0}
+#         studentcorrectdict = {"addition": 0, "subtraction": 0, "multiplication": 0, "division": 0, "mixed": 0}
+#         studentratedict = {"addition": 0, "subtraction": 0, "multiplication": 0, "division": 0, "mixed": 0}
+#         for playthrough in playthroughlist:
+#             print(playthrough)
+#             #For each playthrough find the questions assocaited with the playthrough id
+#             questionlist = QuestionHistory.query.filter(QuestionHistory.playthroughId == playthrough.id)
+#
+#             for question in questionlist:
+#                 if question.arithmeticType == "addition":
+#                     arithtotaldict["addition"] +=1
+#                     if question.correct:
+#                         studentcorrectdict["addition"] +=1
+#                 if question.arithmeticType == "subtraction":
+#                     arithtotaldict["subtraction"] += 1
+#                     if question.correct:
+#                         studentcorrectdict["subtraction"] += 1
+#
+#                 if question.arithmeticType == "multiplication":
+#                     arithtotaldict["multiplication"] += 1
+#                     if question.correct:
+#                         studentcorrectdict["multiplication"] += 1
+#
+#                 if question.arithmeticType == "division":
+#                     arithtotaldict["division"] += 1
+#                     if question.correct:
+#                         studentcorrectdict["division"] += 1
+#                 if question.arithmeticType == "mixed":
+#                     arithtotaldict["mixed"] += 1
+#                     if question.correct:
+#                         studentcorrectdict["mixed"] += 1
+#
+#
+#             for key,value in arithtotaldict.items():
+#                 if value == 0 :
+#                     studentratedict[key] = 0
+#                 else:
+#                     studentratedict[key] = (studentcorrectdict[key]/arithtotaldict[key])*100
+#             # studentratedict["addition"] = studentcorrectdict["addition"]/arithtotaldict["addition"]
+#             # studentratedict["subtraction"] = studentcorrectdict["subtraction"] / arithtotaldict["subtraction"]
+#             # studentratedict["multiplication"] = studentcorrectdict["multiplication"] / arithtotaldict["multiplication"]
+#             # studentratedict["division"] = studentcorrectdict["division"] / arithtotaldict["division"]
+#             # studentratedict["mixed"] = studentcorrectdict["mixed"] / arithtotaldict["mixed"]
+#
+#
+#             studentdict["username"] = each.username
+#             studentdict["fullname"] = each.firstName + each.lastName
+#             studentdict["stats"] = studentratedict
+#
+#
+#
+#     return jsonify(studentdict)
+#
+#
+#
+#
+#
+#
+# @app.route("/createstudent", methods=["POST"])
+# def createstudent():
+#     try:
+#         firstName = request.json['firstName']
+#         lastName = request.json['lastName']
+#         username = request.json['username']
+#         password = Student.generate_hash(request.json['password'])
+#         email = request.json['email']
+#         classCode = request.json['classCode']
+#
+#
+#         student = Student.query.filter(Student.username == username).first()
+#
+#         if (student):
+#             return jsonify(message="Student exists"), 200
+#
+#         newStudent = Student(firstName, lastName, username, password, email,classCode)
+#
+#
+#         db.session.add(newStudent)
+#         db.session.commit()
+#
+#         return jsonify(message="Student created"), 200
+#
+#     except Exception as e:
+#         print(e)
+#         return jsonify(message="Something went wrong"), 403
+#
+#
+#
+#
+# @app.route("/createplaythrough", methods=["POST"])
+# def createplaythrough():
+#     try:
+#         level = request.json['level']
+#         studentid = request.json['studentId']
+#
+#
+#         newplaythrough = Playthrough(level,studentid)
+#
+#
+#         db.session.add(newplaythrough)
+#         db.session.commit()
+#
+#         return jsonify(message="playthrough created"), 200
+#
+#     except Exception as e:
+#         print(e)
+#         return jsonify(message="Something went wrong"), 403
+#
+#
+#
+# @app.route("/createquestionhistory", methods=["POST"])
+# def createquestionhistory():
+#     try:
+#         question = request.json['question']
+#         answer = request.json['answer']
+#         arithmeticType = request.json['arithmeticType']
+#         correct = request.json['correct']
+#         playthroughid = request.json['playthroughId']
+#
+#         newquestionhistory = QuestionHistory(question,answer,arithmeticType,correct,playthroughid)
+#
+#
+#         db.session.add(newquestionhistory)
+#         db.session.commit()
+#
+#         return jsonify(message="questionhistory created"), 200
+#
+#     except Exception as e:
+#         print(e)
+#         return jsonify(message="Something went wrong"), 403
+#
+#
+#
+#
+# @app.route("/getplaythrough", methods=["GET"])
+# #@jwt_required
+# def get_playthrough():
+#     playthrough = Playthrough.query.all()
+#     result = playthroughsSerializer.dump(playthrough)
+#     return jsonify(result.data)
+#
+#
+# @app.route("/getquestionhistory", methods=["GET"])
+# #@jwt_required
+# def get_questionhistory():
+#     questionhistory= QuestionHistory.query.all()
+#     result = questionsHistorySerializer.dump(questionhistory)
+#     return jsonify(result.data)
+#############################################################################################
 if __name__ == '__main__':
     if len(sys.argv) > 2:
         manager.run()

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cb2c2599-7400-458a-9501-7f3c75052e94" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_4.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_5.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_6.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Characters/character_7.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/banner.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/crab.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/dolphin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/flamingo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/shells.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/shells2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/ship.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/starfish.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/surfBoard.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Decoration/tree.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/appleSlush.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/coconut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/fruitSet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/juice.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/juice2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/lemons.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/popsicle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/salad.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/seafoodSkewer.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Food/squid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/car.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/chair.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/chairSet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/hut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/lifeguardHut.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/rug.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/sandCastle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/sideTabel.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/umbrella.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/Furniture/watercraft.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/_DS_Store" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/beachBall.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/beachGadgetSet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/bucket.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/drum.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/hat.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/juice.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/lifesaver.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/sandles.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/sunglasses.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/KiddieBag/ukulele.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/SAMPLE.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Beach/colourPalette.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/background3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/mountain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/theme3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 223Beach_invitation_bg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 72beach_invite_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 72beach_invite_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/Group 72beach_invite_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/beachInvite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/beach/sendButton.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 37playground_invite_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 37playground_invite_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 37playground_invite_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/Group 742PLAYGROUND_INVITATION_BG.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/playgroundInvite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/playground/sendButton.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 138space_invitation_bg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 36Space_invite_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 36Space_invite_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/Group 36Space_invite_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/sendButton.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/Invitations/spaceroom/spaceInvite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/text/questionform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Components/levelIndicator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Components/progressBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Components/roundBtn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/LevelUpScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/crud.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/flask/crud.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/questiongen.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/questiongen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/images/Interface/Group 22bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/background2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/images/Interface/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/background1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/CST.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/CST.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Components/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Components/Question.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Components/buttonAtMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Components/buttonAtMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/BuyPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/BuyPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/ChooseTheme.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/ChooseTheme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/PreloaderScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/PreloaderScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/classes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/classes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/util/formUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/util/formUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/templates/play.html" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="70305700">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="js" value="1" />
+          <entry key="py" value="5" />
+          <entry key="txt" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JavaScript" value="1" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="js" value="2" />
+          <entry key="py" value="3415" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JavaScript" value="2" />
+          <entry key="Python" value="3415" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/flask/api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-632">
+              <caret line="377" column="13" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#58#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flask/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1836">
+              <caret line="108" column="38" selection-start-line="108" selection-start-column="38" selection-end-line="108" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1028">
+              <caret line="108" selection-start-line="108" selection-end-line="108" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flask/questiongen.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-612">
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flask/serializers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="89" selection-start-line="22" selection-start-column="89" selection-end-line="22" selection-end-column="89" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flask/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flask/test_api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>bag</find>
+      <find>post_game</find>
+      <find>print</find>
+      <find>classcode</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" />
+        <option value="$PROJECT_DIR$/flask/serializers.py" />
+        <option value="$PROJECT_DIR$/flask/models.py" />
+        <option value="$PROJECT_DIR$/flask/api.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Party-Designer-Math" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Party-Designer-Math" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Party-Designer-Math" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Party-Designer-Math" type="462c0819:PsiDirectoryNode" />
+              <item name="flask" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Party-Designer-Math" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Party-Designer-Math" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Party-Designer-Math" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Party-Designer-Math" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Party-Designer-Math" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Party-Designer-Math" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Party-Designer-Math" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Party-Designer-Math" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="Scenes" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb2c2599-7400-458a-9501-7f3c75052e94" name="Default Changelist" comment="" />
+      <created>1553807707968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1553807707968</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1519" height="977" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2091768" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info active="true" anchor="bottom" id="Python Console" visible="true" weight="0.32938388" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32938388" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/flask/test_api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1028">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="89" selection-start-line="22" selection-start-column="89" selection-end-line="22" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask/questiongen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612">
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1836">
+          <caret line="108" column="38" selection-start-line="108" selection-start-column="38" selection-end-line="108" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-632">
+          <caret line="377" column="13" selection-start-line="377" selection-start-column="13" selection-end-line="377" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
