@@ -23,9 +23,9 @@ export class Question extends Phaser.GameObjects.Container{
         const api_plural_name   = this.properties.pluralName;
         const api_type          = this.properties.category;
         const api_cost          = this.properties.cost;
-        const api_unit          = this.amount;
+        const api_amount        = this.amount;
         const api_guest         = this.player.guestNumber;
-        const api_level         =  this.player.level;
+        const api_level         = this.player.level;
 
         var question_number;
 
@@ -78,7 +78,7 @@ export class Question extends Phaser.GameObjects.Container{
         var gs_url = "http://127.0.0.1:5001/"+ localStorage.getItem("id") + "/gamestate";
         this.get_request(gs_url).then(gs_id => {
             const url  = "http://127.0.0.1:5001/"+ gs_id + "/question";
-            this.post_request(api_name, api_plural_name, api_type, api_cost, api_unit, api_guest, api_level, url, question_number).then(question => {
+            this.post_request(api_name, api_plural_name, api_type, api_cost, api_amount, api_guest, api_level, url, question_number).then(question => {
 
                 console.log(question.question);
 
@@ -125,7 +125,6 @@ export class Question extends Phaser.GameObjects.Container{
 
                 //this.formUtil.showNumbers();
 
-
                 this.formUtil.scaleToGameW  ("myText", .2);
                 this.formUtil.placeElementAt(60, 'myText', true);
 
@@ -153,6 +152,9 @@ export class Question extends Phaser.GameObjects.Container{
             this.check_answer(ret, this.question, check_url).then(answer => {
               console.log(answer.message);
               if(answer.message == "Answer is correct."){
+                var new_money;
+                new_money = this.player.money - this.properties.cost*this.amount;
+                this.player.update_money(new_money);
                 this.checkCreateObject();
                 alert("Correct!");
               }else{
