@@ -25,6 +25,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.scaleY = this.scaleX;
 
         // ---- Item buttons -----
+        this.crossBtn = this.scene.add.image(0,0, 'crossBtn');
         this.rotateBtn = this.scene.add.image(0, 0,'rotateBtn');
         this.rotateBtn2 = this.scene.add.image(0, 0,'rotateBtn');
         this.scaleBtn = this.scene.add.image(0,0,'scaleBtn');
@@ -34,14 +35,14 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.rightBtn = this.scene.add.image(0,0,'rightBtn').setOrigin(0.5,-0.5);
 
 
-        this.btnList = [this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.backwardBtn, this.rightBtn];
+        this.btnList = [this.crossBtn, this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.backwardBtn, this.rightBtn];
 
         // Tranparent background
         this.rect = this.scene.add.rectangle(0,
-                                            0,
-                                            this.rotateBtn.displayWidth+10,
-                                            this.rotateBtn.displayHeight*7,
-                                            0x3498DB);
+                                             0,
+                                             this.crossBtn.displayWidth+10,
+                                             this.crossBtn.displayHeight*10,
+                                             0x3498DB);
         this.rect.alpha=0.3;
         this.rect.setOrigin(0.5,0); 
         this.hideButtons();
@@ -82,6 +83,9 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         // If item is for the inivitation page, remove backpack button
         if(category == "n/a"){
+            // Allow destroying of item
+            this.crossBtn.on('pointerdown', this.deleteItem, this);
+            // No backpack button
             this.backwardBtn.destroy();
             var index = this.btnList.indexOf(this.backwardBtn);
             if(index > -1){
@@ -106,11 +110,10 @@ export class Item extends Phaser.GameObjects.Sprite{
             this.btnList[i].setDepth(3);
         }
         
-        this.rect.x = this.rotateBtn.x;
-        this.rect.y = this.rotateBtn.y-this.rotateBtn.displayHeight;
+        // Transparent rectangle position
+        this.rect.x = this.crossBtn.x;
+        this.rect.y = this.crossBtn.y-this.crossBtn.displayHeight;
         this.rect.alpha=0.3;
-        
-        
 
     }
     hideButtons(){
@@ -124,6 +127,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.rect.alpha=0;
     }
     destroyButtons(){
+        this.rect.destroy();
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].destroy();
         }
@@ -159,6 +163,10 @@ export class Item extends Phaser.GameObjects.Sprite{
     }
     toBackpack(){
         this.popup = new CheckToBackpack(this.scene, this);
+    }
+    deleteItem(){
+        this.destroyButtons();
+        this.destroy();
     }
 
 }
