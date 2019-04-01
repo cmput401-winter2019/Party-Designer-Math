@@ -158,7 +158,7 @@ export class PartyInvitation extends Phaser.Scene {
           this.currentPage -=1;
           this.showCurrentPage();
           console.log("Current Page", this.currentPage);
-        } 
+        }
       });
       this.rectRight.on("pointerdown", ()=>{
           if (this.currentPage+1<this.numOfPages){
@@ -206,7 +206,7 @@ export class PartyInvitation extends Phaser.Scene {
 	      if(gameObject.y < (75) || gameObject.y > this.scene.background.displayHeight+75 || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
 	        gameObject.x = gameObject.input.dragStartX;
 	        gameObject.y = gameObject.input.dragStartY;
-	      } 
+	      }
         // If object is dragged inside of the invitation
         else {
 	        if(gameObject.input.dragStartY < gameObject.input.dragStartY < (76+(gameObject.height/2)) || gameObject.input.dragStartY > this.scene.background.displayHeight) {
