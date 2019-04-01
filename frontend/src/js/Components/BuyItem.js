@@ -32,7 +32,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         //Create a rectangle background where the buy amount will be displayed on and add the buy amount
         this.buyAmountBackground = this.scene.add.rectangle(0, 0, 25, 15, 0xffffff);
         this.buyAmountBackground.setStrokeStyle(1.5, 0x000000);
-        this.buyAmount = "1";
+        this.buyAmount = 1;
         this.buyAmountText= this.scene.add.text(0, 0, this.buyAmount, this.textConfigForAmount);
         this.buyAmountText.setOrigin(0.5,0.5);
 
@@ -41,7 +41,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyAmountIncreaseButton.setInteractive();
         this.buyAmountIncreaseButton.on("pointerup", ()=> {
             if (this.buyAmount < 9)
-                this.buyAmount++;
+                this.buyAmount+= 1;
             this.buyAmountText.text = this.buyAmount;
         });
 
@@ -49,7 +49,7 @@ export class BuyItem extends Phaser.GameObjects.Container{
         this.buyAmountDecreaseButton.setInteractive();
         this.buyAmountDecreaseButton.on("pointerup", ()=> {
             if (this.buyAmount > 1)
-                this.buyAmount--;
+                this.buyAmount-= 1;
             this.buyAmountText.text = this.buyAmount;
         });
 
