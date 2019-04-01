@@ -95,7 +95,7 @@ export class Question extends Phaser.GameObjects.Container{
                 // Tranparent background
                 this.transparent = this.scene.add.rectangle(0,
                                     0,
-                                    this.scene.game.config.width*0.78, 
+                                    this.scene.game.config.width*0.78,
                                     this.scene.game.config.height*0.38,
                                     0x3498DB);
                 this.transparent.alpha = 0.3;
@@ -124,7 +124,7 @@ export class Question extends Phaser.GameObjects.Container{
                 });
 
                 //this.formUtil.showNumbers();
-                
+
 
                 this.formUtil.scaleToGameW  ("myText", .2);
                 this.formUtil.placeElementAt(60, 'myText', true);
@@ -270,7 +270,7 @@ export class Question extends Phaser.GameObjects.Container{
 
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
-            var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, this.properties.unit, "show");
+            var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, "show");
         }
 
         this.scene.originalS.updateProgressBar();

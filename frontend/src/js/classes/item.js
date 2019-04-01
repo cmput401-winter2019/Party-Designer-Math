@@ -1,7 +1,7 @@
 import { CheckToBackpack } from "../Components/checkToBackpack";
 
 export class Item extends Phaser.GameObjects.Sprite{
-    constructor(scene, image, x, y, name, pluralName, category, cost, unit, purpose){
+    constructor(scene, image, x, y, name, pluralName, category, cost, purpose){
         super(scene);
 
       	this.scene = scene;
@@ -21,7 +21,6 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.pluralName   = pluralName;
         this.category     = category;
         this.cost         = cost;
-        this.unit         = unit;
         this.purpose      = purpose;
 
         this.displayWidth = this.scene.game.config.width*0.07;
@@ -47,7 +46,7 @@ export class Item extends Phaser.GameObjects.Sprite{
                                              this.crossBtn.displayHeight*10,
                                              0x3498DB);
         this.rect.alpha=0.3;
-        this.rect.setOrigin(0.5,0); 
+        this.rect.setOrigin(0.5,0);
         this.hideButtons();
 
         // ---- Set item buttons functions -----
@@ -111,7 +110,7 @@ export class Item extends Phaser.GameObjects.Sprite{
             this.btnList[i].visible = true;
             this.btnList[i].setDepth(3);
         }
-        
+
         // Transparent rectangle position
         this.rect.x = this.crossBtn.x;
         this.rect.y = this.crossBtn.y-this.crossBtn.displayHeight;
@@ -152,7 +151,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.displayWidth -=2;
         this.scaleY       = this.scaleX;
     }
-    
+
     bringForward(){}
 
     bringBackward(){}

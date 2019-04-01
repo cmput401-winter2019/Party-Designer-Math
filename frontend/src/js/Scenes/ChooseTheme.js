@@ -33,7 +33,7 @@ export class ChooseTheme extends Phaser.Scene {
         this.currentPage = 0;
 
         this.themeBtns = [];
-        
+
 
         this.leftBtn = this.add.text(10,this.game.config.height/2,"<", {fontFamily:'Muli', color:'#ffffff', fontSize:'50px'});
         this.rightBtn = this.add.text(this.game.config.width-50,this.game.config.height/2,">", {fontFamily:'Muli', color:'#ffffff', fontSize:'50px'});
@@ -42,8 +42,8 @@ export class ChooseTheme extends Phaser.Scene {
         this.leftBtn.on("pointerdown", ()=>{
             if (this.currentPage>0){
                 this.hideCurrentPage();
-                this.currentPage -=1;  
-                this.showCurrentPage();      
+                this.currentPage -=1;
+                this.showCurrentPage();
             }
         });
         this.rightBtn.on("pointerdown", ()=>{
@@ -59,14 +59,12 @@ export class ChooseTheme extends Phaser.Scene {
 
         this.setPage();
         this.showCurrentPage();
-        
+
     }
     flipLeft(){
         this.hideCurrentPage();
     }
-    pressed(){
-        this.scene.start(CST.SCENES.PRELOADER);
-    }
+    
     showCurrentPage(){
         var min = this.themesInPage;
         if (this.currentPage+1==this.numOfPages && this.themesInLastPage!=0){
@@ -89,13 +87,13 @@ export class ChooseTheme extends Phaser.Scene {
 
     setPage(){
         for(var i=0; i<this.themes.length; i++){
-            if (i==0 || (i%6==0)){       // if index is 0 or is divisble by 6 
+            if (i==0 || (i%6==0)){       // if index is 0 or is divisble by 6
                 var newXPos = this.xPos;
                 var newYPos = this.yPos;
             } else if (i%3==0){              // if index is divisible by 3 (& not divisible by 6)
                 var newXPos = this.xPos;
                 var newYPos = this.yPos*2;
-            } 
+            }
             let theme = new ThemeButton({scene:this, key:this.themes[i], x:newXPos*(1+(i%3)), y:newYPos, event:"pressed"});
             theme.visible = false;
             this.themeBtns.push(theme);

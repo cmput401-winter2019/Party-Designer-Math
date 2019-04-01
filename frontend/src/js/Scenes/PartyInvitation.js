@@ -73,8 +73,8 @@ export class PartyInvitation extends Phaser.Scene {
     pressed(){
         this.scene.start(CST.SCENES.PRELOADER, {firstColor: this.firstColor, secondColor:this.secondColor, imageChoice:this.imageChoice});
     }
-    createItem(image, x, y, name, pluralName, category, unit) {
-      this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit, "n/a"));
+    createItem(image, x, y, name, pluralName, category) {
+      this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
     }
     setBackground(){
       // Set background Image
