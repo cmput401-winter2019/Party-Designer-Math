@@ -2,64 +2,73 @@ export class ImageToProperties {
     constructor(config) {
         this.config = config;
     }
+    
     getProp(iName){ // name, pluralName, category , unit
-        if(iName == "chair"){
+        if(iName == "Chair"){
             return {name :      "chair",
                     pluralName: "chairs",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        } else if(iName == "dinnerTable"){
+        } else if(iName == "DinnerTable"){
             return {name:       "dinner table",
                     pluralName: "dinner tables",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        } else if (iName == "musicPlayer"){
+        } else if(iName == "Floor"){
+            return {name:       "floor",
+                    pluralName: "floors",
+                    category:   "furniture",
+                    unit:       "N/A",
+                    cost:       "5"};
+
+        } 
+        else if (iName == "MusicPlayer"){
             return {name:       "music player",
                     pluralName: "music players",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        } else if (iName == "rug"){
+        } else if (iName == "Rug"){
             return {name:       "rug",
                     pluralName: "rugs",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        } else if (iName == "screen"){
+        } else if (iName ==  "Screen"){
             return {name:       "screen",
                     pluralName: "screens",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        } else if (iName == "shelf"){
+        } else if (iName == "Shelf"){
             return {name:       "shelf",
                     pluralName: "shelves",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        }  else if (iName == "sofa"){
+        }  else if (iName == "Sofa"){
             return {name:       "sofa",
                     pluralName: "sofas",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        }  else if (iName == "table"){
+        }  else if (iName == "Table"){
             return {name:       "table",
                     pluralName: "tables",
                     category:   "furniture",
                     unit:       "N/A",
                     cost:       "5"};
 
-        }  else if (iName == "wallShelf"){
+        }  else if (iName == "WallShelf"){
             return {name:       "wall shelf",
                     pluralName: "wall shelves",
                     category:   "furniture",
@@ -143,7 +152,7 @@ export class ImageToProperties {
                     unit:       "bowls",
                     cost:       "5"};
 
-        } else if (iName == "ballons"){
+        } else if (iName == "balloons"){
             return {name:       "balloons",
                     pluralName: "balloons",
                     category:   "deco",

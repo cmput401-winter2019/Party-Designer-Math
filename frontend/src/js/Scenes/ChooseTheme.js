@@ -15,6 +15,17 @@ export class ChooseTheme extends Phaser.Scene {
         }
     }
     create(){
+        // text
+        this.textConfig = { fontFamily  : "Muli",
+                        color       : "#ffffff",
+                        fontSize    : "40px"
+                        };
+
+        this.title = this.add.text(this.game.config.width/2,
+                                        50,
+                                        "Choose a Party Theme!",
+                                        this.textConfig).setOrigin(0.5,0.5);
+
         //Page setups & initialization of page variables
         this.themesInPage = 6
         this.themesInLastPage = this.themes.length%this.themesInPage;

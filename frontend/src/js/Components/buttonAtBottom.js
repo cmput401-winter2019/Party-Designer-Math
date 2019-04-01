@@ -16,6 +16,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.player       = config.player;
     this.btnWidth     = config.btnWidth;
     this.btnColor     = config.btnColor;
+    this.btnColor2    = config.btnColor2;
     this.assets       = config.assets;
     this.clicked      = false;
     this.loadedassets = [];
@@ -56,13 +57,19 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.rect.setInteractive();
 
     this.rect.on( "pointerover",
-                  function(pointer) { this.alpha = 0.7;
-                  // console.log(this.clicked)
+                  function(pointer) { 
+                  //this.alpha = 0.7;
+                  this.rect.fillColor = this.btnColor2;
+
                   },
                   this);
 
     this.rect.on( "pointerout",
-                  function(pointer) { if (this.clicked == false) this.alpha = 1; },
+                  function(pointer) { 
+                    if (this.clicked == false) {
+                      //this.alpha = 1;
+                      this.rect.fillColor = this.btnColor;
+                    }},
                   this);
 
     // Draw page turner
@@ -70,13 +77,29 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                                         this.itemY,
                                         this.btnWidth*0.25,
                                         this.btnHeight*4,
-                                        0xffffff);
+                                        this.btnColor2);
     this.rectLeft.setOrigin(0,0.5);
     this.rectRight = this.scene.add.rectangle(this.scene.game.config.width-this.btnWidth*0.25,
                                         this.itemY,
                                         this.btnWidth*0.25,
                                         this.btnHeight*4,
-                                        0xffffff);
+                                        this.btnColor2);
+
+    // Add Text (arrows of buttons)
+    this.textConfig = { fontFamily  : "Muli",
+                      color       : "#ffffff",
+                      fontSize    : "40px"
+                      };
+
+    this.leftArrow = this.scene.add.text(this.btnWidth+this.rectLeft.width/2,
+                              this.itemY,
+                              "<",
+                              this.textConfig).setOrigin(0.5,0.5);
+    this.rightArrow = this.scene.add.text(this.scene.game.config.width-this.rectRight.width/2,
+                              this.itemY,
+                              ">",
+                              this.textConfig).setOrigin(0.5,0.5);
+
     this.rectRight.setOrigin(0,0.5);
     this.rectLeft.setInteractive();
     this.rectRight.setInteractive();
@@ -138,10 +161,10 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     // Turning off the visibility of items in other categories
 
     // Making buttons visible at full opacity again
-    this.scene.bottomBtn1.clicked = false; this.scene.bottomBtn1.alpha = 1;
-    this.scene.bottomBtn2.clicked = false; this.scene.bottomBtn2.alpha = 1;
-    this.scene.bottomBtn3.clicked = false; this.scene.bottomBtn3.alpha = 1;
-    this.scene.bottomBtn4.clicked = false; this.scene.bottomBtn4.alpha = 1;
+    this.scene.bottomBtn1.clicked = false; this.scene.bottomBtn1.rect.fillColor = this.btnColor;
+    this.scene.bottomBtn2.clicked = false; this.scene.bottomBtn2.rect.fillColor = this.btnColor;
+    this.scene.bottomBtn3.clicked = false; this.scene.bottomBtn3.rect.fillColor = this.btnColor;
+    this.scene.bottomBtn4.clicked = false; this.scene.bottomBtn4.rect.fillColor = this.btnColor;
 
     // Makeing Page turning button invisble
     this.scene.bottomBtn1.rectLeft.visible=false;
@@ -229,38 +252,34 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
   }
 
-  activateBtn() {     // This runs when a bottom menu button is clicked
-    //console.log("Num in list", this.assets.length);
-    //console.log("Num per page:", this.numItemPerPage);
-    //console.log("Num of pages", this.numOfPages, "=", this.assets.length, "/", this.numItemPerPage);
-    //console.log("Num of last page item:", this.numItemLastPage);
-
+  activateBtn() {     
+    // This runs when a bottom menu button is clicked
     if(this.text._text == "Furniture") {
       this.visibleAndInvisible(this.text._text);
 
       this.clicked = true;
-      this.alpha = 0.7;
+      this.rect.fillColor = this.btnColor2;
     }
 
     if(this.text._text == "Decoration") {
       this.visibleAndInvisible(this.text._text);
 
       this.clicked = true;
-      this.alpha = 0.7;
+      this.rect.fillColor = this.btnColor2;
     }
 
     else if(this.text._text == "Snacks") {
       this.visibleAndInvisible(this.text._text);
 
       this.clicked = true;
-      this.alpha = 0.7;
+      this.rect.fillColor = this.btnColor2;
     }
 
     else if(this.text._text == "Kiddie Bag") {
       this.visibleAndInvisible(this.text._text);
 
       this.clicked = true;
-      this.alpha = 0.7;
+      this.rect.fillColor = this.btnColor2;
     }
 
   }
