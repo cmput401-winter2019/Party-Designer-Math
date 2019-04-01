@@ -68,7 +68,7 @@ class CanvasItem(db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(20), unique=True)
+    question = db.Column(db.String(20))
     answer = db.Column(db.Float)
     arithmeticType = db.Column(db.String(20))
     correct = db.Column(db.Boolean)
