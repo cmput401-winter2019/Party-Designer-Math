@@ -21,9 +21,8 @@ export class PartyInvitation extends Phaser.Scene {
       this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
       this.load.image("forwardBtn",     "assets/images/Interface/Forward.svg");
       this.load.image("backwardBtn",     "assets/images/Interface/Backward.svg");
-      this.load.image("crossBtn", "assets/images/Interface/Cross.svg")
+      this.load.image("crossBtn", "assets/images/Interface/Cross.svg");
 
-      console.log(this.imageChoice);
       if(this.imageChoice == "theme1"){
         this.pathToInvite = "assets/images/Invitations/spaceroom/";
         this.pathToStickers = "assets/images/Invitations/spaceStickers/";
@@ -65,18 +64,14 @@ export class PartyInvitation extends Phaser.Scene {
 
       console.log(this.currentPage, this.numItemPerPage, this.numItemLastPage, this.numOfPages);
 
-
-
       this.setBackground();
       this.setSendButton();
-
       this.setPageTurners();
-      
       this.setItems();
 
     }
     pressed(){
-        this.scene.start(CST.SCENES.PRELOADER);
+        this.scene.start(CST.SCENES.PRELOADER, {firstColor: this.firstColor, secondColor:this.secondColor, imageChoice:this.imageChoice});
     }
     createItem(image, x, y, name, pluralName, category, unit) {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit, "n/a"));
@@ -135,7 +130,7 @@ export class PartyInvitation extends Phaser.Scene {
       this.rectLeft.setInteractive();
       this.rectRight.setInteractive();
 
-      // Add Text
+      // Add Text (arrows of buttons)
       this.textConfig = { fontFamily  : "Muli",
                         color       : "#ffffff",
                         fontSize    : "40px"

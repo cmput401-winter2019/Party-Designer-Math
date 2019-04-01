@@ -1,4 +1,4 @@
-import { furniture_assets, food_assets, deco_assets, kiddie_assets, spaceGuestImages }  from '../Components/assets';
+import { guestImages }  from '../Components/assets';
 import { RandomNumber }                                                                 from "../Components/randint";
 import { CreateShoppingList }                                                           from "../Components/createShoppingList";
 import { ImageToProperties }                                                            from "../classes/imageToProperties";
@@ -19,8 +19,17 @@ export class GameScene extends Phaser.Scene{
 
 
   constructor(){ super({key: CST.SCENES.GAME}); }
-
+  init(data){
+    this.firstColor = data.firstColor;
+    this.secondColor = data.secondColor;
+    this.background = data.theme;
+    this.furnitures = data.furnitures;
+    this.food = data.food;
+    this.deco = data.deco;
+    this.kiddie = data.kiddie;
+  }
   preload(){
+    
   }
 
   create(){
@@ -39,7 +48,7 @@ export class GameScene extends Phaser.Scene{
     this.numbers = RandomNumber();
 
     // Create new Shooping list
-    this.all_assets = CreateShoppingList(furniture_assets, food_assets, deco_assets, kiddie_assets);
+    this.all_assets = CreateShoppingList(this.furnitures, this.food, this.deco, this.kiddie);
     //
 
     this.username = localStorage.getItem("username");
@@ -52,9 +61,9 @@ export class GameScene extends Phaser.Scene{
                             this.money,
                             5,
                             3,
-                            {"chair":1, "sofa":2},
+                            {}, //{"Chair":1, "Sofa":2},
                             100,
-                            {"chair":2, "cherries":3},
+                            {}, //{"Chair":2, "cherries":3},
                             this.numbers,
                             this.all_assets,
                             0, 0, 0, 0);
@@ -73,14 +82,14 @@ export class GameScene extends Phaser.Scene{
 
     // Call scene functions
     this.updateProgressBar();
-    this.createBackground("background");
-    this.createGuests(spaceGuestImages);
+    this.createBackground(this.background);
+    this.createGuests(guestImages);
     this.post_gamestate(this.id, this.money, this.randomInt, url);
 
     this.loadItemsToScreen(this.player.screenItems, "load");
     this.createDragLogics();
     this.createTopMenuButtons();
-    this.createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets);
+    this.createBottomButtons();
 
     // Level up button
     this.levelUpBtn = new RoundBtn(this,
@@ -176,6 +185,7 @@ export class GameScene extends Phaser.Scene{
   }
 
   loadItemsToScreen(itemDict, type){
+    console.log(itemDict, key);
     var property;
     for(var key in itemDict){
       var cap = itemDict[key]
@@ -205,33 +215,15 @@ export class GameScene extends Phaser.Scene{
     // Top menu
     var startX = this.game.config.width*0.05;
     this.exitBtn = new ButtonAtMenu({ scene   : this,
-                                        key   : "exitBtn",
+                                        key   : "ExitGame",
                                         text  : "Exit Game",
                                         x     : (startX),
                                         y     : 30,
                                         event : "button_pressed"
                                     });
 
-    // this.themeBtn = new ButtonAtMenu({ scene  : this,
-    //                                     key   : "themeBtn",
-    //                                     text  : "Themes",
-    //                                     x     : (this.game.config.width*0.12),
-    //                                     y     : 30,
-    //                                     event : "button_pressed",
-    //                                     params: "self_desturct"
-    //                                 });
-
-    // this.saveBtn = new ButtonAtMenu({ scene   : this,
-    //                                     key   : "saveBtn",
-    //                                     text  : "Save",
-    //                                     x     : (this.game.config.width*0.19),
-    //                                     y     : 30,
-    //                                     event : "button_pressed",
-    //                                     params: "self_desturct"
-    //                                 });
-
     this.profileBtn = new ButtonAtMenu({ scene  : this,
-                                          key   : "profileBtn",
+                                          key   : "Profile",
                                           text  : "Profile",
                                           x     : (startX+100),
                                           y     : 30,
@@ -240,7 +232,7 @@ export class GameScene extends Phaser.Scene{
                                     });
 
     this.bagBtn = new ButtonAtMenu({  scene   : this,
-                                        key   : "bagBtn",
+                                        key   : "Bag",
                                         text  : "Bag",
                                         x     : (startX+200),
                                         y     : 30,
@@ -248,7 +240,7 @@ export class GameScene extends Phaser.Scene{
                                     });
 
     this.listBtn = new ButtonAtMenu({  scene  : this,
-                                        key   : "listBtn",
+                                        key   : "List",
                                         text  : "List",
                                         x     : (this.game.config.width-(startX+200)),
                                         y     : 30,
@@ -256,7 +248,7 @@ export class GameScene extends Phaser.Scene{
                                     });
 
     this.creditBtn = new ButtonAtMenu({  scene  : this,
-                                          key   : "creditBtn",
+                                          key   : "Credit",
                                           text  : "Credits",
                                           x     : (this.game.config.width-(startX+100)),
                                           y     : 30,
@@ -264,7 +256,7 @@ export class GameScene extends Phaser.Scene{
                                     });
   }
 
-  createBottomButtons(furniture_assets,food_assets,deco_assets,kiddie_assets){
+  createBottomButtons(){
     // Bottom menu
 
     // --------------------- Initiation of variables ------------------------
@@ -285,8 +277,9 @@ export class GameScene extends Phaser.Scene{
                                             startHeight : startHeight1,
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
-                                            btnColor    : btnColor,
-                                            assets      : furniture_assets,
+                                            btnColor    : this.firstColor,
+                                            btnColor2   : this.secondColor,
+                                            assets      : this.furnitures,
                                             itemY       : itemY,
                                             player      : this.player
                                           });
@@ -296,8 +289,9 @@ export class GameScene extends Phaser.Scene{
                                             startHeight : startHeight2,
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
-                                            btnColor    : btnColor,
-                                            assets      : deco_assets,
+                                            btnColor    : this.firstColor,
+                                            btnColor2   : this.secondColor,
+                                            assets      : this.deco,
                                             itemY       : itemY,
                                             player      : this.player
                                           });
@@ -307,8 +301,9 @@ export class GameScene extends Phaser.Scene{
                                             startHeight : startHeight3,
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
-                                            btnColor    : btnColor,
-                                            assets      : food_assets,
+                                            btnColor    : this.firstColor,
+                                            btnColor2   : this.secondColor,
+                                            assets      : this.food,
                                             itemY       : itemY,
                                             player      : this.player
                                           });
@@ -318,8 +313,9 @@ export class GameScene extends Phaser.Scene{
                                             startHeight : startHeight4,
                                             btnHeight   : btnHeight,
                                             btnWidth    : btnWidth,
-                                            btnColor    : btnColor,
-                                            assets      : kiddie_assets,
+                                            btnColor    : this.firstColor,
+                                            btnColor2   : this.secondColor,
+                                            assets      : this.kiddie,
                                             itemY       : itemY,
                                             player      : this.player
                                           });

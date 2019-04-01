@@ -69,7 +69,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 
 	pressed()
 	{
-		if(this.name == "exitBtn"){
+		if(this.name == "ExitGame"){
 			const body = {
 				access_token: localStorage.getItem("access_token"),
 				refresh_token: localStorage.getItem("refresh_token")
@@ -101,26 +101,26 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 				}
 			  )
 		}
-		else if (this.name == "themeBtn"){
-			console.log(this.name + ": go to Choose Theme");
-		}
-		else if (this.name == "saveBtn"){
-			console.log(this.name + ": save all objects on screen");
-		}
-		else if (this.name == "profileBtn"){
+		// else if (this.name == "themeBtn"){
+		// 	console.log(this.name + ": go to Choose Theme");
+		// }
+		// else if (this.name == "saveBtn"){
+		// 	console.log(this.name + ": save all objects on screen");
+		// }
+		else if (this.name == "Profile"){
 			console.log(this.name + ": go to Profile");
 		}
-		else if (this.name == "bagBtn"){
+		else if (this.name == "Bag"){
 			console.log(this.name + ": go to bag");
 			//this.config = {player:this.scene.player, originalS:this.scene}
 			this.scene.scene.launch(CST.SCENES.BAG_POPUP, {player:this.scene.player, originalS:this.scene});
 		}
-		else if (this.name == "listBtn"){
+		else if (this.name == "List"){
 			this.config = {n:this.scene.player.numbersInShopList, assets:this.scene.player.itemsInShopList}
 			this.scene.scene.launch(CST.SCENES.SHOPPING_LIST,this.config);
 			console.log(this.name + ": go to shopping list");
 		}
-		else if (this.name == "creditBtn"){
+		else if (this.name == "Credit"){
 			console.log(this.name + ": shows credits (?)");
 		}
 	}
