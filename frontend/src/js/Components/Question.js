@@ -5,7 +5,7 @@ import { FormUtil           } from "../util/formUtil.js";
 import { CST                } from "../CST";
 
 export class Question extends Phaser.GameObjects.Container{
-    constructor(scene, iName, amount, player){
+    constructor(scene, iName, amount, player, credit_text){
         super(scene);
         //Initialize members
         this.scene        = scene;
@@ -14,6 +14,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.properties   = this.imageToProp.getProp(this.imageName);
         this.amount       = amount;
         this.player       = player;
+        this.credit_text  = credit_text;
 
         //Screen center
         var centerX = this.scene.game.config.width  / 2;
@@ -155,6 +156,8 @@ export class Question extends Phaser.GameObjects.Container{
                 var new_money;
                 new_money = this.player.money - this.properties.cost*this.amount;
                 this.player.update_money(new_money);
+                this.credit_text.setText(this.player.money);
+
                 this.checkCreateObject();
                 alert("Correct!");
               }else{

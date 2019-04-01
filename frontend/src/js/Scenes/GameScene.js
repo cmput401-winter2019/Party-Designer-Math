@@ -282,7 +282,8 @@ export class GameScene extends Phaser.Scene{
                                             btnColor2   : this.secondColor,
                                             assets      : this.furnitures,
                                             itemY       : itemY,
-                                            player      : this.player
+                                            player      : this.player,
+                                            credit_text : this.credits
                                           });
 
     this.bottomBtn2 = new ButtonAtBottom({  scene       : this,
@@ -294,7 +295,8 @@ export class GameScene extends Phaser.Scene{
                                             btnColor2   : this.secondColor,
                                             assets      : this.deco,
                                             itemY       : itemY,
-                                            player      : this.player
+                                            player      : this.player,
+                                            credit_text : this.credits
                                           });
 
     this.bottomBtn3 = new ButtonAtBottom({  scene       : this,
@@ -306,7 +308,8 @@ export class GameScene extends Phaser.Scene{
                                             btnColor2   : this.secondColor,
                                             assets      : this.food,
                                             itemY       : itemY,
-                                            player      : this.player
+                                            player      : this.player,
+                                            credit_text : this.credits
                                           });
 
     this.bottomBtn4 = new ButtonAtBottom({  scene       : this,
@@ -318,7 +321,8 @@ export class GameScene extends Phaser.Scene{
                                             btnColor2   : this.secondColor,
                                             assets      : this.kiddie,
                                             itemY       : itemY,
-                                            player      : this.player
+                                            player      : this.player,
+                                            credit_text : this.credits
                                           });
 
      // --------------------------------------------------------------
