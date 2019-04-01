@@ -87,15 +87,24 @@ export class Question extends Phaser.GameObjects.Container{
                 this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
 
                 //this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0x99d9d9);
-                this.questionBackground = this.scene.add.rectangle(0, -260, this.scene.game.config.width*0.5, 240, 0x99d9d9);
+                this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.8, this.scene.game.config.height*0.4, 0xffffff);
 
                 this.questionBackground.setOrigin(0.5,0.5);
                 this.questionBackground.setStrokeStyle(1.5, 0x000000);
 
-                this.questionText = this.scene.add.text(0, -270, question.question, this.textConfig);
+                // Tranparent background
+                this.transparent = this.scene.add.rectangle(0,
+                                    0,
+                                    this.scene.game.config.width*0.78, 
+                                    this.scene.game.config.height*0.38,
+                                    0x3498DB);
+                this.transparent.alpha = 0.3;
+
+                this.questionText = this.scene.add.text(0, -100, question.question, this.textConfig);
                 this.questionText.setOrigin(0.5, 0.5);
 
                 this.add(this.questionBackground);
+                this.add(this.transparent);
                 this.add(this.questionText)
 
                 this.scene.add.existing(this);
@@ -110,20 +119,21 @@ export class Question extends Phaser.GameObjects.Container{
 
                 this.formUtil = new FormUtil({
                     scene: this.scene,
-                    rows: 5,
+                    rows: 11,
                     cols: 11
                 });
 
-                // this.formUtil.showNumbers();
+                //this.formUtil.showNumbers();
+                
 
-                this.formUtil.scaleToGameW  ("myText", .1);
-                this.formUtil.placeElementAt(16, 'myText', true);
+                this.formUtil.scaleToGameW  ("myText", .2);
+                this.formUtil.placeElementAt(60, 'myText', true);
 
                 this.formUtil.scaleToGameW  ("btnSend", .1);
-                this.formUtil.placeElementAt(26, "btnSend");
+                this.formUtil.placeElementAt(70, "btnSend");
 
                 this.formUtil.scaleToGameW  ("btnCancel", .1);
-                this.formUtil.placeElementAt(28, "btnCancel");
+                this.formUtil.placeElementAt(72, "btnCancel");
 
                 this.formUtil.addClickCallback("btnSend", this.sendForm, this);
                 this.formUtil.addClickCallback("btnCancel", this.cancelForm, this);
