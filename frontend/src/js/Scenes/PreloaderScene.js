@@ -1,16 +1,16 @@
 import {CST} from "../CST";
-import {interfaceBtns, guestImages,  spaceFurnitures, playFurnitures, beachFurnitures,
+import {interfaceBtns, beach_guestImages, spaceroom_guestImages, playground_guestImages, spaceFurnitures, playFurnitures, beachFurnitures,
 spaceFood, playFood, beachFood, spaceDeco, playDeco, beachDeco, spaceKiddie, playKiddie, beachKiddie,
  } from '../Components/assets';
 
 export class PreloaderScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.PRELOADER}); }
 
-  init(data){ 
+  init(data){
     this.firstColor = data.firstColor;
     this.secondColor = data.secondColor;
     this.imageChoice = data.imageChoice;
-    this.readyCount = 0; 
+    this.readyCount = 0;
   }
 
   preload(){
@@ -98,7 +98,7 @@ export class PreloaderScene extends Phaser.Scene{
         response => {
           response.json().then(data => {
             localStorage.setItem("id", data.id);
-            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie};
+            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages};
             this.scene.start(CST.SCENES.GAME, config);
           });
         }
@@ -115,29 +115,33 @@ export class PreloaderScene extends Phaser.Scene{
 
     // Path
     if(this.imageChoice == "theme1"){
-      this.path = "assets/images/Spaceroom/";
+      this.path       = "assets/images/Spaceroom/";
       this.furnitures = spaceFurnitures;
-      this.food = spaceFood;
-      this.deco = spaceDeco;
-      this.kiddie = spaceKiddie;
+      this.food       = spaceFood;
+      this.deco       = spaceDeco;
+      this.kiddie     = spaceKiddie;
+      this.guestImages= spaceroom_guestImages;
     } else if (this.imageChoice == "theme2"){
-      this.path = "assets/images/Playground/";
+      this.path       = "assets/images/Playground/";
       this.furnitures = playFurnitures;
-      this.food = playFood;
-      this.deco = playDeco;
-      this.kiddie = playKiddie;
+      this.food       = playFood;
+      this.deco       = playDeco;
+      this.kiddie     = playKiddie;
+      this.guestImages= playground_guestImages;
     } else if (this.imageChoice == "theme3"){
-      this.path = "assets/images/Beach/";
+      this.path       = "assets/images/Beach/";
       this.furnitures = beachFurnitures;
-      this.food = beachFood;
-      this.deco = beachDeco;
-      this.kiddie = beachKiddie;
+      this.food       = beachFood;
+      this.deco       = beachDeco;
+      this.kiddie     = beachKiddie;
+      this.guestImages= beach_guestImages;
     }
-    //console.log(this.furnitures, this.food, this.deco, this.kiddie);
+    console.log(this.furnitures, this.food, this.deco, this.kiddie);
 
     // Guests
-    for(var i=0; i<guestImages.length; i++){
-       this.load.image(guestImages[i], this.path+"Characters/"+guestImages[i]+".svg");
+
+    for(var i=0; i<this.guestImages.length; i++){
+       this.load.image(this.guestImages[i], this.path+"Characters/"+this.guestImages[i]+".svg");
     }
 
     // Furniture
