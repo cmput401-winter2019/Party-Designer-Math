@@ -213,7 +213,11 @@ export class PartyInvitation extends Phaser.Scene {
             if(gameObject.inRoom != true){
               // If object is dragged from outside of the room, create copy of the object in its original spot
               gameObject.inRoom = true;
-              gameObject.scene.add.existing(new Item(gameObject.scene, gameObject.imageName, gameObject.input.dragStartX, gameObject.input.dragStartY, gameObject.name, "n/a", "n/a", "n/a", "n/a", "n/a"));
+              var obj = new Item(gameObject.scene, gameObject.imageName, gameObject.input.dragStartX, gameObject.input.dragStartY, gameObject.name, "n/a", "n/a", "n/a", "n/a", "n/a");
+              // Replace sticker object with new sticker in the array
+              var index = gameObject.scene.stickers.indexOf(gameObject);
+              gameObject.scene.stickers[index] = obj;
+              gameObject.scene.add.existing(obj);
             }
 	        }
 	      }
