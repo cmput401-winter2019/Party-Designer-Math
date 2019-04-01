@@ -1,8 +1,8 @@
-import { ImageToProperties } from "../classes/imageToProperties";
-import { Item } from "../classes/item";
-import {CST} from "../CST";
-import { User } from "../classes/user";
-import {FormUtil} from "../util/formUtil.js";
+import { ImageToProperties  } from "../classes/imageToProperties";
+import { Item               } from "../classes/item";
+import { User               } from "../classes/user";
+import { FormUtil           } from "../util/formUtil.js";
+import { CST                } from "../CST";
 
 export class Question extends Phaser.GameObjects.Container{
     constructor(scene, iName, amount, player){

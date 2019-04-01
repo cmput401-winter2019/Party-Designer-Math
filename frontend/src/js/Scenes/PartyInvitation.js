@@ -84,7 +84,7 @@ export class PartyInvitation extends Phaser.Scene {
           this.currentPage -=1;
           this.showCurrentPage();
           console.log("Current Page", this.currentPage);
-        } 
+        }
       });
       this.rectRight.on("pointerdown", ()=>{
           if (this.currentPage+1<this.numOfPages){
@@ -94,7 +94,7 @@ export class PartyInvitation extends Phaser.Scene {
               console.log("Current Page", this.currentPage);
           }
       });
-      
+
       // Set items
       this.stickers = [];
       var page=0;
@@ -124,7 +124,7 @@ export class PartyInvitation extends Phaser.Scene {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit, "n/a"));
     }
     setBackground(){
-      // Set background 
+      // Set background
       this.background = this.add.image(0, 75, "invite");
       this.background.setOrigin(0,0);
       this.background.displayWidth  = this.game.config.width;
@@ -171,7 +171,7 @@ export class PartyInvitation extends Phaser.Scene {
 	      if(gameObject.y < (75) || gameObject.y > this.scene.background.displayHeight+75 || gameObject.x < 0 || gameObject.x > gameObject.scene.game.config.width) {
 	        gameObject.x = gameObject.input.dragStartX;
 	        gameObject.y = gameObject.input.dragStartY;
-	      } 
+	      }
         // If object is dragged inside of the invitation
         else {
 	        if(gameObject.input.dragStartY < gameObject.input.dragStartY < (76+(gameObject.height/2)) || gameObject.input.dragStartY > this.scene.background.displayHeight) {
