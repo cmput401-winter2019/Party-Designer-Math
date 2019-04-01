@@ -140,6 +140,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.displayWidth -=2;
         this.scaleY       = this.scaleX;
     }
+    
     bringForward(){}
 
     bringBackward(){}
