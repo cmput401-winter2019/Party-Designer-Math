@@ -73,7 +73,7 @@ def division(itemCost, itemUnit, itemPlurName, multcap, itemName, guestsNum):
         randInt1 = randint(2, multcap)
         q = ("There are {} persons in your party (including yourself).\n"
             "If you bought {} {} of {} for your party and want to split them evenly. \n"
-            "How many {} of {} should each person get?").format(str(numOfPeople), numOfPeople*randInt1, itemUnit, itemName, itemUnit, itemName)
+            "How many {} of {} should each person get?").format(str(numOfPeople), numOfPeople*randInt1, "units", itemName, "units", itemName)
 
         answer = randInt1
 
