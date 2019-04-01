@@ -77,7 +77,7 @@ export class PartyInvitation extends Phaser.Scene {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit, "n/a"));
     }
     setBackground(){
-      // Set background 
+      // Set background Image
       this.background = this.add.image(0, 75, "invite");
       this.background.setOrigin(0,0);
       this.background.displayWidth  = this.game.config.width;
@@ -87,6 +87,13 @@ export class PartyInvitation extends Phaser.Scene {
         this.background.displayHeight = this.game.config.height - 75 - 130;
         this.background.displayWidth  = this.game.config.width;
       }
+      // Set header
+      this.header = this.add.rectangle(0,
+                                        0,
+                                        this.game.config.width,
+                                        75,
+                                        this.secondColor).setOrigin(0,0);
+      this.header.setStrokeStyle(2, 0xffffff);
     }
     setSendButton(){
       // Set sendButton
@@ -130,7 +137,17 @@ export class PartyInvitation extends Phaser.Scene {
       this.rectLeft.setInteractive();
       this.rectRight.setInteractive();
 
-      // Add Text (arrows of buttons)
+      // Title
+        this.textConfig = { fontFamily  : "Muli",
+                        color       : "#ffffff",
+                        fontSize    : "40px"
+                        };
+
+        this.title = this.add.text(this.game.config.width/2,
+                                        45,
+                                        "Make a Party Invitation!",
+                                        this.textConfig).setOrigin(0.5,0.5);
+      // Arrows of Buttons
       this.textConfig = { fontFamily  : "Muli",
                         color       : "#ffffff",
                         fontSize    : "40px"
