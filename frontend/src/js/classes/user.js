@@ -31,24 +31,25 @@ export class User{
         this._food_count        = food_count;
         this._kiddie_count      = kiddie_count;
         this._progress;
+
         this.allItemsShopList(); // generates a dictionary of shopping list :
                                  //     item name and number that needs to be bought
     }
 
-    get furniture_count() { return this._furniture_count; }
-    get deco_count()      { return this._deco_count;      }
-    get food_count()      { return this._food_count;      }
-    get kiddie_count()    { return this._kiddie_count;    }
+    get furniture_count()   { return this._furniture_count; }
+    get deco_count()        { return this._deco_count;      }
+    get food_count()        { return this._food_count;      }
+    get kiddie_count()      { return this._kiddie_count;    }
 
-    increase_furniture()  { this._furniture_count += 1; }
-    increase_deco()       { this._deco_count      += 1; }
-    increase_food()       { this._food_count      += 1; }
-    increase_kiddie()     { this._kiddie_count    += 1; }
+    increase_furniture()    { this._furniture_count += 1; }
+    increase_deco()         { this._deco_count      += 1; }
+    increase_food()         { this._food_count      += 1; }
+    increase_kiddie()       { this._kiddie_count    += 1; }
 
-    reset_furniture()     { this._furniture_count = 0;  }
-    reset_deco()          { this._deco_count      = 0;  }
-    reset_food()          { this._food_count      = 0;  }
-    reset_kiddie()        { this._kiddie_count    = 0;  }
+    reset_furniture()       { this._furniture_count = 0;  }
+    reset_deco()            { this._deco_count      = 0;  }
+    reset_food()            { this._food_count      = 0;  }
+    reset_kiddie()          { this._kiddie_count    = 0;  }
 
     get username()          { return this._uName;             }
     get id()                { return this._id;                }
@@ -68,16 +69,14 @@ export class User{
 
     putIntoBackpack(imageName){
         if (imageName in this._backpack){
-            //console.log(imageName, "exists in backpack");
-            this._backpack[imageName] += 1;
-        } else {
-            //console.log("Backpack does not have", imageName);
-            this._backpack[imageName] = 1;
+          this._backpack[imageName] += 1;
+        }else{
+          this._backpack[imageName] = 1;
         }
     }
+
     removeFromBackpack(imageName){
-        if (!(imageName in this._backpack)||(this._backpack[imageName] == 0)){
-            //console.log(imageName, "does not exist in backpack");
+        if (!(imageName in this._backpack) || (this._backpack[imageName] == 0)){
             return false;
         }
         this._backpack[imageName] -= 1;
@@ -86,39 +85,39 @@ export class User{
             delete this._backpack[imageName];
         }
     }
+
     putIntoScreenItems(imageName){
         if (imageName in this._screenItems){
-            //console.log(imageName, "exists in screenItems list");
             this._screenItems[imageName] += 1;
         } else {
-            //console.log("screenItems list does not have", imageName);
             this._screenItems[imageName] = 1;
         }
-        console.log("backpack", this._backpack);
-        console.log("screenItems", this._screenItems);
     }
+
     removeFromScreenItems(imageName){
         if (!(imageName in this._screenItems)||(this._screenItems[imageName] == 0)){
-            //console.log(imageName, "does not exist in screenItems list");
             return false;
         }
-        this._screenItems[imageName] -= 1;
-        if(this._screenItems[imageName]==0){
+        this._screenItems[imageName]    -= 1;
+        if(this._screenItems[imageName] == 0){
             delete this._screenItems[imageName];
         }
     }
+
     putItemFromScreenToBackpack(imageName){
         //If item is sucessfully removed from screenItems list, put it to backpack
         if(this.removeFromScreenItems(imageName)!=false){
             this.putIntoBackpack(imageName);
         }
     }
+
     putItemFromBackpackToScreen(imageName){
         //If item is sucessfully removed from backpack, put it to screenItems list
         if(this.removeFromBackpack(imageName)!=false){
             this.putIntoScreenItems(imageName);
         }
     }
+
     allItemsBoughtList(){
         // Combines items in backpack and items in screen (dictionary{item: numBought})
         this._allItems = {};
@@ -133,30 +132,31 @@ export class User{
             }
         }
     }
+
     allItemsShopList(){
         for(var i=0; i<this._itemsInShopList.length; i++){
             this._shoppingList[this._itemsInShopList[i]] = this._numbersInShopList[i];
         }
     }
+
     checkProgress(){
         var progress = 0;
         this.allItemsBoughtList();
         for(var key in this._allItems){
-            if(this.checkNumBought(key)== true){
+            if(this.checkNumBought(key) == true){
                 progress += 1;
             }
         }
-        console.log("progress", progress/20);
         return progress/20;
     }
+
     checkNumBought(key){
         // Checks if the number of key (item) owned is more than the objective in the shopping list
         if (this._itemsInShopList.includes(key)){
-            //console.log(key, this._shoppingList[key]);
             if (this._allItems[key] >= this._shoppingList[key]){
                 return true;
             }
         }
     }
-
+    
 }
