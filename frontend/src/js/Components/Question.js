@@ -25,7 +25,7 @@ export class Question extends Phaser.GameObjects.Container{
         const api_cost          = this.properties.cost;
         const api_unit          = this.amount;
         const api_guest         = this.player.guestNumber;
-        const api_level       =  this.player.level;
+        const api_level         =  this.player.level;
 
         var question_number;
 
@@ -67,9 +67,9 @@ export class Question extends Phaser.GameObjects.Container{
           }
         }
 
-        this.send_button     = document.getElementById("btnSend");
-        this.cancel_button   = document.getElementById("btnCancel");
-        this.input_text      = document.getElementById("myText");
+        this.send_button                  = document.getElementById("btnSend");
+        this.cancel_button                = document.getElementById("btnCancel");
+        this.input_text                   = document.getElementById("myText");
         this.send_button.style.display    = "initial";
         this.cancel_button.style.display  = "initial";
         this.input_text.style.display     = "initial";
@@ -79,17 +79,20 @@ export class Question extends Phaser.GameObjects.Container{
         this.get_request(gs_url).then(gs_id => {
             const url  = "http://127.0.0.1:5001/"+ gs_id + "/question";
             this.post_request(api_name, api_plural_name, api_type, api_cost, api_unit, api_guest, api_level, url, question_number).then(question => {
+
                 console.log(question.question);
-                this.game_id  = gs_id;
-                this.question = question.question;
 
-                this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'12px'};
+                this.game_id    = gs_id;
+                this.question   = question.question;
+                this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
 
-                this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
+                //this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0x99d9d9);
+                this.questionBackground = this.scene.add.rectangle(0, -260, this.scene.game.config.width*0.5, 240, 0x99d9d9);
+
                 this.questionBackground.setOrigin(0.5,0.5);
                 this.questionBackground.setStrokeStyle(1.5, 0x000000);
 
-                this.questionText = this.scene.add.text(0, 0-20, question.question, this.textConfig);
+                this.questionText = this.scene.add.text(0, -270, question.question, this.textConfig);
                 this.questionText.setOrigin(0.5, 0.5);
 
                 this.add(this.questionBackground);
@@ -97,7 +100,7 @@ export class Question extends Phaser.GameObjects.Container{
 
                 this.scene.add.existing(this);
 
-                this.setSize(300, 90);//.setOrigin(0,0);
+                this.setSize(300, 90);
                 this.x = centerX;
                 this.y = centerY;
 
@@ -112,28 +115,21 @@ export class Question extends Phaser.GameObjects.Container{
                 });
 
                 // this.formUtil.showNumbers();
-                //
-                this.formUtil.scaleToGameW("myText", .3);
+
+                this.formUtil.scaleToGameW  ("myText", .1);
                 this.formUtil.placeElementAt(16, 'myText', true);
 
-                this.formUtil.scaleToGameW("btnSend", .25);
-                this.formUtil.placeElementAt(36, "btnSend");
+                this.formUtil.scaleToGameW  ("btnSend", .1);
+                this.formUtil.placeElementAt(26, "btnSend");
 
-                this.formUtil.scaleToGameW("btnCancel", .25);
-                this.formUtil.placeElementAt(40, "btnCancel");
+                this.formUtil.scaleToGameW  ("btnCancel", .1);
+                this.formUtil.placeElementAt(28, "btnCancel");
 
                 this.formUtil.addClickCallback("btnSend", this.sendForm, this);
                 this.formUtil.addClickCallback("btnCancel", this.cancelForm, this);
-                //
-                // this.formUtil.scaleToGameW("area51", .2);
-                // this.formUtil.scaleToGameH("area51", .1);
-                // this.formUtil.placeElementAt(60, "area51", true, true);
-                // this.formUtil.addChangeCallback("area51", this.textAreaChanged, this);
               });
         });
     }
-
-
 
     sendForm() {
             var ret = document.getElementById("myText").value;
@@ -263,14 +259,11 @@ export class Question extends Phaser.GameObjects.Container{
 
 
     checkCreateObject(){
-
         for (var i=0; i<this.amount; i++){
-            //console.log("hi");
             var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, this.properties.unit, "show");
-
         }
-        this.scene.originalS.updateProgressBar();
 
+        this.scene.originalS.updateProgressBar();
         var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
         this.destroy();
         scene.scene.sleep(CST.SCENES.BUY_POPUP);
