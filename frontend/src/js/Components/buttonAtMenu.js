@@ -15,7 +15,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		}
 		super(config.scene);
 		this.scene=config.scene;
-
+		this.credit=config.credits;
 
 		this.name = config.key;
 		this.back=this.scene.add.image(0,0,config.key);

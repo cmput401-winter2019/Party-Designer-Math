@@ -18,6 +18,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.btnColor     = config.btnColor;
     this.btnColor2    = config.btnColor2;
     this.assets       = config.assets;
+    this.credit_text  = config.credit_text;
     this.clicked      = false;
     this.loadedassets = [];
     this.currentPage  = 0;
@@ -48,7 +49,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.rect.setInteractive();
 
     this.rect.on( "pointerover",
-                  function(pointer) { 
+                  function(pointer) {
                   //this.alpha = 0.7;
                   this.rect.fillColor = this.btnColor2;
 
@@ -56,7 +57,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                   this);
 
     this.rect.on( "pointerout",
-                  function(pointer) { 
+                  function(pointer) {
                     if (this.clicked == false) {
                       //this.alpha = 1;
                       this.rect.fillColor = this.btnColor;
@@ -131,7 +132,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
-            this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player});
+            this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player, credit_text: this.credit_text});
         });
         offset+=100;
         this.loadedassets.push(asset1);
@@ -243,7 +244,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
   }
 
-  activateBtn() {     
+  activateBtn() {
     // This runs when a bottom menu button is clicked
     if(this.text._text == "Furniture") {
       this.visibleAndInvisible(this.text._text);
