@@ -9,6 +9,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
     super(config.scene);
 
+<<<<<<< HEAD
     this.scene        = config.scene;
     this.startHeight  = config.startHeight;
     this.btnHeight    = config.btnHeight;
@@ -24,13 +25,25 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/100);
     this.numItemLastPage = this.assets.length%this.numItemPerPage;
     this.numOfPages = Math.ceil(this.assets.length/this.numItemPerPage);
+=======
+    this.scene            = config.scene;
+    this.startHeight      = config.startHeight;
+    this.btnHeight        = config.btnHeight;
+    this.itemY            = config.itemY;
+    this.player           = config.player;
+    this.btnWidth         = config.btnWidth;
+    this.btnColor         = config.btnColor;
+    this.assets           = config.assets;
+    this.clicked          = false;
+    this.loadedassets     = [];
+    this.currentPage      = 0;
+    this.numItemPerPage   = Math.floor((this.scene.game.config.width*0.7)/100);
+    this.numItemLastPage  = this.assets.length%this.numItemPerPage;
+    this.numOfPages       = Math.ceil(this.assets.length/this.numItemPerPage);
+>>>>>>> dfb1f76fc8ddcfa0fc91351abf77c04b3b38735a
 
     // Draw Rectangle of the button
-    this.rect = this.scene.add.rectangle(0,
-                                        this.startHeight,
-                                        this.btnWidth,
-                                        this.btnHeight,
-                                        this.btnColor);
+    this.rect = this.scene.add.rectangle(0, this.startHeight, this.btnWidth, this.btnHeight, this.btnColor);
 
     this.rect.setOrigin(0,0);
     this.rect.setStrokeStyle(0.75, 0xffffff);
@@ -39,23 +52,19 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     // Add Text
     this.textConfig = { fontFamily  : "Muli",
                         color       : "#ffffff",
-                        fontSize    : "20px"
-                      };
+                        fontSize    : "20px" };
 
-    this.text = this.scene.add.text(this.btnWidth*0.25,
-                                    this.startHeight+(this.btnHeight/2),
-                                    config.text,
-                                    this.textConfig);
+    this.text = this.scene.add.text(this.btnWidth*0.25, this.startHeight+(this.btnHeight/2), config.text, this.textConfig);
 
     this.text.setOrigin(0,0.5);
     this.add(this.text);
 
     // mouse over Button effect
-    this.setSize( this.btnWidth,
-                  this.btnHeight);
+    this.setSize(this.btnWidth, this.btnHeight);
 
     this.rect.setInteractive();
 
+<<<<<<< HEAD
     this.rect.on( "pointerover",
                   function(pointer) { 
                   //this.alpha = 0.7;
@@ -71,6 +80,11 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
                       this.rect.fillColor = this.btnColor;
                     }},
                   this);
+=======
+    this.rect.on( "pointerover", function(pointer) { this.alpha = 0.7;}, this);
+
+    this.rect.on( "pointerout",  function(pointer) { if (this.clicked == false) this.alpha = 1; }, this);
+>>>>>>> dfb1f76fc8ddcfa0fc91351abf77c04b3b38735a
 
     // Draw page turner
     this.rectLeft = this.scene.add.rectangle(this.btnWidth,

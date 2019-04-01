@@ -93,7 +93,7 @@ export class GameScene extends Phaser.Scene{
 
     // Level up button
     this.levelUpBtn = new RoundBtn(this,
-                                  this.game.config.width-(this.game.config.width*0.05+200),
+                                  this.game.config.width-(this.game.config.width*0.05+400),
                                   75/2,
                                   "START THE PARTY",
                                   150,
