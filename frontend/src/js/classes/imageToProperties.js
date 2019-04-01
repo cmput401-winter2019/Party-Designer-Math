@@ -71,7 +71,7 @@ export class ImageToProperties {
                     pluralName: "burger sets",
                     category:   "food",
                     unit:       "sets",
-                    cost:       "5"};   // set, slice, bag, glass, box, bowl
+                    cost:       "5"};
 
         }  else if (iName == "cake"){
             return {name:       "cake",
@@ -141,14 +141,14 @@ export class ImageToProperties {
                     pluralName: "salads",
                     category:   "food",
                     unit:       "bowls",
-                    cost:       "5"};            // ------------
+                    cost:       "5"};
 
         } else if (iName == "ballons"){
             return {name:       "balloons",
                     pluralName: "balloons",
                     category:   "deco",
                     unit:       "set",
-                    cost:       "5"};          // set, pot
+                    cost:       "5"};
 
         } else if (iName == "light"){
             return {name:       "light",
@@ -211,14 +211,14 @@ export class ImageToProperties {
                     pluralName: "space plants",
                     category:   "deco",
                     unit:       "pot",
-                    cost:       "5"};  // -----------
+                    cost:       "5"};  
 
         } else if (iName == "alienShip"){
             return {name:       "alien ship",
                     pluralName: "alien ships",
                     category:   "kiddie",
                     unit:       "set",
-                    cost:       "5"}; // set, box, N/A
+                    cost:       "5"};
 
         } else if (iName == "rocket"){
             return {name:       "rocket",

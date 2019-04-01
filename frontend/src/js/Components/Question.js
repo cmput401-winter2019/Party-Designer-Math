@@ -8,28 +8,27 @@ export class Question extends Phaser.GameObjects.Container{
     constructor(scene, iName, amount, player){
         super(scene);
         //Initialize members
-        this.scene = scene;
-        this.imageName = iName;
-        this.imageToProp = new ImageToProperties();
-        this.properties = this.imageToProp.getProp(this.imageName);
-        this.amount = amount;
-        this.player = player;
+        this.scene        = scene;
+        this.imageName    = iName;
+        this.imageToProp  = new ImageToProperties();
+        this.properties   = this.imageToProp.getProp(this.imageName);
+        this.amount       = amount;
+        this.player       = player;
 
         //Screen center
-        var centerX = this.scene.game.config.width/2;
-        var centerY = this.scene.game.config.height/2;
+        var centerX = this.scene.game.config.width  / 2;
+        var centerY = this.scene.game.config.height / 2;
 
-        //Configurations for text
-
-        const api_name        = this.properties.name;
-        const api_plural_name = this.properties.pluralName;
-        const api_type        = this.properties.category;
-        const api_cost        = this.properties.cost;
-        const api_unit        = this.amount;
-        const api_guest       = this.player.guestNumber;
-        const api_level       = this.player.level;
+        const api_name          = this.properties.name;
+        const api_plural_name   = this.properties.pluralName;
+        const api_type          = this.properties.category;
+        const api_cost          = this.properties.cost;
+        const api_unit          = this.amount;
+        const api_guest         = this.player.guestNumber;
+        const api_level       =  this.player.level;
 
         var question_number;
+
         if(api_type == "furniture"){
           if(this.player.furniture_count == 5){
             this.player.reset_furniture();
