@@ -30,27 +30,18 @@ async function main(scene) {
     console.log(data);
   } 
   else {
-    //gamestate was created so now pick a theme
-    if (response.status === 201) {
-      console.log("Gamestate was created");
-      this.scene.start(CST.SCENES.CHOOSE_THEME)
+    //if the theme is null then pick a theme
+    if(data["theme"] === null) {
+      console.log("Theme is null")
+      currentscene.start(CST.SCENES.CHOOSE_THEME, data)
     } 
+    //there exists a theme so start the game
     else {
-      //if the theme is null then pick a theme
-      if(data["theme"] === null) {
-        console.log("Theme is null")
-        this.scene.start(CST.SCENES.CHOOSE_THEME)
-      } 
-      //there exists a theme so start the game
-      else {
-        this.scene.start(CST.SCENES.GAME)
-      }
+      currentscene.start(CST.SCENES.GAME, data)
     }
-
-
-    console.log(data);
   }
 }
+
 
 export class BootScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.BOOT}); }

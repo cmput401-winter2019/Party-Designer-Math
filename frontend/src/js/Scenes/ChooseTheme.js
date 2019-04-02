@@ -6,6 +6,10 @@ export class ChooseTheme extends Phaser.Scene {
     constructor() {
         super(CST.SCENES.CHOOSE_THEME);
     }
+
+    init (gamestate) {
+        console.log(gamestate);
+    }
     preload()
     {
         // Load all themes
