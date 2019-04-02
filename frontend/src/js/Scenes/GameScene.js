@@ -23,11 +23,14 @@ export class GameScene extends Phaser.Scene{
     this.firstColor = data.firstColor;
     this.secondColor = data.secondColor;
     this.background = data.theme;
+    console.log("BACKGROUND IS " + this.background)
     this.furnitures = data.furnitures;
     this.food = data.food;
     this.deco = data.deco;
     this.kiddie = data.kiddie;
     this.guests = data.guests;
+
+    this.gamestate = data.gamestate;
   }
   preload(){
 
@@ -59,8 +62,9 @@ export class GameScene extends Phaser.Scene{
 
     this.player = new User(this.username,
                             this.id,
-                            this.money,
-                            5,
+                            this.gamestate.id,
+                            this.gamestate.money,
+                            this.gamestate.numOfGuests,
                             3,
                             {}, //{"Chair":1, "Sofa":2},
                             100,
@@ -84,8 +88,7 @@ export class GameScene extends Phaser.Scene{
     // Call scene functions
     this.updateProgressBar();
     this.createBackground(this.background);
-    this.createGuests(this.guests);
-    this.post_gamestate(this.id, this.money, this.randomInt, url);
+    this.createGuests(this.guests, this.player.guestNumber);
 
     this.loadItemsToScreen(this.player.screenItems, "load");
     this.createDragLogics();
@@ -115,41 +118,6 @@ export class GameScene extends Phaser.Scene{
     this.progressBar.setPercent(this.player.checkProgress());
   }
 
-
-
-  post_gamestate(id, money, guests, url){
-      const body = {
-          studentId: id,
-          money: money,
-          numOfGuests: guests
-      };
-
-      return fetch(url, {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access_token"),
-          }
-        })
-        .then(
-          function(response) {
-            console.log(response.status);
-            // Examine the text in the response
-            response.json().then(function(data) {
-              if (response.status !== 200) {
-                  alert(response.status + " Error"+ " : " + data["message"]);
-                  return;
-              }
-              return;
-            });
-          }
-        )
-    }
-
   createBackground(background){
     this.topMenuHeight  = 75;
     // Background
@@ -164,23 +132,10 @@ export class GameScene extends Phaser.Scene{
     }
   }
 
-  createGuests(guestImgNames){
+  createGuests(guestImgNames, numOfGuests){
     var originalY = this.game.config.height/3;
     var originalX = 100;
-    var maxGuest  = 0;
-    var minGuest  = 0;
-    if(this.player.level <= 3){
-      minGuest = 3;
-      maxGuest = 5;
-    }else if(this.player.level <=6){
-      minGuest = 5;
-      maxGuest = 7;
-    }else{
-      minGuest = 7;
-      maxGuest = 9;
-    }
-    this.randomInt = Math.floor(Math.random() * (maxGuest - minGuest +1)) + minGuest;
-    for(var i=0; i<this.randomInt; i++){
+    for(var i=0; i<numOfGuests; i++){
         this.add.existing(new Guest(this, guestImgNames[i], originalX*(i+1), originalY, "Sammy"));
     }
   }
