@@ -1,4 +1,43 @@
 import {CST} from "../CST";
+
+async function put(endpoint, body) {
+	const headers = {
+	  "Content-Type": "application/json",
+	  "Authorization": "Bearer " + localStorage.getItem("access_token")
+	};
+	  
+	const request = {
+	  method: "PUT",
+	  mode: "cors",
+	  headers: headers,
+	  body: JSON.stringify(body)
+	};
+  
+	const response = await fetch(endpoint, request);
+  
+	return response;
+  }
+  
+async function updateTheme(scene, theme) {
+	//Set the scene context
+	const currentscene = scene;
+	const currenttheme = theme;
+
+	const body = {
+		updateType: "theme",
+		updateValue: currenttheme
+	};
+
+	const response = await put("http://127.0.0.1:5001/gamestate/update", body);
+	const data = await response.json();
+	if (!response.ok) {
+		console.log("Something went wrong")
+	} 
+	else {
+		currentscene.start(CST.SCENES.PARTY_INVITATION, data);
+	}
+}
+
 export class ThemeButton extends Phaser.GameObjects.Container{ 
 	constructor(config)
 	{
@@ -16,6 +55,8 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 
 		this.scene = config.scene;
 		this.image = config.key;
+		
+		this.gamestate = config.gamestate
 
         //this.back is the background image
 		this.back = this.scene.add.image(0,0,this.image);
@@ -57,7 +98,7 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 
     }
     pressed(){
-        this.scene.scene.start(CST.SCENES.PARTY_INVITATION, {imageChoice:this.image});
+		updateTheme(this.scene.scene, this.image);
     }
 	over(){
 		//this.alpha = 0.8;

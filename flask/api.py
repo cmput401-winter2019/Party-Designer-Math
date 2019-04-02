@@ -164,8 +164,8 @@ def login():
                 return jsonify(message="User does not exist."), 403
 
             if (Student.verify_hash(password, student.password)):
-                access_token = create_access_token(identity = username)
-                refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
+                access_token = create_access_token(identity = student.id)
+                refresh_token = create_refresh_token(identity = student.id, expires_delta=timedelta(days=1))
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
                 return jsonify(message="Incorrect password."), 403
@@ -179,8 +179,8 @@ def login():
                 return jsonify(message="User does not exist."), 403
 
             if (Teacher.verify_hash(password, teacher.password)):
-                access_token = create_access_token(identity = username)
-                refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
+                access_token = create_access_token(identity = teacher.id)
+                refresh_token = create_refresh_token(identity = teacher.id, expires_delta=timedelta(days=1))
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
                 return jsonify(message="Incorrect password."), 403
@@ -246,36 +246,68 @@ def get_student(name):
         result = studentSerializer.dump(current_student)
         return jsonify(result.data)
 
-
 # endpoint to create game state for student
-@app.route("/<id>/gamestate", methods=["POST"])
+@app.route("/gamestate", methods=["GET"])
 @jwt_required
-def add_gamestate(id):
+def initialize_gamestate():
     try:
-        money = request.json['money']
-        numOfGuests = request.json['numOfGuests']
-        studentId = request.json['studentId']
-        exists = db.session.query(db.exists().where(GameState.studentId == studentId)).scalar()
-        if(exists):
-            return jsonify(success=True), 200
+        studentId = get_jwt_identity()
+        gamestate = GameState.query.filter(GameState.studentId == studentId).first()
+        if(gamestate):
+            result = gameStateSerializer.dump(gamestate)
+            result.data["message"] = "Gamestate already exists"
+            return jsonify(result.data), 200
+        
+        student = Student.query.filter(Student.id == studentId).first()
+        currentLevel = student.currentLevel
+        if (currentLevel <= 3):
+            money = 1000
+            numOfGuests = random.randrange(3, 5, 1)
+        elif (currentLevel <= 6):
+            money = 1500
+            numOfGuests = random.randrange(5, 8, 1)
         else:
-            newGameState = GameState(money, numOfGuests, studentId)
+            money = 2000
+            numOfGuests = random.randrange(7, 10, 1)
+        
+        newGameState = GameState(money, numOfGuests, studentId)
 
-            db.session.add(newGameState)
-            db.session.commit()
+        db.session.add(newGameState)
+        db.session.commit()
 
-            return jsonify(success=True), 200
+        gamestate = GameState.query.filter(GameState.studentId == studentId).first()
+        result = gameStateSerializer.dump(gamestate)
+        result.data["message"] = "Gamestate created"
+
+        return jsonify(result.data), 201
     except Exception as e:
         print(e)
-        return jsonify(success=False), 403
+        return jsonify(message="Could not create gamestate"), 403
 
-# endpoint to show game state of student
-@app.route("/<id>/gamestate", methods=["GET"])
+# endpoint to create game state for student
+@app.route("/gamestate/update", methods=["PUT"])
 @jwt_required
-def get_gamestate(id):
-    gameState = GameState.query.filter(GameState.studentId == id).first()
-    result = gameStateSerializer.dump(gameState)
-    return jsonify(result.data)
+def update_gamestate():
+    try:
+        studentId = get_jwt_identity()
+        gamestate = GameState.query.filter(GameState.studentId == studentId).first()
+        updateType = request.json['updateType']
+        updateValue = request.json['updateValue']
+        print(updateType, updateValue)
+        if (updateType == "theme"):
+            gamestate.theme = updateValue
+            db.session.commit()
+        
+        elif(updateType == "invitation"):
+            gamestate.designedInvitation = updateValue
+            db.session.commit()
+
+        result = gameStateSerializer.dump(gamestate)
+        result.data["message"] = "Gamestate value updated"
+        return jsonify(result.data), 200
+    except Exception as e:
+        print(e)
+        return jsonify(message="Could not update gamestate"), 403
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])

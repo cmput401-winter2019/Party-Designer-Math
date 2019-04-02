@@ -6,6 +6,10 @@ export class ChooseTheme extends Phaser.Scene {
     constructor() {
         super(CST.SCENES.CHOOSE_THEME);
     }
+
+    init (gamestate) {
+        this.gamestate = gamestate
+    }
     preload()
     {
         // Load all themes
@@ -94,7 +98,7 @@ export class ChooseTheme extends Phaser.Scene {
                 var newXPos = this.xPos;
                 var newYPos = this.yPos*2;
             }
-            let theme = new ThemeButton({scene:this, key:this.themes[i], x:newXPos*(1+(i%3)), y:newYPos, event:"pressed"});
+            let theme = new ThemeButton({scene:this, key:this.themes[i], x:newXPos*(1+(i%3)), y:newYPos, event:"pressed", gamestate:this.gamestate});
             theme.visible = false;
             this.themeBtns.push(theme);
         }

@@ -1,6 +1,7 @@
 export class User{
     constructor(userName,
                 id,
+                gamestateId,
                 money,
                 guestNumber,
                 currentLevel,
@@ -17,6 +18,7 @@ export class User{
         // Underscores signifies local variables
         this._uName             = userName;
         this._id                = id;
+        this._gamestateId       = gamestateId
         this._money             = money;
         this._guestNumber       = guestNumber;
         this._level             = currentLevel;
