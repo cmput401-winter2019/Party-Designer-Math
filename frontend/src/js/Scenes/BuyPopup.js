@@ -15,6 +15,7 @@ export class BuyPopup extends Phaser.Scene{
         this.originalS = data.originalS;
         this.player = data.player;
         this.credit_text = data.credit_text;
+        this.progressBar = data.progressBar;
     }
     preload()
     {
@@ -34,7 +35,7 @@ export class BuyPopup extends Phaser.Scene{
         //this.alignGrid.showNumbers();
         var fontConfig = { font: '16px Muli', fill: '0x000000' };
 
-        this.buyItemPopup = new BuyItem(this, this.objName, this.player, this.credit_text);
+        this.buyItemPopup = new BuyItem(this, this.objName, this.player, this.credit_text, this.progressBar);
 
         // this.question = new Question(this, "chair", 2);
 

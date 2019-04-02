@@ -19,6 +19,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.btnColor2    = config.btnColor2;
     this.assets       = config.assets;
     this.credit_text  = config.credit_text;
+    this.progressBar  = config.progressBar;
     this.clicked      = false;
     this.loadedassets = [];
     this.currentPage  = 0;
@@ -132,7 +133,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
-            this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player, credit_text: this.credit_text});
+            this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player, credit_text: this.credit_text, progressBar: this.progressBar});
         });
         offset+=100;
         this.loadedassets.push(asset1);

@@ -1,5 +1,4 @@
 import {CST} from "../CST";
-
 async function put(endpoint, body) {
 	const headers = {
 	  "Content-Type": "application/json",
@@ -39,9 +38,8 @@ async function updateTheme(scene, theme) {
 }
 
 export class ThemeButton extends Phaser.GameObjects.Container{ 
-	constructor(config)
-	{
-        if(!config.scene)
+	constructor(config) {
+		if(!config.scene)
 		{
 			console.log("missing scene!");
 			return;
@@ -60,18 +58,18 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 
         //this.back is the background image
 		this.back = this.scene.add.image(0,0,this.image);
-        this.back.displayWidth = this.scene.game.config.width*0.20;
-        this.back.scaleY=this.back.scaleX;
+    	this.back.displayWidth = this.scene.game.config.width*0.20;
+    	this.back.scaleY=this.back.scaleX;
 		this.add(this.back);
-		
+
         // If there is text, add text
-        if(config.text)
+    if(config.text)
 		{
 			this.text = config.text;
 			this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'12px'};
-			
+
 			this.text1=this.scene.add.text(0,0,config.text, this.textConfig);
-			
+
 			this.text1.setOrigin(0.5,0.5);
 			this.add(this.text1);
 		}
@@ -85,7 +83,7 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 		}
 
 		this.setSize(this.back.displayWidth, this.back.displayHeight);
-      
+
 		this.scene.add.existing(this);
 
 		if (config.event)

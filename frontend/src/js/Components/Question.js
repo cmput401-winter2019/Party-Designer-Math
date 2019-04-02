@@ -4,8 +4,9 @@ import { User               } from "../classes/user";
 import { FormUtil           } from "../util/formUtil.js";
 import { CST                } from "../CST";
 
+
 export class Question extends Phaser.GameObjects.Container{
-    constructor(scene, iName, amount, player, credit_text){
+    constructor(scene, iName, amount, player, credit_text, progressBar){
         super(scene);
         //Initialize members
         this.scene        = scene;
@@ -15,56 +16,56 @@ export class Question extends Phaser.GameObjects.Container{
         this.amount       = amount;
         this.player       = player;
         this.credit_text  = credit_text;
-
+        this.progressBar  = progressBar;
         //Screen center
         var centerX = this.scene.game.config.width  / 2;
         var centerY = this.scene.game.config.height / 2;
 
-        const api_name          = this.properties.name;
-        const api_plural_name   = this.properties.pluralName;
-        const api_type          = this.properties.category;
-        const api_cost          = this.properties.cost;
-        const api_amount        = this.amount;
-        const api_guest         = this.player.guestNumber;
-        const api_level         = this.player.level;
+        this.api_name          = this.properties.name;
+        this.api_plural_name   = this.properties.pluralName;
+        this.api_type          = this.properties.category;
+        this.api_cost          = this.properties.cost;
+        this.api_amount        = this.amount;
+        this.api_guest         = this.player.guestNumber;
+        this.api_level         = this.player.level;
 
-        var question_number;
+        this.question_number;
 
-        if(api_type == "furniture"){
+        if(this.api_type == "furniture"){
           if(this.player.furniture_count == 5){
             this.player.reset_furniture();
             this.player.increase_furniture();
-            question_number = this.player.furniture_count;
+            this.question_number = this.player.furniture_count;
           }else{
             this.player.increase_furniture();
-            question_number = this.player.furniture_count;
+            this.question_number = this.player.furniture_count;
           }
-        }else if(api_type == "deco"){
+        }else if(this.api_type == "deco"){
           if(this.player.deco_count == 5){
             this.player.reset_deco();
             this.player.increase_deco();
-            question_number = this.player.deco_count;
+            this.question_number = this.player.deco_count;
           }else{
             this.player.increase_deco();
-            question_number = this.player.deco_count;
+            this.question_number = this.player.deco_count;
           }
-        }else if(api_type == "food"){
+        }else if(this.api_type == "food"){
           if(this.player.food_count == 5){
             this.player.reset_food();
             this.player.increase_food();
-            question_number = this.player.food_count;
+            this.question_number = this.player.food_count;
           }else{
             this.player.increase_food();
-            question_number = this.player.food_count;
+            this.question_number = this.player.food_count;
           }
-        }else if(api_type == "kiddie"){
+        }else if(this.api_type == "kiddie"){
           if(this.player.kiddie_count == 5){
             this.player.reset_kiddie();
             this.player.increase_kiddie();
-            question_number = this.player.kiddie_count;
+            this.question_number = this.player.kiddie_count;
           }else{
             this.player.increase_kiddie();
-            question_number = this.player.kiddie_count;
+            this.question_number = this.player.kiddie_count;
           }
         }
 
@@ -79,15 +80,17 @@ export class Question extends Phaser.GameObjects.Container{
         var gs_url = "http://127.0.0.1:5001/"+ localStorage.getItem("id") + "/gamestate";
         this.get_request(gs_url).then(gs_id => {
             const url  = "http://127.0.0.1:5001/"+ gs_id + "/question";
-            this.post_request(api_name, api_plural_name, api_type, api_cost, api_amount, api_guest, api_level, url, question_number).then(question => {
+            this.post_request(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
 
-                console.log(question.question);
+                console.log(question);
+
+                this.question = question.question;
+                this.type     = question.type;
 
                 this.game_id    = gs_id;
                 this.question   = question.question;
                 this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
 
-                //this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0x99d9d9);
                 this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.8, this.scene.game.config.height*0.4, 0xffffff);
 
                 this.questionBackground.setOrigin(0.5,0.5);
@@ -101,7 +104,7 @@ export class Question extends Phaser.GameObjects.Container{
                                     0x3498DB);
                 this.transparent.alpha = 0.3;
 
-                this.questionText = this.scene.add.text(0, -100, question.question, this.textConfig);
+                this.questionText = this.scene.add.text(0, -100, this.question, this.textConfig);
                 this.questionText.setOrigin(0.5, 0.5);
 
                 this.add(this.questionBackground);
@@ -146,8 +149,6 @@ export class Question extends Phaser.GameObjects.Container{
             this.send_button.style.display    = "none";
             this.cancel_button.style.display  = "none";
             this.input_text.style.display     = "none";
-            console.log(ret);
-            console.log("sendForm");
 
             const check_url  = "http://127.0.0.1:5001/"+ this.game_id + "/question";
             this.check_answer(ret, this.question, check_url).then(answer => {
@@ -157,10 +158,51 @@ export class Question extends Phaser.GameObjects.Container{
                 new_money = this.player.money - this.properties.cost*this.amount;
                 this.player.update_money(new_money);
                 this.credit_text.setText(this.player.money);
-
                 this.checkCreateObject();
+
+                if(this.type == "addition"){
+                  this.player.increase_correct_addition();
+                }else if(this.type == "subtraction"){
+                  this.player.increase_correct_subtraction();
+                }else if(this.type == "multiplication"){
+                  this.player.increase_correct_multiplication();
+                }else if(this.type == "division"){
+                  this.player.increase_correct_division();
+                }else if(this.type == "mixed"){
+                  this.player.increase_correct_mixed();
+                }
+                this.progressBar.setPercent(this.player.total_correct / 25);
+
                 alert("Correct!");
+
+                if(this.player.total_correct == 25){
+                  alert("LEVEL COMPLETE\n START THE PARTY TO LEVEL UP!")
+                }
+
               }else{
+
+                if(this.type == "addition"){
+                  this.player.increase_wrong_addition();
+                }else if(this.type == "subtraction"){
+                  this.player.increase_wrong_subtraction();
+                }else if(this.type == "multiplication"){
+                  this.player.increase_wrong_multiplication();
+                }else if(this.type == "division"){
+                  this.player.increase_wrong_division();
+                }else if(this.type == "mixed"){
+                  this.player.increase_wrong_mixed();
+                }
+
+                if(this.api_type == "furniture"){
+                  this.player.decrease_furniture();
+                }else if(this.api_type == "deco"){
+                  this.player.decrease_deco();
+                }else if(this.api_type == "food"){
+                  this.player.decrease_food();
+                }else if(this.api_type == "kiddie"){
+                  this.player.decrease_kiddie();
+                }
+
                 var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
                 this.destroy();
                 scene.scene.sleep(CST.SCENES.BUY_POPUP);
@@ -170,13 +212,23 @@ export class Question extends Phaser.GameObjects.Container{
         }
 
     cancelForm() {
-            this.send_button.style.display = "none";
-            this.cancel_button.style.display = "none";
-            this.input_text.style.display = "none";
+
+            if(this.api_type == "furniture"){
+              this.player.decrease_furniture();
+            }else if(this.api_type == "deco"){
+              this.player.decrease_deco();
+            }else if(this.api_type == "food"){
+              this.player.decrease_food();
+            }else if(this.api_type == "kiddie"){
+              this.player.decrease_kiddie();
+            }
+
+            this.send_button.style.display    = "none";
+            this.cancel_button.style.display  = "none";
+            this.input_text.style.display     = "none";
             console.log("cancelForm");
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
-            scene.scene.sleep(CST.SCENES.BUY_POPUP);
         }
 
     check_answer(answer, question, url) {

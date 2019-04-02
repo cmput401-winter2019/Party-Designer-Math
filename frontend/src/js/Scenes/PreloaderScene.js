@@ -142,7 +142,6 @@ export class PreloaderScene extends Phaser.Scene{
       this.firstColor = 0xb7873e;
       this.secondColor = 0xf7ce7a;
     }
-    console.log(this.furnitures, this.food, this.deco, this.kiddie);
 
     // Guests
 

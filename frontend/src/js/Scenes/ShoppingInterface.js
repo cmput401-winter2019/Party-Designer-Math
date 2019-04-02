@@ -4,9 +4,7 @@ import { ImageToProperties } from "../classes/imageToProperties";
 export class ShoppingInterface extends Phaser.Scene{
 
         constructor(){
-            super({
-                key: CST.SCENES.SHOPPING_LIST
-            })
+            super({ key: CST.SCENES.SHOPPING_LIST })
         }
 
         //Checks if objectives are met.
@@ -14,12 +12,11 @@ export class ShoppingInterface extends Phaser.Scene{
             this.number = data.n;
             this.assets = data.assets;
         }
-        preload(){
-            this.load.image("exitBtn",    "assets/images/Interface/ExitGame.svg");
-        }
+
+        preload(){ this.load.image("exitBtn", "assets/images/Interface/ExitGame.svg"); }
 
         create(){
-            // make and show grids 
+            // make and show grids
             this.alignGrid = new AlignGrid({
                 scene: this,
                 rows: 21,
@@ -27,17 +24,17 @@ export class ShoppingInterface extends Phaser.Scene{
              });
             // this.alignGrid.showNumbers();
             // console.log(this.assets);
-            
+
             // Main rectangle of the scene
             this.popupHeight = 540;
             this.rect = this.add.rectangle(0, 0, this.game.config.width*0.9, this.popupHeight, 0xffffff);
             this.rect.setOrigin(0.5,0.5);
             this.rect.setStrokeStyle(2, 0x000000);
             this.alignGrid.placeAtIndex(220, this.rect);
-            
-            // 
-            var centerXY = this.alignGrid.getPosByIndex(220);
-            var fontConfig = { font: '16px Muli', fill: '0xFFFFF' };
+
+            //
+            var centerXY    = this.alignGrid.getPosByIndex(220);
+            var fontConfig  = { font: '16px Muli', fill: '0xFFFFF' };
 
             // Initiate ImageToProperties class
             this.imageToProp = new ImageToProperties();
@@ -71,14 +68,7 @@ export class ShoppingInterface extends Phaser.Scene{
             this.returnBtn.on('pointerdown', function () {
                 this.scene.sleep(CST.SCENES.SHOPPING_LIST);
             }, this);
-            
+
 
         }
-
-
-
-
-
-
-
 }
