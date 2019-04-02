@@ -250,24 +250,37 @@ def get_student(name):
 # endpoint to create game state for student
 @app.route("/<id>/gamestate", methods=["POST"])
 @jwt_required
-def add_gamestate(id):
+def initialize_gamestate(id):
     try:
-        money = request.json['money']
-        numOfGuests = request.json['numOfGuests']
-        studentId = request.json['studentId']
-        exists = db.session.query(db.exists().where(GameState.studentId == studentId)).scalar()
-        if(exists):
-            return jsonify(success=True), 200
+        studentId = id
+        gamestate = GameState.query.filter(GameState.studentId == studentId).first()
+        if(gamestate):
+            # TODO: AND RETURN GAMESTATE HERE
+            result = gameStateSerializer.dump(gamestate)
+            result.data["message"] = "Gamestate already exists"
+            return jsonify(result.data), 200
+        
+        student = Student.query.filter(Student.id == studentId).first()
+        currentLevel = student.currentLevel
+        if (currentLevel <= 3):
+            money = 1000
+            numOfGuests = random.randrange(3, 5, 1)
+        elif (currentLevel <= 6):
+            money = 1500
+            numOfGuests = random.randrange(5, 8, 1)
         else:
-            newGameState = GameState(money, numOfGuests, studentId)
+            money = 2000
+            numOfGuests = random.randrange(7, 10, 1)
+        
+        newGameState = GameState(money, numOfGuests, studentId)
 
-            db.session.add(newGameState)
-            db.session.commit()
+        db.session.add(newGameState)
+        db.session.commit()
 
-            return jsonify(success=True), 200
+        return jsonify(message="Gamestate created", money=money, numOfGuests=numOfGuests), 201
     except Exception as e:
         print(e)
-        return jsonify(success=False), 403
+        return jsonify(message="Could not create gamestate"), 403
 
 # endpoint to show game state of student
 @app.route("/<id>/gamestate", methods=["GET"])
