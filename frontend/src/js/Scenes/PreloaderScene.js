@@ -7,10 +7,10 @@ export class PreloaderScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.PRELOADER}); }
 
   init(data){
-    this.firstColor = data.firstColor;
-    this.secondColor = data.secondColor;
-    this.imageChoice = data.imageChoice;
-    this.readyCount = 0;
+    this.firstColor   = data.firstColor;
+    this.secondColor  = data.secondColor;
+    this.imageChoice  = data.imageChoice;
+    this.readyCount   = 0;
   }
 
   preload(){
@@ -136,7 +136,6 @@ export class PreloaderScene extends Phaser.Scene{
       this.kiddie     = beachKiddie;
       this.guestImages= beach_guestImages;
     }
-    console.log(this.furnitures, this.food, this.deco, this.kiddie);
 
     // Guests
 
