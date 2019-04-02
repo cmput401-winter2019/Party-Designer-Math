@@ -16,6 +16,9 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 
 		this.scene = config.scene;
 		this.image = config.key;
+		
+		this.gamestate = config.gamestate
+		console.log("WE MADE IT HERE " + this.gamestate["money"]);
 
         //this.back is the background image
 		this.back = this.scene.add.image(0,0,this.image);
@@ -57,7 +60,7 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 
     }
     pressed(){
-        this.scene.scene.start(CST.SCENES.PARTY_INVITATION, {imageChoice:this.image});
+        this.scene.scene.start(CST.SCENES.PARTY_INVITATION, {imageChoice:this.image, gamestate: this.gamestate});
     }
 	over(){
 		//this.alpha = 0.8;

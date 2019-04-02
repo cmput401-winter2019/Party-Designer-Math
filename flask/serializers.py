@@ -8,7 +8,7 @@ class StudentSerializer(ma.Schema):
 
 class GameStateSerializer(ma.Schema):
     class Meta:
-        fields = ('id', 'money', 'numOfGuests', 'studentId', 'theme')
+        fields = ('id', 'money', 'numOfGuests', 'studentId', 'theme', 'designedInvitation')
     
 class BagItemSerializer(ma.Schema):
     class Meta:
