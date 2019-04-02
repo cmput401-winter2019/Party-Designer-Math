@@ -36,9 +36,7 @@ async function updateDesignedInvitation(scene) {
 		console.log("Something went wrong")
 	} 
 	else {
-    console.log(data);
     currentscene.start(CST.SCENES.PRELOADER, data);
-    //{firstColor: this.firstColor, secondColor:this.secondColor, imageChoice:this.imageChoice}
 	}
 }
 
@@ -68,18 +66,12 @@ export class PartyInvitation extends Phaser.Scene {
       if(this.imageChoice == "theme1"){
         this.pathToInvite = "assets/images/Invitations/spaceroom/";
         this.pathToStickers = "assets/images/Invitations/spaceStickers/";
-        this.firstColor = 0x0e4361;
-        this.secondColor = 0x53d7d3;
       } else if (this.imageChoice == "theme2"){
         this.pathToInvite = "assets/images/Invitations/playground/";
         this.pathToStickers = "assets/images/Invitations/playStickers/";
-        this.firstColor = 0x026633;
-        this.secondColor = 0xaebc4a;
       } else if (this.imageChoice == "theme3"){
         this.pathToInvite = "assets/images/Invitations/beach/";
         this.pathToStickers = "assets/images/Invitations/beachStickers/";
-        this.firstColor = 0xb7873e;
-        this.secondColor = 0xf7ce7a;
       }
 
       // Load invitation page and sendButton of chosen theme
