@@ -174,6 +174,11 @@ export class Question extends Phaser.GameObjects.Container{
                 this.progressBar.setPercent(this.player.total_correct / 25);
 
                 alert("Correct!");
+
+                if(this.player.total_correct == 25){
+                  alert("LEVEL COMPLETE\n START THE PARTY TO LEVEL UP!")
+                }
+
               }else{
 
                 if(this.type == "addition"){
