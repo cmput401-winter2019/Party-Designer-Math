@@ -21,7 +21,6 @@ async function post(endpoint) {
 async function main(scene) {
   //Set the scene context
   const currentscene = scene;
-  const userIsVerified = false;
 
   //Verify user
   const response = await get("http://127.0.0.1:5001/valid");

@@ -164,8 +164,8 @@ def login():
                 return jsonify(message="User does not exist."), 403
 
             if (Student.verify_hash(password, student.password)):
-                access_token = create_access_token(identity = username)
-                refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
+                access_token = create_access_token(identity = student.id)
+                refresh_token = create_refresh_token(identity = student.id, expires_delta=timedelta(days=1))
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
                 return jsonify(message="Incorrect password."), 403
@@ -179,8 +179,8 @@ def login():
                 return jsonify(message="User does not exist."), 403
 
             if (Teacher.verify_hash(password, teacher.password)):
-                access_token = create_access_token(identity = username)
-                refresh_token = create_refresh_token(identity = username, expires_delta=timedelta(days=1))
+                access_token = create_access_token(identity = teacher.id)
+                refresh_token = create_refresh_token(identity = teacher.id, expires_delta=timedelta(days=1))
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
                 return jsonify(message="Incorrect password."), 403
@@ -248,11 +248,11 @@ def get_student(name):
 
 
 # endpoint to create game state for student
-@app.route("/<id>/gamestate", methods=["POST"])
+@app.route("/gamestate", methods=["GET"])
 @jwt_required
 def initialize_gamestate(id):
     try:
-        studentId = id
+        studentId = get_jwt_identity()
         gamestate = GameState.query.filter(GameState.studentId == studentId).first()
         if(gamestate):
             # TODO: AND RETURN GAMESTATE HERE
@@ -281,14 +281,6 @@ def initialize_gamestate(id):
     except Exception as e:
         print(e)
         return jsonify(message="Could not create gamestate"), 403
-
-# endpoint to show game state of student
-@app.route("/<id>/gamestate", methods=["GET"])
-@jwt_required
-def get_gamestate(id):
-    gameState = GameState.query.filter(GameState.studentId == id).first()
-    result = gameStateSerializer.dump(gameState)
-    return jsonify(result.data)
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])
