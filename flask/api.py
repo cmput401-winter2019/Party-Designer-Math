@@ -100,7 +100,7 @@ def signup():
             if (student):
                 return jsonify(message="Username is taken"), 403
 
-            newStudent = Student(firstName, lastName, username, password, email, 1)
+            newStudent = Student(firstName, lastName, username, password, email)
 
             db.session.add(newStudent)
             db.session.commit()
