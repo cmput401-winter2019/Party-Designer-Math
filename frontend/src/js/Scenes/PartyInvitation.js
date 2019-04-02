@@ -5,39 +5,41 @@ import { ButtonAtMenu } from "../Components/buttonAtMenu";
 
 export class PartyInvitation extends Phaser.Scene {
 
-    constructor() {
+    constructor(){
         super(CST.SCENES.PARTY_INVITATION);
     }
-    init(data)
-    {
+
+    init(data){
         this.setDragLogic();
         this.imageChoice = data.imageChoice;
+        this.iter        = data.iter;
+        this.player      = data.player;
     }
-    preload()
-    {
-      this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
-      this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
-      this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
-      this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
+
+    preload(){
+      this.load.image("rotateBtn",      "assets/images/Interface/RotateBtn.svg");
+      this.load.image("rightBtn",       "assets/images/Interface/Right.svg");
+      this.load.image("scaleBtn",       "assets/images/Interface/ScaleBtn.svg");
+      this.load.image("smallerBtn",     "assets/images/Interface/ScaleSmaller.svg");
       this.load.image("forwardBtn",     "assets/images/Interface/Forward.svg");
-      this.load.image("backwardBtn",     "assets/images/Interface/Backward.svg");
-      this.load.image("crossBtn", "assets/images/Interface/Cross.svg");
+      this.load.image("backwardBtn",    "assets/images/Interface/Backward.svg");
+      this.load.image("crossBtn",       "assets/images/Interface/Cross.svg");
 
       if(this.imageChoice == "theme1"){
-        this.pathToInvite = "assets/images/Invitations/spaceroom/";
-        this.pathToStickers = "assets/images/Invitations/spaceStickers/";
-        this.firstColor = 0x0e4361;
-        this.secondColor = 0x53d7d3;
+        this.pathToInvite     = "assets/images/Invitations/spaceroom/";
+        this.pathToStickers   = "assets/images/Invitations/spaceStickers/";
+        this.firstColor       = 0x0e4361;
+        this.secondColor      = 0x53d7d3;
       } else if (this.imageChoice == "theme2"){
-        this.pathToInvite = "assets/images/Invitations/playground/";
-        this.pathToStickers = "assets/images/Invitations/playStickers/";
-        this.firstColor = 0x026633;
-        this.secondColor = 0xaebc4a;
+        this.pathToInvite     = "assets/images/Invitations/playground/";
+        this.pathToStickers   = "assets/images/Invitations/playStickers/";
+        this.firstColor       = 0x026633;
+        this.secondColor      = 0xaebc4a;
       } else if (this.imageChoice == "theme3"){
-        this.pathToInvite = "assets/images/Invitations/beach/";
-        this.pathToStickers = "assets/images/Invitations/beachStickers/";
-        this.firstColor = 0xb7873e;
-        this.secondColor = 0xf7ce7a;
+        this.pathToInvite     = "assets/images/Invitations/beach/";
+        this.pathToStickers   = "assets/images/Invitations/beachStickers/";
+        this.firstColor       = 0xb7873e;
+        this.secondColor      = 0xf7ce7a;
       }
 
       // Load invitation page and sendButton of chosen theme
@@ -51,16 +53,18 @@ export class PartyInvitation extends Phaser.Scene {
       for (var i=1; i<this.numOfStickers+1; i++){
         this.load.image("sticker"+i, this.pathToStickers+"sticker"+i+".svg");
       }
-
-
     }
+
     create(){
+
+      console.log(this.imageChoice, this.iter);
+
       this.itemWidth = 80;
 
-      this.currentPage  = 0;
-      this.numItemPerPage = Math.floor((this.game.config.width*0.8)/(this.itemWidth*1.05));
-      this.numItemLastPage = this.numOfStickers%this.numItemPerPage;
-      this.numOfPages = Math.ceil(this.numOfStickers/this.numItemPerPage);
+      this.currentPage      = 0;
+      this.numItemPerPage   = Math.floor((this.game.config.width*0.8)/(this.itemWidth*1.05));
+      this.numItemLastPage  = this.numOfStickers%this.numItemPerPage;
+      this.numOfPages       = Math.ceil(this.numOfStickers/this.numItemPerPage);
 
       console.log(this.currentPage, this.numItemPerPage, this.numItemLastPage, this.numOfPages);
 
@@ -71,7 +75,7 @@ export class PartyInvitation extends Phaser.Scene {
 
     }
     pressed(){
-        this.scene.start(CST.SCENES.PRELOADER, {firstColor: this.firstColor, secondColor:this.secondColor, imageChoice:this.imageChoice});
+        this.scene.start(CST.SCENES.PRELOADER, {firstColor: this.firstColor, secondColor:this.secondColor, imageChoice:this.imageChoice, iter:this.iter, player:this.player});
     }
     createItem(image, x, y, name, pluralName, category) {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
@@ -205,6 +209,7 @@ export class PartyInvitation extends Phaser.Scene {
       }
       this.showCurrentPage();
     }
+
     setDragLogic(){
       // Drag logic
 	    this.input.on('drag', function(pointer, gameObject, dragX, dragY) {

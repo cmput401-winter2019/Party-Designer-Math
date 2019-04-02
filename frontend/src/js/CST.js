@@ -12,7 +12,7 @@ export const CST = {
         PRELOADER:  "PRELOADER",
         CHOOSE_THEME: "CHOOSE_THEME",
         LEVEL_UP: "LEVEL_UP"
-    },
+          },
 
     IMAGES: {
         TEST_CHARACTER: "assets/CHARACTER_5.svg"

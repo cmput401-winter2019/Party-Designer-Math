@@ -11,6 +11,8 @@ export class PreloaderScene extends Phaser.Scene{
     this.secondColor  = data.secondColor;
     this.imageChoice  = data.imageChoice;
     this.readyCount   = 0;
+    this.iter         = data.iter;
+    this.player       = data.player;
   }
 
   preload(){
@@ -29,12 +31,12 @@ export class PreloaderScene extends Phaser.Scene{
                                         y     : height / 2 - 50,
                                         text  : "Loading...",
                                         style : { font : "20px monospace",
-                                                  file : "#ffffff" }
+                                                  fill : "#ffffff" }
     });
     loadingText.setOrigin(0.5, 0.5);
 
     var percentText = this.make.text({  x     : width  / 2,
-                                        y     : height / 2 -5,
+                                        y     : height / 2 - 5,
                                         text  : "0%",
                                         style : { font : "18px monospace",
                                                   fill : "#ffffff"}
@@ -49,17 +51,18 @@ export class PreloaderScene extends Phaser.Scene{
     });
     assetText.setOrigin(0.5, 0.5);
 
-    this.load.on("progress", function(value){
-      percentText.setText(parseInt(value * 100) + "%");
-      progressBar.clear();
-      progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 300);
-    });
-
-    this.load.on("fileprogress", function(file){
-      assetText.setText("Loading asset: " + file.key);
-    });
-
+    // this.load.on("progress", function(value){
+    //   console.log(value);
+    //   //percentText.setText(parseInt(value * 100) + "%");
+    //   progressBar.clear();
+    //   progressBar.fillStyle(0xffffff, 1);
+    //   progressBar.fillRect(250, 280, 300 * value, 300);
+    // });
+    //
+    // this.load.on("fileprogress", function(file){
+    //   assetText.setText("Loading asset: " + file.key);
+    // });
+    //
     this.load.on("complete", function(){
       progressBar.destroy();
       progressBox.destroy();
@@ -98,7 +101,7 @@ export class PreloaderScene extends Phaser.Scene{
         response => {
           response.json().then(data => {
             localStorage.setItem("id", data.id);
-            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages};
+            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages, iter:this.iter, player: this.player};
             this.scene.start(CST.SCENES.GAME, config);
           });
         }

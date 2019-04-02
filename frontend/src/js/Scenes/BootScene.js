@@ -1,4 +1,5 @@
 import {CST} from "../CST";
+import { User } from "../classes/user";
 
 export class BootScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.BOOT}); }
@@ -32,7 +33,8 @@ export class BootScene extends Phaser.Scene{
                 return;
             }
             console.log("token is valid");
-            this.scene.start(CST.SCENES.CHOOSE_THEME);
+
+            this.scene.start(CST.SCENES.CHOOSE_THEME, {iter: "first", player: "new"});
           });
         }
       )

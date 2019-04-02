@@ -1,5 +1,5 @@
 import { ProgressBar } from "../Components/progressBar";
-import {CST} from "../CST";
+import { CST } from "../CST";
 import { RoundBtn } from "../Components/roundBtn";
 
 export class LevelUpScene extends Phaser.Scene {
@@ -70,7 +70,7 @@ export class LevelUpScene extends Phaser.Scene {
                 this.showOverallReport();
             }
             else {
-                this.scene.start(CST.SCENES.CHOOSE_THEME);
+                this.scene.start(CST.SCENES.CHOOSE_THEME, {iter: "continue", player: this.player});
             }
 
         });
@@ -98,15 +98,15 @@ export class LevelUpScene extends Phaser.Scene {
         } else {
             this.text = "Congratulations!"
         }
-        this.title = this.add.text(this.centerX, this.centerY-100, this.text, { fontFamily: "Muli",color: "#000000",fontSize: "40px"}).setOrigin(0.5,0.5);
+        this.title    = this.add.text(this.centerX, this.centerY-100, this.text, { fontFamily: "Muli",color: "#000000",fontSize: "40px"}).setOrigin(0.5,0.5);
         this.subtitle = this.add.text(this.centerX, this.centerY-50, "Your score in this level is "+(this.currentLevel*100).toFixed(2)+"%", { fontFamily: "Muli",color: "#000000",fontSize: "20px"}).setOrigin(0.5,0.5);
     }
     setBars(){
         // Overall Bar
-        var width = this.game.config.width/2;
+        var width = this.game.config.width / 2;
         var height = 30;
-        this.barX = this.game.config.width/3;
-        this.barY = this.game.config.height/2;
+        this.barX = this.game.config.width / 3;
+        this.barY = this.game.config.height/ 2;
 
         this.addBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY, color: 0x58D68D});
         this.subBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+40, color: 0x58D68D});

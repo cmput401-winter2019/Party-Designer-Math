@@ -26,12 +26,16 @@ export class GameScene extends Phaser.Scene{
     this.deco = data.deco;
     this.kiddie = data.kiddie;
     this.guests = data.guests;
+    this.iter   = data.iter;
+    this.player = data.player;
   }
   preload(){
 
   }
 
   create(){
+    console.log(this.iter);
+
     this.formUtil = new FormUtil({
                     scene: this,
                     rows: 5,
@@ -55,17 +59,19 @@ export class GameScene extends Phaser.Scene{
     this.money    = 1000;
     var url = "http://127.0.0.1:5001/" + this.id + "/gamestate";
 
-    this.player = new User({  username      : this.username,
-                              id            : this.id,
-                              money         : this.money,
-                              guestNumber   : 5,
-                              currentLevel  : 1,
-                              backpack      : {}, //{"Chair":1, "Sofa":2},
-                              credits       : 100,
-                              itemsOnSceen  : {}, //{"Chair":2, "cherries":3},
-                              inShopList    : this.numbers,
-                              itemList      : this.all_assets});
+    if(this.player == "new"){
+      this.player = new User({  username      : this.username,
+                                id            : this.id,
+                                money         : this.money,
+                                guestNumber   : 5,
+                                currentLevel  : 1,
+                                backpack      : {}, //{"Chair":1, "Sofa":2},
+                                credits       : 100,
+                                itemsOnSceen  : {}, //{"Chair":2, "cherries":3},
+                                inShopList    : this.numbers,
+                                itemList      : this.all_assets});
 
+    }
 
     // Level indicator
     var indicatorX = this.game.config.width*0.45;
