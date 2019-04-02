@@ -1,40 +1,62 @@
 import {CST} from "../CST";
+import "babel-polyfill";
+
+async function get(endpoint) {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + localStorage.getItem("access_token")
+  };
+    
+  const request = {
+    method: "GET",
+    mode: "cors",
+    headers: headers
+  };
+
+  const response = await fetch(endpoint, request);
+
+  return response;
+}
+
+async function main(scene) {
+  //Set the scene context
+  const currentscene = scene;
+
+  //Generate or get gamestate
+  const response = await get("http://127.0.0.1:5001/gamestate");
+  const data = await response.json();
+  if (!response.ok) {
+    console.log("Something went wrong")
+    console.log(data);
+  } 
+  else {
+    //if the theme is null then pick a theme
+    if(data["theme"] === null) {
+      console.log("Theme is null")
+      currentscene.start(CST.SCENES.CHOOSE_THEME, data)
+    } 
+
+    else {
+      //this means you picked a theme but didnt design an invitation
+      if (data["designedInvitation"] === false) {
+        currentscene.start(CST.SCENES.PARTY_INVITATION, data)
+      }
+      else {
+        currentscene.start(CST.SCENES.PRELOADER, data)
+      }
+    }
+  }
+}
 
 export class BootScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.BOOT}); }
 
   preload(){
-    //this.load.image("zenva_logo", "assets/example/zenva_logo.png");
   }
 
   create(){
+    main(this.scene);
 
-    console.log(localStorage.getItem("access_token"));
-    console.log(localStorage.getItem("refresh_token"));
-
-    return fetch("http://127.0.0.1:5001/valid", {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("access_token"),
-        }
-      })
-      .then(
-        response => {
-          // Examine the text in the response
-          response.json().then(data => {
-            if (response.status !== 200) {
-                console.log(response.status + " Error");
-                console.log(data);
-                return;
-            }
-            console.log("token is valid");
-            this.scene.start(CST.SCENES.CHOOSE_THEME);
-          });
-        }
-      )
   }
 };
+

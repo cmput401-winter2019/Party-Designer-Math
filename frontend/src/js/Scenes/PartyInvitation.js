@@ -3,6 +3,43 @@ import { ButtonAtBottom } from "../Components/buttonAtBottom";
 import { Item } from "../classes/item";
 import { ButtonAtMenu } from "../Components/buttonAtMenu";
 
+async function put(endpoint, body) {
+	const headers = {
+	  "Content-Type": "application/json",
+	  "Authorization": "Bearer " + localStorage.getItem("access_token")
+	};
+	  
+	const request = {
+	  method: "PUT",
+	  mode: "cors",
+	  headers: headers,
+	  body: JSON.stringify(body)
+	};
+  
+	const response = await fetch(endpoint, request);
+  
+	return response;
+}
+  
+async function updateDesignedInvitation(scene) {
+	//Set the scene context
+	const currentscene = scene;
+
+	const body = {
+		updateType: "invitation",
+		updateValue: 1
+	};
+
+	const response = await put("http://127.0.0.1:5001/gamestate/update", body);
+	const data = await response.json();
+	if (!response.ok) {
+		console.log("Something went wrong")
+	} 
+	else {
+    currentscene.start(CST.SCENES.PRELOADER, data);
+	}
+}
+
 export class PartyInvitation extends Phaser.Scene {
 
     constructor() {
@@ -11,7 +48,10 @@ export class PartyInvitation extends Phaser.Scene {
     init(data)
     {
         this.setDragLogic();
-        this.imageChoice = data.imageChoice;
+        this.gamestate = data;
+        this.imageChoice = data.theme;
+        console.log(this.gamestate);
+        console.log(this.imageChoice);
     }
     preload()
     {
@@ -26,18 +66,12 @@ export class PartyInvitation extends Phaser.Scene {
       if(this.imageChoice == "theme1"){
         this.pathToInvite = "assets/images/Invitations/spaceroom/";
         this.pathToStickers = "assets/images/Invitations/spaceStickers/";
-        this.firstColor = 0x0e4361;
-        this.secondColor = 0x53d7d3;
       } else if (this.imageChoice == "theme2"){
         this.pathToInvite = "assets/images/Invitations/playground/";
         this.pathToStickers = "assets/images/Invitations/playStickers/";
-        this.firstColor = 0x026633;
-        this.secondColor = 0xaebc4a;
       } else if (this.imageChoice == "theme3"){
         this.pathToInvite = "assets/images/Invitations/beach/";
         this.pathToStickers = "assets/images/Invitations/beachStickers/";
-        this.firstColor = 0xb7873e;
-        this.secondColor = 0xf7ce7a;
       }
 
       // Load invitation page and sendButton of chosen theme
@@ -71,7 +105,7 @@ export class PartyInvitation extends Phaser.Scene {
 
     }
     pressed(){
-        this.scene.start(CST.SCENES.PRELOADER, {firstColor: this.firstColor, secondColor:this.secondColor, imageChoice:this.imageChoice});
+      updateDesignedInvitation(this.scene);
     }
     createItem(image, x, y, name, pluralName, category) {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));

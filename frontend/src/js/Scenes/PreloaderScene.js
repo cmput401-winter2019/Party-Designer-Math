@@ -7,15 +7,12 @@ export class PreloaderScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.PRELOADER}); }
 
   init(data){
-    this.firstColor = data.firstColor;
-    this.secondColor = data.secondColor;
-    this.imageChoice = data.imageChoice;
+    this.gamestate = data;
+    this.imageChoice = data.theme;
     this.readyCount = 0;
   }
 
   preload(){
-    this.add.image(400, 200, "zenva_logo");
-
     var progressBar = this.add.graphics();
     var progressBox = this.add.graphics();
 
@@ -98,7 +95,7 @@ export class PreloaderScene extends Phaser.Scene{
         response => {
           response.json().then(data => {
             localStorage.setItem("id", data.id);
-            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages};
+            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages, gamestate:this.gamestate};
             this.scene.start(CST.SCENES.GAME, config);
           });
         }
@@ -121,6 +118,9 @@ export class PreloaderScene extends Phaser.Scene{
       this.deco       = spaceDeco;
       this.kiddie     = spaceKiddie;
       this.guestImages= spaceroom_guestImages;
+
+      this.firstColor = 0x0e4361;
+      this.secondColor = 0x53d7d3;
     } else if (this.imageChoice == "theme2"){
       this.path       = "assets/images/Playground/";
       this.furnitures = playFurnitures;
@@ -128,6 +128,9 @@ export class PreloaderScene extends Phaser.Scene{
       this.deco       = playDeco;
       this.kiddie     = playKiddie;
       this.guestImages= playground_guestImages;
+
+      this.firstColor = 0x026633;
+      this.secondColor = 0xaebc4a;
     } else if (this.imageChoice == "theme3"){
       this.path       = "assets/images/Beach/";
       this.furnitures = beachFurnitures;
@@ -135,6 +138,9 @@ export class PreloaderScene extends Phaser.Scene{
       this.deco       = beachDeco;
       this.kiddie     = beachKiddie;
       this.guestImages= beach_guestImages;
+
+      this.firstColor = 0xb7873e;
+      this.secondColor = 0xf7ce7a;
     }
     console.log(this.furnitures, this.food, this.deco, this.kiddie);
 
@@ -166,5 +172,8 @@ export class PreloaderScene extends Phaser.Scene{
 
     // Other
     this.load.image("add", "assets/images/Interface/Add.svg");
+
+    //Background
+    this.load.image(this.imageChoice, "assets/images/Interface/" + this.imageChoice + ".svg");
   }
 }

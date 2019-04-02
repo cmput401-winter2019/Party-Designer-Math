@@ -4,24 +4,25 @@ from passlib.hash import pbkdf2_sha256 as sha256
 db = SQLAlchemy()
 
 class Student(db.Model):
-    id          = db.Column(db.Integer, primary_key=True)
-    firstName   = db.Column(db.String(20), nullable=False)
-    lastName    = db.Column(db.String(20), nullable=False)
-    username    = db.Column(db.String(20), unique=True, nullable=False)
-    password    = db.Column(db.String(120), nullable=False)
-    classCode   = db.Column(db.String(5))
-    email       = db.Column(db.String(20), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.String(20), nullable=False)
+    lastName = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    classCode = db.Column(db.String(5))
+    email = db.Column(db.String(20), unique=True, nullable=False)
+    currentLevel = db.Column(db.Integer, default=1)
 
     gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
     playthroughRel = db.relationship("Playthrough", backref ="student")
 
-    def __init__(self, firstName, lastName, username, password, email,classCode):
+    def __init__(self, firstName, lastName, username, password, email):
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
         self.password = password
         self.email = email
-        self.classCode = classCode
+
     @staticmethod
     def generate_hash(password):
         return sha256.hash(password)
@@ -34,6 +35,8 @@ class GameState(db.Model):
     money = db.Column(db.Integer)
     numOfGuests = db.Column(db.Integer)
     studentId = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False, unique=True)
+    theme = db.Column(db.String(20))
+    designedInvitation = db.Column(db.Boolean, default=False)
 
     bagItemRel = db.relationship("BagItem", backref ="game_state")
     canvasItemRel = db.relationship("CanvasItem", backref ="game_state")
