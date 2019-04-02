@@ -27,8 +27,28 @@ async function main(scene) {
   const data = await response.json();
   if (!response.ok) {
     console.log("Something went wrong")
-  } else {
-  console.log(data);
+    console.log(data);
+  } 
+  else {
+    //gamestate was created so now pick a theme
+    if (response.status === 201) {
+      console.log("Gamestate was created");
+      this.scene.start(CST.SCENES.CHOOSE_THEME)
+    } 
+    else {
+      //if the theme is null then pick a theme
+      if(data["theme"] === null) {
+        console.log("Theme is null")
+        this.scene.start(CST.SCENES.CHOOSE_THEME)
+      } 
+      //there exists a theme so start the game
+      else {
+        this.scene.start(CST.SCENES.GAME)
+      }
+    }
+
+
+    console.log(data);
   }
 }
 

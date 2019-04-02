@@ -4,11 +4,11 @@ ma = Marshmallow()
 
 class StudentSerializer(ma.Schema):
     class Meta:
-        fields = ('id', 'firstName', 'lastName', 'username', 'password', 'classCode', 'email')
+        fields = ('id', 'firstName', 'lastName', 'username', 'password', 'classCode', 'email', 'currentLevel')
 
 class GameStateSerializer(ma.Schema):
     class Meta:
-        fields = ('id', 'money', 'numOfGuests', 'studentId')
+        fields = ('id', 'money', 'numOfGuests', 'studentId', 'theme')
     
 class BagItemSerializer(ma.Schema):
     class Meta:
