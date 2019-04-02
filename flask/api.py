@@ -275,7 +275,11 @@ def initialize_gamestate():
         db.session.add(newGameState)
         db.session.commit()
 
-        return jsonify(message="Gamestate created", money=money, numOfGuests=numOfGuests), 201
+        gamestate = GameState.query.filter(GameState.studentId == studentId).first()
+        result = gameStateSerializer.dump(gamestate)
+        result.data["message"] = "Gamestate created"
+
+        return jsonify(result.data), 201
     except Exception as e:
         print(e)
         return jsonify(message="Could not create gamestate"), 403
