@@ -246,16 +246,14 @@ def get_student(name):
         result = studentSerializer.dump(current_student)
         return jsonify(result.data)
 
-
 # endpoint to create game state for student
 @app.route("/gamestate", methods=["GET"])
 @jwt_required
-def initialize_gamestate(id):
+def initialize_gamestate():
     try:
         studentId = get_jwt_identity()
         gamestate = GameState.query.filter(GameState.studentId == studentId).first()
         if(gamestate):
-            # TODO: AND RETURN GAMESTATE HERE
             result = gameStateSerializer.dump(gamestate)
             result.data["message"] = "Gamestate already exists"
             return jsonify(result.data), 200
