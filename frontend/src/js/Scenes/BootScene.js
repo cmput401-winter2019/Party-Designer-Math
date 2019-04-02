@@ -35,13 +35,18 @@ async function main(scene) {
       console.log("Theme is null")
       currentscene.start(CST.SCENES.CHOOSE_THEME, data)
     } 
-    //there exists a theme so start the game
+
     else {
-      currentscene.start(CST.SCENES.GAME, data)
+      //this means you picked a theme but didnt design an invitation
+      if (data["designedInvitation"] === false) {
+        currentscene.start(CST.SCENES.PARTY_INVITATION, data)
+      }
+      else {
+        currentscene.start(CST.SCENES.GAME, data)
+      }
     }
   }
 }
-
 
 export class BootScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.BOOT}); }

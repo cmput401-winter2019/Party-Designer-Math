@@ -36,6 +36,7 @@ class GameState(db.Model):
     numOfGuests = db.Column(db.Integer)
     studentId = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False, unique=True)
     theme = db.Column(db.String(20))
+    designedInvitation = db.Column(db.Boolean, default=False)
 
     bagItemRel = db.relationship("BagItem", backref ="game_state")
     canvasItemRel = db.relationship("CanvasItem", backref ="game_state")
