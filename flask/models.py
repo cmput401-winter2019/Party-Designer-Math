@@ -11,18 +11,18 @@ class Student(db.Model):
     password = db.Column(db.String(120), nullable=False)
     classCode = db.Column(db.String(5))
     email = db.Column(db.String(20), unique=True, nullable=False)
-    currentLevel = db.Column(db.Integer)
+    currentLevel = db.Column(db.Integer, default=1)
 
     gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
     playthroughRel = db.relationship("Playthrough", backref ="student")
 
-    def __init__(self, firstName, lastName, username, password, email,classCode):
+    def __init__(self, firstName, lastName, username, password, email):
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
         self.password = password
         self.email = email
-        self.classCode = classCode
+
     @staticmethod
     def generate_hash(password):
         return sha256.hash(password)

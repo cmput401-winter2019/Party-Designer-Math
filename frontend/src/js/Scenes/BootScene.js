@@ -1,7 +1,7 @@
 import {CST} from "../CST";
 import "babel-polyfill";
 
-async function post(endpoint) {
+async function get(endpoint) {
   const headers = {
     "Content-Type": "application/json",
     "Authorization": "Bearer " + localStorage.getItem("access_token"),
@@ -23,12 +23,13 @@ async function main(scene) {
   const currentscene = scene;
 
   //Verify user
-  const response = await get("http://127.0.0.1:5001/valid");
-  if (response.ok) {
-    userIsVerified = true;
-  } 
+  const response = await get("http://127.0.0.1:5001/gamestate");
   const data = await response.json();
+  if (!response.ok) {
+    console.log("Something went wrong")
+  } else {
   console.log(data);
+  }
 }
 
 export class BootScene extends Phaser.Scene{
