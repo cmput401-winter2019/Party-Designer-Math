@@ -11,7 +11,8 @@ export class PartyInvitation extends Phaser.Scene {
     init(data)
     {
         this.setDragLogic();
-        this.imageChoice = data.imageChoice;
+        this.gamestate = data;
+        this.imageChoice = data.theme;
     }
     preload()
     {

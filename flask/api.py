@@ -284,6 +284,27 @@ def initialize_gamestate():
         print(e)
         return jsonify(message="Could not create gamestate"), 403
 
+# endpoint to create game state for student
+@app.route("/gamestate/update", methods=["PUT"])
+@jwt_required
+def update_gamestate():
+    try:
+        studentId = get_jwt_identity()
+        gamestate = GameState.query.filter(GameState.studentId == studentId).first()
+        updateType = request.json['updateType']
+        updateValue = request.json['updateValue']
+        print(updateType, updateValue)
+        if (updateType == "theme"):
+            gamestate.theme = updateValue
+            db.session.commit()
+
+        result = gameStateSerializer.dump(gamestate)
+        result.data["message"] = "Gamestate value updated"
+        return jsonify(result.data), 200
+    except Exception as e:
+        print(e)
+        return jsonify(message="Could not update gamestate"), 403
+
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])
 @jwt_required

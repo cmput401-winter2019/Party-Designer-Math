@@ -4,7 +4,7 @@ import "babel-polyfill";
 async function get(endpoint) {
   const headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer " + localStorage.getItem("access_token"),
+    "Authorization": "Bearer " + localStorage.getItem("access_token")
   };
     
   const request = {
@@ -22,7 +22,7 @@ async function main(scene) {
   //Set the scene context
   const currentscene = scene;
 
-  //Verify user
+  //Generate or get gamestate
   const response = await get("http://127.0.0.1:5001/gamestate");
   const data = await response.json();
   if (!response.ok) {

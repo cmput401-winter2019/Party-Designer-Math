@@ -9,7 +9,6 @@ export class ChooseTheme extends Phaser.Scene {
 
     init (gamestate) {
         this.gamestate = gamestate
-        console.log(this.gamestate);
     }
     preload()
     {
