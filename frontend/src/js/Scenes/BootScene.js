@@ -1,40 +1,46 @@
 import {CST} from "../CST";
+import "babel-polyfill";
+
+async function post(endpoint) {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + localStorage.getItem("access_token"),
+  };
+    
+  const request = {
+    method: "GET",
+    mode: "cors",
+    headers: headers
+  };
+
+  const response = await fetch(endpoint, request);
+
+  return response;
+}
+
+async function main(scene) {
+  //Set the scene context
+  const currentscene = scene;
+  const userIsVerified = false;
+
+  //Verify user
+  const response = await get("http://127.0.0.1:5001/valid");
+  if (response.ok) {
+    userIsVerified = true;
+  } 
+  const data = await response.json();
+  console.log(data);
+}
 
 export class BootScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.BOOT}); }
 
   preload(){
-    //this.load.image("zenva_logo", "assets/example/zenva_logo.png");
   }
 
   create(){
+    main(this.scene);
 
-    console.log(localStorage.getItem("access_token"));
-    console.log(localStorage.getItem("refresh_token"));
-
-    return fetch("http://127.0.0.1:5001/valid", {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("access_token"),
-        }
-      })
-      .then(
-        response => {
-          // Examine the text in the response
-          response.json().then(data => {
-            if (response.status !== 200) {
-                console.log(response.status + " Error");
-                console.log(data);
-                return;
-            }
-            console.log("token is valid");
-            this.scene.start(CST.SCENES.CHOOSE_THEME);
-          });
-        }
-      )
   }
 };
+

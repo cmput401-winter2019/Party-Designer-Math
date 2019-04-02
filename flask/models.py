@@ -4,13 +4,14 @@ from passlib.hash import pbkdf2_sha256 as sha256
 db = SQLAlchemy()
 
 class Student(db.Model):
-    id          = db.Column(db.Integer, primary_key=True)
-    firstName   = db.Column(db.String(20), nullable=False)
-    lastName    = db.Column(db.String(20), nullable=False)
-    username    = db.Column(db.String(20), unique=True, nullable=False)
-    password    = db.Column(db.String(120), nullable=False)
-    classCode   = db.Column(db.String(5))
-    email       = db.Column(db.String(20), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.String(20), nullable=False)
+    lastName = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    classCode = db.Column(db.String(5))
+    email = db.Column(db.String(20), unique=True, nullable=False)
+    currentLevel = db.Column(db.Integer)
 
     gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
     playthroughRel = db.relationship("Playthrough", backref ="student")
