@@ -16,8 +16,6 @@ import { LevelIndicator } from '../Components/levelIndicator';
 
 export class GameScene extends Phaser.Scene{
 
-
-
   constructor(){ super({key: CST.SCENES.GAME}); }
   init(data){
     this.firstColor = data.firstColor;

@@ -229,7 +229,6 @@ export class Question extends Phaser.GameObjects.Container{
             console.log("cancelForm");
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
-            scene.scene.sleep(CST.SCENES.BUY_POPUP);
         }
 
     check_answer(answer, question, url) {
