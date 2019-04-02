@@ -57,17 +57,16 @@ export class GameScene extends Phaser.Scene{
     this.money    = 1000;
     var url = "http://127.0.0.1:5001/" + this.id + "/gamestate";
 
-    this.player = new User(this.username,
-                            this.id,
-                            this.money,
-                            5,
-                            3,
-                            {}, //{"Chair":1, "Sofa":2},
-                            100,
-                            {}, //{"Chair":2, "cherries":3},
-                            this.numbers,
-                            this.all_assets,
-                            0, 0, 0, 0);
+    this.player = new User({  username      : this.username,
+                              id            : this.id,
+                              money         : this.money,
+                              guestNumber   : 5,
+                              currentLevel  : 1,
+                              backpack      : {}, //{"Chair":1, "Sofa":2},
+                              credits       : 100,
+                              itemsOnSceen  : {}, //{"Chair":2, "cherries":3},
+                              inShopList    : this.numbers,
+                              itemList      : this.all_assets});
 
 
     // Level indicator
@@ -99,8 +98,20 @@ export class GameScene extends Phaser.Scene{
                                   "START THE PARTY",
                                   150,
                                   50);
+
     this.levelUpBtn.rect.on("pointerdown", ()=>{
-            this.scene.start(CST.SCENES.LEVEL_UP);
+      console.log(this.player.correct_addition,         this.player.wrong_addition);
+      console.log(this.player.correct_subtraction,      this.player.wrong_subtraction);
+      console.log(this.player.correct_multiplication,   this.player.wrong_multiplication);
+      console.log(this.player.correct_division,         this.player.wrong_division);
+      console.log(this.player.correct_mixed,            this.player.wrong_mixed);
+
+
+      if(this.player.correct_addition >= 0 && this.player.correct_subtraction >= 0 && this.player.correct_multiplication >= 0 && this.player.correct_division >= 0 && this.player.correct_mixed >= 0){
+        this.scene.start(CST.SCENES.LEVEL_UP, {player:this.player});
+      }else{
+        alert("Shopping List is not Complete\n\n Please check Shopping List");
+      }
     });
 
 
@@ -283,7 +294,8 @@ export class GameScene extends Phaser.Scene{
                                             assets      : this.furnitures,
                                             itemY       : itemY,
                                             player      : this.player,
-                                            credit_text : this.credits
+                                            credit_text : this.credits,
+                                            progressBar : this.progressBar
                                           });
 
     this.bottomBtn2 = new ButtonAtBottom({  scene       : this,
@@ -296,7 +308,8 @@ export class GameScene extends Phaser.Scene{
                                             assets      : this.deco,
                                             itemY       : itemY,
                                             player      : this.player,
-                                            credit_text : this.credits
+                                            credit_text : this.credits,
+                                            progressBar : this.progressBar
                                           });
 
     this.bottomBtn3 = new ButtonAtBottom({  scene       : this,
@@ -309,7 +322,8 @@ export class GameScene extends Phaser.Scene{
                                             assets      : this.food,
                                             itemY       : itemY,
                                             player      : this.player,
-                                            credit_text : this.credits
+                                            credit_text : this.credits,
+                                            progressBar : this.progressBar
                                           });
 
     this.bottomBtn4 = new ButtonAtBottom({  scene       : this,
@@ -322,7 +336,8 @@ export class GameScene extends Phaser.Scene{
                                             assets      : this.kiddie,
                                             itemY       : itemY,
                                             player      : this.player,
-                                            credit_text : this.credits
+                                            credit_text : this.credits,
+                                            progressBar : this.progressBar
                                           });
 
      // --------------------------------------------------------------
