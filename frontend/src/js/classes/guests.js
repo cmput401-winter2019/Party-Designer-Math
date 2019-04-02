@@ -90,27 +90,27 @@ export class Guest extends Phaser.GameObjects.Sprite{
     }
 
     rotateGuest(){
-        this.angle += 5;
+        this.angle += 20;
         this.scene.tweens.add({targets: this,duration: 100,y:this.y, angle:this.angle});
     }
 
     rotateGuest2(){
-        this.angle -= 5;
+        this.angle -= 20;
         this.scene.tweens.add({targets: this,duration: 100,y:this.y, angle:this.angle});
     }
 
     biggerGuest(){
-        this.displayWidth+=2;
+        this.displayWidth+= 20;
         this.scaleY=this.scaleX;
     }
 
     smallerGuest(){
-        this.displayWidth-=2;
+        this.displayWidth-= 20;
         this.scaleY=this.scaleX;
     }
 
     bringForward(){}
 
     bringBackward(){}
-    
+
 }

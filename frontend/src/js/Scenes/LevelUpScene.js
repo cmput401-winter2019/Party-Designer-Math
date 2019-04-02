@@ -7,39 +7,46 @@ export class LevelUpScene extends Phaser.Scene {
     constructor() {
         super(CST.SCENES.LEVEL_UP);
     }
+    init(data)
+    {
+        this.player = data.player;
+    }
     preload(){
         this.load.image("mountain",    "assets/images/Interface/mountain.png");
     }
     create(){
+
+        this.player.increaseLevel();
+
         this.centerX=this.game.config.width/2;
         this.centerY=this.game.config.height/2;
         this.setBackground();
 
         // --------------------- Set scores from API ----------------------
         // Scores in THIS LEVEL
-        this.addCorrect = 6;
-        this.addAnswered = 7;
+        this.addCorrect   = this.player.correct_addition;
+        this.addAnswered  = this.player.addition_attempt;
 
-        this.subCorrect = 7;
-        this.subAnswered = 8;
+        this.subCorrect   = this.player.correct_subtraction;
+        this.subAnswered  = this.player.subtraction_attempt;
 
-        this.multCorrect = 5
-        this.multAnswered = 5;
+        this.multCorrect  = this.player.correct_multiplication;
+        this.multAnswered = this.player.multiplication_attempt;
 
-        this.divCorrect = 4;
-        this.divAnswered = 4;
+        this.divCorrect   = this.player.correct_division;
+        this.divAnswered  = this.player.multiplication_attempt;
 
-        this.mixCorrect = 3;
-        this.mixAnswered = 4;
+        this.mixCorrect   = this.player.correct_mixed;
+        this.mixAnswered  = this.player.mixed_attempt;
 
         this.currentLevel = (this.addCorrect+this.subCorrect+this.multCorrect+this.divCorrect+this.mixCorrect)/(this.addAnswered+this.subAnswered+this.multAnswered+this.divAnswered+this.mixAnswered);
 
         // Percentages OVERALL (from all play throughs)
-        this.addOverall = 0.8;
-        this.subOverall = 0.7;
-        this.multOverall = 0.9;
-        this.divOverall = 0.8;
-        this.mixOverall = 0.6;   
+        this.addOverall     = this.addCorrect  / this.addAnswered;
+        this.subOverall     = this.subCorrect  / this.subAnswered;
+        this.multOverall    = this.multCorrect / this.multAnswered;
+        this.divOverall     = this.divCorrect  / this.divAnswered;
+        this.mixOverall     = this.mixCorrect  / this.mixAnswered;
         this.overallOverall = (this.addOverall+this.subOverall+this.multOverall+this.divOverall+this.mixOverall)/5;
 
         // --------------------------------------------------------------
@@ -51,13 +58,13 @@ export class LevelUpScene extends Phaser.Scene {
 
         // Continue Button
         this.click = 0;
-        this.continueBtn = new RoundBtn(this, 
-                                        this.centerX, 
+        this.continueBtn = new RoundBtn(this,
+                                        this.centerX,
                                         this.barY+6*40,
                                         "Continue",
                                         100,
                                         35);
-        this.continueBtn.rect.on("pointerdown", ()=>{ 
+        this.continueBtn.rect.on("pointerdown", ()=>{
             this.click +=1;
             if (this.click == 1){
                 this.showOverallReport();
@@ -65,7 +72,7 @@ export class LevelUpScene extends Phaser.Scene {
             else {
                 this.scene.start(CST.SCENES.CHOOSE_THEME);
             }
-            
+
         });
     }
     showOverallReport(){
@@ -97,15 +104,15 @@ export class LevelUpScene extends Phaser.Scene {
     setBars(){
         // Overall Bar
         var width = this.game.config.width/2;
-        var height = 30; 
+        var height = 30;
         this.barX = this.game.config.width/3;
-        this.barY = this.game.config.height/2;    
+        this.barY = this.game.config.height/2;
 
-        this.addBar = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY, color: 0x58D68D});
-        this.subBar = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+40, color: 0x58D68D});
-        this.multBar = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+80, color: 0x58D68D});
-        this.divBar = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+120, color: 0x58D68D});
-        this.mixBar =new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+160, color: 0x58D68D});
+        this.addBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY, color: 0x58D68D});
+        this.subBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+40, color: 0x58D68D});
+        this.multBar  = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+80, color: 0x58D68D});
+        this.divBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+120, color: 0x58D68D});
+        this.mixBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+160, color: 0x58D68D});
 
         // Set values to bars
         this.addBar.setPercent(this.addOverall);
@@ -145,7 +152,7 @@ export class LevelUpScene extends Phaser.Scene {
         }
     }
     setBackground(){
-        // Set background 
+        // Set background
         this.background = this.add.image(0, 0, "mountain");
         this.background.setOrigin(0,0);
         this.background.displayWidth  = this.game.config.width;
@@ -162,7 +169,7 @@ export class LevelUpScene extends Phaser.Scene {
                                     this.game.config.height*0.75,
                                     0xffffff);
         this.rect.alpha = 0.3;
-        this.rect.setOrigin(0.5,0.5); 
+        this.rect.setOrigin(0.5,0.5);
     }
 
 }

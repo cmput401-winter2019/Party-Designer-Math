@@ -100,7 +100,7 @@ def signup():
             if (student):
                 return jsonify(message="Username is taken"), 403
 
-            newStudent = Student(firstName, lastName, username, password, email)
+            newStudent = Student(firstName, lastName, username, password, email, 1)
 
             db.session.add(newStudent)
             db.session.commit()
@@ -379,7 +379,7 @@ def add_question(id):
 
         questionGenerator = QuestionGenerator(itemType, itemUnit, itemName, itemPluralName, itemCost, numberOfGuests, level, question_num)
         questionData = questionGenerator.generate()
-        print(questionData, file=sys.stderr)
+        # print(questionData, file=sys.stderr)
         question = questionData['q']
         answer = questionData['ans']
         arithmeticType = questionData['type']
@@ -390,7 +390,7 @@ def add_question(id):
         db.session.add(newQuestion)
         db.session.commit()
 
-        return jsonify(question=question), 200
+        return jsonify(question=question, type=arithmeticType), 200
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
