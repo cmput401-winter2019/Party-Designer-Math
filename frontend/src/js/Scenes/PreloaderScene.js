@@ -7,9 +7,22 @@ export class PreloaderScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.PRELOADER}); }
 
   init(data){
-    this.firstColor = data.firstColor;
-    this.secondColor = data.secondColor;
-    this.imageChoice = data.imageChoice;
+    this.gamestate = data;
+    this.imageChoice = data.theme;
+
+    if(this.imageChoice == "theme1"){
+      this.firstColor = 0x0e4361;
+      this.secondColor = 0x53d7d3;
+    } else if (this.imageChoice == "theme2"){
+      this.firstColor = 0x026633;
+      this.secondColor = 0xaebc4a;
+    } else if (this.imageChoice == "theme3"){
+      this.firstColor = 0xb7873e;
+      this.secondColor = 0xf7ce7a;
+    }
+    console.log(" PRE LOADER : " + this.gamestate);
+    console.log(" PRE LOADER : " + this.imageChoice + this.firstColor + this.secondColor);
+
     this.readyCount = 0;
   }
 
@@ -98,7 +111,7 @@ export class PreloaderScene extends Phaser.Scene{
         response => {
           response.json().then(data => {
             localStorage.setItem("id", data.id);
-            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages};
+            var config = {firstColor:this.firstColor, secondColor:this.secondColor, theme:this.imageChoice, furnitures:this.furnitures, food:this.food, deco:this.deco, kiddie:this.kiddie, guests:this.guestImages, gamestate:this.deco.gamestate};
             this.scene.start(CST.SCENES.GAME, config);
           });
         }

@@ -42,7 +42,7 @@ async function main(scene) {
         currentscene.start(CST.SCENES.PARTY_INVITATION, data)
       }
       else {
-        currentscene.start(CST.SCENES.GAME, data)
+        currentscene.start(CST.SCENES.PRELOADER, data)
       }
     }
   }

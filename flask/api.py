@@ -297,6 +297,10 @@ def update_gamestate():
         if (updateType == "theme"):
             gamestate.theme = updateValue
             db.session.commit()
+        
+        elif(updateType == "invitation"):
+            gamestate.designedInvitation = updateValue
+            db.session.commit()
 
         result = gameStateSerializer.dump(gamestate)
         result.data["message"] = "Gamestate value updated"
