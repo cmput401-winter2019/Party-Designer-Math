@@ -94,13 +94,14 @@ def signup():
             username = request.json['username']
             password = Student.generate_hash(request.json['password'])
             email = request.json['email']
+            classCode = request.json['classCode']
 
             student = Student.query.filter(Student.username == username).first()
 
             if (student):
                 return jsonify(message="Username is taken"), 403
 
-            newStudent = Student(firstName, lastName, username, password, email)
+            newStudent = Student(firstName, lastName, username, password, email, classCode)
 
             db.session.add(newStudent)
             db.session.commit()
