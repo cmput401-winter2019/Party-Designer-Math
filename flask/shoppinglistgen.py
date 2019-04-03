@@ -31,24 +31,26 @@ class ShoppingListGenerator():
         for i in range(20):
             randomNumber = random.randint(2, 9)
             randomAmounts.append(randomNumber)
+        return randomAmounts
     
     def generateItems(self, theme):
+        generatedAssets = []
         themeAssets = self.assets[theme]
 
         for i in range(5):
             choice = random.choice(themeAssets["furniture"])
-            themeAssets.append(choice)
+            generatedAssets.append(choice)
         
         for i in range(5):
             choice = random.choice(themeAssets["food"])
-            themeAssets.append(choice)
+            generatedAssets.append(choice)
         
         for i in range(5):
             choice = random.choice(themeAssets["deco"])
-            themeAssets.append(choice)
+            generatedAssets.append(choice)
 
         for i in range(5):
             choice = random.choice(themeAssets["kiddie"])
-            themeAssets.append(choice)
+            generatedAssets.append(choice)
         
-        return themeAssets
+        return generatedAssets

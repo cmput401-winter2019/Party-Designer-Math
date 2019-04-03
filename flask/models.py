@@ -42,11 +42,25 @@ class GameState(db.Model):
     bagItemRel = db.relationship("BagItem", backref ="game_state")
     canvasItemRel = db.relationship("CanvasItem", backref ="game_state")
     questionRel = db.relationship("Question", backref ="game_state")
+    bagItemRel = db.relationship("ShoppingListItem", backref ="game_state")
+
 
     def __init__(self, money, numOfGuests, studentId):
         self.money = money
         self.numOfGuests = numOfGuests
         self.studentId = studentId
+
+class ShoppingListItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    itemName = db.Column(db.String(20), unique=True)
+    itemAmount = db.Column(db.Integer)
+    completed = db.Column(db.Boolean)
+    gameStateId = db.Column(db.Integer, db.ForeignKey('game_state.id'), nullable=False)
+
+    def __init__(self, itemName, itemAmount, gameStateId):
+        self.itemName = itemName
+        self.itemAmount = itemAmount
+        self.gameStateId = gameStateId
 
 class BagItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
