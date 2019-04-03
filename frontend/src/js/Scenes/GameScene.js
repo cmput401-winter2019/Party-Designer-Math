@@ -1,60 +1,58 @@
-import { guestImages }  from '../Components/assets';
-import { RandomNumber }                                                                 from "../Components/randint";
-import { CreateShoppingList }                                                           from "../Components/createShoppingList";
-import { ImageToProperties }                                                            from "../classes/imageToProperties";
-import { User }                                                                         from "../classes/user";
-import { Guest }                                                                        from "../classes/guests";
-import { Item }                                                                         from "../classes/item";
-import { ButtonAtMenu }                                                                 from "../Components/buttonAtMenu";
-import { ButtonAtBottom }                                                               from "../Components/buttonAtBottom";
-import { CST }                                                                          from "../CST";
-import { ProgressBar }                                                                  from '../Components/progressBar';
-import { StartPartyBtn, RoundBtn } from '../Components/roundBtn';
-import { FormUtil } from '../util/formUtil';
-import { LevelIndicator } from '../Components/levelIndicator';
+import { guestImages }                  from "../Components/assets";
+import { GetAllQuestionRequest }        from "../Components/scripts";
+import { GetUserStat }                  from "../Components/getUserStat";
+import { RandomNumber }                 from "../Components/randint";
+import { CreateShoppingList }           from "../Components/createShoppingList";
+import { ImageToProperties }            from "../classes/imageToProperties";
+import { User }                         from "../classes/user";
+import { Guest }                        from "../classes/guests";
+import { Item }                         from "../classes/item";
+import { ButtonAtMenu }                 from "../Components/buttonAtMenu";
+import { ButtonAtBottom }               from "../Components/buttonAtBottom";
+import { CST }                          from "../CST";
+import { ProgressBar }                  from '../Components/progressBar';
+import { StartPartyBtn, RoundBtn }      from '../Components/roundBtn';
+import { FormUtil }                     from '../util/formUtil';
+import { LevelIndicator }               from '../Components/levelIndicator';
 
 
 export class GameScene extends Phaser.Scene{
 
   constructor(){ super({key: CST.SCENES.GAME}); }
   init(data){
-    this.firstColor = data.firstColor;
-    this.secondColor = data.secondColor;
-    this.background = data.theme;
-    this.furnitures = data.furnitures;
-    this.food = data.food;
-    this.deco = data.deco;
-    this.kiddie = data.kiddie;
-    this.guests = data.guests;
-
-    this.gamestate = data.gamestate;
+    this.firstColor     = data.firstColor;
+    this.secondColor    = data.secondColor;
+    this.background     = data.theme;
+    this.furnitures     = data.furnitures;
+    this.food           = data.food;
+    this.deco           = data.deco;
+    this.kiddie         = data.kiddie;
+    this.guests         = data.guests;
+    this.gamestate      = data.gamestate;
   }
-  preload(){
 
-  }
+  preload(){}
 
   create(){
-    this.formUtil = new FormUtil({
-                    scene: this,
-                    rows: 5,
-                    cols: 11
-                });
+    this.formUtil     = new FormUtil({scene : this,
+                                  rows  : 5,
+                                  cols  : 11});
     // this.formUtil.showNumbers();
 
     // Initiate ImageToProperites class
-    this.imageToProp = new ImageToProperties();
+    this.imageToProp  = new ImageToProperties();
 
     // --------- Should only be created if player is new to current level/session -------
     // Generate new random numbers
-    this.numbers = RandomNumber();
+    this.numbers      = RandomNumber();
 
     // Create new Shooping list
-    this.all_assets = CreateShoppingList(this.furnitures, this.food, this.deco, this.kiddie);
+    this.all_assets   = CreateShoppingList(this.furnitures, this.food, this.deco, this.kiddie);
     //
 
-    this.username = localStorage.getItem("username");
-    this.id       = localStorage.getItem("id");
-    this.money    = 1000;
+    this.username     = localStorage.getItem("username");
+    this.id           = localStorage.getItem("id");
+    this.money        = 1000;
 
     this.player = new User({  username      : this.username,
                               id            : this.id,
@@ -70,11 +68,11 @@ export class GameScene extends Phaser.Scene{
 
 
     // Level indicator
-    var indicatorX = this.game.config.width*0.45;
+    var indicatorX      = this.game.config.width*0.45;
     this.levelIndicator = new LevelIndicator({scene:this, text:this.player.level, x:indicatorX, y:30});
 
     // Initiate progress bar
-    this.progressBar = new ProgressBar({scene:this, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
+    this.progressBar    = new ProgressBar({scene:this, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
     this.progressBar.setPercent(0);
 
     // Show credits
@@ -99,62 +97,23 @@ export class GameScene extends Phaser.Scene{
                                   50);
 
     this.levelUpBtn.rect.on("pointerdown", ()=>{
-      this.get_request("http://127.0.0.1:5001/"+ this.player.gamestateId + "/question").then(data => {
-          //console.log(data);
-          var addition_correct      = [];
-          var addition_wrong        = [];
-          var subtraction_correct   = [];
-          var subtraction_wrong     = [];
-          var mult_correct          = [];
-          var mult_wrong            = [];
-          var div_correct           = [];
-          var div_wrong             = [];
-          var mixed_correct           = [];
-          var mixed_wrong             = [];
+      var url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+      GetAllQuestionRequest(url).then(data => {
 
-          for(var i=0; i<data.length; i++){
-            if(data[i].arithmeticType == "addition"){
-              if(data[i].correct == true){
-                addition_correct.push(data[i]);
-              }else if(data[i].correct == false || data[i].correct == null){
-                addition_wrong.push(data[i]);
-              }
-            }
+          var stat_data = GetUserStat(data);
 
-            if(data[i].arithmeticType == "subtraction"){
-              if(data[i].correct == true){
-                subtraction_correct.push(data[i]);
-              }else if(data[i].correct == false || data[i].correct == null){
-                subtraction_wrong.push(data[i]);
-              }
-            }
+          var addition_correct      = stat_data.add_cor;
+          var addition_wrong        = stat_data.add_wrn;
+          var subtraction_correct   = stat_data.sub_cor;
+          var subtraction_wrong     = stat_data.sub_wrn;
+          var mult_correct          = stat_data.mul_cor;
+          var mult_wrong            = stat_data.mul_wrn;
+          var div_correct           = stat_data.div_cor;
+          var div_wrong             = stat_data.div_wrn;
+          var mixed_correct         = stat_data.mix_cor;
+          var mixed_wrong           = stat_data.mix_wrn;
 
-            if(data[i].arithmeticType == "multiplication"){
-              if(data[i].correct == true){
-                mult_correct.push(data[i]);
-              }else if(data[i].correct == false || data[i].correct == null){
-                mult_wrong.push(data[i]);
-              }
-            }
-
-            if(data[i].arithmeticType == "divison"){
-              if(data[i].correct == true){
-                div_correct.push(data[i]);
-              }else if(data[i].correct == false || data[i].correct == null){
-                div_wrong.push(data[i]);
-              }
-            }
-
-            if(data[i].arithmeticType == "mixed"){
-              if(data[i].correct == true){
-                mixed_correct.push(data[i]);
-              }else if(data[i].correct == false || data[i].correct == null){
-                mixed_wrong.push(data[i]);
-              }
-            }
-          }
-
-          if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
+          if(addition_correct.length >= 4 && subtraction_correct.length >= 4 && mult_correct.length >= 4 && div_correct.length >= 4 && mixed_correct.length >= 4){
             this.scene.start(CST.SCENES.LEVEL_UP, { player:this.player,
                                                     add_correct: addition_correct,
                                                     add_wrong  : addition_wrong,
@@ -169,43 +128,18 @@ export class GameScene extends Phaser.Scene{
           }else{
             alert("Shopping List is not Complete\n\n Please check Shopping List");
           }
-
       })
     });
   }
 
-  get_request(gs_url) {
-    return fetch(gs_url, {
-      method: "GET",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("access_token"),
-      }
-    })
-    .then((response) => {
-      if(response.ok) {
-          return response.json();
-      } else {
-          throw new Error('Server response wasn\'t OK');
-      }
-    })
-    .then((json) => {
-      return json;
-    });
+  showCredits(){
+    this.credits = this.add.text( this.game.config.width-(this.game.config.width*0.05+100)+20,
+                                  30,
+                                  this.player.money.toFixed(2),
+                                  {fontFamily:'Muli', color:'#ffffff', fontSize:'23px'}).setOrigin(0,0.5);
   }
 
-  showCredits(){
-    this.credits = this.add.text(this.game.config.width-(this.game.config.width*0.05+100)+20,
-                                                        30,
-                                                        this.player.money.toFixed(2),
-                                                        {fontFamily:'Muli', color:'#ffffff', fontSize:'23px'}).setOrigin(0,0.5);
-  }
-  updateProgressBar(){
-    this.progressBar.setPercent(this.player.checkProgress());
-  }
+  updateProgressBar(){ this.progressBar.setPercent(this.player.checkProgress()); }
 
   createBackground(background){
     this.topMenuHeight  = 75;
@@ -373,11 +307,7 @@ export class GameScene extends Phaser.Scene{
                                             progressBar : this.progressBar
                                           });
 
-     // --------------------------------------------------------------
-
     // Furniture (first bottom menu button) is selected upon arriving at the room
     this.bottomBtn1.activateBtn();
   }
-
-
 }
