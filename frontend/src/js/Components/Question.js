@@ -1,9 +1,10 @@
 import { ImageToProperties  } from "../classes/imageToProperties";
 import { Item               } from "../classes/item";
 import { User               } from "../classes/user";
-import { FormUtil           } from "../util/formUtil.js";
+import { FormUtil           } from "../util/formUtil";
 import { CST                } from "../CST";
-
+import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest } from "../Components/scripts";
+import { GetUserStat } from "../Components/getUserStat";
 
 export class Question extends Phaser.GameObjects.Container{
     constructor(scene, iName, amount, player, credit_text, progressBar){
@@ -69,16 +70,16 @@ export class Question extends Phaser.GameObjects.Container{
           }
         }
 
-        this.send_button                  = document.getElementById("btnSend");
-        this.cancel_button                = document.getElementById("btnCancel");
-        this.input_text                   = document.getElementById("myText");
-        this.send_button.style.display    = "initial";
-        this.cancel_button.style.display  = "initial";
-        this.input_text.style.display     = "initial";
+        this.send_button                        = document.getElementById("btnSend");
+        this.cancel_button                      = document.getElementById("btnCancel");
+        this.input_text                         = document.getElementById("myText");
+        this.send_button.style.display          = "initial";
+        this.cancel_button.style.display        = "initial";
+        this.input_text.style.display           = "initial";
         document.getElementById("myText").value = '';
 
         const url  = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
-        this.post_request(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
+        PostQuestionRequest(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
 
             console.log(question);
 
@@ -124,7 +125,6 @@ export class Question extends Phaser.GameObjects.Container{
                 rows: 11,
                 cols: 11
             });
-
             //this.formUtil.showNumbers();
 
             this.formUtil.scaleToGameW  ("myText", .2);
@@ -142,139 +142,82 @@ export class Question extends Phaser.GameObjects.Container{
     }
 
     sendForm() {
-            var ret = document.getElementById("myText").value;
-            this.send_button.style.display    = "none";
-            this.cancel_button.style.display  = "none";
-            this.input_text.style.display     = "none";
+        var ret = document.getElementById("myText").value;
 
-            const check_url  = "http://127.0.0.1:5001/"+ this.game_id + "/question";
-            this.check_answer(ret, this.question, check_url).then(answer => {
-              console.log(answer.message);
-              if(answer.message == "Answer is correct."){
-                var new_money;
-                new_money = this.player.money - this.properties.cost*this.amount;
-                this.player.update_money(new_money);
-                this.credit_text.setText(this.player.money);
-                this.checkCreateObject();
+        this.send_button.style.display    = "none";
+        this.cancel_button.style.display  = "none";
+        this.input_text.style.display     = "none";
 
-                // this.progressBar.setPercent(this.player.total_correct / 25);
+        const check_url  = "http://127.0.0.1:5001/"+ this.game_id + "/question";
+        PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
+          console.log(answer.message);
+          if(answer.message == "Answer is correct."){
 
-                alert("Correct!");
+            var new_money;
+            new_money = this.player.money - this.properties.cost*this.amount;
+            this.player.update_money(new_money);
+            this.credit_text.setText(this.player.money);
+            this.checkCreateObject();
 
-                if(this.player.total_correct == 25){
-                  alert("LEVEL COMPLETE\n START THE PARTY TO LEVEL UP!")
-                }
+            alert("Correct!");
 
-              }else{
+            var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+            GetAllQuestionRequest(q_url).then(data => {
+              var stat_data = GetUserStat(data);
+              var addition_correct      = stat_data.add_cor;
+              var subtraction_correct   = stat_data.sub_cor;
+              var mult_correct          = stat_data.mul_cor;
+              var div_correct           = stat_data.div_cor;
+              var mixed_correct         = stat_data.mix_cor;
 
-                if(this.api_type == "furniture"){
-                  this.player.decrease_furniture();
-                }else if(this.api_type == "deco"){
-                  this.player.decrease_deco();
-                }else if(this.api_type == "food"){
-                  this.player.decrease_food();
-                }else if(this.api_type == "kiddie"){
-                  this.player.decrease_kiddie();
-                }
+              var add_count = 0;
+              var sub_count = 0;
+              var mul_count = 0;
+              var div_count = 0;
+              var mix_count = 0;
 
-                var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
-                this.destroy();
-                scene.scene.sleep(CST.SCENES.BUY_POPUP);
-                alert("Wrong Answer, Try Again!");
-              }
-            });
-        }
+              for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
+              for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
+              for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
+              for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
+              for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
+              var total_count = add_count + sub_count + mul_count + div_count + mix_count;
 
-    cancelForm() {
+              this.progressBar.setPercent(total_count / 20);
+            })
+          }else{
 
-            if(this.api_type == "furniture"){
-              this.player.decrease_furniture();
-            }else if(this.api_type == "deco"){
-              this.player.decrease_deco();
-            }else if(this.api_type == "food"){
-              this.player.decrease_food();
-            }else if(this.api_type == "kiddie"){
-              this.player.decrease_kiddie();
-            }
+            if(this.api_type      == "furniture") { this.player.decrease_furniture();}
+            else if(this.api_type == "deco")      { this.player.decrease_deco();}
+            else if(this.api_type == "food")      { this.player.decrease_food();}
+            else if(this.api_type == "kiddie")    {this.player.decrease_kiddie();}
 
-            this.send_button.style.display    = "none";
-            this.cancel_button.style.display  = "none";
-            this.input_text.style.display     = "none";
-            console.log("cancelForm");
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
-        }
-
-    check_answer(answer, question, url) {
-      const body = {
-          answer: answer,
-          question: question
-      };
-      return fetch(url, {
-          method: "PUT",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access_token"),
+            scene.scene.sleep(CST.SCENES.BUY_POPUP);
+            alert("Wrong Answer, Try Again!");
           }
-        })
-      .then((response) => {
-        console.log(response);
-        if(response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Server response wasn\'t OK');
-        }
-      })
-      .then((json) => {
-        return json;
-      });
+        });
+    }
+
+    cancelForm() {
+        if(this.api_type      == "furniture")    { this.player.decrease_furniture(); }
+        else if(this.api_type == "deco")    { this.player.decrease_deco(); }
+        else if(this.api_type == "food")    { this.player.decrease_food(); }
+        else if(this.api_type == "kiddie")    { this.player.decrease_kiddie(); }
+
+        this.send_button.style.display    = "none";
+        this.cancel_button.style.display  = "none";
+        this.input_text.style.display     = "none";
+        console.log("cancelForm");
+        var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
+        this.destroy();
     }
 
     textAreaChanged() {
         var text = this.formUtil.getTextAreaValue("area51");
         console.log(text);
     }
-
-
-    post_request(name, plural_name, type, cost, unit, guest, level, url, question_number) {
-      const body = {
-          itemName: name,
-          itemPluralName: plural_name,
-          itemType: type,
-          itemCost: cost,
-          itemUnit: unit,
-          numberOfGuests: guest,
-          level: level,
-          question_num: question_number
-      };
-      return fetch(url, {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access_token"),
-          }
-        })
-      .then((response) => {
-        console.log(response);
-        if(response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Server response wasn\'t OK');
-        }
-      })
-      .then((json) => {
-        return json;
-      });
-    }
-
 
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
