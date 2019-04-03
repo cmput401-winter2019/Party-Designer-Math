@@ -248,7 +248,32 @@ export class GameScene extends Phaser.Scene{
 
     // Initiate progress bar
     this.progressBar    = new ProgressBar({scene:this, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
-    this.progressBar.setPercent(0);
+
+		var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+		GetAllQuestionRequest(q_url).then(data => {
+			var stat_data = GetUserStat(data);
+			var addition_correct      = stat_data.add_cor;
+			var subtraction_correct   = stat_data.sub_cor;
+			var mult_correct          = stat_data.mul_cor;
+			var div_correct           = stat_data.div_cor;
+			var mixed_correct         = stat_data.mix_cor;
+
+			var add_count = 0;
+			var sub_count = 0;
+			var mul_count = 0;
+			var div_count = 0;
+			var mix_count = 0;
+
+			for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
+			for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
+			for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
+			for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
+			for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
+			var total_count = add_count + sub_count + mul_count + div_count + mix_count;
+
+			this.progressBar.setPercent(total_count / 20);
+		})
+
 
     // Show credits
     this.showCredits();
