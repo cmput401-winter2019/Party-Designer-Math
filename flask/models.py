@@ -16,12 +16,13 @@ class Student(db.Model):
     gameStateRel = db.relationship("GameState", backref ="student", uselist=False)
     playthroughRel = db.relationship("Playthrough", backref ="student")
 
-    def __init__(self, firstName, lastName, username, password, email):
+    def __init__(self, firstName, lastName, username, password, email, classCode):
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
         self.password = password
         self.email = email
+        self.classCode = classCode
 
     @staticmethod
     def generate_hash(password):
