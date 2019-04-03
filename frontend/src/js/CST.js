@@ -11,7 +11,8 @@ export const CST = {
         LOGIN:    "LOGIN",
         PRELOADER:  "PRELOADER",
         CHOOSE_THEME: "CHOOSE_THEME",
-        LEVEL_UP: "LEVEL_UP"
+        LEVEL_UP: "LEVEL_UP",
+        DASHBOARD: "DASHBOARD"
     },
 
     IMAGES: {

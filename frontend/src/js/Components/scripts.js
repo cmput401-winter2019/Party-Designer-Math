@@ -21,6 +21,29 @@ export function GetAllQuestionRequest(url) {
   });
 }
 
+export function GetClassStudents(url) {
+  return fetch(url, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("access_token"),
+    }
+  })
+  .then((response) => {
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
+
 export function PostQuestionRequest(name, plural_name, type, cost, unit, guest, level, url, question_number) {
   const body = {
       itemName: name,

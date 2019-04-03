@@ -98,6 +98,22 @@ class Question(db.Model):
         self.arithmeticType = arithmeticType
         self.gameStateId = gameStateId
 
+class QuestionHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(20))
+    answer = db.Column(db.Float)
+    arithmeticType = db.Column(db.String(20))
+    correct = db.Column(db.Boolean)
+    playthroughId = db.Column(db.Integer, db.ForeignKey('playthrough.id'), nullable=False)
+
+    def __init__(self, question, answer, arithmeticType, correct, playthroughId):
+        self.question = question
+        self.answer = answer
+        self.arithmeticType = arithmeticType
+        self.correct = correct
+        self.playthroughId = playthroughId
+
+
 class RevokedToken(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     jti = db.Column(db.String(250), unique=True, nullable=False)
@@ -121,21 +137,6 @@ class Playthrough(db.Model):
     def __init__(self, level, studentId):
         self.level = level
         self.studentId = studentId
-
-class QuestionHistory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(20))
-    answer = db.Column(db.Float)
-    arithmeticType = db.Column(db.String(20))
-    correct = db.Column(db.Boolean)
-    playthroughId = db.Column(db.Integer, db.ForeignKey('playthrough.id'), nullable=False)
-
-    def __init__(self, question, answer, arithmeticType, correct, playthroughId):
-        self.question = question
-        self.answer = answer
-        self.arithmeticType = arithmeticType
-        self.correct = correct
-        self.playthroughId = playthroughId
 
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
