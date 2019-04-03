@@ -77,70 +77,67 @@ export class Question extends Phaser.GameObjects.Container{
         this.input_text.style.display     = "initial";
         document.getElementById("myText").value = '';
 
-        var gs_url = "http://127.0.0.1:5001/"+ localStorage.getItem("id") + "/gamestate";
-        this.get_request(gs_url).then(gs_id => {
-            const url  = "http://127.0.0.1:5001/"+ gs_id + "/question";
-            this.post_request(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
+        const url  = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+        this.post_request(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
 
-                console.log(question);
+            console.log(question);
 
-                this.question = question.question;
-                this.type     = question.type;
+            this.question = question.question;
+            this.type     = question.type;
 
-                this.game_id    = gs_id;
-                this.question   = question.question;
-                this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
+            this.game_id    = this.player.gamestateIds;
+            this.question   = question.question;
+            this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
 
-                this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.8, this.scene.game.config.height*0.4, 0xffffff);
+            this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.8, this.scene.game.config.height*0.4, 0xffffff);
 
-                this.questionBackground.setOrigin(0.5,0.5);
-                this.questionBackground.setStrokeStyle(1.5, 0x000000);
+            this.questionBackground.setOrigin(0.5,0.5);
+            this.questionBackground.setStrokeStyle(1.5, 0x000000);
 
-                // Tranparent background
-                this.transparent = this.scene.add.rectangle(0,
-                                    0,
-                                    this.scene.game.config.width*0.78,
-                                    this.scene.game.config.height*0.38,
-                                    0x3498DB);
-                this.transparent.alpha = 0.3;
+            // Tranparent background
+            this.transparent = this.scene.add.rectangle(0,
+                                0,
+                                this.scene.game.config.width*0.78,
+                                this.scene.game.config.height*0.38,
+                                0x3498DB);
+            this.transparent.alpha = 0.3;
 
-                this.questionText = this.scene.add.text(0, -100, this.question, this.textConfig);
-                this.questionText.setOrigin(0.5, 0.5);
+            this.questionText = this.scene.add.text(0, -100, this.question, this.textConfig);
+            this.questionText.setOrigin(0.5, 0.5);
 
-                this.add(this.questionBackground);
-                this.add(this.transparent);
-                this.add(this.questionText)
+            this.add(this.questionBackground);
+            this.add(this.transparent);
+            this.add(this.questionText)
 
-                this.scene.add.existing(this);
+            this.scene.add.existing(this);
 
-                this.setSize(300, 90);
-                this.x = centerX;
-                this.y = centerY;
+            this.setSize(300, 90);
+            this.x = centerX;
+            this.y = centerY;
 
-                this.setInteractive();
+            this.setInteractive();
 
-                this.scene.input.setDraggable(this);
+            this.scene.input.setDraggable(this);
 
-                this.formUtil = new FormUtil({
-                    scene: this.scene,
-                    rows: 11,
-                    cols: 11
-                });
+            this.formUtil = new FormUtil({
+                scene: this.scene,
+                rows: 11,
+                cols: 11
+            });
 
-                //this.formUtil.showNumbers();
+            //this.formUtil.showNumbers();
 
-                this.formUtil.scaleToGameW  ("myText", .2);
-                this.formUtil.placeElementAt(60, 'myText', true);
+            this.formUtil.scaleToGameW  ("myText", .2);
+            this.formUtil.placeElementAt(60, 'myText', true);
 
-                this.formUtil.scaleToGameW  ("btnSend", .1);
-                this.formUtil.placeElementAt(70, "btnSend");
+            this.formUtil.scaleToGameW  ("btnSend", .1);
+            this.formUtil.placeElementAt(70, "btnSend");
 
-                this.formUtil.scaleToGameW  ("btnCancel", .1);
-                this.formUtil.placeElementAt(72, "btnCancel");
+            this.formUtil.scaleToGameW  ("btnCancel", .1);
+            this.formUtil.placeElementAt(72, "btnCancel");
 
-                this.formUtil.addClickCallback("btnSend", this.sendForm, this);
-                this.formUtil.addClickCallback("btnCancel", this.cancelForm, this);
-              });
+            this.formUtil.addClickCallback("btnSend", this.sendForm, this);
+            this.formUtil.addClickCallback("btnCancel", this.cancelForm, this);
         });
     }
 
@@ -160,18 +157,7 @@ export class Question extends Phaser.GameObjects.Container{
                 this.credit_text.setText(this.player.money);
                 this.checkCreateObject();
 
-                if(this.type == "addition"){
-                  this.player.increase_correct_addition();
-                }else if(this.type == "subtraction"){
-                  this.player.increase_correct_subtraction();
-                }else if(this.type == "multiplication"){
-                  this.player.increase_correct_multiplication();
-                }else if(this.type == "division"){
-                  this.player.increase_correct_division();
-                }else if(this.type == "mixed"){
-                  this.player.increase_correct_mixed();
-                }
-                this.progressBar.setPercent(this.player.total_correct / 25);
+                // this.progressBar.setPercent(this.player.total_correct / 25);
 
                 alert("Correct!");
 
@@ -180,18 +166,6 @@ export class Question extends Phaser.GameObjects.Container{
                 }
 
               }else{
-
-                if(this.type == "addition"){
-                  this.player.increase_wrong_addition();
-                }else if(this.type == "subtraction"){
-                  this.player.increase_wrong_subtraction();
-                }else if(this.type == "multiplication"){
-                  this.player.increase_wrong_multiplication();
-                }else if(this.type == "division"){
-                  this.player.increase_wrong_division();
-                }else if(this.type == "mixed"){
-                  this.player.increase_wrong_mixed();
-                }
 
                 if(this.api_type == "furniture"){
                   this.player.decrease_furniture();
@@ -265,29 +239,6 @@ export class Question extends Phaser.GameObjects.Container{
         console.log(text);
     }
 
-    get_request(gs_url) {
-
-      return fetch(gs_url, {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("access_token"),
-        }
-      })
-      .then((response) => {
-        if(response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Server response wasn\'t OK');
-        }
-      })
-      .then((json) => {
-        return json.id;
-      });
-    }
 
     post_request(name, plural_name, type, cost, unit, guest, level, url, question_number) {
       const body = {
