@@ -13,6 +13,7 @@ from datetime import timedelta
 from flask_cors import CORS
 import random
 import string
+from shoppinglistgen import ShoppingListGenerator
 
 # sources   : https://codeburst.io/jwt-authorization-in-flask-c63c1acf4eeb
 #           : https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python
@@ -309,6 +310,14 @@ def update_gamestate():
     except Exception as e:
         print(e)
         return jsonify(message="Could not update gamestate"), 403
+
+
+# endpoint to create game state for student
+@app.route("/shoppinglist", methods=["GET"])
+def initialize_shoppinglist():
+    shoppingListGenerator = ShoppingListGenerator()
+    itemsList = shoppingListGenerator.generateItems("theme1")
+    return jsonify(message="Could not create gamestate"), 200
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])

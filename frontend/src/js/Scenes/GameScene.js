@@ -47,6 +47,7 @@ export class GameScene extends Phaser.Scene{
     // --------- Should only be created if player is new to current level/session -------
     // Generate new random numbers
     this.numbers = RandomNumber();
+    console.log(this.numbers);
 
     // Create new Shooping list
     this.all_assets = CreateShoppingList(this.furnitures, this.food, this.deco, this.kiddie);
