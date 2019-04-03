@@ -106,15 +106,15 @@ async function main(context, theme) {
   currentContext.createBottomButtons();
 
   // Level up button
-  this.levelUpBtn = new RoundBtn(this,
-                                this.game.config.width-(this.game.config.width*0.05+400),
+  currentContext.levelUpBtn = new RoundBtn(currentContext,
+                                currentContext.game.config.width-(currentContext.game.config.width*0.05+400),
                                 75/2,
                                 "START THE PARTY",
                                 150,
                                 50);
 
-  this.levelUpBtn.rect.on("pointerdown", ()=>{
-    this.get_request("http://127.0.0.1:5001/"+ this.player.gamestateId + "/question").then(data => {
+  currentContext.levelUpBtn.rect.on("pointerdown", ()=>{
+    currentContext.get_request("http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/question").then(data => {
         //console.log(data);
         var addition_correct      = [];
         var addition_wrong        = [];
@@ -170,7 +170,7 @@ async function main(context, theme) {
         }
 
         if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
-          this.scene.start(CST.SCENES.LEVEL_UP, { player:this.player,
+          currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
                                                   add_correct: addition_correct,
                                                   add_wrong  : addition_wrong,
                                                   sub_correct: subtraction_correct,
