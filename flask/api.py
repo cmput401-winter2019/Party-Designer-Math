@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma, PlaythroughSerializer, QuestionHistorySerializer
-from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db,QuestionHistory,Playthrough
+from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma, PlaythroughSerializer, QuestionHistorySerializer, ShoppingListItemSerializer
+from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db, QuestionHistory, Playthrough, ShoppingListItem
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -13,6 +13,7 @@ from datetime import timedelta
 from flask_cors import CORS
 import random
 import string
+from shoppinglistgen import ShoppingListGenerator
 
 # sources   : https://codeburst.io/jwt-authorization-in-flask-c63c1acf4eeb
 #           : https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python
@@ -65,17 +66,19 @@ questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
 #create serializer for playthrough(s)
-
 playthroughSerializer = PlaythroughSerializer()
 playthroughsSerializer = PlaythroughSerializer(many=True)
 
 
 #create serializer for questionhistory(s)
-
 questionHistorySerializer = QuestionHistorySerializer()
-questionsHistorySerializer = QuestionHistorySerializer(many = True)
+questionsHistorySerializer = QuestionHistorySerializer(many=True)
 
 teachersSerializer = TeacherSerializer(many=True)
+
+#create serializer for shopping list item(s)
+shoppingListItemSerializer = ShoppingListItemSerializer()
+shoppingListItemsSerializer = ShoppingListItemSerializer(many=True)
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
@@ -94,13 +97,14 @@ def signup():
             username = request.json['username']
             password = Student.generate_hash(request.json['password'])
             email = request.json['email']
+            classCode = request.json['classCode']
 
             student = Student.query.filter(Student.username == username).first()
 
             if (student):
                 return jsonify(message="Username is taken"), 403
 
-            newStudent = Student(firstName, lastName, username, password, email)
+            newStudent = Student(firstName, lastName, username, password, email, classCode)
 
             db.session.add(newStudent)
             db.session.commit()
@@ -308,6 +312,42 @@ def update_gamestate():
     except Exception as e:
         print(e)
         return jsonify(message="Could not update gamestate"), 403
+
+
+# endpoint to get shopping list
+@app.route("/shoppinglist", methods=["POST"])
+@jwt_required
+def initialize_shoppinglist():
+    try:
+        theme = request.json['theme']
+        studentId = get_jwt_identity()
+        gamestateId = GameState.query.filter(GameState.studentId == studentId).first().id
+        shoppingListItems = ShoppingListItem.query.filter(ShoppingListItem.gameStateId == gamestateId).all()
+
+        if (len(shoppingListItems) == 20):
+            result = shoppingListItemsSerializer.dump(shoppingListItems)
+            return jsonify(result.data), 200
+        
+        elif (len(shoppingListItems) == 0):
+            shoppingListGenerator = ShoppingListGenerator()
+            itemAmounts = shoppingListGenerator.generateAmounts()
+            itemsList = shoppingListGenerator.generateItems(theme)
+
+            for i in range(20):
+                shoppingListItem = ShoppingListItem(itemsList[i], itemAmounts[i], gamestateId)
+                db.session.add(shoppingListItem)
+                db.session.commit()
+
+            shoppingListItems = ShoppingListItem.query.filter(ShoppingListItem.gameStateId == gamestateId).all()
+            result = shoppingListItemsSerializer.dump(shoppingListItems)
+            return jsonify(result.data), 200
+
+        else:
+            return jsonify(message="Could not create shopping list items"), 403
+
+    except Exception as e:
+        print(e)
+        return jsonify(message="Could not create shopping list items"), 403
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])
