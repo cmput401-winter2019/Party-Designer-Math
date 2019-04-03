@@ -316,25 +316,38 @@ def update_gamestate():
 
 # endpoint to get shopping list
 @app.route("/shoppinglist", methods=["POST"])
+@jwt_required
 def initialize_shoppinglist():
     try:
         theme = request.json['theme']
-        gamestateId = request.json['gamestateId']
+        studentId = get_jwt_identity()
+        gamestateId = GameState.query.filter(GameState.studentId == studentId).first().id
+        shoppingListItems = ShoppingListItem.query.filter(ShoppingListItem.gameStateId == gamestateId).all()
 
-        shoppingListItems = GameState.query.filter(GameState.studentId == studentId).all()
-
-        if (shoppingListItems.count() == 20):
+        if (len(shoppingListItems) == 20):
             result = shoppingListItemsSerializer.dump(shoppingListItems)
-            result.data["message"] = "Shopping items already exist"
             return jsonify(result.data), 200
         
-        elif (shoppingListItems.count() == 0)
+        elif (len(shoppingListItems) == 0):
             shoppingListGenerator = ShoppingListGenerator()
             itemAmounts = shoppingListGenerator.generateAmounts()
             itemsList = shoppingListGenerator.generateItems(theme)
 
-    except:
-        return jsonify(message="Could not create gamestate"), 200
+            for i in range(20):
+                shoppingListItem = ShoppingListItem(itemsList[i], itemAmounts[i], gamestateId)
+                db.session.add(shoppingListItem)
+                db.session.commit()
+
+            shoppingListItems = ShoppingListItem.query.filter(ShoppingListItem.gameStateId == gamestateId).all()
+            result = shoppingListItemsSerializer.dump(shoppingListItems)
+            return jsonify(result.data), 200
+
+        else:
+            return jsonify(message="Could not create shopping list items"), 403
+
+    except Exception as e:
+        print(e)
+        return jsonify(message="Could not create shopping list items"), 403
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])

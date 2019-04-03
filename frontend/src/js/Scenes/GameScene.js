@@ -13,6 +13,43 @@ import { StartPartyBtn, RoundBtn } from '../Components/roundBtn';
 import { FormUtil } from '../util/formUtil';
 import { LevelIndicator } from '../Components/levelIndicator';
 
+async function post(endpoint, body) {
+	const headers = {
+	  "Content-Type": "application/json",
+	  "Authorization": "Bearer " + localStorage.getItem("access_token")
+	};
+	  
+	const request = {
+	  method: "POST",
+	  mode: "cors",
+	  headers: headers,
+	  body: JSON.stringify(body)
+	};
+  
+	const response = await fetch(endpoint, request);
+  
+	return response;
+}
+  
+async function generateShoppingList(scene, theme) {
+	//Set the scene context
+	const currentscene = scene;
+
+	const body = {
+		theme: theme
+	};
+
+	const response = await post("http://127.0.0.1:5001/shoppinglist", body);
+	const data = await response.json();
+	if (!response.ok) {
+    console.log("Something went wrong");
+    console.log(data);
+	} 
+	else {
+    console.log(data);
+	}
+}
+
 
 export class GameScene extends Phaser.Scene{
 
@@ -34,6 +71,9 @@ export class GameScene extends Phaser.Scene{
   }
 
   create(){
+    generateShoppingList(this.scene, this.gamestate.theme);
+
+
     this.formUtil = new FormUtil({
                     scene: this,
                     rows: 5,
