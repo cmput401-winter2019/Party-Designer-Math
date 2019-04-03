@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma, PlaythroughSerializer, QuestionHistorySerializer
-from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db,QuestionHistory,Playthrough
+from serializers import StudentSerializer, GameStateSerializer, BagItemSerializer, CanvasItemSerializer, QuestionSerializer, TeacherSerializer, ma, PlaythroughSerializer, QuestionHistorySerializer, ShoppingListItemSerializer
+from models import Student, GameState, BagItem, CanvasItem, Question, RevokedToken, Teacher, db, QuestionHistory, Playthrough, ShoppingListItem
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -66,17 +66,19 @@ questionSerializer = QuestionSerializer()
 questionsSerializer = QuestionSerializer(many=True)
 
 #create serializer for playthrough(s)
-
 playthroughSerializer = PlaythroughSerializer()
 playthroughsSerializer = PlaythroughSerializer(many=True)
 
 
 #create serializer for questionhistory(s)
-
 questionHistorySerializer = QuestionHistorySerializer()
-questionsHistorySerializer = QuestionHistorySerializer(many = True)
+questionsHistorySerializer = QuestionHistorySerializer(many=True)
 
 teachersSerializer = TeacherSerializer(many=True)
+
+#create serializer for shopping list item(s)
+shoppingListItemSerializer = ShoppingListItemSerializer()
+shoppingListItemsSerializer = ShoppingListItemSerializer(many=True)
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
@@ -312,12 +314,27 @@ def update_gamestate():
         return jsonify(message="Could not update gamestate"), 403
 
 
-# endpoint to create game state for student
-@app.route("/shoppinglist", methods=["GET"])
+# endpoint to get shopping list
+@app.route("/shoppinglist", methods=["POST"])
 def initialize_shoppinglist():
-    shoppingListGenerator = ShoppingListGenerator()
-    itemsList = shoppingListGenerator.generateItems("theme1")
-    return jsonify(message="Could not create gamestate"), 200
+    try:
+        theme = request.json['theme']
+        gamestateId = request.json['gamestateId']
+
+        shoppingListItems = GameState.query.filter(GameState.studentId == studentId).all()
+
+        if (shoppingListItems.count() == 20):
+            result = shoppingListItemsSerializer.dump(shoppingListItems)
+            result.data["message"] = "Shopping items already exist"
+            return jsonify(result.data), 200
+        
+        elif (shoppingListItems.count() == 0)
+            shoppingListGenerator = ShoppingListGenerator()
+            itemAmounts = shoppingListGenerator.generateAmounts()
+            itemsList = shoppingListGenerator.generateItems(theme)
+
+    except:
+        return jsonify(message="Could not create gamestate"), 200
 
 # endpoint to create bag item for game state
 @app.route("/<id>/bagitem", methods=["POST"])
