@@ -99,22 +99,104 @@ export class GameScene extends Phaser.Scene{
                                   50);
 
     this.levelUpBtn.rect.on("pointerdown", ()=>{
-      console.log(this.player.correct_addition,         this.player.wrong_addition);
-      console.log(this.player.correct_subtraction,      this.player.wrong_subtraction);
-      console.log(this.player.correct_multiplication,   this.player.wrong_multiplication);
-      console.log(this.player.correct_division,         this.player.wrong_division);
-      console.log(this.player.correct_mixed,            this.player.wrong_mixed);
+      this.get_request("http://127.0.0.1:5001/"+ this.player.gamestateId + "/question").then(data => {
+          //console.log(data);
+          var addition_correct      = [];
+          var addition_wrong        = [];
+          var subtraction_correct   = [];
+          var subtraction_wrong     = [];
+          var mult_correct          = [];
+          var mult_wrong            = [];
+          var div_correct           = [];
+          var div_wrong             = [];
+          var mixed_correct           = [];
+          var mixed_wrong             = [];
 
+          for(var i=0; i<data.length; i++){
+            if(data[i].arithmeticType == "addition"){
+              if(data[i].correct == true){
+                addition_correct.push(data[i]);
+              }else if(data[i].correct == false || data[i].correct == null){
+                addition_wrong.push(data[i]);
+              }
+            }
 
-      if(this.player.correct_addition >= 0 && this.player.correct_subtraction >= 0 && this.player.correct_multiplication >= 0 && this.player.correct_division >= 0 && this.player.correct_mixed >= 0){
-        this.scene.start(CST.SCENES.LEVEL_UP, {player:this.player});
-      }else{
-        alert("Shopping List is not Complete\n\n Please check Shopping List");
-      }
+            if(data[i].arithmeticType == "subtraction"){
+              if(data[i].correct == true){
+                subtraction_correct.push(data[i]);
+              }else if(data[i].correct == false || data[i].correct == null){
+                subtraction_wrong.push(data[i]);
+              }
+            }
+
+            if(data[i].arithmeticType == "multiplication"){
+              if(data[i].correct == true){
+                mult_correct.push(data[i]);
+              }else if(data[i].correct == false || data[i].correct == null){
+                mult_wrong.push(data[i]);
+              }
+            }
+
+            if(data[i].arithmeticType == "divison"){
+              if(data[i].correct == true){
+                div_correct.push(data[i]);
+              }else if(data[i].correct == false || data[i].correct == null){
+                div_wrong.push(data[i]);
+              }
+            }
+
+            if(data[i].arithmeticType == "mixed"){
+              if(data[i].correct == true){
+                mixed_correct.push(data[i]);
+              }else if(data[i].correct == false || data[i].correct == null){
+                mixed_wrong.push(data[i]);
+              }
+            }
+          }
+
+          if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
+            this.scene.start(CST.SCENES.LEVEL_UP, { player:this.player,
+                                                    add_correct: addition_correct,
+                                                    add_wrong  : addition_wrong,
+                                                    sub_correct: subtraction_correct,
+                                                    sub_wrong  : subtraction_wrong,
+                                                    mult_correct: mult_correct,
+                                                    mult_wrong  : mult_wrong,
+                                                    div_correct : div_correct,
+                                                    div_wrong   : div_wrong,
+                                                    mixed_correct: mixed_correct,
+                                                    mixed_wrong   : mixed_wrong});
+          }else{
+            alert("Shopping List is not Complete\n\n Please check Shopping List");
+          }
+
+      })
     });
-
-
   }
+
+  get_request(gs_url) {
+    return fetch(gs_url, {
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+      }
+    })
+    .then((response) => {
+      if(response.ok) {
+          return response.json();
+      } else {
+          throw new Error('Server response wasn\'t OK');
+      }
+    })
+    .then((json) => {
+      return json;
+    });
+  }
+
   showCredits(){
     this.credits = this.add.text(this.game.config.width-(this.game.config.width*0.05+100)+20,
                                                         30,
