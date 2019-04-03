@@ -21,21 +21,11 @@ export class User{
         this._food_count        = 0;
         this._kiddie_count      = 0;
 
-        this._correct_addition          = 0;
-        this._correct_subtraction       = 0;
-        this._correct_multiplication    = 0;
-        this._correct_division          = 0;
-        this._correct_mixed             = 0;
-
-        this._wrong_addition            = 0;
-        this._wrong_subtraction         = 0;
-        this._wrong_multiplication      = 0;
-        this._wrong_division            = 0;
-        this._wrong_mixed               = 0;
-
         this.allItemsShopList(); // generates a dictionary of shopping list :
                                  //     item name and number that needs to be bought
     }
+
+    get gamestateId() {return this._gamestateId};
 
     get furniture_count()   { return this._furniture_count; }
     get deco_count()        { return this._deco_count;      }
@@ -56,50 +46,6 @@ export class User{
     reset_deco()            { this._deco_count      = 0;  }
     reset_food()            { this._food_count      = 0;  }
     reset_kiddie()          { this._kiddie_count    = 0;  }
-
-    get correct_addition()                { return this._correct_addition;        }
-    get correct_subtraction()             { return this._correct_subtraction;     }
-    get correct_multiplication()          { return this._correct_multiplication;  }
-    get correct_division()                { return this._correct_division;        }
-    get correct_mixed()                   { return this._correct_mixed;           }
-
-    increase_correct_addition()           { this._correct_addition          += 1;    }
-    increase_correct_subtraction()        { this._correct_subtraction       += 1;    }
-    increase_correct_multiplication()     { this._correct_multiplication    += 1;    }
-    increase_correct_division()           { this._correct_division          += 1;    }
-    increase_correct_mixed()              { this._correct_mixed             += 1;    }
-
-    reset_correct_addition()              { this._correct_addition          = 0;    }
-    reset_correct_subtraction()           { this._correct_subtraction       = 0;    }
-    reset_correct_multiplication()        { this._correct_multiplication    = 0;    }
-    reset_correct_division()              { this._correct_division          = 0;    }
-    reset_correct_mixed()                 { this._correct_mixed             = 0;    }
-
-    get wrong_addition()                  { return this._wrong_addition;          }
-    get wrong_subtraction()               { return this._wrong_subtraction;       }
-    get wrong_multiplication()            { return this._wrong_multiplication;    }
-    get wrong_division()                  { return this._wrong_division;          }
-    get wrong_mixed()                     { return this._wrong_mixed;             }
-
-    increase_wrong_addition()             { this._wrong_addition            += 1; }
-    increase_wrong_subtraction()          { this._wrong_subtraction         += 1; }
-    increase_wrong_multiplication()       { this._wrong_multiplication      += 1; }
-    increase_wrong_division()             { this._wrong_division            += 1; }
-    increase_wrong_mixed()                { this._wrong_mixed               += 1; }
-
-    reset_wrong_addition()                { this._wrong_addition            = 0;    }
-    reset_wrong_subtraction()             { this._wrong_subtraction         = 0;    }
-    reset_wrong_multiplication()          { this._wrong_multiplication      = 0;    }
-    reset_wrong_division()                { this._wrong_division            = 0;    }
-    reset_wrong_mixed()                   { this._wrong_mixed               = 0;    }
-
-    get addition_attempt()                { return this._correct_addition       + this._wrong_addition }
-    get subtraction_attempt()             { return this._correct_subtraction    + this._wrong_addition }
-    get multiplication_attempt()          { return this._correct_multiplication + this._wrong_multiplication }
-    get division_attempt()                { return this._correct_division       + this._wrong_division }
-    get mixed_attempt()                   { return this._correct_mixed          + this._wrong_mixed }
-
-    get total_correct()                   { return this._correct_addition + this._correct_subtraction + this._correct_multiplication + this._correct_division + this._correct_mixed}
 
     get username()          { return this._uName;             }
     get id()                { return this._id;                }

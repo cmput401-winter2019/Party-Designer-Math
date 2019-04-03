@@ -9,7 +9,17 @@ export class LevelUpScene extends Phaser.Scene {
     }
     init(data)
     {
-        this.player = data.player;
+        this.player         = data.player;
+        this.add_correct    = data.add_correct;
+        this.add_wrong      = data.add_wrong;
+        this.sub_correct    = data.sub_correct;
+        this.sub_wrong      = data.sub_wrong;
+        this.mult_correct   = data.mult_correct;
+        this.mult_wrong     = data.mult_wrong;
+        this.div_correct    = data.div_correct;
+        this.div_wrong      = data.div_wrong;
+        this.mixed_correct  = data.mixed_correct;
+        this.mixed_wrong    = data.mixed_wrong;
     }
     preload(){
         this.load.image("mountain",    "assets/images/Interface/mountain.png");
@@ -24,20 +34,20 @@ export class LevelUpScene extends Phaser.Scene {
 
         // --------------------- Set scores from API ----------------------
         // Scores in THIS LEVEL
-        this.addCorrect   = this.player.correct_addition;
-        this.addAnswered  = this.player.addition_attempt;
+        this.addCorrect   = this.add_correct.length;
+        this.addAnswered  = this.add_correct.length + this.add_wrong.length;
 
-        this.subCorrect   = this.player.correct_subtraction;
-        this.subAnswered  = this.player.subtraction_attempt;
+        this.subCorrect   = this.sub_correct.length;
+        this.subAnswered  = this.sub_correct.length + this.sub_wrong.length;
 
-        this.multCorrect  = this.player.correct_multiplication;
-        this.multAnswered = this.player.multiplication_attempt;
+        this.multCorrect  = this.mult_correct.length;
+        this.multAnswered = this.mult_correct.length + this.mult_wrong.length;
 
-        this.divCorrect   = this.player.correct_division;
-        this.divAnswered  = this.player.multiplication_attempt;
+        this.divCorrect   = this.div_correct.length;
+        this.divAnswered  = this.div_correct.length + this.div_wrong.length;
 
-        this.mixCorrect   = this.player.correct_mixed;
-        this.mixAnswered  = this.player.mixed_attempt;
+        this.mixCorrect   = this.mixed_correct.length;
+        this.mixAnswered  = this.mixed_correct.length + this.mixed_wrong.length;
 
         this.currentLevel = (this.addCorrect+this.subCorrect+this.multCorrect+this.divCorrect+this.mixCorrect)/(this.addAnswered+this.subAnswered+this.multAnswered+this.divAnswered+this.mixAnswered);
 
@@ -48,7 +58,6 @@ export class LevelUpScene extends Phaser.Scene {
         this.divOverall     = this.divCorrect  / this.divAnswered;
         this.mixOverall     = this.mixCorrect  / this.mixAnswered;
         this.overallOverall = (this.addOverall+this.subOverall+this.multOverall+this.divOverall+this.mixOverall)/5;
-
         // --------------------------------------------------------------
 
         this.setTitles();
@@ -108,9 +117,9 @@ export class LevelUpScene extends Phaser.Scene {
         this.barX = this.game.config.width/3;
         this.barY = this.game.config.height/2;
 
-        this.addBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY, color: 0x58D68D});
-        this.subBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+40, color: 0x58D68D});
-        this.multBar  = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+80, color: 0x58D68D});
+        this.addBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY,     color: 0x58D68D});
+        this.subBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+40,  color: 0x58D68D});
+        this.multBar  = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+80,  color: 0x58D68D});
         this.divBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+120, color: 0x58D68D});
         this.mixBar   = new ProgressBar({scene:this, width: width, height:height, x:this.barX, y:this.barY+160, color: 0x58D68D});
 
