@@ -52,7 +52,7 @@ class GameState(db.Model):
 
 class ShoppingListItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    itemName = db.Column(db.String(20), unique=True)
+    itemName = db.Column(db.String(20))
     itemAmount = db.Column(db.Integer)
     completed = db.Column(db.Boolean)
     gameStateId = db.Column(db.Integer, db.ForeignKey('game_state.id'), nullable=False)
