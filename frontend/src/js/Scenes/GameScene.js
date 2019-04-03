@@ -15,6 +15,181 @@ import { StartPartyBtn, RoundBtn }      from '../Components/roundBtn';
 import { FormUtil }                     from '../util/formUtil';
 import { LevelIndicator }               from '../Components/levelIndicator';
 
+async function post(endpoint, body) {
+	const headers = {
+	  "Content-Type": "application/json",
+	  "Authorization": "Bearer " + localStorage.getItem("access_token")
+	};
+
+	const request = {
+	  method: "POST",
+	  mode: "cors",
+	  headers: headers,
+	  body: JSON.stringify(body)
+	};
+
+	const response = await fetch(endpoint, request);
+
+	return response;
+}
+
+async function main(context, theme) {
+  //Set the scene context
+  const currentContext = context;
+  currentContext.itemsList = []
+  currentContext.itemAmounts = []
+
+
+	const body = {
+		theme: currentContext.gamestate.theme
+	};
+
+	const response = await post("http://127.0.0.1:5001/shoppinglist", body);
+	const data = await response.json();
+	if (!response.ok) {
+    console.log("Something went wrong");
+    console.log(data);
+	}
+	else {
+    for (const i of data) {
+
+      currentContext.itemsList.push(i.itemName);
+      currentContext.itemAmounts.push(i.itemAmount);
+    }
+  }
+
+
+  currentContext.formUtil = new FormUtil({
+                  scene: currentContext,
+                  rows: 5,
+                  cols: 11
+              });
+  // currentContext.formUtil.showNumbers();
+
+  // Initiate ImageToProperites class
+  currentContext.imageToProp = new ImageToProperties();
+
+  currentContext.username = localStorage.getItem("username");
+  currentContext.id       = localStorage.getItem("id");
+  currentContext.money    = 1000;
+
+  currentContext.player = new User({  username      : currentContext.username,
+                            id            : currentContext.id,
+                            gamestateId   : currentContext.gamestate.id,
+                            money         : currentContext.gamestate.money,
+                            guestNumber   : currentContext.gamestate.numOfGuests,
+                            currentLevel  : 1,
+                            backpack      : {}, //{"Chair":1, "Sofa":2},
+                            credits       : 100,
+                            itemsOnSceen  : {}, //{"Chair":2, "cherries":3},
+                            inShopList    : currentContext.itemAmounts,
+                            itemList      : currentContext.itemsList});
+
+
+  // Level indicator
+  var indicatorX = currentContext.game.config.width*0.45;
+  currentContext.levelIndicator = new LevelIndicator({scene:currentContext, text:currentContext.player.level, x:indicatorX, y:30});
+
+  // Initiate progress bar
+  currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
+  currentContext.progressBar.setPercent(0);
+
+  // Show credits
+  currentContext.showCredits();
+
+  // Call scene functions
+  currentContext.updateProgressBar();
+  currentContext.createBackground(currentContext.background);
+  currentContext.createGuests(currentContext.guests, currentContext.player.guestNumber);
+
+  currentContext.loadItemsToScreen(currentContext.player.screenItems, "load");
+  currentContext.createDragLogics();
+  currentContext.createTopMenuButtons();
+  currentContext.createBottomButtons();
+
+  // Level up button
+  currentContext.levelUpBtn = new RoundBtn(currentContext,
+                                currentContext.game.config.width-(currentContext.game.config.width*0.05+400),
+                                75/2,
+                                "START THE PARTY",
+                                150,
+                                50);
+
+  currentContext.levelUpBtn.rect.on("pointerdown", ()=>{
+    currentContext.get_request("http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/question").then(data => {
+        //console.log(data);
+        var addition_correct      = [];
+        var addition_wrong        = [];
+        var subtraction_correct   = [];
+        var subtraction_wrong     = [];
+        var mult_correct          = [];
+        var mult_wrong            = [];
+        var div_correct           = [];
+        var div_wrong             = [];
+        var mixed_correct           = [];
+        var mixed_wrong             = [];
+
+        for(var i=0; i<data.length; i++){
+          if(data[i].arithmeticType == "addition"){
+            if(data[i].correct == true){
+              addition_correct.push(data[i]);
+            }else if(data[i].correct == false || data[i].correct == null){
+              addition_wrong.push(data[i]);
+            }
+          }
+
+          if(data[i].arithmeticType == "subtraction"){
+            if(data[i].correct == true){
+              subtraction_correct.push(data[i]);
+            }else if(data[i].correct == false || data[i].correct == null){
+              subtraction_wrong.push(data[i]);
+            }
+          }
+
+          if(data[i].arithmeticType == "multiplication"){
+            if(data[i].correct == true){
+              mult_correct.push(data[i]);
+            }else if(data[i].correct == false || data[i].correct == null){
+              mult_wrong.push(data[i]);
+            }
+          }
+
+          if(data[i].arithmeticType == "divison"){
+            if(data[i].correct == true){
+              div_correct.push(data[i]);
+            }else if(data[i].correct == false || data[i].correct == null){
+              div_wrong.push(data[i]);
+            }
+          }
+
+          if(data[i].arithmeticType == "mixed"){
+            if(data[i].correct == true){
+              mixed_correct.push(data[i]);
+            }else if(data[i].correct == false || data[i].correct == null){
+              mixed_wrong.push(data[i]);
+            }
+          }
+        }
+
+        if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
+          currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
+                                                  add_correct: addition_correct,
+                                                  add_wrong  : addition_wrong,
+                                                  sub_correct: subtraction_correct,
+                                                  sub_wrong  : subtraction_wrong,
+                                                  mult_correct: mult_correct,
+                                                  mult_wrong  : mult_wrong,
+                                                  div_correct : div_correct,
+                                                  div_wrong   : div_wrong,
+                                                  mixed_correct: mixed_correct,
+                                                  mixed_wrong   : mixed_wrong});
+        }else{
+          alert("Shopping List is not Complete\n\n Please check Shopping List");
+        }
+
+    })
+  });
+}
 
 export class GameScene extends Phaser.Scene{
 
