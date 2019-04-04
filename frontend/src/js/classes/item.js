@@ -108,11 +108,13 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.btnX             = this.x+(this.displayWidth/2);
         this.btnY             = this.y-this.displayHeight/2;
 
+        this.rect.depth = 3;
+
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].x       = this.btnX;
             this.btnList[i].y       = this.btnY+i*this.btnList[i].displayHeight;
             this.btnList[i].visible = true;
-            this.btnList[i].setDepth(3);
+            this.btnList[i].setDepth(this.rect.depth+1);
         }
 
         // Transparent rectangle position

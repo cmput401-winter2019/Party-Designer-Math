@@ -31,6 +31,14 @@ export class Guest extends Phaser.GameObjects.Sprite{
 
         this.btnList = [this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.backwardBtn, this.rightBtn];
 
+        // Tranparent background
+        this.rect = this.scene.add.rectangle(0,
+                                             0,
+                                             this.rotateBtn.displayWidth+10,
+                                             this.rotateBtn.displayHeight*8,
+                                             0x3498DB);
+        this.rect.alpha=0.3;
+        this.rect.setOrigin(0.5,0);
         this.hideButtons();
 
         // ---- Set item buttons functions -----
@@ -72,12 +80,20 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.input.draggable  = false;
         var btnX              = this.x+(this.displayWidth/2);
         var btnY              = this.y-this.displayHeight/2;
+        
+        this.rect.depth = 3;
 
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].x         = btnX;
             this.btnList[i].y         = btnY+i*this.btnList[i].displayHeight;
             this.btnList[i].visible   = true;
+            this.btnList[i].setDepth(this.rect.depth+1);
         }
+
+        // Transparent rectangle position
+        this.rect.x = this.rotateBtn.x;
+        this.rect.y = this.rotateBtn.y-this.rotateBtn.displayHeight;
+        this.rect.alpha=0.7;
     }
 
     hideButtons(){
@@ -88,6 +104,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
             this.btnList[i].visible = false;
         }
         this.customize = false;
+        this.rect.alpha=0;
     }
     destroyButtons(){
         for (var i=0; i< this.btnList.length; i++){
