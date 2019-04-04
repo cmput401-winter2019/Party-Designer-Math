@@ -156,7 +156,12 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.scaleY       = this.scaleX;
     }
 
-    bringForward(){}
+    bringForward(){
+        this.newItem = this.scene.add.existing(new Item(this.scene, this.imageName, this.x, this.y, this.name, this.pluralName, this.category, this.cost, "load"));
+        this.newItem.showButtons();
+        this.destroyButtons();
+        this.destroy();
+    }
 
     bringBackward(){}
 
