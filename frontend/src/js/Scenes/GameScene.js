@@ -170,7 +170,7 @@ async function main(context, theme) {
         var mixed_correct         = stat_data.mix_cor;
         var mixed_wrong           = stat_data.mix_wrn;
 
-        if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
+        if(addition_correct.length >= 4 && subtraction_correct.length >= 4 && mult_correct.length >= 4 && div_correct.length >= 4 && mixed_correct.length >= 4){
           currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
                                                   add_correct: addition_correct,
                                                   add_wrong  : addition_wrong,
@@ -221,12 +221,6 @@ export class GameScene extends Phaser.Scene{
   updateProgressBar(){ this.progressBar.setPercent(this.player.checkProgress()); }
 
   createBackground(background){
-    // White background
-     this.whiteBackground = this.add.rectangle(0,
-	                                              75,
-	                                              this.game.config.width,
-	                                              this.game.config.height,
-	                                              0xffffff).setOrigin(0,0);
     this.topMenuHeight  = 75;
     // Background
     this.background     = this.add.image(0, this.topMenuHeight, background);
