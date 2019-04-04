@@ -147,7 +147,7 @@ async function main(context, theme) {
 
 			  // Level up button
 			  currentContext.levelUpBtn = new RoundBtn(currentContext,
-			                                currentContext.game.config.width-(currentContext.game.config.width*0.05+400),
+			                                currentContext.game.config.width*0.75,
 			                                75/2,
 			                                "START THE PARTY",
 			                                150,
@@ -310,7 +310,7 @@ export class GameScene extends Phaser.Scene{
     this.listBtn = new ButtonAtMenu({  scene  : this,
                                         key   : "List",
                                         text  : "List",
-                                        x     : (this.game.config.width-(startX+200)),
+                                        x     : (startX+300),
                                         y     : 30,
                                         event : "button_pressed"
                                     });
