@@ -63,6 +63,7 @@ export class User{
     get numbersInShopList() { return this._numbersInShopList; }
 
     update_money(new_money)           { this._money = new_money}
+    updateLevel(level) {this._level = level }
     increaseLevel()                   { this._level +=1; }
     decreaseLevel()                   { this._level -=1; }
     increaseCredits(increaseAmount)   { this._credits += increaseAmount; }

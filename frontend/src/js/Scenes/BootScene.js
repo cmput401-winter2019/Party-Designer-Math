@@ -6,7 +6,7 @@ async function get(endpoint) {
     "Content-Type": "application/json",
     "Authorization": "Bearer " + localStorage.getItem("access_token")
   };
-    
+
   const request = {
     method: "GET",
     mode: "cors",
@@ -25,20 +25,22 @@ async function main(scene) {
   //Generate or get gamestate
   const response = await get("http://127.0.0.1:5001/gamestate");
   const data = await response.json();
+  console.log(data);
   if (!response.ok) {
     console.log("Something went wrong")
     console.log(data);
-  } 
+  }
   else {
     //if the theme is null then pick a theme
-    if(data["theme"] === null) {
+    if(data["theme"] == null) {
       console.log("Theme is null")
+      console.log(data);
       currentscene.start(CST.SCENES.CHOOSE_THEME, data)
-    } 
+    }
 
     else {
       //this means you picked a theme but didnt design an invitation
-      if (data["designedInvitation"] === false) {
+      if (data["designedInvitation"] == false) {
         currentscene.start(CST.SCENES.PARTY_INVITATION, data)
       }
       else {
@@ -59,4 +61,3 @@ export class BootScene extends Phaser.Scene{
 
   }
 };
-

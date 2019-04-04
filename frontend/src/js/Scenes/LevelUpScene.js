@@ -89,11 +89,13 @@ export class LevelUpScene extends Phaser.Scene {
             else {
                 const drop_url = "http://127.0.0.1:5001/dropquestion";
                 DropQuestionRequest(this.player.gs_id, drop_url).then(data => {})
+
                 this.scene.start(CST.SCENES.CHOOSE_THEME);
             }
 
         });
     }
+
     showOverallReport(){
         // Hide current Level Scores
         for(var i=0; i<this.textObjects.length; i++){

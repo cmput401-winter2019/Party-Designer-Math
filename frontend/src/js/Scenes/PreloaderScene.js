@@ -46,6 +46,9 @@ export class PreloaderScene extends Phaser.Scene{
     });
     assetText.setOrigin(0.5, 0.5);
 
+    console.log("ASFSAFASF");
+
+
     this.load.on("progress", function(value){
       percentText.setText(parseInt(value * 100) + "%");
       progressBar.clear();
