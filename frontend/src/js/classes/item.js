@@ -37,7 +37,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.scaleBtn = this.scene.add.image(0,0,'scaleBtn');
         this.smallerBtn = this.scene.add.image(0,0,'smallerBtn');
         this.forwardBtn = this.scene.add.image(0,0, 'forwardBtn').setOrigin(0.5,0);
-        this.backwardBtn = this.scene.add.image(0,0, 'backwardBtn').setOrigin(0.5,0);
+        this.backwardBtn = this.scene.add.image(0,0, 'Bag').setOrigin(0.5,0);
         this.rightBtn = this.scene.add.image(0,0,'rightBtn').setOrigin(0.5,-0.5);
 
 
@@ -47,7 +47,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.rect = this.scene.add.rectangle(0,
                                              0,
                                              this.crossBtn.displayWidth+10,
-                                             this.crossBtn.displayHeight*10,
+                                             this.crossBtn.displayHeight*13,
                                              0x3498DB);
         this.rect.alpha=0.3;
         this.rect.setOrigin(0.5,0);
@@ -176,6 +176,7 @@ export class Item extends Phaser.GameObjects.Sprite{
     }
     toBackpack(){
         this.popup = new CheckToBackpack(this.scene, this);
+        this.popup.depth+=1;
     }
     deleteItem(){
         this.destroyButtons();
