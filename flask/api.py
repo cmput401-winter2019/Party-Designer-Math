@@ -238,6 +238,8 @@ def add_student():
         print(e)
         return jsonify(success=False), 403
 
+
+
 # endpoint to show all students
 @app.route("/student/<name>", methods=["GET"])
 #@jwt_required
@@ -251,21 +253,6 @@ def get_student(name):
         result = studentSerializer.dump(current_student)
         return jsonify(result.data)
 
-# endpoint to show all students
-@app.route("/student/<classcode>", methods=["GET"])
-#@jwt_required
-def class_student(name):
-    allStudents = Student.query.filter(Student.classCode == classcode).first()
-    result = studentsSerializer.dump(allStudents)
-    return jsonify(result.data);
-    # if(name=="all"):
-    #     allStudents = Student.query.all()
-    #     result = studentsSerializer.dump(allStudents)
-    #     return jsonify(result.data)
-    # else:
-    #     current_student = Student.query.filter(Student.username == name).first()
-    #     result = studentSerializer.dump(current_student)
-    #     return jsonify(result.data)
 
 
 # endpoint to create game state for student
@@ -424,13 +411,11 @@ def get_canvasitems(id):
 @app.route("/createquestionhistory", methods=["POST"])
 def createquestionhistory():
     try:
-        print("FNSJAFNASJK", file=sys.stderr)
         question            = request.json['question']
         answer              = request.json['answer']
         arithmeticType      = request.json['arithmeticType']
         correct             = request.json['correct']
         playthroughid       = request.json['playthroughId']
-        print(playthroughid, file=sys.stderr)
 
         newquestionhistory = QuestionHistory(question,answer,arithmeticType,correct,playthroughid)
 
@@ -475,6 +460,7 @@ def add_question(id):
         print(e)
         return jsonify(success=False), 403
 
+
 # endpoint to show question of game state
 @app.route("/<id>/question", methods=["GET"])
 #@jwt_required
@@ -504,6 +490,22 @@ def check_answer_question(id):
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
+
+
+@app.route("/dropquestion", methods=["PUT"])
+def drop_question():
+    try:
+        gs_id = request.json['gs_id']
+        print(gs_id, file=sys.stderr)
+        db.session.query(Question).filter(Question.gameStateId==gs_id).delete()
+
+        db.session.commit()
+
+        return jsonify(success=True), 200
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
 
 # endpoint to get user stats
 ###############################################################################################
@@ -596,6 +598,24 @@ def createstudent():
         print(e)
         return jsonify(message="Something went wrong"), 403
 
+
+@app.route("/updateplaythrough", methods=["PUT"])
+def updatethrough():
+    try:
+        level       = request.json['level']
+        studentid   = request.json['studentId']
+        print(level, file=sys.stderr)
+        print(studentid, file=sys.stderr)
+        playthrough = Playthrough.query.filter(Playthrough.studentId == studentid).first()
+        playthrough.level = level;
+
+        db.session.commit()
+
+        return jsonify(message="playthrough created"), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify(message="Something went wrong"), 403
 
 @app.route("/createplaythrough", methods=["POST"])
 def createplaythrough():

@@ -67,6 +67,7 @@ export function GetClassStudents(url) {
   });
 }
 
+
 export function PostQuestionRequest(name, plural_name, type, cost, unit, guest, level, url, question_number) {
   const body = {
       itemName: name,
@@ -109,6 +110,64 @@ export function PostPlayThroughRequest(level, studentid, url) {
   };
   return fetch(url, {
       method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+      }
+    })
+  .then((response) => {
+    console.log(response);
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
+
+export function DropQuestionRequest(gs_id, url) {
+  const body = {
+      gs_id: gs_id
+  };
+  return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+      }
+    })
+  .then((response) => {
+    console.log(response);
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
+
+
+export function UpdatePlaythrough(studentid, level, url) {
+  const body = {
+      level: level,
+      studentId: studentid
+  };
+  return fetch(url, {
+      method: "PUT",
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
