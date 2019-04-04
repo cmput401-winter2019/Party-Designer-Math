@@ -207,7 +207,15 @@ export class GameScene extends Phaser.Scene{
     this.gamestate      = data.gamestate;
   }
 
-  preload(){}
+  preload(){
+    this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
+    this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
+    this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
+    this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
+    this.load.image("forwardBtn",   "assets/images/Interface/Forward.svg");
+    this.load.image("backwardBtn",  "assets/images/Interface/Backward.svg");
+    this.load.image("crossBtn",     "assets/images/Interface/Cross.svg");
+  }
 
   create(){
 		main(this);

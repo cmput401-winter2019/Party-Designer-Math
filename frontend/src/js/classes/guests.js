@@ -11,7 +11,8 @@ export class Guest extends Phaser.GameObjects.Sprite{
 
     		this.scene.input.setDraggable(this);
 
-    		this.name         = name;
+        this.image        = image;
+    	this.name         = name;
         this.type         = "guest";
         this.customize    = false;
         this.angle        = 0;
@@ -88,6 +89,11 @@ export class Guest extends Phaser.GameObjects.Sprite{
         }
         this.customize = false;
     }
+    destroyButtons(){
+        for (var i=0; i< this.btnList.length; i++){
+            this.btnList[i].destroy();
+        }
+    }
 
     rotateGuest(){
         this.angle += 20;
@@ -109,7 +115,12 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.scaleY=this.scaleX;
     }
 
-    bringForward(){}
+    bringForward(){
+        this.newGuest = this.scene.add.existing(new Guest(this.scene, this.image, this.x, this.y, "Sammy"));
+        this.newGuest.showButtons();
+        this.destroyButtons();
+        this.destroy();
+    }
 
     bringBackward(){}
 
