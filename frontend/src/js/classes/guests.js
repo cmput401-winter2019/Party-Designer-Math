@@ -107,6 +107,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.rect.alpha=0;
     }
     destroyButtons(){
+        this.rect.destroy();
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].destroy();
         }
