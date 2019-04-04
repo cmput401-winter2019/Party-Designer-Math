@@ -224,10 +224,11 @@ export class GameScene extends Phaser.Scene{
 
   createBackground(background){
     this.whiteBackground = this.add.rectangle(0,
-                                              this.game.config.height,
-                                              this.game.config.width,
-                                              this.game.config.height/2,
-                                              0xffffff).setOrigin(0,0.5);
+                                              75,
+	                                            this.game.config.width,
+	                                            this.game.config.height,
+	                                            0xffffff).setOrigin(0,0);
+
     this.topMenuHeight  = 75;
     // Background
     this.background     = this.add.image(0, this.topMenuHeight, background);

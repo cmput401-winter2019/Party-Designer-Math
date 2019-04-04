@@ -23,7 +23,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.clicked      = false;
     this.loadedassets = [];
     this.currentPage  = 0;
-    this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/(this.btnHeight *3));
+    this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/(this.btnHeight *2+15));
     this.numItemLastPage = this.assets.length%this.numItemPerPage;
     this.numOfPages = Math.ceil(this.assets.length/this.numItemPerPage);
 
@@ -129,17 +129,17 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
         let asset1 = this.scene.add.image(offset,this.itemY,this.assets[i]).setOrigin(0,0.5);
         asset1.visible = false;
         asset1.displayWidth = this.btnHeight *2;
-        asset1.scaleY = asset1.scaleX;
-        if (asset1.displayHeight > this.btnHeight*4){
-          asset1.displayHeight = this.btnHeight*3;
-          asset1.scaleX = asset1.scaleY;
-        }
+	      asset1.scaleY = asset1.scaleX;
+	      if (asset1.displayHeight > this.btnHeight*4){
+	        asset1.displayHeight = this.btnHeight*3;
+	        asset1.scaleX = asset1.scaleY;
+	      }
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
             this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player, credit_text: this.credit_text, progressBar: this.progressBar});
         });
-        offset += this.btnHeight *3;
+        offset+=asset1.displayWidth+4;
         this.loadedassets.push(asset1);
       }
       page++;
