@@ -68,7 +68,7 @@ export class ChooseTheme extends Phaser.Scene {
     flipLeft(){
         this.hideCurrentPage();
     }
-    
+
     showCurrentPage(){
         var min = this.themesInPage;
         if (this.currentPage+1==this.numOfPages && this.themesInLastPage!=0){
