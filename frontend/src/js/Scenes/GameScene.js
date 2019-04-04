@@ -52,7 +52,6 @@ async function main(context, theme) {
 	}
 	else {
     for (const i of data) {
-
       currentContext.itemsList.push(i.itemName);
       currentContext.itemAmounts.push(i.itemAmount);
     }
@@ -85,6 +84,20 @@ async function main(context, theme) {
                             inShopList    : currentContext.itemAmounts,
                             itemList      : currentContext.itemsList});
 
+	var pt_url = "http://127.0.0.1:5001/"+currentContext.player.id+"/getplaythrough";
+	GetPlaythrough(pt_url).then(data => {
+		//console.log(data)
+		if(data.length == 0){
+			var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
+			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
+			})
+		}
+	})
+
+	GetPlaythrough(pt_url).then(data => {
+		currentContext.player.setPlaythroughId(data[0].id);
+	})
+
 
   // Level indicator
   var indicatorX = currentContext.game.config.width*0.45;
@@ -92,7 +105,32 @@ async function main(context, theme) {
 
   // Initiate progress bar
   currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
-  currentContext.progressBar.setPercent(0);
+  // currentContext.progressBar.setPercent(0);
+
+	var q_url = "http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/question";
+	GetAllQuestionRequest(q_url).then(data => {
+		var stat_data = GetUserStat(data);
+		var addition_correct      = stat_data.add_cor;
+		var subtraction_correct   = stat_data.sub_cor;
+		var mult_correct          = stat_data.mul_cor;
+		var div_correct           = stat_data.div_cor;
+		var mixed_correct         = stat_data.mix_cor;
+
+		var add_count = 0;
+		var sub_count = 0;
+		var mul_count = 0;
+		var div_count = 0;
+		var mix_count = 0;
+
+		for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
+		for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
+		for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
+		for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
+		for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
+		var total_count = add_count + sub_count + mul_count + div_count + mix_count;
+
+		currentContext.progressBar.setPercent(total_count / 20);
+	})
 
   // Show credits
   currentContext.showCredits();
@@ -115,63 +153,24 @@ async function main(context, theme) {
                                 150,
                                 50);
 
-  currentContext.levelUpBtn.rect.on("pointerdown", ()=>{
-    currentContext.get_request("http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/question").then(data => {
-        //console.log(data);
-        var addition_correct      = [];
-        var addition_wrong        = [];
-        var subtraction_correct   = [];
-        var subtraction_wrong     = [];
-        var mult_correct          = [];
-        var mult_wrong            = [];
-        var div_correct           = [];
-        var div_wrong             = [];
-        var mixed_correct           = [];
-        var mixed_wrong             = [];
+	currentContext.levelUpBtn.rect.on("pointerdown", ()=>{
+    var url = "http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/question";
+    GetAllQuestionRequest(url).then(data => {
 
-        for(var i=0; i<data.length; i++){
-          if(data[i].arithmeticType == "addition"){
-            if(data[i].correct == true){
-              addition_correct.push(data[i]);
-            }else if(data[i].correct == false || data[i].correct == null){
-              addition_wrong.push(data[i]);
-            }
-          }
+        var stat_data = GetUserStat(data);
 
-          if(data[i].arithmeticType == "subtraction"){
-            if(data[i].correct == true){
-              subtraction_correct.push(data[i]);
-            }else if(data[i].correct == false || data[i].correct == null){
-              subtraction_wrong.push(data[i]);
-            }
-          }
+        var addition_correct      = stat_data.add_cor;
+        var addition_wrong        = stat_data.add_wrn;
+        var subtraction_correct   = stat_data.sub_cor;
+        var subtraction_wrong     = stat_data.sub_wrn;
+        var mult_correct          = stat_data.mul_cor;
+        var mult_wrong            = stat_data.mul_wrn;
+        var div_correct           = stat_data.div_cor;
+        var div_wrong             = stat_data.div_wrn;
+        var mixed_correct         = stat_data.mix_cor;
+        var mixed_wrong           = stat_data.mix_wrn;
 
-          if(data[i].arithmeticType == "multiplication"){
-            if(data[i].correct == true){
-              mult_correct.push(data[i]);
-            }else if(data[i].correct == false || data[i].correct == null){
-              mult_wrong.push(data[i]);
-            }
-          }
-
-          if(data[i].arithmeticType == "divison"){
-            if(data[i].correct == true){
-              div_correct.push(data[i]);
-            }else if(data[i].correct == false || data[i].correct == null){
-              div_wrong.push(data[i]);
-            }
-          }
-
-          if(data[i].arithmeticType == "mixed"){
-            if(data[i].correct == true){
-              mixed_correct.push(data[i]);
-            }else if(data[i].correct == false || data[i].correct == null){
-              mixed_wrong.push(data[i]);
-            }
-          }
-        }
-
-        if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
+        if(addition_correct.length >= 4 && subtraction_correct.length >= 4 && mult_correct.length >= 4 && div_correct.length >= 4 && mixed_correct.length >= 4){
           currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
                                                   add_correct: addition_correct,
                                                   add_wrong  : addition_wrong,
@@ -186,9 +185,9 @@ async function main(context, theme) {
         }else{
           alert("Shopping List is not Complete\n\n Please check Shopping List");
         }
-
     })
   });
+
 }
 
 export class GameScene extends Phaser.Scene{
@@ -209,150 +208,7 @@ export class GameScene extends Phaser.Scene{
   preload(){}
 
   create(){
-
-    this.formUtil     = new FormUtil({scene : this,
-                                  rows  : 5,
-                                  cols  : 11});
-    // this.formUtil.showNumbers();
-
-    // Initiate ImageToProperites class
-    this.imageToProp  = new ImageToProperties();
-
-    // --------- Should only be created if player is new to current level/session -------
-    // Generate new random numbers
-    this.numbers      = RandomNumber();
-
-    // Create new Shooping list
-    this.all_assets   = CreateShoppingList(this.furnitures, this.food, this.deco, this.kiddie);
-    //
-
-    this.username     = localStorage.getItem("username");
-    this.id           = localStorage.getItem("id");
-    this.money        = 1000;
-
-    this.player = new User({  username      : this.username,
-                              id            : this.id,
-                              gamestateId   : this.gamestate.id,
-                              money         : this.gamestate.money,
-                              guestNumber   : this.gamestate.numOfGuests,
-                              currentLevel  : 1,
-                              backpack      : {}, //{"Chair":1, "Sofa":2},
-                              credits       : 100,
-                              itemsOnSceen  : {}, //{"Chair":2, "cherries":3},
-                              inShopList    : this.numbers,
-                              itemList      : this.all_assets});
-
-
-		// var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
-		// PostPlayThroughRequest(this.player.level, this.player.id, playthrough_url).then(data => {
-		// 	if(data.status == 200){
-		// 			console.log("DONEODONEONEO");
-		//
-		// 	}
-		// })
-
-		var pt_url = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
-		GetPlaythrough(pt_url).then(data => {
-			//console.log(data)
-			if(data.length == 0){
-				var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
-				PostPlayThroughRequest(this.player.level, this.player.id, playthrough_url).then(data => {
-				})
-			}
-		})
-
-		GetPlaythrough(pt_url).then(data => {
-			this.player.setPlaythroughId(data[0].id);
-		})
-
-    // Level indicator
-    var indicatorX      = this.game.config.width*0.45;
-    this.levelIndicator = new LevelIndicator({scene:this, text:this.player.level, x:indicatorX, y:30});
-
-    // Initiate progress bar
-    this.progressBar    = new ProgressBar({scene:this, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
-
-		var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
-		GetAllQuestionRequest(q_url).then(data => {
-			var stat_data = GetUserStat(data);
-			var addition_correct      = stat_data.add_cor;
-			var subtraction_correct   = stat_data.sub_cor;
-			var mult_correct          = stat_data.mul_cor;
-			var div_correct           = stat_data.div_cor;
-			var mixed_correct         = stat_data.mix_cor;
-
-			var add_count = 0;
-			var sub_count = 0;
-			var mul_count = 0;
-			var div_count = 0;
-			var mix_count = 0;
-
-			for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
-			for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
-			for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
-			for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
-			for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
-			var total_count = add_count + sub_count + mul_count + div_count + mix_count;
-
-			this.progressBar.setPercent(total_count / 20);
-		})
-
-
-    // Show credits
-    this.showCredits();
-
-    // Call scene functions
-    this.updateProgressBar();
-    this.createBackground(this.background);
-    this.createGuests(this.guests, this.player.guestNumber);
-
-    this.loadItemsToScreen(this.player.screenItems, "load");
-    this.createDragLogics();
-    this.createTopMenuButtons();
-    this.createBottomButtons();
-
-    // Level up button
-    this.levelUpBtn = new RoundBtn(this,
-                                  this.game.config.width-(this.game.config.width*0.05+400),
-                                  75/2,
-                                  "START THE PARTY",
-                                  150,
-                                  50);
-
-    this.levelUpBtn.rect.on("pointerdown", ()=>{
-      var url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
-      GetAllQuestionRequest(url).then(data => {
-
-          var stat_data = GetUserStat(data);
-
-          var addition_correct      = stat_data.add_cor;
-          var addition_wrong        = stat_data.add_wrn;
-          var subtraction_correct   = stat_data.sub_cor;
-          var subtraction_wrong     = stat_data.sub_wrn;
-          var mult_correct          = stat_data.mul_cor;
-          var mult_wrong            = stat_data.mul_wrn;
-          var div_correct           = stat_data.div_cor;
-          var div_wrong             = stat_data.div_wrn;
-          var mixed_correct         = stat_data.mix_cor;
-          var mixed_wrong           = stat_data.mix_wrn;
-
-          if(addition_correct.length >= 4 && subtraction_correct.length >= 4 && mult_correct.length >= 4 && div_correct.length >= 4 && mixed_correct.length >= 4){
-            this.scene.start(CST.SCENES.LEVEL_UP, { player:this.player,
-                                                    add_correct: addition_correct,
-                                                    add_wrong  : addition_wrong,
-                                                    sub_correct: subtraction_correct,
-                                                    sub_wrong  : subtraction_wrong,
-                                                    mult_correct: mult_correct,
-                                                    mult_wrong  : mult_wrong,
-                                                    div_correct : div_correct,
-                                                    div_wrong   : div_wrong,
-                                                    mixed_correct: mixed_correct,
-                                                    mixed_wrong   : mixed_wrong});
-          }else{
-            alert("Shopping List is not Complete\n\n Please check Shopping List");
-          }
-      })
-    });
+		main(this);
   }
 
   showCredits(){
