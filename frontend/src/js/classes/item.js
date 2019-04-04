@@ -25,6 +25,10 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         this.displayWidth = this.scene.game.config.width*0.07;
         this.scaleY       = this.scaleX;
+        if (this.displayHeight > this.scene.background.displayHeight*0.5){
+            this.displayHeight = this.scene.background.displayHeight*0.5;
+            this.scaleX = this.scaleY;
+        }
 
         // ---- Item buttons -----
         this.crossBtn = this.scene.add.image(0,0, 'crossBtn');

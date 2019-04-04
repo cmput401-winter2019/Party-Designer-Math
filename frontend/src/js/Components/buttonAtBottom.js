@@ -23,7 +23,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.clicked      = false;
     this.loadedassets = [];
     this.currentPage  = 0;
-    this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/100);
+    this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/(this.btnHeight *3));
     this.numItemLastPage = this.assets.length%this.numItemPerPage;
     this.numOfPages = Math.ceil(this.assets.length/this.numItemPerPage);
 
@@ -116,7 +116,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     // Set images associated with the button
     var page=0;
     while(page<this.numOfPages){
-      var offset=100;
+      var offset=this.btnWidth*1.25+25;
       var min = this.numItemPerPage;
       if (page+1==this.numOfPages && this.numItemLastPage!=0){
         min = this.numItemLastPage;
@@ -126,16 +126,20 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
       //console.log("Min",min);
       for(var i=page*this.numItemPerPage; i<page*this.numItemPerPage+min; i++){
         //console.log(i);
-        let asset1 = this.scene.add.image(this.btnWidth+offset,this.itemY,this.assets[i]).setOrigin(0,0.5);
+        let asset1 = this.scene.add.image(offset,this.itemY,this.assets[i]).setOrigin(0,0.5);
         asset1.visible = false;
-        asset1.displayWidth = 40;
+        asset1.displayWidth = this.btnHeight *2;
         asset1.scaleY = asset1.scaleX;
+        if (asset1.displayHeight > this.btnHeight*4){
+          asset1.displayHeight = this.btnHeight*3;
+          asset1.scaleX = asset1.scaleY;
+        }
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
             this.scene.scene.launch(CST.SCENES.BUY_POPUP, {objName: asset1.name, originalS:this.scene, player:this.player, credit_text: this.credit_text, progressBar: this.progressBar});
         });
-        offset+=100;
+        offset += this.btnHeight *3;
         this.loadedassets.push(asset1);
       }
       page++;
