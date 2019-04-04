@@ -52,6 +52,17 @@ export class PartyInvitation extends Phaser.Scene {
         this.imageChoice = data.theme;
         console.log(this.gamestate);
         console.log(this.imageChoice);
+
+        if(this.imageChoice == "theme1"){
+          this.firstColor = 0x0e4361;
+          this.secondColor = 0x53d7d3;
+        } else if (this.imageChoice == "theme2"){
+          this.firstColor = 0x026633;
+          this.secondColor = 0xaebc4a;
+        } else if (this.imageChoice == "theme3"){
+          this.firstColor = 0xb7873e;
+          this.secondColor = 0xf7ce7a;
+        }
     }
     preload()
     {
