@@ -53,6 +53,7 @@ export class User{
     get username()          { return this._uName;             }
     get id()                { return this._id;                }
     get money()             { return this._money;             }
+    get gs_id()             { return this._gamestateId        }
     get guestNumber()       { return this._guestNumber;       }
     get level()             { return this._level;             }
     get credits()           { return this._credits;           }
