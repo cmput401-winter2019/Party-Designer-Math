@@ -3,7 +3,7 @@ import { Item               } from "../classes/item";
 import { User               } from "../classes/user";
 import { FormUtil           } from "../util/formUtil";
 import { CST                } from "../CST";
-import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest } from "../Components/scripts";
+import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough } from "../Components/scripts";
 import { GetUserStat } from "../Components/getUserStat";
 
 export class Question extends Phaser.GameObjects.Container{
@@ -159,6 +159,16 @@ export class Question extends Phaser.GameObjects.Container{
             this.credit_text.setText(this.player.money);
             this.checkCreateObject();
 
+            const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
+            const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+
+            GetPlaythrough(ptid_url).then(data => {
+        			console.log(data[0].id);
+              PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {
+                console.log("FSNAJKF");
+              })
+        		})
+
             alert("Correct!");
 
             var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
@@ -187,6 +197,16 @@ export class Question extends Phaser.GameObjects.Container{
             })
           }else{
 
+            const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
+            const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+
+            GetPlaythrough(ptid_url).then(data => {
+        			console.log(data[0].id);
+              PostQuestionHistory(this.question, ret, this.type, false, data[0].id, pt_url).then(data => {
+                console.log("FSNAJKF");
+              })
+        		})
+
             if(this.api_type      == "furniture") { this.player.decrease_furniture();}
             else if(this.api_type == "deco")      { this.player.decrease_deco();}
             else if(this.api_type == "food")      { this.player.decrease_food();}
@@ -201,6 +221,16 @@ export class Question extends Phaser.GameObjects.Container{
     }
 
     cancelForm() {
+        const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
+        const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+
+        GetPlaythrough(ptid_url).then(data => {
+          console.log(data[0].id);
+          PostQuestionHistory(this.question, null, this.type, false, data[0].id, pt_url).then(data => {
+            console.log("FSNAJKF");
+          })
+        })
+
         if(this.api_type      == "furniture")    { this.player.decrease_furniture(); }
         else if(this.api_type == "deco")    { this.player.decrease_deco(); }
         else if(this.api_type == "food")    { this.player.decrease_food(); }

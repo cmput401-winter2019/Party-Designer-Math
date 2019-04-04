@@ -6,6 +6,7 @@ from models import Student, GameState, BagItem, CanvasItem, Question, RevokedTok
 import os, sys
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
+from sqlalchemy.sql import exists
 from sqlite3 import Connection as SQLite3Connection
 from questiongen import QuestionGenerator
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt
@@ -420,6 +421,29 @@ def get_canvasitems(id):
     result = canvasItemsSerializer.dump(canvasItems)
     return jsonify(result.data)
 
+@app.route("/createquestionhistory", methods=["POST"])
+def createquestionhistory():
+    try:
+        print("FNSJAFNASJK", file=sys.stderr)
+        question            = request.json['question']
+        answer              = request.json['answer']
+        arithmeticType      = request.json['arithmeticType']
+        correct             = request.json['correct']
+        playthroughid       = request.json['playthroughId']
+        print(playthroughid, file=sys.stderr)
+
+        newquestionhistory = QuestionHistory(question,answer,arithmeticType,correct,playthroughid)
+
+        db.session.add(newquestionhistory)
+        db.session.commit()
+
+        return jsonify(message="questionhistory created"), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify(message="Something went wrong"), 403
+
+
 # endpoint to create question for game state
 @app.route("/<id>/question", methods=["POST"])
 @jwt_required
@@ -468,7 +492,7 @@ def check_answer_question(id):
         get_question = request.json['question']
         question = Question.query.filter(Question.question == get_question).first()
         #question = Question.query.filter(Question.gameStateId == id).first()
-        print((answer,question.answer, question.question), file=sys.stderr)
+        # print((answer,question.answer, question.question), file=sys.stderr)
         if (answer != question.answer):
             question.correct = False
             db.session.commit()
@@ -500,7 +524,6 @@ def get_stats(classcode):
         studentcorrectdict = {"addition": 0, "subtraction": 0, "multiplication": 0, "division": 0, "mixed": 0}
         studentratedict = {"addition": 0, "subtraction": 0, "multiplication": 0, "division": 0, "mixed": 0}
         for playthrough in playthroughlist:
-            print(playthrough)
             #For each playthrough find the questions assocaited with the playthrough id
             questionlist = QuestionHistory.query.filter(QuestionHistory.playthroughId == playthrough.id)
 
@@ -540,19 +563,10 @@ def get_stats(classcode):
             # studentratedict["division"] = studentcorrectdict["division"] / arithtotaldict["division"]
             # studentratedict["mixed"] = studentcorrectdict["mixed"] / arithtotaldict["mixed"]
 
-
             studentdict["username"] = each.username
             studentdict["fullname"] = each.firstName + each.lastName
             studentdict["stats"] = studentratedict
-
-
-
     return jsonify(studentdict)
-
-
-
-
-
 
 @app.route("/createstudent", methods=["POST"])
 def createstudent():
@@ -583,17 +597,13 @@ def createstudent():
         return jsonify(message="Something went wrong"), 403
 
 
-
-
 @app.route("/createplaythrough", methods=["POST"])
 def createplaythrough():
     try:
         level = request.json['level']
         studentid = request.json['studentId']
 
-
         newplaythrough = Playthrough(level,studentid)
-
 
         db.session.add(newplaythrough)
         db.session.commit()
@@ -604,36 +614,19 @@ def createplaythrough():
         print(e)
         return jsonify(message="Something went wrong"), 403
 
-
-
-@app.route("/createquestionhistory", methods=["POST"])
-def createquestionhistory():
-    try:
-        question = request.json['question']
-        answer = request.json['answer']
-        arithmeticType = request.json['arithmeticType']
-        correct = request.json['correct']
-        playthroughid = request.json['playthroughId']
-
-        newquestionhistory = QuestionHistory(question,answer,arithmeticType,correct,playthroughid)
-
-
-        db.session.add(newquestionhistory)
-        db.session.commit()
-
-        return jsonify(message="questionhistory created"), 200
-
-    except Exception as e:
-        print(e)
-        return jsonify(message="Something went wrong"), 403
-
-
-
-
-@app.route("/getplaythrough", methods=["GET"])
+@app.route("/getAllPlaythrough", methods=["GET"])
 #@jwt_required
-def get_playthrough():
+def get_AllPlaythrough():
     playthrough = Playthrough.query.all()
+    result = playthroughsSerializer.dump(playthrough)
+    return jsonify(result.data)
+
+@app.route("/<id>/getplaythrough", methods=["GET"])
+@jwt_required
+def get_playthrough(id):
+
+    playthrough = Playthrough.query.filter(Playthrough.studentId == id).all()
+
     result = playthroughsSerializer.dump(playthrough)
     return jsonify(result.data)
 
@@ -644,6 +637,7 @@ def get_questionhistory():
     questionhistory= QuestionHistory.query.all()
     result = questionsHistorySerializer.dump(questionhistory)
     return jsonify(result.data)
+
 ############################################################################################
 if __name__ == '__main__':
     if len(sys.argv) > 2:
