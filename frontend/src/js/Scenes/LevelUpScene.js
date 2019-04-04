@@ -1,6 +1,8 @@
 import { ProgressBar } from "../Components/progressBar";
 import {CST} from "../CST";
 import { RoundBtn } from "../Components/roundBtn";
+import { UpdatePlaythrough, DropQuestionRequest } from "../Components/scripts";
+import { User } from "../classes/user";
 
 export class LevelUpScene extends Phaser.Scene {
 
@@ -27,6 +29,12 @@ export class LevelUpScene extends Phaser.Scene {
     create(){
 
         this.player.increaseLevel();
+
+        const url = "http://127.0.0.1:5001/updateplaythrough";
+
+        UpdatePlaythrough(this.player.id, this.player.level, url).then(data => {
+          console.log(data);
+        })
 
         this.centerX=this.game.config.width/2;
         this.centerY=this.game.config.height/2;
@@ -79,6 +87,8 @@ export class LevelUpScene extends Phaser.Scene {
                 this.showOverallReport();
             }
             else {
+                const drop_url = "http://127.0.0.1:5001/dropquestion";
+                DropQuestionRequest(this.player.gs_id, drop_url).then(data => {})
                 this.scene.start(CST.SCENES.CHOOSE_THEME);
             }
 

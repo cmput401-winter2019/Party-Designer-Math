@@ -72,6 +72,8 @@ async function main(context, theme) {
   currentContext.id       = localStorage.getItem("id");
   currentContext.money    = 1000;
 
+	
+
   currentContext.player = new User({  username      : currentContext.username,
                             id            : currentContext.id,
                             gamestateId   : currentContext.gamestate.id,
@@ -91,11 +93,11 @@ async function main(context, theme) {
 			var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
 			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
 			})
+		}else{
+			GetPlaythrough(pt_url).then(data => {
+				currentContext.player.setPlaythroughId(data[0].id);
+			})
 		}
-	})
-
-	GetPlaythrough(pt_url).then(data => {
-		currentContext.player.setPlaythroughId(data[0].id);
 	})
 
 
@@ -172,15 +174,15 @@ async function main(context, theme) {
 
         if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
           currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
-                                                  add_correct: addition_correct,
-                                                  add_wrong  : addition_wrong,
-                                                  sub_correct: subtraction_correct,
-                                                  sub_wrong  : subtraction_wrong,
-                                                  mult_correct: mult_correct,
-                                                  mult_wrong  : mult_wrong,
-                                                  div_correct : div_correct,
-                                                  div_wrong   : div_wrong,
-                                                  mixed_correct: mixed_correct,
+                                                  add_correct		: addition_correct,
+                                                  add_wrong  		: addition_wrong,
+                                                  sub_correct		: subtraction_correct,
+                                                  sub_wrong  		: subtraction_wrong,
+                                                  mult_correct	: mult_correct,
+                                                  mult_wrong  	: mult_wrong,
+                                                  div_correct 	: div_correct,
+                                                  div_wrong   	: div_wrong,
+                                                  mixed_correct	: mixed_correct,
                                                   mixed_wrong   : mixed_wrong});
         }else{
           alert("Shopping List is not Complete\n\n Please check Shopping List");
