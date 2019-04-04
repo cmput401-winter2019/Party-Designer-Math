@@ -221,6 +221,12 @@ export class GameScene extends Phaser.Scene{
   updateProgressBar(){ this.progressBar.setPercent(this.player.checkProgress()); }
 
   createBackground(background){
+    this.whiteBackground = this.add.rectangle(0,
+	                                            75,
+	                                            this.game.config.width,
+	                                            this.game.config.height,
+	                                            0xffffff).setOrigin(0,0);
+
     this.topMenuHeight  = 75;
     // Background
     this.background     = this.add.image(0, this.topMenuHeight, background);
