@@ -1,5 +1,5 @@
 import { guestImages }                  from "../Components/assets";
-import { GetAllQuestionRequest }        from "../Components/scripts";
+import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough}        from "../Components/scripts";
 import { GetUserStat }                  from "../Components/getUserStat";
 import { RandomNumber }                 from "../Components/randint";
 import { CreateShoppingList }           from "../Components/createShoppingList";
@@ -209,6 +209,7 @@ export class GameScene extends Phaser.Scene{
   preload(){}
 
   create(){
+
     this.formUtil     = new FormUtil({scene : this,
                                   rows  : 5,
                                   cols  : 11});
@@ -241,6 +242,28 @@ export class GameScene extends Phaser.Scene{
                               inShopList    : this.numbers,
                               itemList      : this.all_assets});
 
+
+		// var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
+		// PostPlayThroughRequest(this.player.level, this.player.id, playthrough_url).then(data => {
+		// 	if(data.status == 200){
+		// 			console.log("DONEODONEONEO");
+		//
+		// 	}
+		// })
+
+		var pt_url = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+		GetPlaythrough(pt_url).then(data => {
+			//console.log(data)
+			if(data.length == 0){
+				var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
+				PostPlayThroughRequest(this.player.level, this.player.id, playthrough_url).then(data => {
+				})
+			}
+		})
+
+		GetPlaythrough(pt_url).then(data => {
+			this.player.setPlaythroughId(data[0].id);
+		})
 
     // Level indicator
     var indicatorX      = this.game.config.width*0.45;

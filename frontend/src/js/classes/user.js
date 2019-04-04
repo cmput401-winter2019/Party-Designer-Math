@@ -15,6 +15,7 @@ export class User{
         this._itemsInShopList   = data.itemList;
         this._shoppingList      = {};
         this._progress;
+        this._playthroughId;
 
         this._furniture_count   = 0;
         this._deco_count        = 0;
@@ -25,6 +26,8 @@ export class User{
                                  //     item name and number that needs to be bought
     }
 
+    setPlaythroughId(id) { this._playthroughId == id }
+    get playthroughid() { return this._playthroughId }
     get gamestateId() {return this._gamestateId};
 
     get furniture_count()   { return this._furniture_count; }
