@@ -1,5 +1,4 @@
-import { CST } from "../CST.js";
-// //import { ImageToProperties }            from "../classes/imageToProperties";
+import {CST} from "../CST.js";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
   constructor(config) {
@@ -23,7 +22,6 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.progressBar  = config.progressBar;
     this.clicked      = false;
     this.loadedassets = [];
-    this.loadedCosts  = [];
     this.currentPage  = 0;
     this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/(this.btnHeight *2.5));
     this.numItemLastPage = this.assets.length%this.numItemPerPage;
@@ -117,9 +115,6 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
     // Set images associated with the button
     var page=0;
-    // Image to Properties class declaration
-    // //this.imageToProp = new ImageToProperties();
-	  
     while(page<this.numOfPages){
       var offset=this.btnWidth*1.25+25;
       var min = this.numItemPerPage;
@@ -139,12 +134,6 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 	        asset1.displayHeight = this.btnHeight*2.5;
 	        asset1.scaleX = asset1.scaleY;
 	      }
-// //	      let assetText = this.scene.add.text(offset+asset1.displayWidth/2,this.scene.game.config.height-20, "$" + this.imageToProp.getProp(this.assets[i]).cost,
-// //                       { fontFamily  : "Muli",
-// //                        color       : "#000000",
-// //                        fontSize    : "20px" } ).setOrigin(0.5,0.5); 
-// //        assetText.visible = false;        
-// //        this.loadedCosts.push(assetText);
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
@@ -234,7 +223,6 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     for(index = 0; index < currentBtn.loadedassets.length; ++index) {
         currentBtn.loadedassets[index].visible = false;
         //console.log("turning invisible: " + this.scene.bottomBtn1.loadedassets[index].name);
-// //   currentBtn.loadedCosts[index].visible = false;
       }
   }
 
@@ -258,7 +246,6 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
     for(var index = currentBtn.currentPage*currentBtn.numItemPerPage; index < min+currentBtn.currentPage*currentBtn.numItemPerPage; index++) {
       currentBtn.loadedassets[index].visible = true;
-// //       currentBtn.loadedCosts[index].visible = true;
     }
   }
 
