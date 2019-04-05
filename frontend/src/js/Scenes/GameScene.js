@@ -253,7 +253,7 @@ export class GameScene extends Phaser.Scene{
   }
 
   loadItemsToScreen(itemDict, type){
-    console.log(itemDict, key);
+    // console.log(itemDict, key);
     var property;
     for(var key in itemDict){
       var cap = itemDict[key]

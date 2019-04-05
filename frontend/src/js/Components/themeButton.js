@@ -34,6 +34,7 @@ async function updateTheme(scene, theme) {
 		console.log("Something went wrong")
 	}
 	else {
+		console.log(data);
 		currentscene.start(CST.SCENES.PARTY_INVITATION, data);
 	}
 }
@@ -52,6 +53,7 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 		}
         super(config.scene);
 
+		console.log(config);
 		this.scene = config.scene;
 		this.image = config.key;
 

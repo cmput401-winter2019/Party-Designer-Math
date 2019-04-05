@@ -13,6 +13,64 @@ export class PreloaderScene extends Phaser.Scene{
   }
 
   preload(){
+
+    this.theme_loaded   = localStorage.getItem("theme_loaded");
+    this.one_loaded     = localStorage.getItem("one_loaded");
+    this.two_loaded     = localStorage.getItem("two_loaded");
+    this.three_loaded   = localStorage.getItem("three_loaded");
+
+    console.log(this.one_loaded);
+
+    if(this.imageChoice == "theme1"){
+      this.path       = "assets/images/Spaceroom/";
+      this.furnitures = spaceFurnitures;
+      this.food       = spaceFood;
+      this.deco       = spaceDeco;
+      this.kiddie     = spaceKiddie;
+      this.guestImages= spaceroom_guestImages;
+
+      this.firstColor = 0x0e4361;
+      this.secondColor = 0x53d7d3;
+      if(this.one_loaded == "true"){
+        var username = localStorage.getItem("username");
+        this.get_current_student(username);
+      }else{
+        localStorage.setItem("one_loaded", true);
+      }
+    } else if (this.imageChoice == "theme2"){
+      this.path       = "assets/images/Playground/";
+      this.furnitures = playFurnitures;
+      this.food       = playFood;
+      this.deco       = playDeco;
+      this.kiddie     = playKiddie;
+      this.guestImages= playground_guestImages;
+
+      this.firstColor = 0x026633;
+      this.secondColor = 0xaebc4a;
+      if(this.two_loaded == "true"){
+        var username = localStorage.getItem("username");
+        this.get_current_student(username);
+      }else{
+        localStorage.setItem("two_loaded", true);
+      }
+    } else if (this.imageChoice == "theme3"){
+      this.path       = "assets/images/Beach/";
+      this.furnitures = beachFurnitures;
+      this.food       = beachFood;
+      this.deco       = beachDeco;
+      this.kiddie     = beachKiddie;
+      this.guestImages= beach_guestImages;
+
+      this.firstColor = 0xb7873e;
+      this.secondColor = 0xf7ce7a;
+      if(this.three_loaded == "true"){
+        var username = localStorage.getItem("username");
+        this.get_current_student(username);
+      }else{
+        localStorage.setItem("three_loaded", true);
+      }
+    }
+
     var progressBar = this.add.graphics();
     var progressBox = this.add.graphics();
 
@@ -46,26 +104,23 @@ export class PreloaderScene extends Phaser.Scene{
     });
     assetText.setOrigin(0.5, 0.5);
 
-    console.log("ASFSAFASF");
-
-
     this.load.on("progress", function(value){
-      percentText.setText(parseInt(value * 100) + "%");
-      progressBar.clear();
-      progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 300);
+      // percentText.setText(parseInt(value * 100) + "%");
+      // progressBar.clear();
+      // progressBar.fillStyle(0xffffff, 1);
+      // progressBar.fillRect(250, 280, 300 * value, 300);
     });
 
     this.load.on("fileprogress", function(file){
-      assetText.setText("Loading asset: " + file.key);
+      // assetText.setText("Loading asset: " + file.key);
     });
 
     this.load.on("complete", function(){
-      progressBar.destroy();
-      progressBox.destroy();
-      loadingText.destroy();
-      percentText.destroy();
-      assetText.destroy();
+      // progressBar.destroy();
+      // progressBox.destroy();
+      // loadingText.destroy();
+      // percentText.destroy();
+      // assetText.destroy();
       this.ready();
     }.bind(this));
 
@@ -112,42 +167,9 @@ export class PreloaderScene extends Phaser.Scene{
     for(var i=0; i<interfaceBtns.length; i++){
       this.load.image(interfaceBtns[i],    "assets/images/Interface/"+interfaceBtns[i]+".svg");
     }
-
     // Path
-    if(this.imageChoice == "theme1"){
-      this.path       = "assets/images/Spaceroom/";
-      this.furnitures = spaceFurnitures;
-      this.food       = spaceFood;
-      this.deco       = spaceDeco;
-      this.kiddie     = spaceKiddie;
-      this.guestImages= spaceroom_guestImages;
-
-      this.firstColor = 0x0e4361;
-      this.secondColor = 0x53d7d3;
-    } else if (this.imageChoice == "theme2"){
-      this.path       = "assets/images/Playground/";
-      this.furnitures = playFurnitures;
-      this.food       = playFood;
-      this.deco       = playDeco;
-      this.kiddie     = playKiddie;
-      this.guestImages= playground_guestImages;
-
-      this.firstColor = 0x026633;
-      this.secondColor = 0xaebc4a;
-    } else if (this.imageChoice == "theme3"){
-      this.path       = "assets/images/Beach/";
-      this.furnitures = beachFurnitures;
-      this.food       = beachFood;
-      this.deco       = beachDeco;
-      this.kiddie     = beachKiddie;
-      this.guestImages= beach_guestImages;
-
-      this.firstColor = 0xb7873e;
-      this.secondColor = 0xf7ce7a;
-    }
 
     // Guests
-
     for(var i=0; i<this.guestImages.length; i++){
        this.load.image(this.guestImages[i], this.path+"Characters/"+this.guestImages[i]+".svg");
     }

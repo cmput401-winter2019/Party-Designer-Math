@@ -22,6 +22,11 @@ async function main(scene) {
   //Set the scene context
   const currentscene = scene;
 
+  localStorage.setItem("theme_loaded" , false);
+  localStorage.setItem("one_loaded"   , false);
+  localStorage.setItem("two_loaded"   , false);
+  localStorage.setItem("three_loaded" , false);
+
   //Generate or get gamestate
   const response = await get("http://127.0.0.1:5001/gamestate");
   const data = await response.json();
