@@ -514,10 +514,13 @@ def get_stats(classcode):
 
 
     studentslist = Student.query.filter(Student.classCode == classcode)
-    studentdict = {}
+    allstudents = []
     # list of student objects with the classcode
 
     for each in studentslist:
+        studentdict = {}
+        studentdict["username"] = each.username
+        studentdict["fullname"] = each.firstName + " " + each.lastName
 
         #for each student object find the playthroughs associated with the student id
         playthroughlist = Playthrough.query.filter(Playthrough.studentId == each.id)
@@ -564,10 +567,10 @@ def get_stats(classcode):
             # studentratedict["division"] = studentcorrectdict["division"] / arithtotaldict["division"]
             # studentratedict["mixed"] = studentcorrectdict["mixed"] / arithtotaldict["mixed"]
 
-            studentdict["username"] = each.username
-            studentdict["fullname"] = each.firstName + each.lastName
-            studentdict["stats"] = studentratedict
-    return jsonify(studentdict)
+            
+        studentdict["stats"] = studentratedict
+        allstudents.append(studentdict)
+    return jsonify(allstudents), 200
 
 @app.route("/createstudent", methods=["POST"])
 def createstudent():
