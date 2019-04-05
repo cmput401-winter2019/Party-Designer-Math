@@ -25,7 +25,7 @@ def addition(itemCost, itemUnit, itemPlurName, addcap, itemName):
     elif(randQNum == 3):
         randInt1 = randint(2, addcap)                                          # This question allows decimal cost calculation
         q = ("One {} costs {} dollars. One bookmark costs {} dollars.\n"
-            "If Bob bought one of each how much money did he spent in total?" ).format(itemName, str(itemCost), randInt1+itemCost)
+            "If Bob bought one of each how much money did he spend in total?" ).format(itemName, str(itemCost), randInt1+itemCost)
 
         answer = randInt1+itemCost + itemCost
 
