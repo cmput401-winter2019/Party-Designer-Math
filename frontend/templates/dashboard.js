@@ -8,15 +8,15 @@ async function get(endpoint) {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + localStorage.getItem("access_token")
     };
-  
+
     const request = {
       method: "GET",
       mode: "cors",
       headers: headers
     };
-  
+
     const response = await fetch(endpoint, request);
-  
+
     return response;
 }
 
@@ -25,19 +25,19 @@ async function post(endpoint, body) {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + localStorage.getItem("access_token")
     };
-  
+
     const request = {
       method: "POST",
       mode: "cors",
       headers: headers,
       body: JSON.stringify(body)
     };
-  
+
     const response = await fetch(endpoint, request);
-  
+
     return response;
 }
-  
+
 async function main() {
     const teacherresponse = await get("http://127.0.0.1:5001/geteacherinfo");
     const teacherdata = await teacherresponse.json();
@@ -57,7 +57,7 @@ async function main() {
         };
         const logoutresponse = await post("http://127.0.0.1:5001/logout", body);
         const logoutdata = await logoutresponse.json();
-        console.log(logoutdata);
+        
     });
 
     const response = await get("http://127.0.0.1:5001/" + teacherdata.classCode + "/stats");

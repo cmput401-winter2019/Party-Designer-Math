@@ -151,8 +151,6 @@ async function main(context, theme) {
 
 			        var stat_data = GetUserStat(data);
 
-
-
 			        var addition_correct      = stat_data.add_cor;
 			        var addition_wrong        = stat_data.add_wrn;
 			        var subtraction_correct   = stat_data.sub_cor;
