@@ -78,7 +78,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.input_text.style.display           = "initial";
         document.getElementById("myText").value = '';
 
-        const url  = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+        const url  = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
         PostQuestionRequest(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
 
             console.log(question);
@@ -143,6 +143,12 @@ export class Question extends Phaser.GameObjects.Container{
     sendForm() {
         var ret = document.getElementById("myText").value;
 
+        var letterNumber = /^[a-zA-Z]+$/;
+        if(ret.match(letterNumber)){
+          alert("Please Enter a Number");
+          ret.value = document.getElementById("myText".value);
+        }
+
         if(ret == ""){
           if(this.api_type      == "furniture") { this.player.decrease_furniture();}
           else if(this.api_type == "deco")      { this.player.decrease_deco();}
@@ -159,7 +165,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.cancel_button.style.display  = "none";
         this.input_text.style.display     = "none";
 
-        const check_url  = "http://127.0.0.1:5001/"+ this.game_id + "/question";
+        const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
           console.log(answer.message);
 
@@ -171,8 +177,8 @@ export class Question extends Phaser.GameObjects.Container{
             this.credit_text.setText(this.player.money);
             this.checkCreateObject();
 
-            const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
-            const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+            const pt_url    = "http://162.246.157.181/createquestionhistory";
+            const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
@@ -180,16 +186,16 @@ export class Question extends Phaser.GameObjects.Container{
 
             alert("Correct!");
 
-            var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+            var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
-              var shop_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/shoppinglist";
+              var shop_url = "http://162.246.157.181/"+ this.player.gamestateId + "/shoppinglist";
               var correct_count = 0;
               var attempt_count = 0;
               GetAllShoppingList(shop_url).then(ret => {
                 for(var i=0; i<ret.length; i++){
                   if(this.imageName == ret[i].itemName){
                     console.log(ret[i].itemName);
-                    var updateShop_url =  "http://127.0.0.1:5001/updateshoppinglist";
+                    var updateShop_url =  "http://162.246.157.181/updateshoppinglist";
                     UpdateShoppingList(ret[i].id, updateShop_url).then(data => {
                       console.log(data);
                     });
@@ -210,8 +216,8 @@ export class Question extends Phaser.GameObjects.Container{
               })
             })
           }else{
-            const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
-            const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+            const pt_url    = "http://162.246.157.181/createquestionhistory";
+            const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
         			console.log(data[0].id);
@@ -233,8 +239,8 @@ export class Question extends Phaser.GameObjects.Container{
     }
 
     cancelForm() {
-        const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
-        const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+        const pt_url    = "http://162.246.157.181/createquestionhistory";
+        const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
         GetPlaythrough(ptid_url).then(data => {
           console.log(data[0].id);

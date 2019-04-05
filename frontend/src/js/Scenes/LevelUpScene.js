@@ -32,7 +32,7 @@ export class LevelUpScene extends Phaser.Scene {
 
         this.player.increaseLevel();
 
-        const url = "http://127.0.0.1:5001/updateplaythrough";
+        const url = "http://162.246.157.181/updateplaythrough";
 
         UpdatePlaythrough(this.player.id, this.player.level, url).then(data => {
           console.log(data);
@@ -105,9 +105,9 @@ export class LevelUpScene extends Phaser.Scene {
                 this.goUp();
             }
             else {
-                const drop_url = "http://127.0.0.1:5001/dropquestion";
+                const drop_url = "http://162.246.157.181/dropquestion";
                 DropQuestionRequest(this.player.gs_id, drop_url).then(data => {})
-                const dropShopping_url = "http://127.0.0.1:5001/dropshoppinglist";
+                const dropShopping_url = "http://162.246.157.181/dropshoppinglist";
 
                 DropShoppingListRequest(this.player.gs_id, dropShopping_url).then(ret => {
                   console.log(ret);
@@ -119,9 +119,9 @@ export class LevelUpScene extends Phaser.Scene {
     }
     goUp(){
         this.tweens.add({targets: this.char1, duration: 450,
-                        x:this.char1.x, y:this.char1.y-10, 
+                        x:this.char1.x, y:this.char1.y-10,
                         onComplete:this.onCompleteHandler.bind(this),
-        }); 
+        });
     }
     onCompleteHandler(tween, targets, scope){
         this.char1.y = this.char1.y+10;
