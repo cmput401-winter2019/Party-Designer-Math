@@ -28,7 +28,7 @@ async function updateTheme(scene, theme) {
 		updateValue: currenttheme
 	};
 
-	const response = await put("http://127.0.0.1:5001/gamestate/update", body);
+	const response = await put("http://162.246.157.181/gamestate/update", body);
 	const data = await response.json();
 	if (!response.ok) {
 		console.log("Something went wrong")
