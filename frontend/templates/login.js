@@ -1,4 +1,3 @@
-import {User} from "../src/js/classes/user";
 
 window.onload = function login() {
     const Login = document.getElementById("login");
