@@ -52,6 +52,7 @@ async function main(context, theme) {
 	}
 	else {
     for (const i of data) {
+			console.log(i.itemName);
       currentContext.itemsList.push(i.itemName);
       currentContext.itemAmounts.push(i.itemAmount);
     }
