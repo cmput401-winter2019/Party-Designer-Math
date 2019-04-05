@@ -36,7 +36,7 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
 jwt = JWTManager(app)
-cors = CORS(app, resources={r"/*": {"origins": "https://cmput401-winter2019.github.io/Party-Designer-Math/"}})
+cors = CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:1234"}})
 
 # turn on foreign key constraints
 @event.listens_for(Engine, "connect")
@@ -306,6 +306,9 @@ def update_gamestate():
         elif(updateType == "invitation"):
             gamestate.designedInvitation = updateValue
             db.session.commit()
+        elif(updateType == "money"):
+            gamestate.money = updateValue
+            db.session.commit()
 
         result = gameStateSerializer.dump(gamestate)
         result.data["message"] = "Gamestate value updated"
@@ -537,7 +540,7 @@ def get_teacherinfo():
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
-        
+
 @app.route("/dropshoppinglist", methods=["PUT"])
 def drop_shoppinglist():
     try:
@@ -614,7 +617,7 @@ def get_stats(classcode):
             # studentratedict["division"] = studentcorrectdict["division"] / arithtotaldict["division"]
             # studentratedict["mixed"] = studentcorrectdict["mixed"] / arithtotaldict["mixed"]
 
-            
+
         studentdict["stats"] = studentratedict
         allstudents.append(studentdict)
     return jsonify(allstudents), 200
