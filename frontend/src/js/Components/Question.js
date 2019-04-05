@@ -90,7 +90,7 @@ export class Question extends Phaser.GameObjects.Container{
             this.question   = question.question;
             this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
 
-            this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.8, this.scene.game.config.height*0.4, 0xffffff);
+            this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.9, this.scene.game.config.height*0.6, 0xffffff);
 
             this.questionBackground.setOrigin(0.5,0.5);
             this.questionBackground.setStrokeStyle(1.5, 0x000000);
@@ -98,9 +98,9 @@ export class Question extends Phaser.GameObjects.Container{
             // Tranparent background
             this.transparent = this.scene.add.rectangle(0,
                                 0,
-                                this.scene.game.config.width*0.78,
-                                this.scene.game.config.height*0.38,
-                                0x3498DB);
+                                this.scene.game.config.width*0.22,
+                                50,
+                                0x3498DB).setOrigin(0.5,0.2);
             this.transparent.alpha = 0.3;
 
             this.questionText = this.scene.add.text(0, -100, this.question, this.textConfig);
@@ -163,10 +163,7 @@ export class Question extends Phaser.GameObjects.Container{
             const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
-        			console.log(data[0].id);
-              PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {
-                console.log("FSNAJKF");
-              })
+              PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
 
             alert("Correct!");
@@ -252,7 +249,7 @@ export class Question extends Phaser.GameObjects.Container{
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
             var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, "show");
-            
+
         }
 
         this.scene.originalS.updateProgressBar();

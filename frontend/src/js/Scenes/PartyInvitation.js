@@ -50,6 +50,7 @@ export class PartyInvitation extends Phaser.Scene {
         this.setDragLogic();
         this.gamestate = data;
         this.imageChoice = data.theme;
+        
         console.log(this.gamestate);
         console.log(this.imageChoice);
 
@@ -66,13 +67,19 @@ export class PartyInvitation extends Phaser.Scene {
     }
     preload()
     {
-      this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
-      this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
-      this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
-      this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
-      this.load.image("forwardBtn",     "assets/images/Interface/Forward.svg");
-      this.load.image("backwardBtn",     "assets/images/Interface/Backward.svg");
-      this.load.image("crossBtn", "assets/images/Interface/Cross.svg");
+      this.configButtons = ["RotateBtn", "RotateBtn2", "Right", "ScaleBtn", "ScaleSmaller", "Forward", "Backward", "Cross"];
+
+      for(var i=0; i<this.configButtons.length; i++){
+        this.load.image(this.configButtons[i], "assets/images/Interface/"+this.configButtons[i]+".svg");
+      }
+      // this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
+      // this.load.image("rotateBtn2",    "assets/images/Interface/RotateBtn2.svg");
+      // this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
+      // this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
+      // this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
+      // this.load.image("forwardBtn",     "assets/images/Interface/Forward.svg");
+      // this.load.image("backwardBtn",     "assets/images/Interface/Backward.svg");
+      // this.load.image("crossBtn", "assets/images/Interface/Cross.svg");
 
       if(this.imageChoice == "theme1"){
         this.pathToInvite = "assets/images/Invitations/spaceroom/";
@@ -88,13 +95,13 @@ export class PartyInvitation extends Phaser.Scene {
       // Load invitation page and sendButton of chosen theme
       this.inviteAssets = ["invite", "sendButton"];
       for (var i=0; i<this.inviteAssets.length; i++){
-         this.load.image(this.inviteAssets[i], this.pathToInvite+this.inviteAssets[i]+".png");
+         this.load.image(this.inviteAssets[i] + this.imageChoice, this.pathToInvite+this.inviteAssets[i]+".png");
       }
 
       // Load all stickers of chosen theme
       this.numOfStickers=13;
       for (var i=1; i<this.numOfStickers+1; i++){
-        this.load.image("sticker"+i, this.pathToStickers+"sticker"+i+".svg");
+        this.load.image("sticker"+i+ this.imageChoice, this.pathToStickers+"sticker"+i+".svg");
       }
 
 
@@ -122,8 +129,15 @@ export class PartyInvitation extends Phaser.Scene {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
     }
     setBackground(){
+      // Rectangle 
+      this.whiteBackground = this.add.rectangle(0,
+                                              75,
+	                                            this.game.config.width,
+	                                            this.game.config.height,
+	                                            0xffffff).setOrigin(0,0);
+
       // Set background Image
-      this.background = this.add.image(0, 75, "invite");
+      this.background = this.add.image(0, 75, "invite"+ this.imageChoice);
       this.background.setOrigin(0,0);
       this.background.displayWidth  = this.game.config.width;
       this.background.scaleY        = this.background.scaleX;
@@ -132,6 +146,7 @@ export class PartyInvitation extends Phaser.Scene {
         this.background.displayHeight = this.game.config.height - 75 - 130;
         this.background.displayWidth  = this.game.config.width;
       }
+
       // Set header
       this.header = this.add.rectangle(0,
                                         0,
@@ -142,7 +157,7 @@ export class PartyInvitation extends Phaser.Scene {
     }
     setSendButton(){
       // Set sendButton
-      this.sendButton = new ButtonAtMenu({scene:this, key: "sendButton", x:this.game.config.width*0.75, y: this.background.displayHeight});
+      this.sendButton = new ButtonAtMenu({scene:this, key: "sendButton"+ this.imageChoice, x:this.game.config.width*0.75, y: this.background.displayHeight});
       this.sendButton.on('pointerup', this.pressed, this);
     }
     showCurrentPage(){
@@ -239,7 +254,7 @@ export class PartyInvitation extends Phaser.Scene {
         }
         var position = 0;
         for(var i=page*this.numItemPerPage+1; i<page*this.numItemPerPage+min+1; i++){
-          this.item = this.add.existing(new Item(this, "sticker"+i, this.startX+position*this.background.displayWidth*0.8/this.numItemPerPage, this.itemY, "sticker"+i, "n/a", "n/a", "n/a", "n/a", "n/a"));
+          this.item = this.add.existing(new Item(this, "sticker"+i+ this.imageChoice, this.startX+position*this.background.displayWidth*0.8/this.numItemPerPage, this.itemY, "sticker"+i, "n/a", "n/a", "n/a", "n/a", "n/a"));
           this.item.displayWidth = this.itemWidth;
           this.item.scaleY = this.item.scaleX;
           this.item.alpha = 0;
@@ -271,6 +286,8 @@ export class PartyInvitation extends Phaser.Scene {
               // If object is dragged from outside of the room, create copy of the object in its original spot
               gameObject.inRoom = true;
               var obj = new Item(gameObject.scene, gameObject.imageName, gameObject.input.dragStartX, gameObject.input.dragStartY, gameObject.name, "n/a", "n/a", "n/a", "n/a", "n/a");
+              obj.displayWidth = gameObject.displayWidth;
+              obj.scaleY = obj.scaleX;
               // Replace sticker object with new sticker in the array
               var index = gameObject.scene.stickers.indexOf(gameObject);
               gameObject.scene.stickers[index] = obj;

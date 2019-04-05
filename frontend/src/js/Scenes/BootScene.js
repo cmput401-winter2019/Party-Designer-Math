@@ -42,7 +42,6 @@ async function main(scene) {
       console.log(data);
       currentscene.start(CST.SCENES.CHOOSE_THEME, data)
     }
-
     else {
       //this means you picked a theme but didnt design an invitation
       if (data["designedInvitation"] == false) {
