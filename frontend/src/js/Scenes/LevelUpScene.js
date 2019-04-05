@@ -24,8 +24,9 @@ export class LevelUpScene extends Phaser.Scene {
         this.mixed_wrong    = data.mixed_wrong;
     }
     preload(){
-        this.load.image("mountain",    "assets/images/Interface/mountain.png");
+        this.load.image("mountain",     "assets/images/Interface/mountain.png");
         this.load.image("char2",        "assets/images/Playground/Characters/playground_char2.svg");
+        this.load.image("love",         "assets/images/Invitations/playStickers/sticker1.svg");
     }
     create(){
 
@@ -90,6 +91,9 @@ export class LevelUpScene extends Phaser.Scene {
             else if (this.click==2){
                 this.hideOverallReport();
                 this.char1 = this.add.sprite(this.game.config.width/2,this.game.config.height/2+100,"char1");
+                this.love = this.add.image(this.char1.x, this.char1.y-80, "love");
+                this.love.displayWidth = 50;
+                this.love.scaleY = this.love.scaleX;
                 this.anims.create({
                     key: 'jump',
                     frames: [
