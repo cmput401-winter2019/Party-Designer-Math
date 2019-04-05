@@ -67,7 +67,7 @@ export class PartyInvitation extends Phaser.Scene {
     }
     preload()
     {
-      this.configButtons = ["RotateBtn", "RotateBtn2", "Right", "ScaleBtn", "ScaleSmaller", "Forward", "Backward"];
+      this.configButtons = ["RotateBtn", "RotateBtn2", "Right", "ScaleBtn", "ScaleSmaller", "Forward", "Backward", "Cross"];
 
       for(var i=0; i<this.configButtons.length; i++){
         this.load.image(this.configButtons[i], "assets/images/Interface/"+this.configButtons[i]+".svg");
