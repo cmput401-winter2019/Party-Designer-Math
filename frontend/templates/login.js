@@ -1,3 +1,4 @@
+
 window.onload = function login() {
     const Login = document.getElementById("login");
     Login.addEventListener('click', (e) => {
@@ -14,7 +15,7 @@ function post_request(username, password, loginType) {
         password: password,
         loginType: loginType
     };
-    return fetch("http://162.246.157.181/login", {
+    return fetch("https://162.246.157.181/login", {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
