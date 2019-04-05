@@ -163,6 +163,5 @@ def mixed(itemCost, itemUnit, itemPlurName, multcap, itemName, guestsNum):
                 "How much did you spend on the {} stickers in total (after the refund)?"
                 ).format(randInt1, itemName,randInt2, guestsNum, itemName)
 
-            answer = int((randInt1/guestsNum)*(guestsNum-1))
-
+            answer = ((randInt1*randInt2)/(guestsNum))*(guestsNum-1)
         return {"q": q, "ans": answer, "type": "mixed"}
