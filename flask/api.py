@@ -36,7 +36,7 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
 jwt = JWTManager(app)
-cors = CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:1234"}})
+cors = CORS(app, resources={r"/*": {"origins": "http://162.246.157.181"}})
 
 # turn on foreign key constraints
 @event.listens_for(Engine, "connect")
