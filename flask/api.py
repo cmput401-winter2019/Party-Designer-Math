@@ -335,11 +335,10 @@ def initialize_shoppinglist():
 
         elif (len(shoppingListItems) == 0):
             shoppingListGenerator = ShoppingListGenerator()
-            itemAmounts = shoppingListGenerator.generateAmounts()
             itemsList = shoppingListGenerator.generateItems(theme)
 
             for i in range(20):
-                shoppingListItem = ShoppingListItem(itemsList[i], itemAmounts[i], gamestateId)
+                shoppingListItem = ShoppingListItem(itemsList[i], gamestateId)
                 db.session.add(shoppingListItem)
                 db.session.commit()
 

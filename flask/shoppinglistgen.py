@@ -1,5 +1,7 @@
 import random
 
+# sources : https://stackoverflow.com/questions/6494508/how-do-you-pick-x-number-of-unique-numbers-from-a-list-in-python
+
 class ShoppingListGenerator():
     def __init__(self):
         self.assets = {
@@ -25,32 +27,18 @@ class ShoppingListGenerator():
             "kiddie": ["lifesaver", "hat", "sandles", "sunglasses", "juice", "beachBall", "bucket", "drum", "ukulele", "beachGadgetSet"],
             }
         }
-
-    def generateAmounts(self):
-        randomAmounts = []
-        for i in range(20):
-            randomNumber = random.randint(2, 9)
-            randomAmounts.append(randomNumber)
-        return randomAmounts
     
     def generateItems(self, theme):
-        generatedAssets = []
         themeAssets = self.assets[theme]
 
-        for i in range(5):
-            choice = random.choice(themeAssets["furniture"])
-            generatedAssets.append(choice)
+        furnitureSet = set(themeAssets["furniture"])
+        foodSet = set(themeAssets["food"])
+        decoSet = set(themeAssets["deco"])
+        kiddieSet = set(themeAssets["kiddie"])
         
-        for i in range(5):
-            choice = random.choice(themeAssets["food"])
-            generatedAssets.append(choice)
-        
-        for i in range(5):
-            choice = random.choice(themeAssets["deco"])
-            generatedAssets.append(choice)
+        furnitureChoices = random.sample(furnitureSet, 5)
+        foodChoices = random.sample(foodSet, 5)
+        decoChoices = random.sample(decoSet, 5)
+        kiddieChoices = random.sample(kiddieSet, 5)
 
-        for i in range(5):
-            choice = random.choice(themeAssets["kiddie"])
-            generatedAssets.append(choice)
-        
-        return generatedAssets
+        return furnitureChoices+foodChoices+decoChoices+kiddieChoices
