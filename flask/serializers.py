@@ -12,7 +12,7 @@ class GameStateSerializer(ma.Schema):
 
 class ShoppingListItemSerializer(ma.Schema):
     class Meta:
-        fields = ('id', 'itemName', 'itemAmount', 'completed', 'gameStateId')
+        fields = ('id', 'itemName', 'completed', 'gameStateId')
     
 class BagItemSerializer(ma.Schema):
     class Meta:

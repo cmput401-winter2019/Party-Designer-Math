@@ -44,6 +44,29 @@ export function GetGamestate(url) {
   });
 }
 
+export function GetAllShoppingList(url) {
+  return fetch(url, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("access_token"),
+    }
+  })
+  .then((response) => {
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
+
 export function GetPlaythrough(url) {
   return fetch(url, {
     method: "GET",
@@ -183,6 +206,61 @@ export function DropQuestionRequest(gs_id, url) {
   });
 }
 
+export function UpdateShoppingList(id, url) {
+  const body = {
+      id: id
+  };
+  return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+      }
+    })
+  .then((response) => {
+    console.log(response);
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
+
+export function DropShoppingListRequest(gs_id, url) {
+  const body = {
+      gs_id: gs_id
+  };
+  return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+      }
+    })
+  .then((response) => {
+    console.log(response);
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
 
 export function UpdatePlaythrough(studentid, level, url) {
   const body = {

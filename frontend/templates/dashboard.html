@@ -4,11 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="../templates/dashboard.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Local CSS -->
+    <link rel="stylesheet" type="text/css" href="dashboardstyle.css">
+
+    <!--   SOURCES
+        https://getbootstrap.com/
+        https://www.vecteezy.com/
+    -->
+
     <title>Teacher Dashboard</title>
 </head>
-
 <body>
-  <script src="../src/js/phaser.js"></script>
-  <script src="../templates/dashboard.js"></script>
+    <div id="content">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand">
+                <img src="untitled.svg" width="35" height="35" class="d-inline-block align-middle" alt="">
+                Teachers Dashboard
+            </a>
+            
+            <form class="form-inline">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" id="welcome"></a>
+                </li>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="logout">Log Out</button>
+            </form>
+        </nav>
+
+        <div class="students-table">
+            <table class="table" id="tableid">
+                <thead>
+                    <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Addition</th>
+                    <th scope="col">Subtraction</th>
+                    <th scope="col">Multiplication</th>
+                    <th scope="col">Addition</th>
+                    <th scope="col">Mixed</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
