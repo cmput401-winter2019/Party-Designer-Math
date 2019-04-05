@@ -22,6 +22,7 @@ function post_request(username, password, loginType) {
         credentials: "same-origin",
         body: JSON.stringify(body),
         headers: {
+          'Access-Control-Allow-Origin':'*',
           "Content-Type": "application/json",
         }
       })
