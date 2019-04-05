@@ -21,8 +21,13 @@ async function get(endpoint) {
 }
   
 async function main() {
-//Generate or get gamestate
-    const response = await get("http://127.0.0.1:5001/XQJ20/stats");
+    const teacherresponse = await get("http://127.0.0.1:5001/geteacherinfo");
+    const teacherdata = await teacherresponse.json();
+    if (!teacherresponse.ok) {
+        document.getElementById("content").style.display = "block";
+    }
+
+    const response = await get("http://127.0.0.1:5001/" + teacherdata.classCode + "/stats");
     const data = await response.json();
     if (!response.ok) {
         
