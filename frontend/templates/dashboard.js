@@ -19,18 +19,50 @@ async function get(endpoint) {
   
     return response;
 }
+
+async function post(endpoint, body) {
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("access_token")
+    };
+  
+    const request = {
+      method: "POST",
+      mode: "cors",
+      headers: headers,
+      body: JSON.stringify(body)
+    };
+  
+    const response = await fetch(endpoint, request);
+  
+    return response;
+}
   
 async function main() {
     const teacherresponse = await get("http://127.0.0.1:5001/geteacherinfo");
     const teacherdata = await teacherresponse.json();
-    if (!teacherresponse.ok) {
+    if (teacherresponse.ok) {
         document.getElementById("content").style.display = "block";
+        console.log("notAuthenticated")
     }
+
+    const welcomeText = document.getElementById("welcome");
+    welcomeText.innerText = "Welcome, " + teacherdata.teacherName + "!";
+
+    const Login = document.getElementById("logout");
+    Login.addEventListener('click', async (e) =>{
+        const body = {
+            access_token: localStorage.getItem("access_token"),
+            refresh_token: localStorage.getItem("refresh_token")
+        };
+        const logoutresponse = await post("http://127.0.0.1:5001/logout", body);
+        const logoutdata = await logoutresponse.json();
+        console.log(logoutdata);
+    });
 
     const response = await get("http://127.0.0.1:5001/" + teacherdata.classCode + "/stats");
     const data = await response.json();
     if (!response.ok) {
-        
         console.log("Something went wrong")
         console.log(data);
     }
