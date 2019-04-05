@@ -9,7 +9,7 @@ import { ButtonAtMenu }                 from "../Components/buttonAtMenu.js";
 import { ButtonAtBottom }               from "../Components/buttonAtBottom.js";
 import { CST }                          from "../CST.js";
 import { ProgressBar }                  from '../Components/progressBar.js';
-import { StartPartyBtn, RoundBtn }      from '../Components/roundBtn.js';
+import { RoundBtn }      from '../Components/roundBtn.js';
 import { FormUtil }                     from '../util/formUtil.js';
 import { LevelIndicator }               from '../Components/levelIndicator.js';
 
