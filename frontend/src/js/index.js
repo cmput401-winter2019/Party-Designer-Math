@@ -1,14 +1,14 @@
-import config                 from './Config/config'
+import config                 from './Config/config.js'
 import { BootScene }          from './Scenes/BootScene.js';
-import { ChooseTheme }        from './Scenes/ChooseTheme';
-import { PreloaderScene }     from './Scenes/PreloaderScene';
-import { LoginScene }         from './Scenes/LoginScene';
-import { GameScene }          from './Scenes/GameScene';
-import { PartyInvitation }    from "./Scenes/PartyInvitation";
-import { ShoppingInterface }  from "./Scenes/ShoppingInterface";
-import { BuyPopup }           from "./Scenes/BuyPopup";
-import { BagPopup }           from "./Scenes/BagPopup";
-import { LevelUpScene }       from "./Scenes/LevelUpScene";
+import { ChooseTheme }        from './Scenes/ChooseTheme.js';
+import { PreloaderScene }     from './Scenes/PreloaderScene.js';
+import { LoginScene }         from './Scenes/LoginScene.js';
+import { GameScene }          from './Scenes/GameScene.js';
+import { PartyInvitation }    from "./Scenes/PartyInvitation.js";
+import { ShoppingInterface }  from "./Scenes/ShoppingInterface.js";
+import { BuyPopup }           from "./Scenes/BuyPopup.js";
+import { BagPopup }           from "./Scenes/BagPopup.js";
+import { LevelUpScene }       from "./Scenes/LevelUpScene.js";
 
 
 class Game extends Phaser.Game{
