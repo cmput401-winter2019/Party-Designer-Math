@@ -8,5 +8,3 @@ FrontEnd
 https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates/login.html
 
 
-cc
-
