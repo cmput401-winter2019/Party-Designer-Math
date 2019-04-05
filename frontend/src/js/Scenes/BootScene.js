@@ -1,6 +1,7 @@
 import {CST} from "../CST.js";
 import "babel-core/polyfill";
 
+
 async function get(endpoint) {
   const headers = {
     "Content-Type": "application/json",
