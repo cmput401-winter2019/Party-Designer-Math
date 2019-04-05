@@ -36,12 +36,12 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
 jwt = JWTManager(app)
-cors = CORS(app, resources={r"/*": {"origins": "https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates"}})
+cors = CORS(app, resources={r"/*": {"origins": "https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates/"}})
 
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates');
+    res.setHeader('Access-Control-Allow-Origin', 'https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
