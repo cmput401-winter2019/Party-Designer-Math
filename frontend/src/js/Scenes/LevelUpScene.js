@@ -92,7 +92,6 @@ export class LevelUpScene extends Phaser.Scene {
 
                 this.scene.start(CST.SCENES.CHOOSE_THEME);
             }
-
         });
     }
 
