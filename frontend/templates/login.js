@@ -39,13 +39,13 @@ function post_request(username, password, loginType) {
             if (loginType == "Student") {
                 let url = window.location.href.split("/");
                 url = url[0] + "//" + url[2];
-                window.location = url + "/frontend/templates/play.html";
+                window.location = url + "/Party-Designer-Math/frontend/templates/play.html";
             }
 
             else if (loginType == "Teacher") {
                 let url = window.location.href.split("/");
                 url = url[0] + "//" + url[2];
-                window.location = url + "/frontend/templates/dashboard.html";
+                window.location = url + "/Party-Designer-Math/frontend/templates/dashboard.html";
             }
           });
         }
