@@ -14,12 +14,13 @@ export class PreloaderScene extends Phaser.Scene{
 
   preload(){
 
+    console.log(this.gamestate);
+    console.log(this.imageChoice);
+
     this.theme_loaded   = localStorage.getItem("theme_loaded");
     this.one_loaded     = localStorage.getItem("one_loaded");
     this.two_loaded     = localStorage.getItem("two_loaded");
     this.three_loaded   = localStorage.getItem("three_loaded");
-
-    console.log(this.one_loaded);
 
     if(this.imageChoice == "theme1"){
       this.path       = "assets/images/Spaceroom/";
@@ -71,11 +72,6 @@ export class PreloaderScene extends Phaser.Scene{
       }
     }
 
-    var progressBar = this.add.graphics();
-    var progressBox = this.add.graphics();
-
-    progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
 
     var width   = this.cameras.main.width;
     var height  = this.cameras.main.height;
@@ -105,22 +101,14 @@ export class PreloaderScene extends Phaser.Scene{
     assetText.setOrigin(0.5, 0.5);
 
     this.load.on("progress", function(value){
-      // percentText.setText(parseInt(value * 100) + "%");
-      // progressBar.clear();
-      // progressBar.fillStyle(0xffffff, 1);
-      // progressBar.fillRect(250, 280, 300 * value, 300);
+
     });
 
     this.load.on("fileprogress", function(file){
-      // assetText.setText("Loading asset: " + file.key);
+
     });
 
     this.load.on("complete", function(){
-      // progressBar.destroy();
-      // progressBox.destroy();
-      // loadingText.destroy();
-      // percentText.destroy();
-      // assetText.destroy();
       this.ready();
     }.bind(this));
 

@@ -68,11 +68,12 @@ async function main(context, theme) {
   // Initiate ImageToProperites class
   currentContext.imageToProp = new ImageToProperties();
 
-  currentContext.username = localStorage.getItem("username");
+  currentContext.userntame = localStorage.getItem("username");
   currentContext.id       = localStorage.getItem("id");
   currentContext.money    = 1000;
 
 	console.log(currentContext.gamestate);
+	console.log(currentContext.background);
 
   currentContext.player = new User({  username      : currentContext.username,
                             id            : currentContext.id,
@@ -92,6 +93,7 @@ async function main(context, theme) {
 		if(data.length == 0){
 			var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
 			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
+				currentContext.scene.restart();
 			})
 		}else{
 			GetPlaythrough(pt_url).then(data => {
@@ -134,7 +136,6 @@ async function main(context, theme) {
 
 			  // Show credits
 			  currentContext.showCredits();
-
 			  // Call scene functions
 			  currentContext.updateProgressBar();
 			  currentContext.createBackground(currentContext.background);
@@ -208,13 +209,11 @@ export class GameScene extends Phaser.Scene{
   }
 
   preload(){
-    this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
-    this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
-    this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
-    this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
-    this.load.image("forwardBtn",   "assets/images/Interface/Forward.svg");
-    this.load.image("backwardBtn",  "assets/images/Interface/Backward.svg");
-    this.load.image("crossBtn",     "assets/images/Interface/Cross.svg");
+    this.configButtons = ["RotateBtn", "RotateBtn2", "Right", "ScaleBtn", "ScaleSmaller", "Forward", "Backward", "Cross"];
+
+    for(var i=0; i<this.configButtons.length; i++){
+      this.load.image(this.configButtons[i], "assets/images/Interface/"+this.configButtons[i]+".svg");
+    }
   }
 
   create(){
