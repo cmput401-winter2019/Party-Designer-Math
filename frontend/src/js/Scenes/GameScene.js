@@ -73,6 +73,7 @@ async function main(context, theme) {
   currentContext.money    = 1000;
 
 	console.log(currentContext.gamestate);
+	console.log(currentContext.background);
 
   currentContext.player = new User({  username      : currentContext.username,
                             id            : currentContext.id,
@@ -92,6 +93,8 @@ async function main(context, theme) {
 		if(data.length == 0){
 			var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
 			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
+				console.log(data);
+				currentContext.scene.restart();
 			})
 		}else{
 			GetPlaythrough(pt_url).then(data => {
@@ -134,7 +137,6 @@ async function main(context, theme) {
 
 			  // Show credits
 			  currentContext.showCredits();
-
 			  // Call scene functions
 			  currentContext.updateProgressBar();
 			  currentContext.createBackground(currentContext.background);

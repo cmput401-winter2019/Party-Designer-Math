@@ -14,12 +14,13 @@ export class PreloaderScene extends Phaser.Scene{
 
   preload(){
 
+    console.log(this.gamestate);
+    console.log(this.imageChoice);
+
     this.theme_loaded   = localStorage.getItem("theme_loaded");
     this.one_loaded     = localStorage.getItem("one_loaded");
     this.two_loaded     = localStorage.getItem("two_loaded");
     this.three_loaded   = localStorage.getItem("three_loaded");
-
-    console.log(this.one_loaded);
 
     if(this.imageChoice == "theme1"){
       this.path       = "assets/images/Spaceroom/";
@@ -71,7 +72,7 @@ export class PreloaderScene extends Phaser.Scene{
       }
     }
 
-   
+
     var width   = this.cameras.main.width;
     var height  = this.cameras.main.height;
 

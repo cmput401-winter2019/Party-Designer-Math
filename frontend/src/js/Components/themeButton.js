@@ -53,7 +53,6 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 		}
         super(config.scene);
 
-		console.log(config);
 		this.scene = config.scene;
 		this.image = config.key;
 
