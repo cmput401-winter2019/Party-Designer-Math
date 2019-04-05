@@ -129,7 +129,7 @@ def multiplication(itemCost, itemUnit, itemPlurName, multcap, itemName):
     return {"q": q, "ans": answer, "type": "multiplication"}
 
 def mixed(itemCost, itemUnit, itemPlurName, multcap, itemName, guestsNum):
-        randQNum = 3
+        randQNum = randint(1, 3)
         q = ""
         answer = 0
 
