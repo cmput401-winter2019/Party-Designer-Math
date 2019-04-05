@@ -9,3 +9,4 @@ https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates/log
 
 
 
+gg
