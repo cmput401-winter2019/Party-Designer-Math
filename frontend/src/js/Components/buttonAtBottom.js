@@ -1,4 +1,5 @@
 import {CST} from "../CST.js";
+import { ImageToProperties }            from "../classes/imageToProperties";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
   constructor(config) {
