@@ -1,6 +1,6 @@
-import {CST} from "../CST";
-import { AlignGrid } from "../util/alignGrid";
-import { BuyItem } from "../Components/BuyItem";
+import {CST} from "../CST.js";
+import { AlignGrid } from "../util/alignGrid.js";
+import { BuyItem } from "../Components/BuyItem.js";
 
 export class BuyPopup extends Phaser.Scene{
 
