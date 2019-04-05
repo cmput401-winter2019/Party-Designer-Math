@@ -1,5 +1,5 @@
-import config                 from '../src/js/Config/config'
-import { DashboardScene }          from '../src/js/Scenes/DashboardScene';
+import config                       from '../src/js/Config/config'
+import { DashboardScene }           from '../src/js/Scenes/DashboardScene';
 
 
 class Game extends Phaser.Game{
