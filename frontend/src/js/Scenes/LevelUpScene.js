@@ -1,7 +1,7 @@
 import { ProgressBar } from "../Components/progressBar";
 import {CST} from "../CST";
 import { RoundBtn } from "../Components/roundBtn";
-import { UpdatePlaythrough, DropQuestionRequest } from "../Components/scripts";
+import { UpdatePlaythrough, DropQuestionRequest, DropShoppingListRequest } from "../Components/scripts";
 import { User } from "../classes/user";
 
 export class LevelUpScene extends Phaser.Scene {
@@ -89,6 +89,11 @@ export class LevelUpScene extends Phaser.Scene {
             else {
                 const drop_url = "http://127.0.0.1:5001/dropquestion";
                 DropQuestionRequest(this.player.gs_id, drop_url).then(data => {})
+                const dropShopping_url = "http://127.0.0.1:5001/dropshoppinglist";
+
+                DropShoppingListRequest(this.player.gs_id, dropShopping_url).then(ret => {
+                  console.log(ret);
+                })
 
                 this.scene.start(CST.SCENES.CHOOSE_THEME);
             }
