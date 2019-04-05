@@ -505,6 +505,19 @@ def drop_question():
         print(e)
         return jsonify(success=False), 403
 
+@app.route("/geteacherinfo", methods=["GET"])
+@jwt_required
+def get_teacherinfo():
+    try:
+        teacherId = get_jwt_identity()
+        teacher = Teacher.query.filter(Teacher.id == teacherId).first()
+        teacherName = teacher.firstName
+        classCode = teacher.classCode
+        return jsonify(teacherName=teacherName, classCode=classCode), 200
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
 
 # endpoint to get user stats
 ###############################################################################################
