@@ -24,9 +24,6 @@ window.onload = function signup() {
         const signupType = document.getElementById("signupType").value;
         const classCode = document.getElementById("classcode").value;
         if (password === confirmpassword){
-            if (signupType === "Teacher") {
-                post_request(username, firstname, lastname, password, email, signupType)
-            }
             post_request(username, firstname, lastname, password, email, signupType, classCode);
         }
         else {
