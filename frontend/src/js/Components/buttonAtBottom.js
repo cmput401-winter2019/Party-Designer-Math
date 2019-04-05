@@ -1,5 +1,5 @@
 import { CST } from "../CST.js";
-import { ImageToProperties }            from "../classes/imageToProperties";
+// //import { ImageToProperties }            from "../classes/imageToProperties";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
   constructor(config) {
@@ -118,7 +118,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     // Set images associated with the button
     var page=0;
     // Image to Properties class declaration
-    this.imageToProp = new ImageToProperties();
+    // //this.imageToProp = new ImageToProperties();
 	  
     while(page<this.numOfPages){
       var offset=this.btnWidth*1.25+25;
@@ -139,12 +139,12 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 	        asset1.displayHeight = this.btnHeight*2.5;
 	        asset1.scaleX = asset1.scaleY;
 	      }
-	      let assetText = this.scene.add.text(offset+asset1.displayWidth/2,this.scene.game.config.height-20, "$" + this.imageToProp.getProp(this.assets[i]).cost,
-                      { fontFamily  : "Muli",
-                        color       : "#000000",
-                        fontSize    : "20px" } ).setOrigin(0.5,0.5); 
-        assetText.visible = false;        
-        this.loadedCosts.push(assetText);
+// //	      let assetText = this.scene.add.text(offset+asset1.displayWidth/2,this.scene.game.config.height-20, "$" + this.imageToProp.getProp(this.assets[i]).cost,
+// //                       { fontFamily  : "Muli",
+// //                        color       : "#000000",
+// //                        fontSize    : "20px" } ).setOrigin(0.5,0.5); 
+// //        assetText.visible = false;        
+// //        this.loadedCosts.push(assetText);
         asset1.setInteractive();
         asset1.name = this.assets[i];
         asset1.on("pointerup", ()=> {
@@ -234,7 +234,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     for(index = 0; index < currentBtn.loadedassets.length; ++index) {
         currentBtn.loadedassets[index].visible = false;
         //console.log("turning invisible: " + this.scene.bottomBtn1.loadedassets[index].name);
-	currentBtn.loadedCosts[index].visible = false;
+// //   currentBtn.loadedCosts[index].visible = false;
       }
   }
 
@@ -258,7 +258,7 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     }
     for(var index = currentBtn.currentPage*currentBtn.numItemPerPage; index < min+currentBtn.currentPage*currentBtn.numItemPerPage; index++) {
       currentBtn.loadedassets[index].visible = true;
-      currentBtn.loadedCosts[index].visible = true;
+// //       currentBtn.loadedCosts[index].visible = true;
     }
   }
 
