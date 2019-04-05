@@ -1,6 +1,6 @@
 // author: William Clarkson
 // source: https://phasergames.com/phaser-3-input-text-form-ui-part-1/
-import { AlignGrid } from "./alignGrid";
+import { AlignGrid } from "./alignGrid.js";
 
 export class FormUtil {
     constructor(config) {
