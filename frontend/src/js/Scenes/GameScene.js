@@ -93,7 +93,6 @@ async function main(context, theme) {
 		if(data.length == 0){
 			var playthrough_url = "http://127.0.0.1:5001/createplaythrough";
 			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
-				console.log(data);
 				currentContext.scene.restart();
 			})
 		}else{
