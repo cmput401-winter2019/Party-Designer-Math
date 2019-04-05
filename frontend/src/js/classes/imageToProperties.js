@@ -2,7 +2,7 @@ import {allFurnitures, allFood, allDeco, allKiddie,
 allFurnitureName, allFurniturePluralName, allFurnitureCost, 
 allFoodName, allFoodPluralName, allFoodCost,
 allDecoName, allDecoPluralName, allDecoCost,
-allKiddieName, allKiddiePluralName, allKiddieCost} from '../Components/assets';
+allKiddieName, allKiddiePluralName, allKiddieCost} from '../Components/assets.js';
 
 
 export class ImageToProperties {
