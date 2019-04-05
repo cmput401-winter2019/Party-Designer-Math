@@ -1,4 +1,4 @@
-import { ImageToProperties } from "../classes/imageToProperties";
+import { ImageToProperties } from "../classes/imageToProperties.js";
 
 export class CheckToBackpack extends Phaser.GameObjects.Container{
     constructor(scene, obj){

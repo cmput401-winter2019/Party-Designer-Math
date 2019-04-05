@@ -1,4 +1,4 @@
-import {CST} from "../CST";
+import {CST} from "../CST.js";
 export class RoundBtn extends Phaser.GameObjects.Container{
     // Need scene
 	constructor(scene, x, y, text, width, height)

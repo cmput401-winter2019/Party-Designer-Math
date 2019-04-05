@@ -1,4 +1,4 @@
-import { ImageToProperties } from "../classes/imageToProperties";
+import { ImageToProperties } from "../classes/imageToProperties.js";
 
 export class ItemToRoomPopup extends Phaser.GameObjects.Container{ 
     constructor(scene, imageName, maxNum){

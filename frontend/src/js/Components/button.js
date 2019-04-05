@@ -1,4 +1,4 @@
-import { ItemToRoomPopup } from "./itemToRoomPopup";
+import { ItemToRoomPopup } from "./itemToRoomPopup.js";
 
 export class Button extends Phaser.GameObjects.Container{
 	constructor(config)

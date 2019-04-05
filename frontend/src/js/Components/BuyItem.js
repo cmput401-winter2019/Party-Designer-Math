@@ -1,6 +1,6 @@
-import {CST} from "../CST";
-import { ImageToProperties } from "../classes/imageToProperties";
-import { Question } from "./Question";
+import {CST} from "../CST.js";
+import { ImageToProperties } from "../classes/imageToProperties.js";
+import { Question } from "./Question.js";
 export class BuyItem extends Phaser.GameObjects.Container{
     constructor(scene, name, player, credit_text, progressBar){
         super(scene);

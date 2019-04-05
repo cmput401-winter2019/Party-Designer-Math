@@ -1,4 +1,4 @@
-import {CST} from "../CST";
+import {CST} from "../CST.js";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
   constructor(config) {

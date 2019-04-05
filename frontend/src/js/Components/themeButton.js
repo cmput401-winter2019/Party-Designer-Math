@@ -1,4 +1,4 @@
-import {CST} from "../CST";
+import {CST} from "../CST.js";
 
 async function put(endpoint, body) {
 	const headers = {
