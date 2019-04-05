@@ -20,6 +20,15 @@ async function get(endpoint) {
 
 async function main(scene) {
   //Set the scene context
+
+  var input     = document.getElementById("myText");
+  var send      = document.getElementById("btnSend");
+  var cancle    = document.getElementById("btnCancel");
+  input.style.display   = "none";
+  send.style.display    = "none";
+  cancle.style.display  = "none";
+
+
   const currentscene = scene;
 
   localStorage.setItem("theme_loaded" , false);
