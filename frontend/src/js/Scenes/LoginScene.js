@@ -13,7 +13,7 @@ export class LoginScene extends Phaser.Scene{
       e.preventDefault()
       const username  = Login.querySelector('.username').value
       const classCode = Login.querySelector('.classCode').value
-      get('http://127.0.0.1:5000/student')
+      get('http://162.246.157.181/student')
         .then((resp) => resp.json()) // Transform the data into json
         .then(function(data) {
           for(var count = 0; count < data.length; count++) {
@@ -35,7 +35,7 @@ export class LoginScene extends Phaser.Scene{
       e.preventDefault()
       const username = CreateUser.querySelector('.username').value
       const classCode= CreateUser.querySelector('.classCode').value
-      post('http://127.0.0.1:5000/student', { username, classCode })
+      post('http://162.246.157.181/student', { username, classCode })
         .then(({ status }) => {
           if (status === 200){
             alert('signup success')
