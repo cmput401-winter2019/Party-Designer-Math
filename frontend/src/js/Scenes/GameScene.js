@@ -1,5 +1,5 @@
 import { guestImages }                  from "../Components/assets";
-import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough}        from "../Components/scripts";
+import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough, GetAllShoppingList}        from "../Components/scripts";
 import { GetUserStat }                  from "../Components/getUserStat";
 import { RandomNumber }                 from "../Components/randint";
 import { CreateShoppingList }           from "../Components/createShoppingList";
@@ -110,29 +110,18 @@ async function main(context, theme) {
 			  currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
 			  // currentContext.progressBar.setPercent(0);
 
-				var q_url = "http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/question";
-				GetAllQuestionRequest(q_url).then(data => {
-					var stat_data = GetUserStat(data);
-					var addition_correct      = stat_data.add_cor;
-					var subtraction_correct   = stat_data.sub_cor;
-					var mult_correct          = stat_data.mul_cor;
-					var div_correct           = stat_data.div_cor;
-					var mixed_correct         = stat_data.mix_cor;
-
-					var add_count = 0;
-					var sub_count = 0;
-					var mul_count = 0;
-					var div_count = 0;
-					var mix_count = 0;
-
-					for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
-					for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
-					for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
-					for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
-					for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
-					var total_count = add_count + sub_count + mul_count + div_count + mix_count;
-
-					currentContext.progressBar.setPercent(total_count / 20);
+				var shop_url = "http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/shoppinglist";
+				var correct_count = 0;
+				var attempt_count = 0;
+				GetAllShoppingList(shop_url).then(ret => {
+					for(var i=0; i<ret.length; i++){
+						if(ret[i].completed == true){
+							correct_count++;
+						}
+						attempt_count++;
+					}
+					var total_count = correct_count/attempt_count;
+					currentContext.progressBar.setPercent(total_count);
 				})
 
 			  // Show credits
@@ -161,6 +150,8 @@ async function main(context, theme) {
 
 			        var stat_data = GetUserStat(data);
 
+
+
 			        var addition_correct      = stat_data.add_cor;
 			        var addition_wrong        = stat_data.add_wrn;
 			        var subtraction_correct   = stat_data.sub_cor;
@@ -172,21 +163,33 @@ async function main(context, theme) {
 			        var mixed_correct         = stat_data.mix_cor;
 			        var mixed_wrong           = stat_data.mix_wrn;
 
-			        if(addition_correct.length >= 0 && subtraction_correct.length >= 0 && mult_correct.length >= 0 && div_correct.length >= 0 && mixed_correct.length >= 0){
-								currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
-			                                                  add_correct		: addition_correct,
-			                                                  add_wrong  		: addition_wrong,
-			                                                  sub_correct		: subtraction_correct,
-			                                                  sub_wrong  		: subtraction_wrong,
-			                                                  mult_correct	: mult_correct,
-			                                                  mult_wrong  	: mult_wrong,
-			                                                  div_correct 	: div_correct,
-			                                                  div_wrong   	: div_wrong,
-			                                                  mixed_correct	: mixed_correct,
-			                                                  mixed_wrong   : mixed_wrong});
-			        }else{
-			          alert("Shopping List is not Complete\n\n Please check Shopping List");
-			        }
+
+							var shop_url = "http://127.0.0.1:5001/"+ currentContext.player.gamestateId + "/shoppinglist";
+
+							GetAllShoppingList(shop_url).then(ret => {
+								var complete_count = 0;
+								for(var i=0; i<ret.length; i++){
+									if(ret[i].completed == true){
+										complete_count++;
+									}
+								}
+								if(complete_count == ret.length){
+									currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
+				                                                  add_correct		: addition_correct,
+				                                                  add_wrong  		: addition_wrong,
+				                                                  sub_correct		: subtraction_correct,
+				                                                  sub_wrong  		: subtraction_wrong,
+				                                                  mult_correct	: mult_correct,
+				                                                  mult_wrong  	: mult_wrong,
+				                                                  div_correct 	: div_correct,
+				                                                  div_wrong   	: div_wrong,
+				                                                  mixed_correct	: mixed_correct,
+				                                                  mixed_wrong   : mixed_wrong});
+				        }else{
+				          alert("Shopping List is not Complete\n\n Please check Shopping List");
+				        }
+							})
+
 			    })
 			  });
 			})
