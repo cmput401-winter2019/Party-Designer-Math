@@ -57,6 +57,9 @@ async function main() {
         };
         const logoutresponse = await post("http://162.246.157.181/logout", body);
         const logoutdata    = await logoutresponse.json();
+        let url = window.location.href.split("/");
+        url = url[0] + "//" + url[2];
+        window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
 
     });
 
