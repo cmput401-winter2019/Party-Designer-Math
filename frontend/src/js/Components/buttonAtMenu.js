@@ -19,8 +19,8 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 
 		this.name = config.key;
 		this.back=this.scene.add.image(0,0,config.key);
+		this.player = config.player;
 		this.add(this.back);
-
 
 			// If there is text, add text
 			if(config.text)
@@ -116,7 +116,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 			this.scene.scene.launch(CST.SCENES.BAG_POPUP, {player:this.scene.player, originalS:this.scene});
 		}
 		else if (this.name == "List"){
-			this.config = {n:this.scene.player.numbersInShopList, assets:this.scene.player.itemsInShopList}
+			this.config = {n:this.scene.player.numbersInShopList, assets:this.scene.player.itemsInShopList, player:this.player}
 			this.scene.scene.launch(CST.SCENES.SHOPPING_LIST,this.config);
 			console.log(this.name + ": go to shopping list");
 		}

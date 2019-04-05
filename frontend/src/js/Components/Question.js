@@ -149,10 +149,10 @@ export class Question extends Phaser.GameObjects.Container{
           else if(this.api_type == "food")      { this.player.decrease_food();}
           else if(this.api_type == "kiddie")    { this.player.decrease_kiddie();}
 
+          alert("Please Fill in Your Answer, Try Again!");
           var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
           this.destroy();
           scene.scene.sleep(CST.SCENES.BUY_POPUP);
-          alert("Please Fill in Your Answer, Try Again!");
         }
 
         this.send_button.style.display    = "none";
@@ -193,11 +193,19 @@ export class Question extends Phaser.GameObjects.Container{
                     UpdateShoppingList(ret[i].id, updateShop_url).then(data => {
                       console.log(data);
                     });
+                  }
+                }
+                for(var i=0; i<ret.length; i++){
+                  if(ret[i].completed == true){
                     correct_count++;
                   }
                   attempt_count++;
                 }
                 var total_count = correct_count/attempt_count;
+                console.log(total_count);
+                if(total_count == 1){
+                  alert("Level Done! Start Your Next Party!!");
+                }
                 this.progressBar.setPercent(total_count);
               })
             })

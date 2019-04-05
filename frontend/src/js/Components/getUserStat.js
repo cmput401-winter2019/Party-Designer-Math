@@ -10,6 +10,7 @@ export function GetUserStat(data){
     var mixed_correct         = [];
     var mixed_wrong           = [];
 
+
     for(var i=0; i<data.length; i++){
     if(data[i].arithmeticType == "addition"){
       if(data[i].correct == true){
@@ -35,7 +36,7 @@ export function GetUserStat(data){
       }
     }
 
-    if(data[i].arithmeticType == "divison"){
+    if(data[i].arithmeticType == "division"){
       if(data[i].correct == true){
         div_correct.push(data[i]);
       }else if(data[i].correct == false || data[i].correct == null){

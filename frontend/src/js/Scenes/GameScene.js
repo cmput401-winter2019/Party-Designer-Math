@@ -120,6 +120,7 @@ async function main(context, theme) {
 						}
 						attempt_count++;
 					}
+					console.log(correct_count + " / " + attempt_count);
 					var total_count = correct_count/attempt_count;
 					currentContext.progressBar.setPercent(total_count);
 				})
@@ -173,7 +174,7 @@ async function main(context, theme) {
 										complete_count++;
 									}
 								}
-								if(complete_count == ret.length){
+								if(complete_count >= 0){
 									currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
 				                                                  add_correct		: addition_correct,
 				                                                  add_wrong  		: addition_wrong,
@@ -298,7 +299,8 @@ export class GameScene extends Phaser.Scene{
                                         text  : "Exit Game",
                                         x     : (startX),
                                         y     : 30,
-                                        event : "button_pressed"
+                                        event : "button_pressed",
+																				player      : this.player
                                     });
 
     this.profileBtn = new ButtonAtMenu({ scene  : this,
@@ -307,7 +309,8 @@ export class GameScene extends Phaser.Scene{
                                           x     : (startX+100),
                                           y     : 30,
                                           event : "button_pressed",
-                                          params: "self_desturct"
+                                          params: "self_desturct",
+																					player      : this.player
                                     });
 
     this.bagBtn = new ButtonAtMenu({  scene   : this,
@@ -315,7 +318,8 @@ export class GameScene extends Phaser.Scene{
                                         text  : "Bag",
                                         x     : (startX+200),
                                         y     : 30,
-                                        event : "button_pressed"
+                                        event : "button_pressed",
+																				player      : this.player
                                     });
 
     this.listBtn = new ButtonAtMenu({  scene  : this,
@@ -323,7 +327,8 @@ export class GameScene extends Phaser.Scene{
                                         text  : "List",
                                         x     : (startX+300),
                                         y     : 30,
-                                        event : "button_pressed"
+                                        event : "button_pressed",
+																				player      : this.player
                                     });
 
     this.creditBtn = new ButtonAtMenu({  scene  : this,
@@ -331,7 +336,8 @@ export class GameScene extends Phaser.Scene{
                                           text  : "Credits",
                                           x     : (this.game.config.width-(startX+100)),
                                           y     : 30,
-                                          event : "button_pressed"
+                                          event : "button_pressed",
+																					player      : this.player
                                     });
   }
 
