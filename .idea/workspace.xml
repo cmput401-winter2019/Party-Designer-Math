@@ -2,13 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb2c2599-7400-458a-9501-7f3c75052e94" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/js/.babelrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/js/jest.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/js/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/js/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flask/migrations/versions/0b1093e58286_.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/templates/dashboardstyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/templates/untitled.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/crud.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/flask/crud.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/migrations/versions/9a770850b2ff_.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/migrations/versions/cfe4d9f4e164_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask/shoppinglistgen.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask/shoppinglistgen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/images/Interface/themeBack.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Interface/themeBack.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Components/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Components/Question.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Components/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Components/scripts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/BootScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/BootScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/LevelUpScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/LevelUpScene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/js/Scenes/ShoppingInterface.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/js/Scenes/ShoppingInterface.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/templates/bg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/templates/bg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/templates/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/templates/dashboard.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/js/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="54" column="38" selection-start-line="54" selection-start-column="38" selection-end-line="54" selection-end-column="38" />
+            <state relative-caret-position="544">
+              <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -40,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/flask/api.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="680">
-              <caret line="57" column="39" lean-forward="true" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+              <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -48,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="87" selection-end-column="71" />
+            <state relative-caret-position="728">
+              <caret line="78" column="1" selection-start-line="78" selection-start-column="1" selection-end-line="78" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -100,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/package-lock.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="5301" selection-start-line="5301" selection-end-line="5301" />
+            <state relative-caret-position="315">
+              <caret line="696" column="39" lean-forward="true" selection-start-line="696" selection-start-column="39" selection-end-line="696" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -136,6 +150,7 @@
         <option value="$PROJECT_DIR$/frontend/package.json" />
         <option value="$PROJECT_DIR$/frontend/src/js/classes/user.js" />
         <option value="$PROJECT_DIR$/frontend/src/js/test.js" />
+        <option value="$PROJECT_DIR$/frontend/package-lock.json" />
       </list>
     </option>
   </component>
@@ -235,7 +250,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8809000" />
+    <option name="totallyTimeSpent" value="8872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -354,8 +369,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="5301" selection-start-line="5301" selection-end-line="5301" />
+        <state relative-caret-position="315">
+          <caret line="696" column="39" lean-forward="true" selection-start-line="696" selection-start-column="39" selection-end-line="696" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -366,15 +381,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/js/Scenes/GameScene.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="87" selection-end-column="71" />
+        <state relative-caret-position="728">
+          <caret line="78" column="1" selection-start-line="78" selection-start-column="1" selection-end-line="78" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flask/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
-          <caret line="57" column="39" lean-forward="true" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -387,8 +402,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/js/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="54" column="38" selection-start-line="54" selection-start-column="38" selection-end-line="54" selection-end-column="38" />
+        <state relative-caret-position="544">
+          <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
         </state>
       </provider>
     </entry>
