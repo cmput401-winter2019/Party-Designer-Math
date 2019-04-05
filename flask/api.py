@@ -169,7 +169,7 @@ def login():
                 return jsonify(message="User does not exist."), 403
 
             if (Student.verify_hash(password, student.password)):
-                access_token = create_access_token(identity = student.id)
+                access_token = create_access_token(identity = student.id, expires_delta=timedelta(days=1))
                 refresh_token = create_refresh_token(identity = student.id, expires_delta=timedelta(days=1))
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
@@ -525,6 +525,19 @@ def drop_question():
         print(e)
         return jsonify(success=False), 403
 
+@app.route("/geteacherinfo", methods=["GET"])
+@jwt_required
+def get_teacherinfo():
+    try:
+        teacherId = get_jwt_identity()
+        teacher = Teacher.query.filter(Teacher.id == teacherId).first()
+        teacherName = teacher.firstName
+        classCode = teacher.classCode
+        return jsonify(teacherName=teacherName, classCode=classCode), 200
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+        
 @app.route("/dropshoppinglist", methods=["PUT"])
 def drop_shoppinglist():
     try:
@@ -548,10 +561,13 @@ def get_stats(classcode):
 
 
     studentslist = Student.query.filter(Student.classCode == classcode)
-    studentdict = {}
+    allstudents = []
     # list of student objects with the classcode
 
     for each in studentslist:
+        studentdict = {}
+        studentdict["username"] = each.username
+        studentdict["fullname"] = each.firstName + " " + each.lastName
 
         #for each student object find the playthroughs associated with the student id
         playthroughlist = Playthrough.query.filter(Playthrough.studentId == each.id)
@@ -598,10 +614,10 @@ def get_stats(classcode):
             # studentratedict["division"] = studentcorrectdict["division"] / arithtotaldict["division"]
             # studentratedict["mixed"] = studentcorrectdict["mixed"] / arithtotaldict["mixed"]
 
-            studentdict["username"] = each.username
-            studentdict["fullname"] = each.firstName + each.lastName
-            studentdict["stats"] = studentratedict
-    return jsonify(studentdict)
+            
+        studentdict["stats"] = studentratedict
+        allstudents.append(studentdict)
+    return jsonify(allstudents), 200
 
 @app.route("/createstudent", methods=["POST"])
 def createstudent():

@@ -41,3 +41,7 @@ li.nav-item a.nav-link {
     margin-left: 7.5%;
     margin-right: 7.5%;
 }
+
+#content {
+    display: none;
+}
