@@ -1,7 +1,7 @@
-import {CST} from "../CST";
-import { AlignGrid } from "../util/alignGrid";
-import { ImageToProperties } from "../classes/imageToProperties";
-import { GetAllShoppingList}        from "../Components/scripts";
+import {CST} from "../CST.js";
+import { AlignGrid } from "../util/alignGrid.js";
+import { ImageToProperties } from "../classes/imageToProperties.js";
+import { GetAllShoppingList}        from "../Components/scripts.js";
 
 export class ShoppingInterface extends Phaser.Scene{
 

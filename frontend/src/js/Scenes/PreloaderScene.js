@@ -1,7 +1,7 @@
-import {CST} from "../CST";
+import {CST} from "../CST.js";
 import {interfaceBtns, beach_guestImages, spaceroom_guestImages, playground_guestImages, spaceFurnitures, playFurnitures, beachFurnitures,
 spaceFood, playFood, beachFood, spaceDeco, playDeco, beachDeco, spaceKiddie, playKiddie, beachKiddie,
- } from '../Components/assets';
+ } from '../Components/assets.js';
 
 export class PreloaderScene extends Phaser.Scene{
   constructor(){ super({key: CST.SCENES.PRELOADER}); }

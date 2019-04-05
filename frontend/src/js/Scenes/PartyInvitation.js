@@ -1,7 +1,7 @@
-import {CST} from "../CST";
-import { ButtonAtBottom } from "../Components/buttonAtBottom";
-import { Item } from "../classes/item";
-import { ButtonAtMenu } from "../Components/buttonAtMenu";
+import {CST} from "../CST.js";
+import { ButtonAtBottom } from "../Components/buttonAtBottom.js";
+import { Item } from "../classes/item.js";
+import { ButtonAtMenu } from "../Components/buttonAtMenu.js";
 
 async function put(endpoint, body) {
 	const headers = {

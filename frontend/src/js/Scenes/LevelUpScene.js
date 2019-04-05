@@ -1,7 +1,7 @@
-import { ProgressBar } from "../Components/progressBar";
-import {CST} from "../CST";
-import { RoundBtn } from "../Components/roundBtn";
-import { UpdatePlaythrough, DropQuestionRequest, DropShoppingListRequest } from "../Components/scripts";
+import { ProgressBar } from "../Components/progressBar.js";
+import {CST} from "../CST.js";
+import { RoundBtn } from "../Components/roundBtn.js";
+import { UpdatePlaythrough, DropQuestionRequest, DropShoppingListRequest } from "../Components/scripts.js";
 import { User } from "../classes/user";
 
 export class LevelUpScene extends Phaser.Scene {

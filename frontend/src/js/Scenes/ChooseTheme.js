@@ -1,5 +1,5 @@
-import {CST} from "../CST";
-import { ThemeButton } from "../Components/themeButton";
+import {CST} from "../CST.js";
+import { ThemeButton } from "../Components/themeButton.js";
 
 export class ChooseTheme extends Phaser.Scene {
 

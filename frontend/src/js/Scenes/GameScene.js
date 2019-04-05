@@ -1,19 +1,19 @@
-import { guestImages }                  from "../Components/assets";
-import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough, GetAllShoppingList}        from "../Components/scripts";
-import { GetUserStat }                  from "../Components/getUserStat";
-import { RandomNumber }                 from "../Components/randint";
-import { CreateShoppingList }           from "../Components/createShoppingList";
-import { ImageToProperties }            from "../classes/imageToProperties";
-import { User }                         from "../classes/user";
-import { Guest }                        from "../classes/guests";
-import { Item }                         from "../classes/item";
-import { ButtonAtMenu }                 from "../Components/buttonAtMenu";
-import { ButtonAtBottom }               from "../Components/buttonAtBottom";
-import { CST }                          from "../CST";
-import { ProgressBar }                  from '../Components/progressBar';
-import { StartPartyBtn, RoundBtn }      from '../Components/roundBtn';
-import { FormUtil }                     from '../util/formUtil';
-import { LevelIndicator }               from '../Components/levelIndicator';
+import { guestImages }                  from "../Components/assets.js";
+import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough, GetAllShoppingList}        from "../Components/scripts.js";
+import { GetUserStat }                  from "../Components/getUserStat.js";
+import { RandomNumber }                 from "../Components/randint.js";
+import { CreateShoppingList }           from "../Components/createShoppingList.js";
+import { ImageToProperties }            from "../classes/imageToProperties.js";
+import { User }                         from "../classes/user.js";
+import { Guest }                        from "../classes/guests.js";
+import { Item }                         from "../classes/item.js";
+import { ButtonAtMenu }                 from "../Components/buttonAtMenu.js";
+import { ButtonAtBottom }               from "../Components/buttonAtBottom.js";
+import { CST }                          from "../CST.js";
+import { ProgressBar }                  from '../Components/progressBar.js';
+import { StartPartyBtn, RoundBtn }      from '../Components/roundBtn.js';
+import { FormUtil }                     from '../util/formUtil.js';
+import { LevelIndicator }               from '../Components/levelIndicator.js';
 
 async function post(endpoint, body) {
 	const headers = {

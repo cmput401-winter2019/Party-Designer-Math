@@ -1,4 +1,4 @@
-import {CST} from "../CST";
+import {CST} from "../CST.js";
 // import { GetClassStudents }        from "../Components/scripts";
 // import { GetUserStat }                  from "../Components/getUserStat";
 

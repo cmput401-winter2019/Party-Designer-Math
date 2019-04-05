@@ -1,7 +1,7 @@
-import {CST} from "../CST";
-import { AlignGrid } from "../util/alignGrid";
-import { ImageToProperties } from "../classes/imageToProperties";
-import { Button } from "../Components/button";
+import {CST} from "../CST.js";
+import { AlignGrid } from "../util/alignGrid.js";
+import { ImageToProperties } from "../classes/imageToProperties.js";
+import { Button } from "../Components/button.js";
 
 
 export class BagPopup extends Phaser.Scene{
