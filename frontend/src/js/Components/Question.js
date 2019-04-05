@@ -3,7 +3,7 @@ import { Item               } from "../classes/item";
 import { User               } from "../classes/user";
 import { FormUtil           } from "../util/formUtil";
 import { CST                } from "../CST";
-import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough } from "../Components/scripts";
+import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough, GetAllShoppingList, UpdateShoppingList} from "../Components/scripts";
 import { GetUserStat } from "../Components/getUserStat";
 
 export class Question extends Phaser.GameObjects.Container{
@@ -126,7 +126,6 @@ export class Question extends Phaser.GameObjects.Container{
                 cols: 11
             });
             //this.formUtil.showNumbers();
-
             this.formUtil.scaleToGameW  ("myText", .2);
             this.formUtil.placeElementAt(60, 'myText', true);
 
@@ -183,30 +182,26 @@ export class Question extends Phaser.GameObjects.Container{
 
             var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
-              var stat_data = GetUserStat(data);
-              var addition_correct      = stat_data.add_cor;
-              var subtraction_correct   = stat_data.sub_cor;
-              var mult_correct          = stat_data.mul_cor;
-              var div_correct           = stat_data.div_cor;
-              var mixed_correct         = stat_data.mix_cor;
-
-              var add_count = 0;
-              var sub_count = 0;
-              var mul_count = 0;
-              var div_count = 0;
-              var mix_count = 0;
-
-              for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
-              for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
-              for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
-              for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
-              for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
-              var total_count = add_count + sub_count + mul_count + div_count + mix_count;
-
-              this.progressBar.setPercent(total_count / 20);
+              var shop_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/shoppinglist";
+              var correct_count = 0;
+              var attempt_count = 0;
+              GetAllShoppingList(shop_url).then(ret => {
+                for(var i=0; i<ret.length; i++){
+                  if(this.imageName == ret[i].itemName){
+                    console.log(ret[i].itemName);
+                    var updateShop_url =  "http://127.0.0.1:5001/updateshoppinglist";
+                    UpdateShoppingList(ret[i].id, updateShop_url).then(data => {
+                      console.log(data);
+                    });
+                    correct_count++;
+                  }
+                  attempt_count++;
+                }
+                var total_count = correct_count/attempt_count;
+                this.progressBar.setPercent(total_count);
+              })
             })
           }else{
-
             const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
             const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
 

@@ -52,7 +52,7 @@ async function main(scene) {
       currentscene.start(CST.SCENES.CHOOSE_THEME, data)
     }
     else {
-      //this means you picked a theme but didnt design an invitation
+      //this means you picked a taheme but didnt design an invitation
       if (data["designedInvitation"] == false) {
         currentscene.start(CST.SCENES.PARTY_INVITATION, data)
       }

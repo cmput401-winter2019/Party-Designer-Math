@@ -465,6 +465,13 @@ def get_question(id):
     result = questionsSerializer.dump(questions)
     return jsonify(result.data)
 
+@app.route("/<id>/shoppinglist", methods=["GET"])
+#@jwt_required
+def get_shoppinglist(id):
+    shoppinglist = ShoppingListItem.query.filter(ShoppingListItem.gameStateId == id).all()
+    result = shoppingListItemsSerializer.dump(shoppinglist)
+    return jsonify(result.data)
+
 # endpoint to update question for game state
 @app.route("/<id>/question", methods=["PUT"])
 @jwt_required
@@ -483,6 +490,23 @@ def check_answer_question(id):
         question.correct = True
         db.session.commit()
         return jsonify(message="Answer is correct."), 200
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+
+# endpoint to update question for game state
+@app.route("/updateshoppinglist", methods=["PUT"])
+@jwt_required
+def update_shoppinglist():
+    try:
+        id = int(request.json['id'])
+
+        shoppinglist = ShoppingListItem.query.filter(ShoppingListItem.id == id).first()
+
+        shoppinglist.completed = True;
+
+        db.session.commit()
+        return jsonify(message="Update Success."), 200
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
@@ -613,8 +637,6 @@ def updatethrough():
     try:
         level       = request.json['level']
         studentid   = request.json['studentId']
-        print(level, file=sys.stderr)
-        print(studentid, file=sys.stderr)
         playthrough = Playthrough.query.filter(Playthrough.studentId == studentid).first()
         playthrough.level = level;
 
