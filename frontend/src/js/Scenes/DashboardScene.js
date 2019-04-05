@@ -9,6 +9,6 @@ export class DashboardScene extends Phaser.Scene{
     preload(){}
 
     create(){
-      //var url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
+      //var url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
     }
 }

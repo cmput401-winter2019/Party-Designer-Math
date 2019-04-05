@@ -15,7 +15,7 @@ function post_request(username, password, loginType) {
         password: password,
         loginType: loginType
     };
-    return fetch("http://127.0.0.1:5001/login", {
+    return fetch("http://162.246.157.181/login", {
         method: "POST",
         mode: "cors",
         cache: "no-cache",

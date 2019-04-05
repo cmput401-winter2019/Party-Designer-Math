@@ -41,7 +41,7 @@ function post_request(username, firstname, lastname, password, email, signupType
         signupType: signupType,
         classCode: classCode
     };
-    return fetch("http://127.0.0.1:5001/signup", {
+    return fetch("http://162.246.157.181/signup", {
         method: "POST",
         mode: "cors",
         cache: "no-cache",

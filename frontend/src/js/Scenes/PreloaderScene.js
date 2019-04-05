@@ -127,7 +127,7 @@ export class PreloaderScene extends Phaser.Scene{
   }
 
   get_current_student(username){
-    var url = "http://127.0.0.1:5001/student/" + username;
+    var url = "http://162.246.157.181/student/" + username;
     return fetch(url, {
         method: "GET",
         mode: "cors",
