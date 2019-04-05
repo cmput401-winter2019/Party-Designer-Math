@@ -1,9 +1,4 @@
 import {User} from './classes/user';
-import React from 'react';
-import Link from '../Link.react';
-import renderer from 'react-test-renderer';
-import ReactDOM from 'react-dom';
-import GameScene from './Scenes/GameScene';
 
 
 const user = new User({  username      : "bob",
@@ -110,9 +105,20 @@ test('ScreenItem remove non-existing item', () =>{
     expect(user.screenItems["asdasd"]).toEqual(undefined)
 });
 
+
+test(' putItemFromScreenToBackpack',()=>{
+    user.putItemFromScreenToBackpack("cherries");
+    expect(user.backpack["cherries"]).toEqual(1)
+})
+
+
+test(' putItemFromBackpackToScreen',()=>{
+    user.putItemFromBackpackToScreen("cherries");
+    expect(user.screenItems["cherries"]).toEqual(3)
+})
 // test('test snapshot', () => {
 //         const screen = document.createElement('ok');
-//         ReactDom.render(<GameScene/>,screen);
+//         // ReactDom.render(<GameScene/>,screen);
 //
 // });
 
