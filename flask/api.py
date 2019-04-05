@@ -36,26 +36,14 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 ma.init_app(app)
 jwt = JWTManager(app)
-cors = CORS(app, resources={r"/*": {"origins": "https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates/"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://cmput401-winter2019.github.io/Party-Designer-Math/frontend/templates/');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+return response
 
 # turn on foreign key constraints
 @event.listens_for(Engine, "connect")
