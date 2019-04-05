@@ -1,5 +1,10 @@
 import {User} from './classes/user';
-//import renderer from 'react-test-renderer';
+import React from 'react';
+import Link from '../Link.react';
+import renderer from 'react-test-renderer';
+import ReactDOM from 'react-dom';
+import GameScene from './Scenes/GameScene';
+
 
 const user = new User({  username      : "bob",
     id            : 1,
@@ -11,7 +16,7 @@ const user = new User({  username      : "bob",
     credits       : 100,
     itemsOnSceen  : {"Chair":2, "cherries":3},
     inShopList    : [3,2,4],
-    itemList      : ["Light","ketchup","chips"]});
+    itemList      : ["light","ketchup","chips"]});
 
 
 
@@ -65,15 +70,12 @@ expect(user.backpack["sofa"]).toEqual(1)
 
 test('Backpack remove item', () =>{
     user.removeFromBackpack("rug");
-expect(user.backpack["rug"] === 0)
+expect(user.backpack["rug"]).toEqual(undefined)
 });
 
-test('Backpack remove item', () =>{
-    expect(user.removeFromBackpack("rug") === false)
-});
 
 test('Backpack remove non-existent item', () =>{
-    expect(user.removeFromBackpack("bob") === false)
+    expect(user.backpack["lol"]).toEqual(undefined)
 });
 
 
@@ -82,37 +84,38 @@ test('Backpack remove non-existent item', () =>{
 // Test putting item into screenItems list
 test('ScreenItem add existing item', () =>{
     user.putIntoScreenItems("light");
-expect(user.screenItems["light"] === 2)
+expect(user.screenItems["light"]).toEqual(1)
 });
 
 test('ScreenItem add not on screen item', () =>{
     user.putIntoScreenItems("icecream");
-expect(user.screenItems["icecream"] === 1)
+expect(user.screenItems["icecream"]).toEqual(1)
 });
 
 
 // Test remove item from screenItems list
 test('ScreenItem remove existing item', () =>{
-    user.removeFromScreenItems("light");
-expect(user.screenItems["light"] === 1)
+    user.removeFromScreenItems("Chair");
+expect(user.screenItems["Chair"]).toEqual(1)
 });
 
 test('ScreenItem remove existing item', () =>{
-    user.removeFromScreenItems("iceceram");
-expect(user.screenItems["icecream"] === 0)
+    user.removeFromScreenItems("icecream");
+expect(user.screenItems["icecream"]).toEqual(undefined)
 });
 
-test('ScreenItem remove 0-item', () =>{
-    expect(user.removeFromScreenItems("icecream")===false)
-});
+
 
 test('ScreenItem remove non-existing item', () =>{
-    expect(user.removeFromScreenItems("hello")===false)
+    expect(user.screenItems["asdasd"]).toEqual(undefined)
 });
 
+// test('test snapshot', () => {
+//         const screen = document.createElement('ok');
+//         ReactDom.render(<GameScene/>,screen);
 //
-// describe('')
-//
+// });
+
 
 
 
