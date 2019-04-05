@@ -1,5 +1,5 @@
 import {CST} from "../CST.js";
-//import "babel-polyfill";
+import "babel-polyfill";
 
 async function get(endpoint) {
   const headers = {
