@@ -238,8 +238,6 @@ def add_student():
         print(e)
         return jsonify(success=False), 403
 
-
-
 # endpoint to show all students
 @app.route("/student/<name>", methods=["GET"])
 #@jwt_required
@@ -252,8 +250,6 @@ def get_student(name):
         current_student = Student.query.filter(Student.username == name).first()
         result = studentSerializer.dump(current_student)
         return jsonify(result.data)
-
-
 
 # endpoint to create game state for student
 @app.route("/gamestate", methods=["GET"])
@@ -325,6 +321,7 @@ def update_gamestate():
 def initialize_shoppinglist():
     try:
         theme = request.json['theme']
+
         studentId = get_jwt_identity()
         gamestateId = GameState.query.filter(GameState.studentId == studentId).first().id
         shoppingListItems = ShoppingListItem.query.filter(ShoppingListItem.gameStateId == gamestateId).all()
@@ -495,7 +492,6 @@ def check_answer_question(id):
 def drop_question():
     try:
         gs_id = request.json['gs_id']
-        print(gs_id, file=sys.stderr)
         db.session.query(Question).filter(Question.gameStateId==gs_id).delete()
 
         db.session.commit()
@@ -514,9 +510,19 @@ def get_teacherinfo():
         teacherName = teacher.firstName
         classCode = teacher.classCode
         return jsonify(teacherName=teacherName, classCode=classCode), 200
+@app.route("/dropshoppinglist", methods=["PUT"])
+def drop_shoppinglist():
+    try:
+        gs_id = request.json['gs_id']
+        db.session.query(ShoppingListItem).filter(ShoppingListItem.gameStateId==gs_id).delete()
+
+        db.session.commit()
+
+        return jsonify(success=True), 200
     except Exception as e:
         print(e)
         return jsonify(success=False), 403
+
 
 
 # endpoint to get user stats
