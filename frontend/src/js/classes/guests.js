@@ -129,8 +129,10 @@ export class Guest extends Phaser.GameObjects.Sprite{
     }
 
     smallerGuest(){
-        this.displayWidth-= 20;
-        this.scaleY=this.scaleX;
+        if(this.displayWidth>21){
+            this.displayWidth-= 20;
+            this.scaleY=this.scaleX;
+        }
     }
 
     bringForward(){
