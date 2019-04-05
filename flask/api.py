@@ -169,7 +169,7 @@ def login():
                 return jsonify(message="User does not exist."), 403
 
             if (Student.verify_hash(password, student.password)):
-                access_token = create_access_token(identity = student.id)
+                access_token = create_access_token(identity = student.id, expires_delta=timedelta(days=1))
                 refresh_token = create_refresh_token(identity = student.id, expires_delta=timedelta(days=1))
                 return jsonify(message="Logged in", access_token=access_token, refresh_token=refresh_token), 200
             else:
@@ -510,6 +510,10 @@ def get_teacherinfo():
         teacherName = teacher.firstName
         classCode = teacher.classCode
         return jsonify(teacherName=teacherName, classCode=classCode), 200
+    except Exception as e:
+        print(e)
+        return jsonify(success=False), 403
+        
 @app.route("/dropshoppinglist", methods=["PUT"])
 def drop_shoppinglist():
     try:
