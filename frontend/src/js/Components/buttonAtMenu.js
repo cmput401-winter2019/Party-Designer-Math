@@ -74,7 +74,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 				access_token: localStorage.getItem("access_token"),
 				refresh_token: localStorage.getItem("refresh_token")
 			};
-			return fetch("http://162.246.157.181/logout", {
+			return fetch("https://162.246.157.181/logout", {
 				method: "POST",
 				mode: "cors",
 				cache: "no-cache",

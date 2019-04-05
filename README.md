@@ -1,7 +1,7 @@
 # Party-Designer-Math
 
 API
-http://162.246.157.181/
+https://162.246.157.181/
 
 
 FrontEnd

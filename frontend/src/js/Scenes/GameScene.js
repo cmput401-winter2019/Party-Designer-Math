@@ -44,7 +44,7 @@ async function main(context, theme) {
 		theme: currentContext.gamestate.theme
 	};
 
-	const response = await post("http://162.246.157.181/shoppinglist", body);
+	const response = await post("https://162.246.157.181/shoppinglist", body);
 	const data = await response.json();
 	if (!response.ok) {
     console.log("Something went wrong");
@@ -71,7 +71,7 @@ async function main(context, theme) {
 
   currentContext.userntame = localStorage.getItem("username");
   currentContext.id       = localStorage.getItem("id");
-  currentContext.money    = 1000;
+  currentContext.money    = currentContext.gamestate.money;
 
 	console.log(currentContext.gamestate);
 	console.log(currentContext.background);
@@ -88,11 +88,11 @@ async function main(context, theme) {
                             inShopList    : currentContext.itemAmounts,
                             itemList      : currentContext.itemsList});
 
-	var pt_url = "http://162.246.157.181/"+currentContext.player.id+"/getplaythrough";
+	var pt_url = "https://162.246.157.181/"+currentContext.player.id+"/getplaythrough";
 	GetPlaythrough(pt_url).then(data => {
 		//console.log(data)
 		if(data.length == 0){
-			var playthrough_url = "http://162.246.157.181/createplaythrough";
+			var playthrough_url = "https://162.246.157.181/createplaythrough";
 			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
 				currentContext.scene.restart();
 			})
@@ -110,7 +110,7 @@ async function main(context, theme) {
 			  currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
 			  // currentContext.progressBar.setPercent(0);
 
-				var shop_url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
+				var shop_url = "https://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
 				var correct_count = 0;
 				var attempt_count = 0;
 				GetAllShoppingList(shop_url).then(ret => {
@@ -146,7 +146,7 @@ async function main(context, theme) {
 			                                50);
 
 				currentContext.levelUpBtn.rect.on("pointerdown", ()=>{
-			    var url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/question";
+			    var url = "https://162.246.157.181/"+ currentContext.player.gamestateId + "/question";
 			    GetAllQuestionRequest(url).then(data => {
 
 			        var stat_data = GetUserStat(data);
@@ -162,8 +162,7 @@ async function main(context, theme) {
 			        var mixed_correct         = stat_data.mix_cor;
 			        var mixed_wrong           = stat_data.mix_wrn;
 
-
-							var shop_url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
+							var shop_url = "https://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
 
 							GetAllShoppingList(shop_url).then(ret => {
 								var complete_count = 0;
