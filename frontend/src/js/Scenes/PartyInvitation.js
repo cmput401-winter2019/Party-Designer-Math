@@ -30,7 +30,7 @@ async function updateDesignedInvitation(scene) {
 		updateValue: 1
 	};
 
-	const response = await put("https://162.246.157.181/gamestate/update", body);
+	const response = await put("http://162.246.157.181/gamestate/update", body);
 	const data = await response.json();
 	if (!response.ok) {
 		console.log("Something went wrong")

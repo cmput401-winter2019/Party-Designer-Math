@@ -37,7 +37,7 @@ async function main(scene) {
   localStorage.setItem("three_loaded" , false);
 
   //Generate or get gamestate
-  const response = await get("https://162.246.157.181/gamestate");
+  const response = await get("http://162.246.157.181/gamestate");
   const data = await response.json();
   console.log(data);
   if (!response.ok) {

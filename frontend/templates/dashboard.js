@@ -39,7 +39,7 @@ async function post(endpoint, body) {
 }
 
 async function main() {
-    const teacherresponse = await get("https://162.246.157.181/geteacherinfo");
+    const teacherresponse = await get("http://162.246.157.181/geteacherinfo");
     const teacherdata = await teacherresponse.json();
     if (teacherresponse.ok) {
         document.getElementById("content").style.display = "block";
@@ -55,12 +55,12 @@ async function main() {
             access_token: localStorage.getItem("access_token"),
             refresh_token: localStorage.getItem("refresh_token")
         };
-        const logoutresponse = await post("https://162.246.157.181/logout", body);
+        const logoutresponse = await post("http://162.246.157.181/logout", body);
         const logoutdata    = await logoutresponse.json();
 
     });
 
-    const response = await get("https://162.246.157.181/" + teacherdata.classCode + "/stats");
+    const response = await get("http://162.246.157.181/" + teacherdata.classCode + "/stats");
     const data = await response.json();
     if (!response.ok) {
         console.log("Something went wrong")

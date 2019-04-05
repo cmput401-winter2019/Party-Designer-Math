@@ -43,7 +43,7 @@ export class ShoppingInterface extends Phaser.Scene{
             this.imageToProp = new ImageToProperties();
             // First column
 
-            var shop_url = "https://162.246.157.181/"+ this.player.gamestateId + "/shoppinglist";
+            var shop_url = "http://162.246.157.181/"+ this.player.gamestateId + "/shoppinglist";
     				var correct_count = 0;
     				var attempt_count = 0;
     				GetAllShoppingList(shop_url).then(ret => {
