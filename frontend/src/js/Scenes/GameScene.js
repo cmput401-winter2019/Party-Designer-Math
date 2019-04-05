@@ -68,7 +68,7 @@ async function main(context, theme) {
   // Initiate ImageToProperites class
   currentContext.imageToProp = new ImageToProperties();
 
-  currentContext.username = localStorage.getItem("username");
+  currentContext.userntame = localStorage.getItem("username");
   currentContext.id       = localStorage.getItem("id");
   currentContext.money    = 1000;
 
