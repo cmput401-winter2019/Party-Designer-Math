@@ -172,7 +172,7 @@ async function main(context, theme) {
 										complete_count++;
 									}
 								}
-								if(complete_count >= 0){
+								if(complete_count >= ret.length){
 									currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
 				                                                  add_correct		: addition_correct,
 				                                                  add_wrong  		: addition_wrong,
