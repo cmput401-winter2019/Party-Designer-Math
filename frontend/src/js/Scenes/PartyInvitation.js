@@ -122,6 +122,13 @@ export class PartyInvitation extends Phaser.Scene {
       this.newItem = this.add.existing(new Item(this, image, x, y, name, pluralName, category, unit));
     }
     setBackground(){
+      // Rectangle 
+      this.whiteBackground = this.add.rectangle(0,
+                                              75,
+	                                            this.game.config.width,
+	                                            this.game.config.height,
+	                                            0xffffff).setOrigin(0,0);
+                                              
       // Set background Image
       this.background = this.add.image(0, 75, "invite");
       this.background.setOrigin(0,0);
@@ -132,6 +139,7 @@ export class PartyInvitation extends Phaser.Scene {
         this.background.displayHeight = this.game.config.height - 75 - 130;
         this.background.displayWidth  = this.game.config.width;
       }
+
       // Set header
       this.header = this.add.rectangle(0,
                                         0,
