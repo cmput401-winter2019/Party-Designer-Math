@@ -1,5 +1,5 @@
 import {CST} from "../CST.js";
-import "babel-core/polyfill";
+//import "babel-core/polyfill";
 
 
 async function get(endpoint) {
