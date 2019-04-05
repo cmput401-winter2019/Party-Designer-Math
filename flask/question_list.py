@@ -93,7 +93,7 @@ def division(itemCost, itemUnit, itemPlurName, multcap, itemName, guestsNum):
        q = ("There are {} persons in your party (including yourself).\n"
             "If you bought {} {} of {} for your party and splitted the {} \n"
             "evenly among you and your friends. \n"
-            "How many {} of {} were left over?").format(str(numOfPeople), randInt1, itemUnit, itemName, itemUnit, itemUnit, itemName)
+            "How many {} of {} were left over?").format(str(numOfPeople), randInt1, "units", itemName, "units", "units", itemName)
 
        answer = randInt1%numOfPeople
 

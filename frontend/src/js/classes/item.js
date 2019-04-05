@@ -25,27 +25,30 @@ export class Item extends Phaser.GameObjects.Sprite{
 
         this.displayWidth = this.scene.game.config.width*0.07;
         this.scaleY       = this.scaleX;
-
+        if (this.displayHeight > this.scene.background.displayHeight*0.5){
+            this.displayHeight = this.scene.background.displayHeight*0.5;
+            this.scaleX = this.scaleY;
+        }
+;
         // ---- Item buttons -----
-        this.crossBtn = this.scene.add.image(0,0, 'crossBtn');
-        this.rotateBtn = this.scene.add.image(0, 0,'rotateBtn');
-        this.rotateBtn2 = this.scene.add.image(0, 0,'rotateBtn');
-        this.scaleBtn = this.scene.add.image(0,0,'scaleBtn');
-        this.smallerBtn = this.scene.add.image(0,0,'smallerBtn');
-        this.forwardBtn = this.scene.add.image(0,0, 'forwardBtn').setOrigin(0.5,0);
-        this.backwardBtn = this.scene.add.image(0,0, 'backwardBtn').setOrigin(0.5,0);
-        this.rightBtn = this.scene.add.image(0,0,'rightBtn').setOrigin(0.5,-0.5);
+        this.crossBtn = this.scene.add.image(0,0, 'Cross');
+        this.rotateBtn = this.scene.add.image(0, 0,'RotateBtn');
+        this.rotateBtn2 = this.scene.add.image(0, 0,'RotateBtn2');
+        this.scaleBtn = this.scene.add.image(0,0,'ScaleBtn');
+        this.smallerBtn = this.scene.add.image(0,0,'ScaleSmaller');
+        this.forwardBtn = this.scene.add.image(0,0, 'Forward').setOrigin(0.5,0);
+        this.bagBtn = this.scene.add.image(0,0, 'Bag').setOrigin(0.5,0);
+        this.rightBtn = this.scene.add.image(0,0,'Right').setOrigin(0.5,-1.5);
 
 
-        this.btnList = [this.crossBtn, this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.backwardBtn, this.rightBtn];
+        this.btnList = [this.crossBtn, this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.bagBtn, this.rightBtn];
 
         // Tranparent background
         this.rect = this.scene.add.rectangle(0,
                                              0,
                                              this.crossBtn.displayWidth+10,
-                                             this.crossBtn.displayHeight*10,
+                                             this.crossBtn.displayHeight*11,
                                              0x3498DB);
-        this.rect.alpha=0.3;
         this.rect.setOrigin(0.5,0);
         this.hideButtons();
 
@@ -58,7 +61,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.scaleBtn   .on('pointerdown', this.biggerGuest,  this);
         this.smallerBtn .on('pointerdown', this.smallerGuest, this);
         this.forwardBtn .on('pointerdown', this.bringForward, this);
-        this.backwardBtn.on('pointerdown', this.toBackpack,   this);
+        this.bagBtn.on('pointerdown', this.toBackpack,   this);
 
         // ---- Item button only shows if hold was not caused by dragging ------
         this.on('pointerdown', function(pointer){
@@ -87,8 +90,8 @@ export class Item extends Phaser.GameObjects.Sprite{
             // Allow destroying of item
             this.crossBtn.on('pointerdown', this.deleteItem, this);
             // No backpack button
-            this.backwardBtn.destroy();
-            var index = this.btnList.indexOf(this.backwardBtn);
+            this.bagBtn.destroy();
+            var index = this.btnList.indexOf(this.bagBtn);
             if(index > -1){
                 this.btnList.splice(index, 1);
             }
@@ -104,17 +107,22 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.btnX             = this.x+(this.displayWidth/2);
         this.btnY             = this.y-this.displayHeight/2;
 
+        this.rect.depth = 3;
+
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].x       = this.btnX;
             this.btnList[i].y       = this.btnY+i*this.btnList[i].displayHeight;
+            if(this.btnList[i] == this.bagBtn){
+                this.btnList[i].y -= 2*this.btnList[i].displayHeight;
+            }
             this.btnList[i].visible = true;
-            this.btnList[i].setDepth(3);
+            this.btnList[i].setDepth(this.rect.depth+1);
         }
 
         // Transparent rectangle position
         this.rect.x = this.crossBtn.x;
         this.rect.y = this.crossBtn.y-this.crossBtn.displayHeight;
-        this.rect.alpha=0.3;
+        this.rect.alpha=0.7;
 
     }
 
@@ -148,11 +156,19 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.scaleY       = this.scaleX;
     }
     smallerGuest(){
-        this.displayWidth -= 20;
-        this.scaleY       = this.scaleX;
+        if (this.displayWidth >21){
+            this.displayWidth -= 20;
+            this.scaleY       = this.scaleX;
+        }   
+        
     }
 
-    bringForward(){}
+    bringForward(){
+        this.newItem = this.scene.add.existing(new Item(this.scene, this.imageName, this.x, this.y, this.name, this.pluralName, this.category, this.cost, "load"));
+        this.newItem.showButtons();
+        this.destroyButtons();
+        this.destroy();
+    }
 
     bringBackward(){}
 
@@ -165,6 +181,7 @@ export class Item extends Phaser.GameObjects.Sprite{
     }
     toBackpack(){
         this.popup = new CheckToBackpack(this.scene, this);
+        this.popup.depth+=1;
     }
     deleteItem(){
         this.destroyButtons();

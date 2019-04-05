@@ -1,0 +1,47 @@
+html { 
+    height: 100%; 
+}
+body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar.navbar-dark.bg-dark .navbar-brand {
+    color: white;  
+}
+
+.navbar-brand {
+    font-variant: small-caps;
+    font-weight: 500;
+    font-size: 1.6rem;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+}
+
+.navbar.navbar-dark.bg-dark .btn {
+    color: white;
+    border-color: white;
+}
+
+.navbar.navbar-dark.bg-dark .btn:hover {
+    background: rgb(255, 74, 19);
+}
+
+.nav-item {
+    list-style: none;    
+}
+
+li.nav-item a.nav-link {
+    color:white;
+}
+
+.students-table {
+    padding: 1.5rem;
+    margin-top: 5%;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+#content {
+    display: none;
+}

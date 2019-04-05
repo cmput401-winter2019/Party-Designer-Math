@@ -1,22 +1,23 @@
 import {CST} from "../CST";
+
 async function put(endpoint, body) {
 	const headers = {
 	  "Content-Type": "application/json",
 	  "Authorization": "Bearer " + localStorage.getItem("access_token")
 	};
-	  
+
 	const request = {
 	  method: "PUT",
 	  mode: "cors",
 	  headers: headers,
 	  body: JSON.stringify(body)
 	};
-  
+
 	const response = await fetch(endpoint, request);
-  
+
 	return response;
   }
-  
+
 async function updateTheme(scene, theme) {
 	//Set the scene context
 	const currentscene = scene;
@@ -31,13 +32,14 @@ async function updateTheme(scene, theme) {
 	const data = await response.json();
 	if (!response.ok) {
 		console.log("Something went wrong")
-	} 
+	}
 	else {
+		console.log(data);
 		currentscene.start(CST.SCENES.PARTY_INVITATION, data);
 	}
 }
 
-export class ThemeButton extends Phaser.GameObjects.Container{ 
+export class ThemeButton extends Phaser.GameObjects.Container{
 	constructor(config) {
 		if(!config.scene)
 		{
@@ -53,7 +55,7 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 
 		this.scene = config.scene;
 		this.image = config.key;
-		
+
 		this.gamestate = config.gamestate
 
         //this.back is the background image
@@ -95,7 +97,7 @@ export class ThemeButton extends Phaser.GameObjects.Container{
 		}
 
     }
-    pressed(){
+  pressed(){
 		updateTheme(this.scene.scene, this.image);
     }
 	over(){

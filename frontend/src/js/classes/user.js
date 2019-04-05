@@ -15,6 +15,7 @@ export class User{
         this._itemsInShopList   = data.itemList;
         this._shoppingList      = {};
         this._progress;
+        this._playthroughId;
 
         this._furniture_count   = 0;
         this._deco_count        = 0;
@@ -25,6 +26,8 @@ export class User{
                                  //     item name and number that needs to be bought
     }
 
+    setPlaythroughId(id) { this._playthroughId == id }
+    get playthroughid() { return this._playthroughId }
     get gamestateId() {return this._gamestateId};
 
     get furniture_count()   { return this._furniture_count; }
@@ -50,6 +53,7 @@ export class User{
     get username()          { return this._uName;             }
     get id()                { return this._id;                }
     get money()             { return this._money;             }
+    get gs_id()             { return this._gamestateId        }
     get guestNumber()       { return this._guestNumber;       }
     get level()             { return this._level;             }
     get credits()           { return this._credits;           }
@@ -59,6 +63,7 @@ export class User{
     get numbersInShopList() { return this._numbersInShopList; }
 
     update_money(new_money)           { this._money = new_money}
+    updateLevel(level) {this._level = level }
     increaseLevel()                   { this._level +=1; }
     decreaseLevel()                   { this._level -=1; }
     increaseCredits(increaseAmount)   { this._credits += increaseAmount; }

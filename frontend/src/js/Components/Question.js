@@ -3,7 +3,7 @@ import { Item               } from "../classes/item";
 import { User               } from "../classes/user";
 import { FormUtil           } from "../util/formUtil";
 import { CST                } from "../CST";
-import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest } from "../Components/scripts";
+import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough, GetAllShoppingList, UpdateShoppingList} from "../Components/scripts";
 import { GetUserStat } from "../Components/getUserStat";
 
 export class Question extends Phaser.GameObjects.Container{
@@ -90,7 +90,7 @@ export class Question extends Phaser.GameObjects.Container{
             this.question   = question.question;
             this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'24px'};
 
-            this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.8, this.scene.game.config.height*0.4, 0xffffff);
+            this.questionBackground = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.9, this.scene.game.config.height*0.6, 0xffffff);
 
             this.questionBackground.setOrigin(0.5,0.5);
             this.questionBackground.setStrokeStyle(1.5, 0x000000);
@@ -98,9 +98,9 @@ export class Question extends Phaser.GameObjects.Container{
             // Tranparent background
             this.transparent = this.scene.add.rectangle(0,
                                 0,
-                                this.scene.game.config.width*0.78,
-                                this.scene.game.config.height*0.38,
-                                0x3498DB);
+                                this.scene.game.config.width*0.22,
+                                50,
+                                0x3498DB).setOrigin(0.5,0.2);
             this.transparent.alpha = 0.3;
 
             this.questionText = this.scene.add.text(0, -100, this.question, this.textConfig);
@@ -126,7 +126,6 @@ export class Question extends Phaser.GameObjects.Container{
                 cols: 11
             });
             //this.formUtil.showNumbers();
-
             this.formUtil.scaleToGameW  ("myText", .2);
             this.formUtil.placeElementAt(60, 'myText', true);
 
@@ -144,6 +143,18 @@ export class Question extends Phaser.GameObjects.Container{
     sendForm() {
         var ret = document.getElementById("myText").value;
 
+        if(ret == ""){
+          if(this.api_type      == "furniture") { this.player.decrease_furniture();}
+          else if(this.api_type == "deco")      { this.player.decrease_deco();}
+          else if(this.api_type == "food")      { this.player.decrease_food();}
+          else if(this.api_type == "kiddie")    { this.player.decrease_kiddie();}
+
+          var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
+          this.destroy();
+          scene.scene.sleep(CST.SCENES.BUY_POPUP);
+          alert("Please Fill in Your Answer, Try Again!");
+        }
+
         this.send_button.style.display    = "none";
         this.cancel_button.style.display  = "none";
         this.input_text.style.display     = "none";
@@ -151,6 +162,7 @@ export class Question extends Phaser.GameObjects.Container{
         const check_url  = "http://127.0.0.1:5001/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
           console.log(answer.message);
+
           if(answer.message == "Answer is correct."){
 
             var new_money;
@@ -159,33 +171,45 @@ export class Question extends Phaser.GameObjects.Container{
             this.credit_text.setText(this.player.money);
             this.checkCreateObject();
 
+            const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
+            const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+
+            GetPlaythrough(ptid_url).then(data => {
+              PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
+        		})
+
             alert("Correct!");
 
             var q_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
-              var stat_data = GetUserStat(data);
-              var addition_correct      = stat_data.add_cor;
-              var subtraction_correct   = stat_data.sub_cor;
-              var mult_correct          = stat_data.mul_cor;
-              var div_correct           = stat_data.div_cor;
-              var mixed_correct         = stat_data.mix_cor;
-
-              var add_count = 0;
-              var sub_count = 0;
-              var mul_count = 0;
-              var div_count = 0;
-              var mix_count = 0;
-
-              for(var i=0; i<addition_correct.length;     i++){ if(i < 4){ add_count += 1; } }
-              for(var i=0; i<subtraction_correct.length;  i++){ if(i < 4){ sub_count += 1; } }
-              for(var i=0; i<mult_correct.length;         i++){ if(i < 4){ mul_count += 1; } }
-              for(var i=0; i<div_correct.length;          i++){ if(i < 4){ div_count += 1; } }
-              for(var i=0; i<mixed_correct.length;        i++){ if(i < 4){ mix_count += 1; } }
-              var total_count = add_count + sub_count + mul_count + div_count + mix_count;
-
-              this.progressBar.setPercent(total_count / 20);
+              var shop_url = "http://127.0.0.1:5001/"+ this.player.gamestateId + "/shoppinglist";
+              var correct_count = 0;
+              var attempt_count = 0;
+              GetAllShoppingList(shop_url).then(ret => {
+                for(var i=0; i<ret.length; i++){
+                  if(this.imageName == ret[i].itemName){
+                    console.log(ret[i].itemName);
+                    var updateShop_url =  "http://127.0.0.1:5001/updateshoppinglist";
+                    UpdateShoppingList(ret[i].id, updateShop_url).then(data => {
+                      console.log(data);
+                    });
+                    correct_count++;
+                  }
+                  attempt_count++;
+                }
+                var total_count = correct_count/attempt_count;
+                this.progressBar.setPercent(total_count);
+              })
             })
           }else{
+            const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
+            const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+
+            GetPlaythrough(ptid_url).then(data => {
+        			console.log(data[0].id);
+              PostQuestionHistory(this.question, ret, this.type, false, data[0].id, pt_url).then(data => {
+              })
+        		})
 
             if(this.api_type      == "furniture") { this.player.decrease_furniture();}
             else if(this.api_type == "deco")      { this.player.decrease_deco();}
@@ -201,6 +225,16 @@ export class Question extends Phaser.GameObjects.Container{
     }
 
     cancelForm() {
+        const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
+        const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
+
+        GetPlaythrough(ptid_url).then(data => {
+          console.log(data[0].id);
+          PostQuestionHistory(this.question, null, this.type, false, data[0].id, pt_url).then(data => {
+            console.log("FSNAJKF");
+          })
+        })
+
         if(this.api_type      == "furniture")    { this.player.decrease_furniture(); }
         else if(this.api_type == "deco")    { this.player.decrease_deco(); }
         else if(this.api_type == "food")    { this.player.decrease_food(); }
@@ -222,6 +256,7 @@ export class Question extends Phaser.GameObjects.Container{
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
             var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, "show");
+
         }
 
         this.scene.originalS.updateProgressBar();

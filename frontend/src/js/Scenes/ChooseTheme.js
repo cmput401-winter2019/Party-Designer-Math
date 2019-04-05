@@ -8,7 +8,7 @@ export class ChooseTheme extends Phaser.Scene {
     }
 
     init (gamestate) {
-        this.gamestate = gamestate
+        this.gamestate = gamestate;
     }
     preload()
     {
@@ -17,8 +17,25 @@ export class ChooseTheme extends Phaser.Scene {
         for (var i=0; i<this.themes.length; i++){
             this.load.image(this.themes[i], "assets/images/Interface/"+this.themes[i]+".svg");
         }
+        this.load.image("back", "assets/images/Interface/themeBack.svg" )
     }
     create(){
+        // Background
+        this.pinkBackground = this.add.image(0,0, "back").setOrigin(0,0);
+        this.pinkBackground.displayWidth = this.game.config.width;
+        this.pinkBackground.displayHeight = this.game.config.height;
+
+        // Tranparent background
+        this.rect = this.add.rectangle(this.game.config.width/2,
+                                    this.game.config.height/2,
+                                    this.game.config.width*0.8,
+                                    this.game.config.height*0.75,
+                                    0xffffff);
+        this.rect.alpha = 0.3;
+        this.rect.setOrigin(0.5,0.5);
+
+
+
         // Title
         this.textConfig = { fontFamily  : "Muli",
                         color       : "#ffffff",
@@ -68,7 +85,7 @@ export class ChooseTheme extends Phaser.Scene {
     flipLeft(){
         this.hideCurrentPage();
     }
-    
+
     showCurrentPage(){
         var min = this.themesInPage;
         if (this.currentPage+1==this.numOfPages && this.themesInLastPage!=0){

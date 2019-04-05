@@ -11,7 +11,8 @@ export class Guest extends Phaser.GameObjects.Sprite{
 
     		this.scene.input.setDraggable(this);
 
-    		this.name         = name;
+        this.image        = image;
+    	this.name         = name;
         this.type         = "guest";
         this.customize    = false;
         this.angle        = 0;
@@ -20,16 +21,22 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.scaleY       = this.scaleX;
 
         // ---- guest buttons -----
-        this.rotateBtn    = this.scene.add.image(0, 0, 'rotateBtn'  );
-        this.rotateBtn2   = this.scene.add.image(0, 0, 'rotateBtn'  );
-        this.scaleBtn     = this.scene.add.image(0, 0, 'scaleBtn'   );
-        this.smallerBtn   = this.scene.add.image(0, 0, 'smallerBtn' );
-        this.forwardBtn   = this.scene.add.image(0, 0, 'forwardBtn' ).setOrigin(0.5, 0);
-        this.backwardBtn  = this.scene.add.image(0, 0, 'backwardBtn').setOrigin(0.5, 0);
-        this.rightBtn     = this.scene.add.image(0, 0, 'rightBtn'   ).setOrigin(0.5, -0.5);
+        this.rotateBtn    = this.scene.add.image(0, 0, 'RotateBtn'  );
+        this.rotateBtn2   = this.scene.add.image(0, 0, 'RotateBtn2'  );
+        this.scaleBtn     = this.scene.add.image(0, 0, 'ScaleBtn'   );
+        this.smallerBtn   = this.scene.add.image(0, 0, 'ScaleSmaller' );
+        this.forwardBtn   = this.scene.add.image(0, 0, 'Forward' ).setOrigin(0.5, 0);
+        this.rightBtn     = this.scene.add.image(0, 0, 'Right'   ).setOrigin(0.5, -0.5);
 
-        this.btnList = [this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.backwardBtn, this.rightBtn];
+        this.btnList = [this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.rightBtn];
 
+        // Tranparent background
+        this.rect = this.scene.add.rectangle(0,
+                                             0,
+                                             this.rotateBtn.displayWidth+10,
+                                             this.rotateBtn.displayHeight*7,
+                                             0x3498DB);
+        this.rect.setOrigin(0.5,0);
         this.hideButtons();
 
         // ---- Set item buttons functions -----
@@ -39,7 +46,6 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.scaleBtn   .setInteractive();
         this.smallerBtn .setInteractive();
         this.forwardBtn .setInteractive();
-        this.backwardBtn.setInteractive();
 
         this.rightBtn   .on('pointerdown', this.hideButtons,   this);
         this.rotateBtn  .on('pointerdown', this.rotateGuest,   this);
@@ -47,7 +53,6 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.scaleBtn   .on('pointerdown', this.biggerGuest,   this);
         this.smallerBtn .on('pointerdown', this.smallerGuest,  this);
         this.forwardBtn .on('pointerdown', this.bringForward,  this);
-        this.backwardBtn.on('pointerdown', this.bringBackward, this);
 
         // ---- Guest button only shows if hold was not caused by dragging ------
         this.on('pointerdown', function(pointer){
@@ -71,12 +76,21 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.input.draggable  = false;
         var btnX              = this.x+(this.displayWidth/2);
         var btnY              = this.y-this.displayHeight/2;
+        
+        this.rect.depth = 3;
 
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].x         = btnX;
             this.btnList[i].y         = btnY+i*this.btnList[i].displayHeight;
             this.btnList[i].visible   = true;
+            this.btnList[i].setDepth(this.rect.depth+1);
+            console.log(i);
         }
+
+        // Transparent rectangle position
+        this.rect.x = this.rotateBtn.x;
+        this.rect.y = this.rotateBtn.y-this.rotateBtn.displayHeight;
+        this.rect.alpha=0.7;
     }
 
     hideButtons(){
@@ -87,6 +101,13 @@ export class Guest extends Phaser.GameObjects.Sprite{
             this.btnList[i].visible = false;
         }
         this.customize = false;
+        this.rect.alpha=0;
+    }
+    destroyButtons(){
+        this.rect.destroy();
+        for (var i=0; i< this.btnList.length; i++){
+            this.btnList[i].destroy();
+        }
     }
 
     rotateGuest(){
@@ -105,11 +126,18 @@ export class Guest extends Phaser.GameObjects.Sprite{
     }
 
     smallerGuest(){
-        this.displayWidth-= 20;
-        this.scaleY=this.scaleX;
+        if(this.displayWidth>21){
+            this.displayWidth-= 20;
+            this.scaleY=this.scaleX;
+        }
     }
 
-    bringForward(){}
+    bringForward(){
+        this.newGuest = this.scene.add.existing(new Guest(this.scene, this.image, this.x, this.y, "Sammy"));
+        this.newGuest.showButtons();
+        this.destroyButtons();
+        this.destroy();
+    }
 
     bringBackward(){}
 
