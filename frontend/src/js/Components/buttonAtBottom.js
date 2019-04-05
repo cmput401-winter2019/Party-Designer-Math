@@ -1,4 +1,4 @@
-import {CST} from "../CST.js";
+import { CST } from "../CST.js";
 import { ImageToProperties }            from "../classes/imageToProperties";
 export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
@@ -28,9 +28,6 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
     this.numItemPerPage = Math.floor((this.scene.game.config.width*0.7)/(this.btnHeight *2.5));
     this.numItemLastPage = this.assets.length%this.numItemPerPage;
     this.numOfPages = Math.ceil(this.assets.length/this.numItemPerPage);
-    
-    // Image to Properties class declaration
-    this.imageToProp = new ImageToProperties();
 
     // Draw Rectangle of the button
     this.rect = this.scene.add.rectangle(0, this.startHeight, this.btnWidth, this.btnHeight, this.btnColor);
@@ -120,6 +117,9 @@ export class ButtonAtBottom extends Phaser.GameObjects.Container {
 
     // Set images associated with the button
     var page=0;
+    // Image to Properties class declaration
+    this.imageToProp = new ImageToProperties();
+	  
     while(page<this.numOfPages){
       var offset=this.btnWidth*1.25+25;
       var min = this.numItemPerPage;
