@@ -144,6 +144,18 @@ export class Question extends Phaser.GameObjects.Container{
     sendForm() {
         var ret = document.getElementById("myText").value;
 
+        if(ret == ""){
+          if(this.api_type      == "furniture") { this.player.decrease_furniture();}
+          else if(this.api_type == "deco")      { this.player.decrease_deco();}
+          else if(this.api_type == "food")      { this.player.decrease_food();}
+          else if(this.api_type == "kiddie")    { this.player.decrease_kiddie();}
+
+          var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
+          this.destroy();
+          scene.scene.sleep(CST.SCENES.BUY_POPUP);
+          alert("Please Fill in Your Answer, Try Again!");
+        }
+
         this.send_button.style.display    = "none";
         this.cancel_button.style.display  = "none";
         this.input_text.style.display     = "none";
@@ -151,6 +163,7 @@ export class Question extends Phaser.GameObjects.Container{
         const check_url  = "http://127.0.0.1:5001/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
           console.log(answer.message);
+
           if(answer.message == "Answer is correct."){
 
             var new_money;
@@ -200,7 +213,6 @@ export class Question extends Phaser.GameObjects.Container{
             GetPlaythrough(ptid_url).then(data => {
         			console.log(data[0].id);
               PostQuestionHistory(this.question, ret, this.type, false, data[0].id, pt_url).then(data => {
-                console.log("FSNAJKF");
               })
         		})
 
