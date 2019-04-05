@@ -1,8 +1,8 @@
 var interfaceBtns           = ["ExitGame", "Profile", "Bag", "List", "Credit"];
 
-var beach_guestImages       = ["char1", "char2", "char3", "char4", "char5", "char6", "char7"];
-var spaceroom_guestImages   = ["char1", "char2", "char3", "char4", "char5", "char6"];
-var playground_guestImages  = ["char1", "char2", "char3", "char4", "char5", "char6"];
+var beach_guestImages       = ["beach_char1", "beach_char2", "beach_char3", "beach_char4", "beach_char5", "beach_char6", "beach_char7"];
+var spaceroom_guestImages   = ["spaceroom_char1", "spaceroom_char2", "spaceroom_char3", "spaceroom_char4", "spaceroom_char5", "spaceroom_char6"];
+var playground_guestImages  = ["playground_char1", "playground_char2", "playground_char3", "playground_char4", "playground_char5", "playground_char6"];
 
 var spaceFurnitures         = ["Chair", "DinnerTable", "Floor", "MusicPlayer", "Rug", "Screen", "Shelf", "Sofa", "Table", "WallShelf"];
 var spaceFood               = ["Burger_mult","Burger","Cake","Cherries","Chips","Juice","Ketchup","Pizza","SaladBowl","SpaceWater"];
@@ -47,7 +47,7 @@ spaceFurnitures, playFurnitures, beachFurnitures,
 spaceFood, playFood, beachFood,
 spaceDeco, playDeco, beachDeco,
 spaceKiddie, playKiddie, beachKiddie, allFurnitures, allFood, allDeco, allKiddie,
-allFurnitureName, allFurniturePluralName, allFurnitureCost, 
+allFurnitureName, allFurniturePluralName, allFurnitureCost,
 allFoodName, allFoodPluralName, allFoodCost,
 allDecoName, allDecoPluralName, allDecoCost,
 allKiddieName, allKiddiePluralName, allKiddieCost
