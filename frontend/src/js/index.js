@@ -1,5 +1,5 @@
 import config                 from './Config/config'
-import { BootScene }          from './Scenes/BootScene';
+import { BootScene }          from './Scenes/BootScene.js';
 import { ChooseTheme }        from './Scenes/ChooseTheme';
 import { PreloaderScene }     from './Scenes/PreloaderScene';
 import { LoginScene }         from './Scenes/LoginScene';
