@@ -22,63 +22,39 @@
     <title>Teacher Dashboard</title>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">
-            <img src="untitled.svg" width="35" height="35" class="d-inline-block align-middle" alt="">
-            Teachers Dashboard
-        </a>
-        
-        <form class="form-inline">
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Welcome, placeholder!</a>
-            </li>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log Out</button>
-        </form>
-    </nav>
+    <div id="content">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand">
+                <img src="untitled.svg" width="35" height="35" class="d-inline-block align-middle" alt="">
+                Teachers Dashboard
+            </a>
+            
+            <form class="form-inline">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" id="welcome"></a>
+                </li>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="logout">Log Out</button>
+            </form>
+        </nav>
 
-    <div class="students-table">
-        <table class="table">
-            <thead>
-                <tr>
-                <th scope="col">Username</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Addition</th>
-                <th scope="col">Subtraction</th>
-                <th scope="col">Multiplication</th>
-                <th scope="col">Addition</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>History</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>History</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>History</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="students-table">
+            <table class="table" id="tableid">
+                <thead>
+                    <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Addition</th>
+                    <th scope="col">Subtraction</th>
+                    <th scope="col">Multiplication</th>
+                    <th scope="col">Addition</th>
+                    <th scope="col">Mixed</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
