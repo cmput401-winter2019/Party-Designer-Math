@@ -1,8 +1,6 @@
-import { playground_guestImages, beach_guestImages, spaceroom_guestImages }                  from "../Components/assets.js";
+
 import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough, GetAllShoppingList}        from "../Components/scripts.js";
 import { GetUserStat }                  from "../Components/getUserStat.js";
-import { RandomNumber }                 from "../Components/randint.js";
-import { CreateShoppingList }           from "../Components/createShoppingList.js";
 import { ImageToProperties }            from "../classes/imageToProperties.js";
 import { User }                         from "../classes/user.js";
 import { Guest }                        from "../classes/guests.js";

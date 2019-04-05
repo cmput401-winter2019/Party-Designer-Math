@@ -1,10 +1,9 @@
 import { ImageToProperties  } from "../classes/imageToProperties.js";
 import { Item               } from "../classes/item.js";
-import { User               } from "../classes/user.js";
 import { FormUtil           } from "../util/formUtil.js";
 import { CST                } from "../CST.js";
 import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough, GetAllShoppingList, UpdateShoppingList, UpdateMoney} from "../Components/scripts.js";
-import { GetUserStat } from "../Components/getUserStat.js";
+
 
 export class Question extends Phaser.GameObjects.Container{
     constructor(scene, iName, amount, player, credit_text, progressBar){
