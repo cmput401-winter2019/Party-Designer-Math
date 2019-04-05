@@ -163,10 +163,7 @@ export class Question extends Phaser.GameObjects.Container{
             const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
-        			console.log(data[0].id);
-              PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {
-                console.log("FSNAJKF");
-              })
+              PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
 
             alert("Correct!");
@@ -252,7 +249,7 @@ export class Question extends Phaser.GameObjects.Container{
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
             var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, "show");
-            
+
         }
 
         this.scene.originalS.updateProgressBar();
