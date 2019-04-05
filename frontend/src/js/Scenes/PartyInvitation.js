@@ -67,13 +67,19 @@ export class PartyInvitation extends Phaser.Scene {
     }
     preload()
     {
-      this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
-      this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
-      this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
-      this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
-      this.load.image("forwardBtn",     "assets/images/Interface/Forward.svg");
-      this.load.image("backwardBtn",     "assets/images/Interface/Backward.svg");
-      this.load.image("crossBtn", "assets/images/Interface/Cross.svg");
+      this.configButtons = ["RotateBtn", "RotateBtn2", "Right", "ScaleBtn", "ScaleSmaller", "Forward", "Backward"];
+
+      for(var i=0; i<this.configButtons.length; i++){
+        this.load.image(this.configButtons[i], "assets/images/Interface/"+this.configButtons[i]+".svg");
+      }
+      // this.load.image("rotateBtn",    "assets/images/Interface/RotateBtn.svg");
+      // this.load.image("rotateBtn2",    "assets/images/Interface/RotateBtn2.svg");
+      // this.load.image("rightBtn",     "assets/images/Interface/Right.svg");
+      // this.load.image("scaleBtn",     "assets/images/Interface/ScaleBtn.svg");
+      // this.load.image("smallerBtn",   "assets/images/Interface/ScaleSmaller.svg");
+      // this.load.image("forwardBtn",     "assets/images/Interface/Forward.svg");
+      // this.load.image("backwardBtn",     "assets/images/Interface/Backward.svg");
+      // this.load.image("crossBtn", "assets/images/Interface/Cross.svg");
 
       if(this.imageChoice == "theme1"){
         this.pathToInvite = "assets/images/Invitations/spaceroom/";
