@@ -25,6 +25,7 @@ export class LevelUpScene extends Phaser.Scene {
     }
     preload(){
         this.load.image("mountain",    "assets/images/Interface/mountain.png");
+        this.load.image("char2",        "assets/images/Playground/Characters/playground_char2.svg");
     }
     create(){
 
@@ -86,6 +87,19 @@ export class LevelUpScene extends Phaser.Scene {
             if (this.click == 1){
                 this.showOverallReport();
             }
+            else if (this.click==2){
+                this.hideOverallReport();
+                this.char1 = this.add.sprite(this.game.config.width/2,this.game.config.height/2+100,"char1");
+                this.anims.create({
+                    key: 'jump',
+                    frames: [
+                    {key: 'char2', frame:0}],
+                    frameRate:8,
+                    repeat: -1
+                });
+                this.char1.play('jump');
+                this.goUp();
+            }
             else {
                 const drop_url = "http://127.0.0.1:5001/dropquestion";
                 DropQuestionRequest(this.player.gs_id, drop_url).then(data => {})
@@ -99,7 +113,16 @@ export class LevelUpScene extends Phaser.Scene {
             }
         });
     }
-
+    goUp(){
+        this.tweens.add({targets: this.char1, duration: 450,
+                        x:this.char1.x, y:this.char1.y-10, 
+                        onComplete:this.onCompleteHandler.bind(this),
+        }); 
+    }
+    onCompleteHandler(tween, targets, scope){
+        this.char1.y = this.char1.y+10;
+        this.goUp();
+    }
     showOverallReport(){
         // Hide current Level Scores
         for(var i=0; i<this.textObjects.length; i++){
@@ -115,6 +138,16 @@ export class LevelUpScene extends Phaser.Scene {
         }
         // Change subtitle
         this.subtitle.text = "Your OVERALL SCORE is "+(this.overallOverall*100).toFixed(2)+"%";
+    }
+    hideOverallReport(){
+         // Move tags
+        for(var i=0; i<this.textObjects.length; i++){
+            this.tags[i].alpha = 0;
+        }
+        // Show Bars
+        for(var i=0; i<this.bars.length; i++){
+            this.bars[i].alpha = 0;
+        }
     }
     setTitles(){
         // Title & Subtitle Text
