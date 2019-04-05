@@ -61,7 +61,7 @@ function post_request(username, firstname, lastname, password, email, signupType
             }
             let url = window.location.href.split("/");
             url = url[0] + "//" + url[2];
-            window.location = url + "/frontend/templates/login.html";
+            window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
             console.log("Registration was successful!")
           });
         }
