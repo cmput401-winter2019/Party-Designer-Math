@@ -3,7 +3,7 @@ import { Item               } from "../classes/item";
 import { User               } from "../classes/user";
 import { FormUtil           } from "../util/formUtil";
 import { CST                } from "../CST";
-import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough, GetAllShoppingList, UpdateShoppingList} from "../Components/scripts";
+import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough, GetAllShoppingList, UpdateShoppingList, UpdateMoney} from "../Components/scripts";
 import { GetUserStat } from "../Components/getUserStat";
 
 export class Question extends Phaser.GameObjects.Container{
@@ -176,6 +176,10 @@ export class Question extends Phaser.GameObjects.Container{
             this.player.update_money(new_money);
             this.credit_text.setText(this.player.money);
             this.checkCreateObject();
+            var money_url = "http://127.0.0.1:5001/gamestate/update";
+            UpdateMoney(this.player.money, money_url).then(data => {
+
+            })
 
             const pt_url    = "http://127.0.0.1:5001/createquestionhistory";
             const ptid_url  = "http://127.0.0.1:5001/"+this.player.id+"/getplaythrough";

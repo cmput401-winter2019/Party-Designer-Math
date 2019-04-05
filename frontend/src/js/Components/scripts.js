@@ -234,6 +234,35 @@ export function UpdateShoppingList(id, url) {
   });
 }
 
+export function UpdateMoney(money, url) {
+  const body = {
+      updateType: "money",
+      updateValue: money
+  };
+  return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+      }
+    })
+  .then((response) => {
+    console.log(response);
+    if(response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Server response wasn\'t OK');
+    }
+  })
+  .then((json) => {
+    return json;
+  });
+}
+
 export function DropShoppingListRequest(gs_id, url) {
   const body = {
       gs_id: gs_id

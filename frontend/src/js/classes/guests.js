@@ -76,7 +76,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.input.draggable  = false;
         var btnX              = this.x+(this.displayWidth/2);
         var btnY              = this.y-this.displayHeight/2;
-        
+
         this.rect.depth = 3;
 
         for (var i=0; i< this.btnList.length; i++){
@@ -84,7 +84,6 @@ export class Guest extends Phaser.GameObjects.Sprite{
             this.btnList[i].y         = btnY+i*this.btnList[i].displayHeight;
             this.btnList[i].visible   = true;
             this.btnList[i].setDepth(this.rect.depth+1);
-            console.log(i);
         }
 
         // Transparent rectangle position
