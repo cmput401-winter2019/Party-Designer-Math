@@ -1,5 +1,5 @@
 
-import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough, GetAllShoppingList}        from "../Components/scripts.js";
+import { GetAllQuestionRequest, PostPlayThroughRequest, GetPlaythrough, GetAllShoppingList, UpdateMoney}        from "../Components/scripts.js";
 import { GetUserStat }                  from "../Components/getUserStat.js";
 import { ImageToProperties }            from "../classes/imageToProperties.js";
 import { User }                         from "../classes/user.js";
@@ -171,6 +171,9 @@ async function main(context, theme) {
 									}
 								}
 								if(complete_count >= ret.length){
+									var money_url = "http://127.0.0.1:5001/gamestate/update";
+									UpdateMoney(1000, money_url).then(data => {})
+
 									currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
 				                                                  add_correct		: addition_correct,
 				                                                  add_wrong  		: addition_wrong,
