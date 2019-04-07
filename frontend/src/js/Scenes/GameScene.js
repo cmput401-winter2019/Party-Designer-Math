@@ -171,7 +171,7 @@ async function main(context, theme) {
 									}
 								}
 								if(complete_count >= 0){
-									var money_url = "http://127.0.0.1:5001/gamestate/update";
+									var money_url = "http://162.246.157.181/gamestate/update";
 									UpdateMoney(1000, money_url).then(data => {})
 
 									currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,
