@@ -270,7 +270,7 @@ export class GameScene extends Phaser.Scene{
       var cap = itemDict[key]
       for(var k=0; k<cap; k++){
         property = this.imageToProp.getProp(key);
-        this.add.existing(new Item(this, key, 100, 200, property.name, property.pluralName, property.category, property.cost, type));
+				this.add.existing(new Item(this, key, 100, 200, property.name, property.pluralName, property.category, property.cost, type, this.player, this.credits));
       }
     }
   }

@@ -272,7 +272,7 @@ export class Question extends Phaser.GameObjects.Container{
 
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
-            var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, "show");
+          var item = new Item(this.scene.originalS, this.imageName, this.x, this.y/2, this.properties.name, this.properties.pluralName, this.properties.category, this.properties.cost, "show", this.player, this.credit_text);
 
         }
 

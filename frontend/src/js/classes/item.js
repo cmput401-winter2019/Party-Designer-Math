@@ -1,7 +1,8 @@
-import { CheckToBackpack } from "../Components/checkToBackpack.js";
+import { CheckToBackpack } from "../Components/checkToBackpack";
+import { RefundItem } from "../Components/RefundItem";
 
 export class Item extends Phaser.GameObjects.Sprite{
-    constructor(scene, image, x, y, name, pluralName, category, cost, purpose){
+    constructor(scene, image, x, y, name, pluralName, category, cost, purpose, player, credit){
         super(scene);
 
       	this.scene = scene;
@@ -22,6 +23,8 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.category     = category;
         this.cost         = cost;
         this.purpose      = purpose;
+        this.player       = player;
+        this.credit       = credit;
 
         this.displayWidth = this.scene.game.config.width*0.07;
         this.scaleY       = this.scaleX;
@@ -55,13 +58,14 @@ export class Item extends Phaser.GameObjects.Sprite{
         // ---- Set item buttons functions -----
         for (var i=0; i<this.btnList.length; i++){ this.btnList[i].setInteractive(); }
 
+        this.crossBtn   .on('pointerdown', this.refundButton, this);
         this.rightBtn   .on('pointerdown', this.hideButtons,  this);
         this.rotateBtn  .on('pointerdown', this.rotateGuest,  this);
         this.rotateBtn2 .on('pointerdown', this.rotateGuest2, this);
         this.scaleBtn   .on('pointerdown', this.biggerGuest,  this);
         this.smallerBtn .on('pointerdown', this.smallerGuest, this);
         this.forwardBtn .on('pointerdown', this.bringForward, this);
-        this.bagBtn.on('pointerdown', this.toBackpack,   this);
+        this.bagBtn     .on('pointerdown', this.toBackpack,   this);
 
         // ---- Item button only shows if hold was not caused by dragging ------
         this.on('pointerdown', function(pointer){
@@ -143,6 +147,14 @@ export class Item extends Phaser.GameObjects.Sprite{
         }
     }
 
+
+    refundButton(){
+      // this.deleteItem();
+      this.refundPopup = new RefundItem(this.scene, this);
+      this.hideButtons();
+    }
+
+
     rotateGuest(){
         this.angle += 20;
         this.scene.tweens.add({targets: this,duration: 100,y:this.y, angle:this.angle});
@@ -159,12 +171,12 @@ export class Item extends Phaser.GameObjects.Sprite{
         if (this.displayWidth >21){
             this.displayWidth -= 20;
             this.scaleY       = this.scaleX;
-        }   
-        
+        }
+
     }
 
     bringForward(){
-        this.newItem = this.scene.add.existing(new Item(this.scene, this.imageName, this.x, this.y, this.name, this.pluralName, this.category, this.cost, "load"));
+        this.newItem = this.scene.add.existing(new Item(this.scene, this.imageName, this.x, this.y, this.name, this.pluralName, this.category, this.cost, "load",this.player, this.credit));
         this.newItem.showButtons();
         this.destroyButtons();
         this.destroy();
@@ -182,6 +194,7 @@ export class Item extends Phaser.GameObjects.Sprite{
     toBackpack(){
         this.popup = new CheckToBackpack(this.scene, this);
         this.popup.depth+=1;
+        this.hideButtons();
     }
     deleteItem(){
         this.destroyButtons();
