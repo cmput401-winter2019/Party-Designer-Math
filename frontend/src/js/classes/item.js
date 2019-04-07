@@ -1,5 +1,5 @@
-import { CheckToBackpack } from "../Components/checkToBackpack";
-import { RefundItem } from "../Components/RefundItem";
+import { CheckToBackpack } from "../Components/checkToBackpack.js";
+import { RefundItem } from "../Components/RefundItem.js";
 
 export class Item extends Phaser.GameObjects.Sprite{
     constructor(scene, image, x, y, name, pluralName, category, cost, purpose, player, credit){

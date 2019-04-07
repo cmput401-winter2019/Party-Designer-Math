@@ -1,5 +1,5 @@
-import { ImageToProperties } from "../classes/imageToProperties";
-import { UpdateMoney } from "../Components/scripts";
+import { ImageToProperties } from "../classes/imageToProperties.js";
+import { UpdateMoney } from "../Components/scripts.js";
 
 
 export class RefundItem extends Phaser.GameObjects.Container{
