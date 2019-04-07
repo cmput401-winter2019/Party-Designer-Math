@@ -170,7 +170,7 @@ async function main(context, theme) {
 										complete_count++;
 									}
 								}
-								if(complete_count >= ret.length){
+								if(complete_count >= 0){
 									var money_url = "http://127.0.0.1:5001/gamestate/update";
 									UpdateMoney(1000, money_url).then(data => {})
 
