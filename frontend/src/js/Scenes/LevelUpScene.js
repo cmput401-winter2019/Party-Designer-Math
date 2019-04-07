@@ -141,7 +141,7 @@ export class LevelUpScene extends Phaser.Scene {
             this.bars[i].alpha=1;
         }
         // Change subtitle
-        this.subtitle.text = "Your OVERALL SCORE is "+(this.overallOverall*100).toFixed(2)+"%";
+        this.subtitle.text = "Your OVERALL SCORE is "+(this.currentLevel*100).toFixed(2)+"%";
     }
     hideOverallReport(){
          // Move tags
