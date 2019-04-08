@@ -51,7 +51,7 @@ export class Tutorial extends Phaser.Scene {
         // Continue Button
         this.click = 0;
         this.continueBtn = new RoundBtn(this,
-                                        this.p1.x+this.p1.displayWidth*0.875,
+                                        this.p1.x+this.p1.displayWidth*0.375,
                                         this.p1.y-this.p1.displayHeight/2+60,
                                         "Next Page",
                                         100,
