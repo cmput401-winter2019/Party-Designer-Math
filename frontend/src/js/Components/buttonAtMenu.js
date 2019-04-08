@@ -71,6 +71,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 	pressed()
 	{
 		if(this.name == "ExitGame"){
+			var scene = this.scene;
 			const body = {
 				access_token: localStorage.getItem("access_token"),
 				refresh_token: localStorage.getItem("refresh_token")
@@ -87,14 +88,14 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 				}
 			  })
 			  .then(
-				function(response, this) {
+				function(response) {
 				  // Examine the text in the response
 				  response.json().then(function(data) {
 					if (response.status !== 200) {
 						alert(response.status + " Error"+ " : " + data["message"]);
 						return;
 					}
-					this.alert = new Alert(this.scene, data["message"]);
+					scene.alert = new Alert(scene, data["message"]);
 					//alert(response.status + " Success"+ " : " + );
 					let url = window.location.href.split("/");
 					url = url[0] + "//" + url[2];
