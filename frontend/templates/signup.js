@@ -15,7 +15,6 @@ window.onload = function signup() {
     });
 
     Register.addEventListener('click', (e) => {
-        console.log(signupType);
         const username = document.getElementById("username").value;
         const firstname = document.getElementById("firstname").value;
         const lastname = document.getElementById("lastname").value;
@@ -24,6 +23,7 @@ window.onload = function signup() {
         const confirmpassword = document.getElementById("confirmpassword").value;
         const signupType = document.getElementById("signupType").value;
         const classCode = document.getElementById("classcode").value;
+        console.log(signupType);
         if (password === confirmpassword){
             post_request(username, firstname, lastname, password, email, signupType, classCode);
         }
