@@ -1,6 +1,6 @@
 export class Alert extends Phaser.GameObjects.Container{
-    constructor(scene){
-        super(scene, purpose);
+    constructor(scene, purpose){
+        super(scene);
         this.scene = scene;
         this.purpose = purpose;
 
