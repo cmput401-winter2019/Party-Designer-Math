@@ -184,7 +184,7 @@ async function main(context, theme) {
 				                                                  mixed_correct	: mixed_correct,
 				                                                  mixed_wrong   : mixed_wrong});
 				        }else{
-                  this.alert = new Alert(this, "You have not completed your shopping list. \n Please buy everything from your shopping list");
+                  this.alert = new Alert(currentContext, "You have not completed your shopping list. \n Please buy everything from your shopping list");
 				        }
 							})
 			    })
