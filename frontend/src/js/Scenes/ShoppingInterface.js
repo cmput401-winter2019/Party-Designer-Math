@@ -51,8 +51,8 @@ export class ShoppingInterface extends Phaser.Scene{
     					for(var i=0; i<ret.length; i++){
                   for(var k=0; k<10; k++){
                     if(ret[i].completed != true && ret[i].itemName == this.assets[k]){
-                      var asset = this.add.image(this.game.config.width*0.1, (centerXY.y-200)+(k*30), this.assets[k]);
-                      var text = this.add.text(this.game.config.width*0.1+30, (centerXY.y-200)+(k*30), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
+                      var asset = this.add.image(this.game.config.width*0.3, (centerXY.y-200)+(k*30), this.assets[k]);
+                      var text = this.add.text(this.game.config.width*0.3+30, (centerXY.y-200)+(k*30), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
                       text.setOrigin(0,0.5);
                       asset.displayWidth = 30;
                       asset.scaleY = asset.scaleX;
@@ -65,8 +65,8 @@ export class ShoppingInterface extends Phaser.Scene{
 
                   for(var k=10; k<20; k++){
                     if(ret[i].completed != true &&ret[i].itemName == this.assets[k]){
-                      var asset = this.add.image(this.game.config.width*0.5, (centerXY.y-200)+((k-10)*30), this.assets[k]);
-                      var text = this.add.text(this.game.config.width*0.5+30, (centerXY.y-200)+((k-10)*30), 'Buy ' + this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
+                      var asset = this.add.image(this.game.config.width*0.7, (centerXY.y-200)+((k-10)*30), this.assets[k]);
+                      var text = this.add.text(this.game.config.width*0.7+30, (centerXY.y-200)+((k-10)*30), 'Buy ' + this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
                       
                       text.setOrigin(0,0.5);
                       asset.displayWidth = 30;
