@@ -11,7 +11,7 @@ export class Alert extends Phaser.GameObjects.Container{
         this.textConfig = {fontFamily:'Muli', color:'#000000', fontSize:'16px'};
 
         //Create a rectangle background where everything for the prompt will be displayed on and add the text
-        this.background = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
+        this.background = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.6, 90, 0xffffff);
         this.background.setStrokeStyle(1.5, 0x000000);
         this.popUpText = this.scene.add.text(0, 0-20, this.text, this.textConfig);
         this.popUpText.setOrigin(0.5,0.5);
