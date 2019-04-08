@@ -1,20 +1,19 @@
 import {allFurnitures, allFood, allDeco, allKiddie,
-allFurnitureName, allFurniturePluralName, allFurnitureCost, 
+allFurnitureName, allFurniturePluralName, allFurnitureCost,
 allFoodName, allFoodPluralName, allFoodCost,
 allDecoName, allDecoPluralName, allDecoCost,
 allKiddieName, allKiddiePluralName, allKiddieCost} from '../Components/assets.js';
 
 
 export class ImageToProperties {
-    constructor(config) {
-        this.config = config;
-    }
+    constructor(config) { this.config = config; }
 
     getProp(iName){ // name, pluralName, category , unit
         var e1 = allFurnitures.indexOf(iName);
-        var e2 = allFood.indexOf(iName);
-        var e3 = allDeco.indexOf(iName);
-        var e4 = allKiddie.indexOf(iName);
+        var e2 = allFood      .indexOf(iName);
+        var e3 = allDeco      .indexOf(iName);
+        var e4 = allKiddie    .indexOf(iName);
+
         if (e1 >= 0 ){
           return {name      : allFurnitureName[e1],
                   pluralName: allFurniturePluralName[e1],

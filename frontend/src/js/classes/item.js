@@ -1,5 +1,5 @@
-import { CheckToBackpack } from "../Components/checkToBackpack.js";
-import { RefundItem } from "../Components/RefundItem.js";
+import { CheckToBackpack }  from "../Components/checkToBackpack.js";
+import { RefundItem }       from "../Components/RefundItem.js";
 
 export class Item extends Phaser.GameObjects.Sprite{
     constructor(scene, image, x, y, name, pluralName, category, cost, purpose, player, credit){
@@ -34,14 +34,14 @@ export class Item extends Phaser.GameObjects.Sprite{
         }
 ;
         // ---- Item buttons -----
-        this.crossBtn = this.scene.add.image(0,0, 'Cross');
-        this.rotateBtn = this.scene.add.image(0, 0,'RotateBtn');
-        this.rotateBtn2 = this.scene.add.image(0, 0,'RotateBtn2');
-        this.scaleBtn = this.scene.add.image(0,0,'ScaleBtn');
-        this.smallerBtn = this.scene.add.image(0,0,'ScaleSmaller');
-        this.forwardBtn = this.scene.add.image(0,0, 'Forward').setOrigin(0.5,0);
-        this.bagBtn = this.scene.add.image(0,0, 'Bag').setOrigin(0.5,0);
-        this.rightBtn = this.scene.add.image(0,0,'Right').setOrigin(0.5,-1.5);
+        this.crossBtn     = this.scene.add.image(0,0, 'Cross');
+        this.rotateBtn    = this.scene.add.image(0, 0,'RotateBtn');
+        this.rotateBtn2   = this.scene.add.image(0, 0,'RotateBtn2');
+        this.scaleBtn     = this.scene.add.image(0,0,'ScaleBtn');
+        this.smallerBtn   = this.scene.add.image(0,0,'ScaleSmaller');
+        this.forwardBtn   = this.scene.add.image(0,0, 'Forward').setOrigin(0.5,0);
+        this.bagBtn       = this.scene.add.image(0,0, 'Bag').setOrigin(0.5,0);
+        this.rightBtn     = this.scene.add.image(0,0,'Right').setOrigin(0.5,-1.5);
 
 
         this.btnList = [this.crossBtn, this.rotateBtn, this.rotateBtn2, this.smallerBtn, this.scaleBtn, this.forwardBtn, this.bagBtn, this.rightBtn];
@@ -81,13 +81,9 @@ export class Item extends Phaser.GameObjects.Sprite{
             }
         },this);
 
-        if(this.purpose == "load"){
-
-        }else if(this.purpose == "show") {
-            this.toScreen(this.imageName);
-        }else if(this.purpose == "moveFromBackpack") {
-            this.moveFromBackpack(this.imageName);
-        }
+        if(this.purpose == "load"){}
+        else if(this.purpose == "show") {this.toScreen(this.imageName);}
+        else if(this.purpose == "moveFromBackpack") {this.moveFromBackpack(this.imageName);}
 
         // If item is for the inivitation page, remove backpack button
         if(category == "n/a"){
@@ -116,7 +112,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].x       = this.btnX;
             this.btnList[i].y       = this.btnY+i*this.btnList[i].displayHeight;
-            if(this.btnList[i] == this.bagBtn){
+            if(this.btnList[i]==this.bagBtn){
                 this.btnList[i].y -= 2*this.btnList[i].displayHeight;
             }
             this.btnList[i].visible = true;
@@ -126,7 +122,7 @@ export class Item extends Phaser.GameObjects.Sprite{
         // Transparent rectangle position
         this.rect.x = this.crossBtn.x;
         this.rect.y = this.crossBtn.y-this.crossBtn.displayHeight;
-        this.rect.alpha=0.7;
+        this.rect.alpha = 0.7;
 
     }
 
@@ -172,7 +168,6 @@ export class Item extends Phaser.GameObjects.Sprite{
             this.displayWidth -= 20;
             this.scaleY       = this.scaleX;
         }
-
     }
 
     bringForward(){
@@ -186,7 +181,6 @@ export class Item extends Phaser.GameObjects.Sprite{
 
     toScreen(imageName){
         this.scene.player.putIntoScreenItems(imageName);
-        //console.log(this.scene.player);
     }
     moveFromBackpack(imageName){
         this.scene.player.putItemFromBackpackToScreen(imageName);
@@ -200,5 +194,4 @@ export class Item extends Phaser.GameObjects.Sprite{
         this.destroyButtons();
         this.destroy();
     }
-
 }

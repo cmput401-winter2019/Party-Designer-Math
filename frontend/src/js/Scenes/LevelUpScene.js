@@ -217,8 +217,8 @@ export class LevelUpScene extends Phaser.Scene {
         // Set background
         this.background = this.add.image(0, 0, "mountain");
         this.background.setOrigin(0,0);
-        this.background.displayWidth  = this.game.config.width;
-        this.background.scaleY        = this.background.scaleX;
+        this.background.displayWidth      = this.game.config.width;
+        this.background.scaleY            = this.background.scaleX;
         if(this.background.displayHeight< this.game.config.height){
             this.background.displayHeight = this.game.config.height;
             this.background.scaleX        = this.background.scaleY;

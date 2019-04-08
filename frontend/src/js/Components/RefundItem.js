@@ -24,8 +24,7 @@ export class RefundItem extends Phaser.GameObjects.Container{
         //Create a rectangle background where everything for the prompt will be displayed on and add the text
         this.background = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
         this.background.setStrokeStyle(1.5, 0x000000);
-        this.askText = this.scene.add.text(0, 0-20, "Are you sure you want to refund "+ this.name +
-         " ?", this.textConfig);
+        this.askText = this.scene.add.text(0, 0-20, "Are you sure you want to refund "+ this.name + " ?", this.textConfig);
         this.askText.setOrigin(0.5,0.5);
 
         //Confirm and cancel buttons
@@ -54,13 +53,12 @@ export class RefundItem extends Phaser.GameObjects.Container{
         this.setInteractive();
         this.scene.input.setDraggable(this);
 
-        this.cancelButton.on('pointerdown', this.destroyContainer, this);
+        this.cancelButton .on('pointerdown', this.destroyContainer, this);
         this.confirmButton.on('pointerdown', this.itemtoBackpack, this);
     }
-    destroyContainer(){
-        //console.log("destroy the container");
-        this.destroy();
-    }
+
+    destroyContainer(){ this.destroy(); }
+
     itemtoBackpack(){
         var new_money;
         new_money = Number(this.player.money) + Number(this.obj.cost);

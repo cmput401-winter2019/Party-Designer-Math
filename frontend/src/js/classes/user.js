@@ -26,15 +26,15 @@ export class User{
                                  //     item name and number that needs to be bought
     }
 
-    setPlaythroughId(id) { this._playthroughId == id }
-    get playthroughid() { return this._playthroughId }
-    get gamestateId() {return this._gamestateId};
+    get playthroughid()     { return this._playthroughId; }
+    get gamestateId()       { return this._gamestateId };
 
     get furniture_count()   { return this._furniture_count; }
     get deco_count()        { return this._deco_count;      }
     get food_count()        { return this._food_count;      }
     get kiddie_count()      { return this._kiddie_count;    }
 
+    setPlaythroughId(id)    { this._playthroughId == id; }
     increase_furniture()    { this._furniture_count += 1; }
     increase_deco()         { this._deco_count      += 1; }
     increase_food()         { this._food_count      += 1; }

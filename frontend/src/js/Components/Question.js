@@ -2,7 +2,14 @@ import { ImageToProperties  } from "../classes/imageToProperties.js";
 import { Item               } from "../classes/item.js";
 import { FormUtil           } from "../util/formUtil.js";
 import { CST                } from "../CST.js";
-import { GetAllQuestionRequest, PostQuestionRequest, PutCheckAnswerRequest, PostQuestionHistory,GetPlaythrough, GetAllShoppingList, UpdateShoppingList, UpdateMoney} from "../Components/scripts.js";
+import { GetAllQuestionRequest,
+          PostQuestionRequest,
+          PutCheckAnswerRequest,
+          PostQuestionHistory,
+          GetPlaythrough,
+          GetAllShoppingList,
+          UpdateShoppingList,
+          UpdateMoney} from "../Components/scripts.js";
 
 
 export class Question extends Phaser.GameObjects.Container{
@@ -197,10 +204,8 @@ export class Question extends Phaser.GameObjects.Container{
               GetAllShoppingList(shop_url).then(ret => {
                 for(var i=0; i<ret.length; i++){
                   if(this.imageName == ret[i].itemName){
-                    console.log(ret[i].itemName);
                     var updateShop_url =  "http://162.246.157.181/updateshoppinglist";
                     UpdateShoppingList(ret[i].id, updateShop_url).then(data => {
-                      console.log(data);
                     });
                   }
                 }
@@ -211,7 +216,6 @@ export class Question extends Phaser.GameObjects.Container{
                   attempt_count++;
                 }
                 var total_count = correct_count/attempt_count;
-                console.log(total_count);
                 if(total_count == 1){
                   alert("Level Done! Start Your Next Party!!");
                 }
@@ -223,7 +227,6 @@ export class Question extends Phaser.GameObjects.Container{
             const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
-        			console.log(data[0].id);
               PostQuestionHistory(this.question, ret, this.type, false, data[0].id, pt_url).then(data => {
               })
         		})
@@ -246,9 +249,7 @@ export class Question extends Phaser.GameObjects.Container{
         const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
         GetPlaythrough(ptid_url).then(data => {
-          console.log(data[0].id);
           PostQuestionHistory(this.question, null, this.type, false, data[0].id, pt_url).then(data => {
-            console.log("FSNAJKF");
           })
         })
 

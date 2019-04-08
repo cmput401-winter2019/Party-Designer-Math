@@ -12,7 +12,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
     		this.scene.input.setDraggable(this);
 
         this.image        = image;
-    	this.name         = name;
+       	this.name         = name;
         this.type         = "guest";
         this.customize    = false;
         this.angle        = 0;
@@ -55,10 +55,7 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.forwardBtn .on('pointerdown', this.bringForward,  this);
 
         // ---- Guest button only shows if hold was not caused by dragging ------
-        this.on('pointerdown', function(pointer){
-          this.wasDragging = false;
-        },this);
-
+        this.on('pointerdown', function(pointer){ this.wasDragging = false; },this);
 
         this.on('pointerup', function(pointer){
             var duration = pointer.getDuration();
@@ -99,8 +96,8 @@ export class Guest extends Phaser.GameObjects.Sprite{
         for (var i=0; i< this.btnList.length; i++){
             this.btnList[i].visible = false;
         }
-        this.customize = false;
-        this.rect.alpha=0;
+        this.customize  = false;
+        this.rect.alpha = 0;
     }
     destroyButtons(){
         this.rect.destroy();
@@ -120,14 +117,14 @@ export class Guest extends Phaser.GameObjects.Sprite{
     }
 
     biggerGuest(){
-        this.displayWidth+= 20;
-        this.scaleY=this.scaleX;
+        this.displayWidth += 20;
+        this.scaleY        = this.scaleX;
     }
 
     smallerGuest(){
-        if(this.displayWidth>21){
-            this.displayWidth-= 20;
-            this.scaleY=this.scaleX;
+        if(this.displayWidth > 21){
+            this.displayWidth -= 20;
+            this.scaleY        = this.scaleX;
         }
     }
 
@@ -137,7 +134,5 @@ export class Guest extends Phaser.GameObjects.Sprite{
         this.destroyButtons();
         this.destroy();
     }
-
     bringBackward(){}
-
 }

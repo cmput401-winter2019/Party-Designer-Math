@@ -9,7 +9,7 @@ import { ButtonAtMenu }                 from "../Components/buttonAtMenu.js";
 import { ButtonAtBottom }               from "../Components/buttonAtBottom.js";
 import { CST }                          from "../CST.js";
 import { ProgressBar }                  from '../Components/progressBar.js';
-import { RoundBtn }      from '../Components/roundBtn.js';
+import { RoundBtn }      								from '../Components/roundBtn.js';
 import { FormUtil }                     from '../util/formUtil.js';
 import { LevelIndicator }               from '../Components/levelIndicator.js';
 
@@ -47,11 +47,9 @@ async function main(context, theme) {
 	const data = await response.json();
 	if (!response.ok) {
     console.log("Something went wrong");
-    console.log(data);
 	}
 	else {
     for (const i of data) {
-			console.log(i.itemName);
       currentContext.itemsList.push(i.itemName);
       currentContext.itemAmounts.push(i.itemAmount);
     }
@@ -97,7 +95,6 @@ async function main(context, theme) {
 			})
 		}else{
 			GetPlaythrough(pt_url).then(data => {
-				console.log(data[0].level);
 				currentContext.player.setPlaythroughId(data[0].id);
 				currentContext.player.updateLevel(data[0].level);
 
@@ -189,7 +186,6 @@ async function main(context, theme) {
 				          alert("Shopping List is not Complete\n\n Please check Shopping List");
 				        }
 							})
-
 			    })
 			  });
 			})
