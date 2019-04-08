@@ -16,13 +16,13 @@ export class Tutorial extends Phaser.Scene {
     }
     create(){
         
-        // background
-        this.rect = this.add.rectangle(this.game.config.width/2, this.game.config.height/2,
-                                    this.game.config.width*0.8,
-                                    this.game.config.height*0.75,
-                                    0xffffff);
-        this.rect.alpha = 0.5;
-        this.rect.setOrigin(0.5,0.5);
+        // // background
+        // this.rect = this.add.rectangle(this.game.config.width/2, this.game.config.height/2,
+        //                             this.game.config.width*0.8,
+        //                             this.game.config.height*0.75,
+        //                             0xffffff);
+        // this.rect.alpha = 0.5;
+        // this.rect.setOrigin(0.5,0.5);
 
 
         // Page Images
@@ -52,7 +52,7 @@ export class Tutorial extends Phaser.Scene {
         this.click = 0;
         this.continueBtn = new RoundBtn(this,
                                         this.p1.x+this.p1.displayWidth/2-110,
-                                        this.p1.y-this.p1.displayHeight/2+60,
+                                        this.p1.y-this.p1.displayHeight/8,
                                         "Next Page",
                                         100,
                                         35);
