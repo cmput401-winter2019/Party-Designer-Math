@@ -87,7 +87,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 				}
 			  })
 			  .then(
-				function(response) {
+				function(response, this) {
 				  // Examine the text in the response
 				  response.json().then(function(data) {
 					if (response.status !== 200) {

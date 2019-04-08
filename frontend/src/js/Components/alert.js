@@ -19,7 +19,7 @@ export class Alert extends Phaser.GameObjects.Container{
         //OK button
         this.confirmButton = this.scene.add.rectangle(0, 0+25, 35, 15, 0x02C2FF);
         this.confirmButton.setStrokeStyle(1.5, 0xB2B3B4);
-        this.confirmButtonText = this.scene.add.text(0, 0+17, "OK", {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'});
+        this.confirmButtonText = this.scene.add.text(0-5, 0+17, "OK", {fontFamily:'Muli', color:'#ffffff', fontSize:'12px'});
         this.confirmButton.setInteractive();
 
         //Add all objects to container
