@@ -94,7 +94,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 						alert(response.status + " Error"+ " : " + data["message"]);
 						return;
 					}
-					this.alert = new Alert(this, data["message"]);
+					this.alert = new Alert(this.scene, data["message"]);
 					//alert(response.status + " Success"+ " : " + );
 					let url = window.location.href.split("/");
 					url = url[0] + "//" + url[2];
