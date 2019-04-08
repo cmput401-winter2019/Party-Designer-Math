@@ -12,6 +12,7 @@ export const CST = {
         PRELOADER:  "PRELOADER",
         CHOOSE_THEME: "CHOOSE_THEME",
         LEVEL_UP: "LEVEL_UP",
+        TUTORIAL: "TUTORIAL",
         DASHBOARD: "DASHBOARD"
     },
 

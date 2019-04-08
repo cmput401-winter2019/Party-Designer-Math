@@ -1,4 +1,4 @@
-var interfaceBtns           = ["ExitGame", "Profile", "Bag", "List", "Credit"];
+var interfaceBtns           = ["ExitGame", "Profile", "Bag", "List", "Credit", "Help"];
 
 var beach_guestImages       = ["beach_char1", "beach_char2", "beach_char3", "beach_char4", "beach_char5", "beach_char6", "beach_char7"];
 var spaceroom_guestImages   = ["spaceroom_char1", "spaceroom_char2", "spaceroom_char3", "spaceroom_char4", "spaceroom_char5", "spaceroom_char6"];

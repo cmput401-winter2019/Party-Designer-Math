@@ -9,6 +9,7 @@ import { ShoppingInterface }  from "./Scenes/ShoppingInterface.js";
 import { BuyPopup }           from "./Scenes/BuyPopup.js";
 import { BagPopup }           from "./Scenes/BagPopup.js";
 import { LevelUpScene }       from "./Scenes/LevelUpScene.js";
+import { Tutorial }           from "./Scenes/Tutorial.js";
 
 
 class Game extends Phaser.Game{
@@ -24,6 +25,7 @@ class Game extends Phaser.Game{
     this.scene.add("BUY_POPUP", BuyPopup);
     this.scene.add("BAG_POPUP", BagPopup);
     this.scene.add("LEVEL_UP", LevelUpScene);
+    this.scene.add("TUTORIAL", Tutorial);
     this.scene.start("BOOT");
   }
 }

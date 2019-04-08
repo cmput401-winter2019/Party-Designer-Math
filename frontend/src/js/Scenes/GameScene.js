@@ -298,9 +298,9 @@ export class GameScene extends Phaser.Scene{
 																				player      : this.player
                                     });
 
-    this.profileBtn = new ButtonAtMenu({ scene  : this,
-                                          key   : "Profile",
-                                          text  : "Profile",
+    this.helpBtn = new ButtonAtMenu({ scene  : this,
+                                          key   : "Help",
+                                          text  : "Help",
                                           x     : (startX+100),
                                           y     : 30,
                                           event : "button_pressed",
