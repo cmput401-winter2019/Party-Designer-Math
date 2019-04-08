@@ -15,6 +15,7 @@ window.onload = function signup() {
     });
 
     Register.addEventListener('click', (e) => {
+        console.log(signupType);
         const username = document.getElementById("username").value;
         const firstname = document.getElementById("firstname").value;
         const lastname = document.getElementById("lastname").value;

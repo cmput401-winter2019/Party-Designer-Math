@@ -11,7 +11,6 @@ import { BagPopup }           from "./Scenes/BagPopup.js";
 import { LevelUpScene }       from "./Scenes/LevelUpScene.js";
 import { Tutorial }           from "./Scenes/Tutorial.js";
 
-
 class Game extends Phaser.Game{
   constructor(){
     super(config);

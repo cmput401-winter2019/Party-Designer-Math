@@ -16,6 +16,7 @@ export const CST = {
         DASHBOARD: "DASHBOARD"
     },
 
+
     IMAGES: {
         TEST_CHARACTER: "assets/CHARACTER_5.svg"
     },

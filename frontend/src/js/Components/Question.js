@@ -173,10 +173,8 @@ export class Question extends Phaser.GameObjects.Container{
 
         const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
-          console.log(answer.message);
 
           if(answer.message == "Answer is correct."){
-
             var new_money;
             new_money = this.player.money - this.properties.cost*this.amount;
             this.player.update_money(new_money);
@@ -266,10 +264,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.destroy();
     }
 
-    textAreaChanged() {
-        var text = this.formUtil.getTextAreaValue("area51");
-        console.log(text);
-    }
+    textAreaChanged() { var text = this.formUtil.getTextAreaValue("area51"); }
 
     checkCreateObject(){
         for (var i=0; i<this.amount; i++){
