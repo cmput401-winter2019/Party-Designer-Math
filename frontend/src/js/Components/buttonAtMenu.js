@@ -107,9 +107,14 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 		// else if (this.name == "saveBtn"){
 		// 	console.log(this.name + ": save all objects on screen");
 		// }
-		else if (this.name == "Profile"){
-			console.log(this.name + ": go to Profile");
-		}
+// 		else if (this.name == "Profile"){
+// 			console.log(this.name + ": go to Profile");
+// 		}
+		else if (this.name == "Help"){
+ 			console.log(this.name + ": go to Tutorial");
+			this.scene.scene.launch(CST.SCENES.TUTORIAL);
+ 		}
+		
 		else if (this.name == "Bag"){
 			console.log(this.name + ": go to bag");
 			//this.config = {player:this.scene.player, originalS:this.scene}
