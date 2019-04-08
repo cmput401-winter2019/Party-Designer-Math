@@ -1,8 +1,8 @@
 export class Alert extends Phaser.GameObjects.Container{
-    constructor(scene, purpose){
+    constructor(scene, text){
         super(scene);
         this.scene = scene;
-        this.purpose = purpose;
+        this.text = text;
 
         //Screen center
         var centerX = this.scene.game.config.width/2;
@@ -13,11 +13,6 @@ export class Alert extends Phaser.GameObjects.Container{
         //Create a rectangle background where everything for the prompt will be displayed on and add the text
         this.background = this.scene.add.rectangle(0, 0, this.scene.game.config.width*0.4, 90, 0xffffff);
         this.background.setStrokeStyle(1.5, 0x000000);
-        if(this.purpose == "start"){
-            this.text = "Shopping List is not Complete\n\n Please complete the Shopping List";
-        } else if (this.purpose == "logout"){
-            this.text = "";
-        }
         this.popUpText = this.scene.add.text(0, 0-20, this.text, this.textConfig);
         this.popUpText.setOrigin(0.5,0.5);
 

@@ -1,4 +1,5 @@
 import {CST} from "../CST.js";
+import { Alert } from "./alert.js";
 
 export class ButtonAtMenu extends Phaser.GameObjects.Container{
 	constructor(config)
@@ -93,7 +94,8 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 						alert(response.status + " Error"+ " : " + data["message"]);
 						return;
 					}
-					alert(response.status + " Success"+ " : " + data["message"]);
+					this.alert = new Alert(this, "Successfully logged out!");
+					//alert(response.status + " Success"+ " : " + data["message"]);
 					let url = window.location.href.split("/");
 					url = url[0] + "//" + url[2];
 					window.location = url + "/Party-Designer-Math/frontend/templates/login.html";

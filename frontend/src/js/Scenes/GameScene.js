@@ -12,7 +12,7 @@ import { ProgressBar }                  from '../Components/progressBar.js';
 import { RoundBtn }      								from '../Components/roundBtn.js';
 import { FormUtil }                     from '../util/formUtil.js';
 import { LevelIndicator }               from '../Components/levelIndicator.js';
-import { Alert }                        from '../Components/alert.js';
+import { Alert } from "../Components/alert.js";
 
 async function post(endpoint, body) {
 	const headers = {
@@ -184,7 +184,7 @@ async function main(context, theme) {
 				                                                  mixed_correct	: mixed_correct,
 				                                                  mixed_wrong   : mixed_wrong});
 				        }else{
-                  this.alert = new Alert(this, "start");
+                  this.alert = new Alert(this, "You have not completed your shopping list. \n Please buy everything from your shopping list");
 				        }
 							})
 			    })
