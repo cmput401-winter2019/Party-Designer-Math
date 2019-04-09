@@ -43,12 +43,12 @@ async function main() {
     if (teacherresponse.ok) {
         document.getElementById("content").style.display = "block";
         console.log("notAuthenticated")
-        console.log(teacherdata);
     }
 
     const welcomeText = document.getElementById("welcome");
+    const classcodeText = document.getElementById("classcode")
     welcomeText.innerText = "Welcome, " + teacherdata.teacherName + "!";
-
+    classcodeText.innerText = "Class Code : [ " + teacherdata.classCode  + " ]";
     const Login = document.getElementById("logout");
     Login.addEventListener('click', async (e) =>{
         const body = {
