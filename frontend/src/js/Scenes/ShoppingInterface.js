@@ -47,12 +47,12 @@ export class ShoppingInterface extends Phaser.Scene{
     				var correct_count = 0;
     				var attempt_count = 0;
     				GetAllShoppingList(shop_url).then(ret => {
-              var fontConfig  = { font: '16px Muli', fill: '0xFFFFF' };
+              var fontConfig  = { font: '20px Muli', fill: '0xFFFFF' };
     					for(var i=0; i<ret.length; i++){
                   for(var k=0; k<10; k++){
                     if(ret[i].completed != true && ret[i].itemName == this.assets[k]){
-                      var asset = this.add.image(this.game.config.width*0.3, (centerXY.y-200)+(k*30), this.assets[k]);
-                      var text = this.add.text(this.game.config.width*0.3+30, (centerXY.y-200)+(k*30), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
+                      var asset = this.add.image(this.game.config.width*0.3, (centerXY.y-200)+(k*50), this.assets[k]);
+                      var text = this.add.text(this.game.config.width*0.3+50, (centerXY.y-200)+(k*50), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
                       text.setOrigin(0,0.5);
                       asset.displayWidth = 50;
                       asset.scaleY = asset.scaleX;
