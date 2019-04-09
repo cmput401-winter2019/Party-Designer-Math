@@ -172,10 +172,10 @@ export class Question extends Phaser.GameObjects.Container{
         this.send_button.style.display    = "none";
         this.cancel_button.style.display  = "none";
         this.input_text.style.display     = "none";
+        var scene = this.scene.originalS;
 
         const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
-          var scene = this.scene.originalS;
           if(answer.message == "Answer is correct."){
             var new_money;
             new_money = this.player.money - this.properties.cost*this.amount;
@@ -240,7 +240,7 @@ export class Question extends Phaser.GameObjects.Container{
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
             scene.scene.sleep(CST.SCENES.BUY_POPUP);
-            this.scene.originalS.popup = new Alert(this.scene.originalS, "Wrong Answer, Try Again!");
+            scene.originalS.popup = new Alert(scene.originalS, "Wrong Answer, Try Again!");
           }
         });
     }
