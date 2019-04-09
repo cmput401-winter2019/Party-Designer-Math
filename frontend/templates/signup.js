@@ -58,7 +58,7 @@ function post_request(username, firstname, lastname, password, email, signupType
         signupType: signupType,
         classCode: classCode
     };
-    return fetch("https://162.246.157.181/signup", {
+    return fetch("http://162.246.157.181/signup", {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -94,7 +94,7 @@ function teacher_request(username, firstname, lastname, password, email, signupT
         email: email,
         signupType: signupType
     };
-    return fetch("https://162.246.157.181/signup", {
+    return fetch("http://162.246.157.181/signup", {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
