@@ -104,7 +104,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 					window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
 				  });
 				}
-			  )
+			 )
 		}
 		// else if (this.name == "themeBtn"){
 		// 	console.log(this.name + ": go to Choose Theme");
