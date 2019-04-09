@@ -59,7 +59,9 @@ async function main() {
         const logoutdata    = await logoutresponse.json();
         let url = window.location.href.split("/");
         url = url[0] + "//" + url[2];
-        window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
+        console.log(url);
+
+        // window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
     });
 
     const response = await get("https://cors-anywhere.herokuapp.com/http://162.246.157.181/" + teacherdata.classCode + "/stats");

@@ -101,8 +101,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 					// + data["message"]);
 					let url = window.location.href.split("/");
 					url = url[0] + "//" + url[2];
-					console.log(url);
-					// window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
+					window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
 				  });
 				}
 			  )
