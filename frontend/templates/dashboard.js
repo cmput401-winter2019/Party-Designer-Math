@@ -1,4 +1,3 @@
-import "babel-polyfill";
 window.onload = function dashboard() {
     main()
 }
