@@ -192,8 +192,8 @@ export class Question extends Phaser.GameObjects.Container{
             GetPlaythrough(ptid_url).then(data => {
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
-            console.log(this);
-            //this.popup = new Alert(this, "Correct!"); /////
+            //console.log(this);
+            this.question.scene.originalS.popup = new Alert(this.question.scene.originalS, "Correct!"); /////
 
             var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
