@@ -172,7 +172,6 @@ export class Question extends Phaser.GameObjects.Container{
         this.send_button.style.display    = "none";
         this.cancel_button.style.display  = "none";
         this.input_text.style.display     = "none";
-        var scene = this.scene.originalS;
 
         const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
@@ -193,8 +192,8 @@ export class Question extends Phaser.GameObjects.Container{
             GetPlaythrough(ptid_url).then(data => {
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
-
-            this.popup = new Alert(this, "Correct!"); /////
+            console.log(this);
+            //this.popup = new Alert(this, "Correct!"); /////
 
             var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
