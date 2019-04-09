@@ -104,7 +104,7 @@ async function main(context, theme) {
 			  currentContext.levelIndicator = new LevelIndicator({scene:currentContext, text:currentContext.player.level, x:indicatorX, y:30});
 
 			  // Initiate progress bar
-			  currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361});
+			  currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361, purpose:"level"});
 			  // currentContext.progressBar.setPercent(0);
 
 				var shop_url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
