@@ -670,9 +670,9 @@ def createteacher():
 		if (teacher):
 			return jsonify(message="Username is taken"), 403
 
-	
+
 		randomClassCode = ''.join(random.sample(string.ascii_uppercase + string.digits, k=5))
-			
+
 		#newTeacher = Teacher(firstName, lastName, username, password, radnomClassCode, email)
 
 		#db.session.add(newTeacher)
