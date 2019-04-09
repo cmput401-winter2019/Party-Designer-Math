@@ -47,8 +47,8 @@ async function main() {
 
     const welcomeText = document.getElementById("welcome");
     const classcodeText = document.getElementById("classcode")
-    welcomeText.innerText = "Welcome, " + teacherdata.teacherName + "!";
-    classcodeText.innerText = "Class Code : [ " + teacherdata.classCode  + " ]";
+    welcomeText.innerText = "Welcome " + teacherdata.teacherName + " !";
+    classcodeText.innerText = "Class Code : " + teacherdata.classCode;
     const Login = document.getElementById("logout");
     Login.addEventListener('click', async (e) =>{
         const body = {
