@@ -55,11 +55,40 @@ async function main() {
             access_token: localStorage.getItem("access_token"),
             refresh_token: localStorage.getItem("refresh_token")
         };
-        const logoutresponse = await post("https://cors-anywhere.herokuapp.com/http://162.246.157.181/logout", body);
-        const logoutdata    = await logoutresponse.json();
-        let url = window.location.href.split("/");
-        url = url[0] + "//" + url[2];
-        window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
+        // const logoutresponse = await post("https://cors-anywhere.herokuapp.com/http://162.246.157.181/logout", body);
+        // const logoutdata    = await logoutresponse.json();
+        // let url = window.location.href.split("/");
+        // url = url[0] + "//" + url[2];
+        // window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
+        return fetch("https://cors-anywhere.herokuapp.com/http://162.246.157.181/logout", {
+  				method: "POST",
+  				mode: "cors",
+  				cache: "no-cache",
+  				credentials: "same-origin",
+  				body: JSON.stringify(body),
+  				headers: {
+  				  "Content-Type": "application/json",
+  				  "Authorization": "Bearer " + localStorage.getItem("access_token"),
+  				}
+  			  })
+  			  .then(
+  				function(response) {
+  				  // Examine the text in the response
+  				  response.json().then(function(data) {
+  					if (response.status !== 200) {
+  						alert(response.status + " Error"+ " : " + data["message"]);
+  						return;
+  					}
+  					//scene.alert = new Alert(scene, data["message"]);
+  					// alert(response.status
+  					// //+ " Success"+ " : "
+  					// + data["message"]);
+  					let url = window.location.href.split("/");
+  					url = url[0] + "//" + url[2];
+  					window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
+  				  });
+  				}
+  			 )
     });
 
     const response = await get("https://cors-anywhere.herokuapp.com/http://162.246.157.181/" + teacherdata.classCode + "/stats");
