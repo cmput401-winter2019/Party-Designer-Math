@@ -70,8 +70,8 @@ async function main() {
     }
     else {
         const studentsInnerTable = document.getElementById("tableid").getElementsByTagName("tbody")[0];
+        console.log(data);
         for (const student of data) {
-            console.log(data);
             //Student usernames
             const newRow = studentsInnerTable.insertRow();
             const newCellUsername = newRow.insertCell(0);
