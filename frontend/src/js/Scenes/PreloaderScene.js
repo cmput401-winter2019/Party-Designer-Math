@@ -84,13 +84,13 @@ export class PreloaderScene extends Phaser.Scene{
     });
     loadingText.setOrigin(0.5, 0.5);
 
-    var percentText = this.make.text({  x     : width  / 2,
-                                        y     : height / 2 -5,
-                                        text  : "0%",
-                                        style : { font : "18px monospace",
-                                                  fill : "#ffffff"}
-    });
-    percentText.setOrigin(0.5, 0.5);
+    // var percentText = this.make.text({  x     : width  / 2,
+    //                                     y     : height / 2 -5,
+    //                                     text  : "0%",
+    //                                     style : { font : "18px monospace",
+    //                                               fill : "#ffffff"}
+    // });
+    // percentText.setOrigin(0.5, 0.5);
 
     var assetText = this.make.text({    x     : width  / 2,
                                         y     : height / 2 + 50,
@@ -112,7 +112,7 @@ export class PreloaderScene extends Phaser.Scene{
       this.ready();
     }.bind(this));
 
-    this.timedEvent = this.time.delayedCall(500, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(10, this.ready, [], this);
 
     this.load_assets();
 
