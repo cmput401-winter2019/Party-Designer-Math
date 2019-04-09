@@ -175,7 +175,7 @@ export class Question extends Phaser.GameObjects.Container{
 
         const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
-
+          var scene = this.scene.originalS;
           if(answer.message == "Answer is correct."){
             var new_money;
             new_money = this.player.money - this.properties.cost*this.amount;
@@ -194,7 +194,7 @@ export class Question extends Phaser.GameObjects.Container{
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
 
-            this.scene.originalS.popup = new Alert(this.scene.originalS,"Correct!");
+            scene.popup = new Alert(scene.originalS, "Correct!");
 
             var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
