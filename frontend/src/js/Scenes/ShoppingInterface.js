@@ -51,13 +51,13 @@ export class ShoppingInterface extends Phaser.Scene{
     					for(var i=0; i<ret.length; i++){
                   for(var k=0; k<10; k++){
                     if(ret[i].completed != true && ret[i].itemName == this.assets[k]){
-                      var asset = this.add.image(this.game.config.width*0.3, (centerXY.y-200)+(k*50), this.assets[k]);
-                      var text = this.add.text(this.game.config.width*0.3+50, (centerXY.y-200)+(k*50), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
+                      var asset = this.add.image(this.game.config.width*0.3, (centerXY.y-200)+(k*40), this.assets[k]);
+                      var text = this.add.text(this.game.config.width*0.3+40, (centerXY.y-200)+(k*40), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
                       text.setOrigin(0,0.5);
-                      asset.displayWidth = 50;
+                      asset.displayWidth = 40;
                       asset.scaleY = asset.scaleX;
-                      if (asset.displayHeight > 50){
-                          asset.displayHeight = 50;
+                      if (asset.displayHeight > 40){
+                          asset.displayHeight = 40;
                           asset.scaleX = asset.scaleY;
                       }
                     }
@@ -65,14 +65,14 @@ export class ShoppingInterface extends Phaser.Scene{
 
                   for(var k=10; k<20; k++){
                     if(ret[i].completed != true &&ret[i].itemName == this.assets[k]){
-                      var asset = this.add.image(this.game.config.width*0.6, (centerXY.y-200)+((k-10)*30), this.assets[k]);
-                      var text = this.add.text(this.game.config.width*0.6+30, (centerXY.y-200)+((k-10)*30), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
+                      var asset = this.add.image(this.game.config.width*0.6, (centerXY.y-200)+((k-10)*40), this.assets[k]);
+                      var text = this.add.text(this.game.config.width*0.6+40, (centerXY.y-200)+((k-10)*40), this.imageToProp.getProp(this.assets[k]).pluralName, fontConfig);
 
                       text.setOrigin(0,0.5);
-                      asset.displayWidth = 30;
+                      asset.displayWidth = 40;
                       asset.scaleY = asset.scaleX;
-                      if (asset.displayHeight > 30){
-                          asset.displayHeight = 30;
+                      if (asset.displayHeight > 40){
+                          asset.displayHeight = 40;
                           asset.scaleX = asset.scaleY;
                       }
                     }
