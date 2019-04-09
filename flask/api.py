@@ -131,11 +131,11 @@ def signup():
                 return jsonify(message="Username is taken"), 403
 
             while (True):
-                randomClassCode = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+                randomClassCode = ''.join(random.sample(string.ascii_uppercase + string.digits, k=5))
                 if (not Teacher.query.filter(Teacher.classCode == randomClassCode).first()):
                     break
 
-            newTeacher = Teacher(firstName, lastName, username, password, randomClassCode, email)
+            newTeacher = Teacher(firstName, lastName, username, password, randomClassCode,email)
 
             db.session.add(newTeacher)
             db.session.commit()
@@ -656,6 +656,34 @@ def createstudent():
     except Exception as e:
         print(e)
         return jsonify(message="Something went wrong"), 403
+
+@app.route("/createteacher",methods=["POST"])
+def createteacher():
+	try:
+		firstName = request.json['firstName']
+		lastName = request.json['lastName']
+		username = request.json['username']
+		password = Teacher.generate_hash(request.json['password'])
+		email = request.json['email']
+		teacher = Teacher.query.filter(Teacher.username == username).first()
+
+		if (teacher):
+			return jsonify(message="Username is taken"), 403
+
+	
+		randomClassCode = ''.join(random.sample(string.ascii_uppercase + string.digits, k=5))
+			
+		#newTeacher = Teacher(firstName, lastName, username, password, radnomClassCode, email)
+
+		#db.session.add(newTeacher)
+		#db.session.commit()
+
+		return jsonify(message="Registered"), 200
+
+	except Exception as e:
+		print(e)
+		return jsonify(message="Something went wrong."), 403
+
 
 
 @app.route("/updateplaythrough", methods=["PUT"])
