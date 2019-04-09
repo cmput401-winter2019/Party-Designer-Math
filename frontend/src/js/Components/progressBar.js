@@ -43,6 +43,7 @@ export class ProgressBar extends Phaser.GameObjects.Container{
 
         if (config.purpose){
             this.purpose = config.purpose;
+            this.reached = 0;
         }
 
 
@@ -52,8 +53,9 @@ export class ProgressBar extends Phaser.GameObjects.Container{
     setPercent(per) // Takes in a number from 0 to 1
 	{
 		this.bar.scaleX = per;
-        if(this.purpose == "level" && per == 1){
+        if(this.reached == 0 & this.purpose == "level" && per == 1){
             this.scene.popup = new Alert(this.scene, "You can start the party now!");
+            this.reached == 1;
         }
 	}
 
