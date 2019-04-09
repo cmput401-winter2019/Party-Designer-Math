@@ -10,6 +10,7 @@ import { GetAllQuestionRequest,
           GetAllShoppingList,
           UpdateShoppingList,
           UpdateMoney} from "../Components/scripts.js";
+import { Alert } from "./alert.js";
 
 
 export class Question extends Phaser.GameObjects.Container{
@@ -151,7 +152,8 @@ export class Question extends Phaser.GameObjects.Container{
 
         var letterNumber = /^[a-zA-Z]+$/;
         if(ret.match(letterNumber)){
-          alert("Please Enter a Number");
+          //alert("Please Enter a Number");
+          new Alert(this.scene, "Please Enter a Number");
           ret.value = document.getElementById("myText".value);
         }
 
@@ -161,7 +163,7 @@ export class Question extends Phaser.GameObjects.Container{
           else if(this.api_type == "food")      { this.player.decrease_food();}
           else if(this.api_type == "kiddie")    { this.player.decrease_kiddie();}
 
-          alert("Please Fill in Your Answer, Try Again!");
+          new Alert(this.scene, "Please Fill in Your Answer, Try Again!");
           var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
           this.destroy();
           scene.scene.sleep(CST.SCENES.BUY_POPUP);
@@ -192,7 +194,7 @@ export class Question extends Phaser.GameObjects.Container{
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
 
-            alert("Correct!");
+            new Alert(this.scene,"Correct!");
 
             var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
@@ -215,7 +217,8 @@ export class Question extends Phaser.GameObjects.Container{
                 }
                 var total_count = correct_count/attempt_count;
                 if(total_count == 1){
-                  alert("Level Done! Start Your Next Party!!");
+                  new Alert(this.scene,"Level Done! Start Your Party!!");
+                  
                 }
                 this.progressBar.setPercent(total_count);
               })
@@ -237,7 +240,7 @@ export class Question extends Phaser.GameObjects.Container{
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
             scene.scene.sleep(CST.SCENES.BUY_POPUP);
-            alert("Wrong Answer, Try Again!");
+            new Alert(this.scene,"Wrong Answer, Try Again!");
           }
         });
     }
