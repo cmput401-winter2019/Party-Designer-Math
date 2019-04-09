@@ -48,6 +48,8 @@ async function main() {
     const welcomeText = document.getElementById("welcome");
     welcomeText.innerText = "Welcome, " + teacherdata.teacherName + "!";
 
+    console.log(teacherdata);
+
     const Login = document.getElementById("logout");
     Login.addEventListener('click', async (e) =>{
         const body = {
@@ -70,7 +72,6 @@ async function main() {
     }
     else {
         const studentsInnerTable = document.getElementById("tableid").getElementsByTagName("tbody")[0];
-        console.log(data);
         for (const student of data) {
             //Student usernames
             const newRow = studentsInnerTable.insertRow();
