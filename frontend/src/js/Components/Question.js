@@ -153,7 +153,7 @@ export class Question extends Phaser.GameObjects.Container{
         var letterNumber = /^[a-zA-Z]+$/;
         if(ret.match(letterNumber)){
           //alert("Please Enter a Number");
-          new Alert(this.scene, "Please Enter a Number");
+          this.scene.popup = new Alert(this.scene, "Please Enter a Number");
           ret.value = document.getElementById("myText".value);
         }
 
@@ -163,7 +163,7 @@ export class Question extends Phaser.GameObjects.Container{
           else if(this.api_type == "food")      { this.player.decrease_food();}
           else if(this.api_type == "kiddie")    { this.player.decrease_kiddie();}
 
-          new Alert(this.scene, "Please Fill in Your Answer, Try Again!");
+          this.scene.popup = new Alert(this.scene, "Please Fill in Your Answer, Try Again!");
           var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
           this.destroy();
           scene.scene.sleep(CST.SCENES.BUY_POPUP);
@@ -217,7 +217,7 @@ export class Question extends Phaser.GameObjects.Container{
                 }
                 var total_count = correct_count/attempt_count;
                 if(total_count == 1){
-                  new Alert(this.scene,"Level Done! Start Your Party!!");
+                  this.scene.popup = new Alert(this.scene,"Level Done! Start Your Party!!");
                   
                 }
                 this.progressBar.setPercent(total_count);
@@ -240,7 +240,7 @@ export class Question extends Phaser.GameObjects.Container{
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
             scene.scene.sleep(CST.SCENES.BUY_POPUP);
-            new Alert(this.scene,"Wrong Answer, Try Again!");
+            scene.popup = new Alert(this.scene,"Wrong Answer, Try Again!");
           }
         });
     }
