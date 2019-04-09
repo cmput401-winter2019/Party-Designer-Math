@@ -96,11 +96,12 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 						return;
 					}
 					//scene.alert = new Alert(scene, data["message"]);
-					// alert(response.status 
-					// //+ " Success"+ " : " 
+					// alert(response.status
+					// //+ " Success"+ " : "
 					// + data["message"]);
 					let url = window.location.href.split("/");
 					url = url[0] + "//" + url[2];
+					console.log(url);
 					window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
 				  });
 				}
@@ -119,7 +120,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
  			console.log(this.name + ": go to Tutorial");
 			this.scene.scene.launch(CST.SCENES.TUTORIAL);
  		}
-		
+
 		else if (this.name == "Bag"){
 			console.log(this.name + ": go to bag");
 			//this.config = {player:this.scene.player, originalS:this.scene}
