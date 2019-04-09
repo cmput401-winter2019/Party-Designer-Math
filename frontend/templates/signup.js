@@ -85,7 +85,7 @@ function post_request(username, firstname, lastname, password, email, signupType
       )
     }
 
-function post_request(username, firstname, lastname, password, email, signupType) {
+function teacher_request(username, firstname, lastname, password, email, signupType) {
     const body = {
         username: username,
         firstName: firstname,
