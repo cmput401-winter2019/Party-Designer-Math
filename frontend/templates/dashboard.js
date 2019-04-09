@@ -49,8 +49,8 @@ async function main() {
     const classcodeText = document.getElementById("classcode")
     welcomeText.innerText = "Welcome " + teacherdata.teacherName + " !";
     classcodeText.innerText = "Class Code : " + teacherdata.classCode;
-    const Login = document.getElementById("logout");
-    Login.addEventListener('click', async (e) =>{
+    const Logout = document.getElementById("logout");
+    Logout.addEventListener('click', async (e) =>{
         const body = {
             access_token: localStorage.getItem("access_token"),
             refresh_token: localStorage.getItem("refresh_token")
@@ -60,7 +60,6 @@ async function main() {
         let url = window.location.href.split("/");
         url = url[0] + "//" + url[2];
         window.location = url + "/Party-Designer-Math/frontend/templates/login.html";
-
     });
 
     const response = await get("https://cors-anywhere.herokuapp.com/http://162.246.157.181/" + teacherdata.classCode + "/stats");
