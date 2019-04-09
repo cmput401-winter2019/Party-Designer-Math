@@ -1,4 +1,5 @@
 import {CST} from "../CST.js";
+import { Alert } from "./alert.js";
 
 export class ButtonAtMenu extends Phaser.GameObjects.Container{
 	constructor(config)
@@ -70,6 +71,7 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 	pressed()
 	{
 		if(this.name == "ExitGame"){
+			var scene = this.scene;
 			const body = {
 				access_token: localStorage.getItem("access_token"),
 				refresh_token: localStorage.getItem("refresh_token")
@@ -93,7 +95,10 @@ export class ButtonAtMenu extends Phaser.GameObjects.Container{
 						alert(response.status + " Error"+ " : " + data["message"]);
 						return;
 					}
-					alert(response.status + " Success"+ " : " + data["message"]);
+					//scene.alert = new Alert(scene, data["message"]);
+					// alert(response.status 
+					// //+ " Success"+ " : " 
+					// + data["message"]);
 					let url = window.location.href.split("/");
 					url = url[0] + "//" + url[2];
 					window.location = url + "/Party-Designer-Math/frontend/templates/login.html";

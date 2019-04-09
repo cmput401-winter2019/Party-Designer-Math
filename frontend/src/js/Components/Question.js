@@ -10,6 +10,7 @@ import { GetAllQuestionRequest,
           GetAllShoppingList,
           UpdateShoppingList,
           UpdateMoney} from "../Components/scripts.js";
+import { Alert } from "./alert.js";
 
 
 export class Question extends Phaser.GameObjects.Container{
@@ -151,7 +152,8 @@ export class Question extends Phaser.GameObjects.Container{
 
         var letterNumber = /^[a-zA-Z]+$/;
         if(ret.match(letterNumber)){
-          alert("Please Enter a Number");
+          //alert("Please Enter a Number");
+          this.scene.originalS.popup = new Alert(this.scene.originalS, "Please Enter a Number"); /////
           ret.value = document.getElementById("myText".value);
         }
 
@@ -161,7 +163,7 @@ export class Question extends Phaser.GameObjects.Container{
           else if(this.api_type == "food")      { this.player.decrease_food();}
           else if(this.api_type == "kiddie")    { this.player.decrease_kiddie();}
 
-          alert("Please Fill in Your Answer, Try Again!");
+          this.scene.originalS.popup = new Alert(this.scene.originalS, "Please Fill in Your Answer, Try Again!"); /////
           var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
           this.destroy();
           scene.scene.sleep(CST.SCENES.BUY_POPUP);
@@ -173,7 +175,6 @@ export class Question extends Phaser.GameObjects.Container{
 
         const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
-
           if(answer.message == "Answer is correct."){
             var new_money;
             new_money = this.player.money - this.properties.cost*this.amount;
@@ -191,8 +192,8 @@ export class Question extends Phaser.GameObjects.Container{
             GetPlaythrough(ptid_url).then(data => {
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
         		})
-
-            alert("Correct!");
+            //console.log(this);
+            this.question.scene.originalS.popup = new Alert(this.question.scene.originalS, "Correct!"); /////
 
             var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
@@ -215,7 +216,8 @@ export class Question extends Phaser.GameObjects.Container{
                 }
                 var total_count = correct_count/attempt_count;
                 if(total_count == 1){
-                  alert("Level Done! Start Your Next Party!!");
+                  this.scene.originalS.popup = new Alert(this.scene.originalS,"Level Done! Start Your Party!!"); /////
+                  
                 }
                 this.progressBar.setPercent(total_count);
               })
@@ -237,7 +239,7 @@ export class Question extends Phaser.GameObjects.Container{
             var scene = this.scene;     // must be here as this.scene is destroyed when container is destroyed
             this.destroy();
             scene.scene.sleep(CST.SCENES.BUY_POPUP);
-            alert("Wrong Answer, Try Again!");
+            scene.originalS.popup = new Alert(scene.originalS, "Wrong Answer, Try Again!");  /////
           }
         });
     }
