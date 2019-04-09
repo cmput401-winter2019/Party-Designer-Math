@@ -43,7 +43,7 @@ async function main(context, theme) {
 		theme: currentContext.gamestate.theme
 	};
 
-	const response = await post("http://162.246.157.181/shoppinglist", body);
+	const response = await post("https://cors-anywhere.herokuapp.com/http://162.246.157.181/shoppinglist", body);
 
 	const data = await response.json();
 	if (!response.ok) {
@@ -86,11 +86,11 @@ async function main(context, theme) {
                             inShopList    : currentContext.itemAmounts,
                             itemList      : currentContext.itemsList});
 
-	var pt_url = "http://162.246.157.181/"+currentContext.player.id+"/getplaythrough";
+	var pt_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+currentContext.player.id+"/getplaythrough";
 	GetPlaythrough(pt_url).then(data => {
 		//console.log(data)
 		if(data.length == 0){
-			var playthrough_url = "http://162.246.157.181/createplaythrough";
+			var playthrough_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/createplaythrough";
 			PostPlayThroughRequest(currentContext.player.level, currentContext.player.id, playthrough_url).then(data => {
 				currentContext.scene.restart();
 			})
@@ -107,7 +107,7 @@ async function main(context, theme) {
 			  currentContext.progressBar = new ProgressBar({scene:currentContext, width: 180, height:18, x: indicatorX+30, y:75/3, color: 0x0e4361, purpose:"level"});
 			  // currentContext.progressBar.setPercent(0);
 
-				var shop_url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
+				var shop_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
 				var correct_count = 0;
 				var attempt_count = 0;
 				GetAllShoppingList(shop_url).then(ret => {
@@ -143,7 +143,7 @@ async function main(context, theme) {
 			                                50);
 
 				currentContext.levelUpBtn.rect.on("pointerdown", ()=>{
-			    var url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/question";
+			    var url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ currentContext.player.gamestateId + "/question";
 			    GetAllQuestionRequest(url).then(data => {
 
 			        var stat_data = GetUserStat(data);
@@ -159,7 +159,7 @@ async function main(context, theme) {
 			        var mixed_correct         = stat_data.mix_cor;
 			        var mixed_wrong           = stat_data.mix_wrn;
 
-							var shop_url = "http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
+							var shop_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ currentContext.player.gamestateId + "/shoppinglist";
 
 							GetAllShoppingList(shop_url).then(ret => {
 								var complete_count = 0;
@@ -169,7 +169,7 @@ async function main(context, theme) {
 									}
 								}
 								if(complete_count >= ret.length){
-									var money_url = "http://162.246.157.181/gamestate/update";
+									var money_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/gamestate/update";
 									UpdateMoney(1000, money_url).then(data => {})
 
 									currentContext.scene.start(CST.SCENES.LEVEL_UP, { player:currentContext.player,

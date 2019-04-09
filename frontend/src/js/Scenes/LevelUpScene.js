@@ -32,7 +32,7 @@ export class LevelUpScene extends Phaser.Scene {
 
         this.player.increaseLevel();
 
-        const url = "http://162.246.157.181/updateplaythrough";
+        const url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/updateplaythrough";
 
         UpdatePlaythrough(this.player.id, this.player.level, url).then(data => {
           console.log(data);
@@ -105,9 +105,9 @@ export class LevelUpScene extends Phaser.Scene {
                 this.goUp();
             }
             else {
-                const drop_url = "http://162.246.157.181/dropquestion";
+                const drop_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/dropquestion";
                 DropQuestionRequest(this.player.gs_id, drop_url).then(data => {})
-                const dropShopping_url = "http://162.246.157.181/dropshoppinglist";
+                const dropShopping_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/dropshoppinglist";
 
                 DropShoppingListRequest(this.player.gs_id, dropShopping_url).then(ret => {
                   console.log(ret);

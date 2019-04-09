@@ -85,7 +85,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.input_text.style.display           = "initial";
         document.getElementById("myText").value = '';
 
-        const url  = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
+        const url  = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ this.player.gamestateId + "/question";
         PostQuestionRequest(this.api_name, this.api_plural_name, this.api_type, this.api_cost, this.api_amount, this.api_guest, this.api_level, url, this.question_number).then(question => {
 
             console.log(question);
@@ -173,7 +173,7 @@ export class Question extends Phaser.GameObjects.Container{
         this.cancel_button.style.display  = "none";
         this.input_text.style.display     = "none";
 
-        const check_url  = "http://162.246.157.181/"+ this.game_id + "/question";
+        const check_url  = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ this.game_id + "/question";
         PutCheckAnswerRequest(ret, this.question, check_url).then(answer => {
           if(answer.message == "Answer is correct."){
             var new_money;
@@ -181,13 +181,13 @@ export class Question extends Phaser.GameObjects.Container{
             this.player.update_money(new_money);
             this.credit_text.setText(this.player.money);
             this.checkCreateObject();
-            var money_url = "http://162.246.157.181/gamestate/update";
+            var money_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/gamestate/update";
             UpdateMoney(this.player.money, money_url).then(data => {
 
             })
 
-            const pt_url    = "http://162.246.157.181/createquestionhistory";
-            const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
+            const pt_url    = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/createquestionhistory";
+            const ptid_url  = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
               PostQuestionHistory(this.question, ret, this.type, true, data[0].id, pt_url).then(data => {})
@@ -195,15 +195,15 @@ export class Question extends Phaser.GameObjects.Container{
             //console.log(this);
             //this.question.scene.originalS.popup = new Alert(this.question.scene.originalS, "Correct!"); /////!
 
-            var q_url = "http://162.246.157.181/"+ this.player.gamestateId + "/question";
+            var q_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ this.player.gamestateId + "/question";
             GetAllQuestionRequest(q_url).then(data => {
-              var shop_url = "http://162.246.157.181/"+ this.player.gamestateId + "/shoppinglist";
+              var shop_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+ this.player.gamestateId + "/shoppinglist";
               var correct_count = 0;
               var attempt_count = 0;
               GetAllShoppingList(shop_url).then(ret => {
                 for(var i=0; i<ret.length; i++){
                   if(this.imageName == ret[i].itemName){
-                    var updateShop_url =  "http://162.246.157.181/updateshoppinglist";
+                    var updateShop_url =  "https://cors-anywhere.herokuapp.com/http://162.246.157.181/updateshoppinglist";
                     UpdateShoppingList(ret[i].id, updateShop_url).then(data => {
                     });
                   }
@@ -217,14 +217,14 @@ export class Question extends Phaser.GameObjects.Container{
                 var total_count = correct_count/attempt_count;
                 // if(total_count == 1){
                 //   this.scene.originalS.popup = new Alert(this.scene.originalS,"Level Done! Start Your Party!!"); /////!
-                  
+
                 // }
                 this.progressBar.setPercent(total_count);
               })
             })
           }else{
-            const pt_url    = "http://162.246.157.181/createquestionhistory";
-            const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
+            const pt_url    = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/createquestionhistory";
+            const ptid_url  = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
             GetPlaythrough(ptid_url).then(data => {
               PostQuestionHistory(this.question, ret, this.type, false, data[0].id, pt_url).then(data => {
@@ -245,8 +245,8 @@ export class Question extends Phaser.GameObjects.Container{
     }
 
     cancelForm() {
-        const pt_url    = "http://162.246.157.181/createquestionhistory";
-        const ptid_url  = "http://162.246.157.181/"+this.player.id+"/getplaythrough";
+        const pt_url    = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/createquestionhistory";
+        const ptid_url  = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/"+this.player.id+"/getplaythrough";
 
         GetPlaythrough(ptid_url).then(data => {
           PostQuestionHistory(this.question, null, this.type, false, data[0].id, pt_url).then(data => {

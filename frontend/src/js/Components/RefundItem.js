@@ -67,7 +67,7 @@ export class RefundItem extends Phaser.GameObjects.Container{
         this.player.update_money(new_money);
         console.log(this.player.money);
         this.credit.setText(this.player.money);
-        var money_url = "http://162.246.157.181/gamestate/update";
+        var money_url = "https://cors-anywhere.herokuapp.com/http://162.246.157.181/gamestate/update";
         UpdateMoney(this.player.money, money_url).then(data => {})
 
         this.obj.destroyButtons();

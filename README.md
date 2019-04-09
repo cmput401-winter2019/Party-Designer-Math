@@ -1,7 +1,7 @@
 # Party-Designer-Math
 
 API
-http://162.246.157.181/
+https://cors-anywhere.herokuapp.com/http://162.246.157.181/
 
 
 FrontEnd
